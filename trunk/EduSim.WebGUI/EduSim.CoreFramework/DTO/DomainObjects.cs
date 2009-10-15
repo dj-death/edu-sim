@@ -26,6 +26,12 @@ namespace EduSim.CoreFramework.DTO
 {
     public partial class EduSimDb : System.Data.Linq.DataContext
     {
+        public EduSimDb() :
+            base(ConfigurationManager.ConnectionStrings[((DatabaseSettings)ConfigurationManager.GetSection(DatabaseSettings.SectionName)).DefaultDatabase].ConnectionString, mappingSource)
+        {
+            OnCreated();
+        }
+
         private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 
         #region Extensibility Method Definitions
@@ -51,9 +57,9 @@ namespace EduSim.CoreFramework.DTO
         partial void InsertRnDData(RnDData instance);
         partial void UpdateRnDData(RnDData instance);
         partial void DeleteRnDData(RnDData instance);
-        partial void InsertRole(RoleDetails instance);
-        partial void UpdateRole(RoleDetails instance);
-        partial void DeleteRole(RoleDetails instance);
+        partial void InsertRoleDetails(RoleDetails instance);
+        partial void UpdateRoleDetails(RoleDetails instance);
+        partial void DeleteRoleDetails(RoleDetails instance);
         partial void InsertRound(Round instance);
         partial void UpdateRound(Round instance);
         partial void DeleteRound(Round instance);
@@ -78,19 +84,13 @@ namespace EduSim.CoreFramework.DTO
         partial void InsertTeamUser(TeamUser instance);
         partial void UpdateTeamUser(TeamUser instance);
         partial void DeleteTeamUser(TeamUser instance);
-        partial void InsertUser(UserDetails instance);
-        partial void UpdateUser(UserDetails instance);
-        partial void DeleteUser(UserDetails instance);
+        partial void InsertUserDetails(UserDetails instance);
+        partial void UpdateUserDetails(UserDetails instance);
+        partial void DeleteUserDetails(UserDetails instance);
         partial void InsertUserRole(UserRole instance);
         partial void UpdateUserRole(UserRole instance);
         partial void DeleteUserRole(UserRole instance);
         #endregion
-
-        public EduSimDb() :
-            base(ConfigurationManager.ConnectionStrings[((DatabaseSettings)ConfigurationManager.GetSection(DatabaseSettings.SectionName)).DefaultDatabase].ConnectionString, mappingSource)
-        {
-            OnCreated();
-        }
 
         public EduSimDb(string connection) :
             base(connection, mappingSource)
@@ -196,7 +196,7 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        public System.Data.Linq.Table<RoleDetails> Role
+        public System.Data.Linq.Table<RoleDetails> RoleDetails
         {
             get
             {
@@ -276,7 +276,7 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        public System.Data.Linq.Table<UserDetails> User
+        public System.Data.Linq.Table<UserDetails> UserDetails
         {
             get
             {
@@ -1050,17 +1050,11 @@ namespace EduSim.CoreFramework.DTO
 
         private int _Id;
 
-        private int _RoundId;
-
         private int _TeamId;
 
         private double _Rate;
 
         private double _NumberOfLabour;
-
-        private EntityRef<Round> _Round;
-
-        private EntityRef<Team> _Team;
 
         #region Extensibility Method Definitions
         partial void OnLoaded();
@@ -1068,8 +1062,6 @@ namespace EduSim.CoreFramework.DTO
         partial void OnCreated();
         partial void OnIdChanging(int value);
         partial void OnIdChanged();
-        partial void OnRoundIdChanging(int value);
-        partial void OnRoundIdChanged();
         partial void OnTeamIdChanging(int value);
         partial void OnTeamIdChanged();
         partial void OnRateChanging(double value);
@@ -1080,8 +1072,6 @@ namespace EduSim.CoreFramework.DTO
 
         public LabourData()
         {
-            this._Round = default(EntityRef<Round>);
-            this._Team = default(EntityRef<Team>);
             OnCreated();
         }
 
@@ -1105,30 +1095,6 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_RoundId", DbType = "Int NOT NULL")]
-        public int RoundId
-        {
-            get
-            {
-                return this._RoundId;
-            }
-            set
-            {
-                if ((this._RoundId != value))
-                {
-                    if (this._Round.HasLoadedOrAssignedValue)
-                    {
-                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-                    }
-                    this.OnRoundIdChanging(value);
-                    this.SendPropertyChanging();
-                    this._RoundId = value;
-                    this.SendPropertyChanged("RoundId");
-                    this.OnRoundIdChanged();
-                }
-            }
-        }
-
         [Column(Storage = "_TeamId", DbType = "Int NOT NULL")]
         public int TeamId
         {
@@ -1140,10 +1106,6 @@ namespace EduSim.CoreFramework.DTO
             {
                 if ((this._TeamId != value))
                 {
-                    if (this._Team.HasLoadedOrAssignedValue)
-                    {
-                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-                    }
                     this.OnTeamIdChanging(value);
                     this.SendPropertyChanging();
                     this._TeamId = value;
@@ -1189,74 +1151,6 @@ namespace EduSim.CoreFramework.DTO
                     this._NumberOfLabour = value;
                     this.SendPropertyChanged("NumberOfLabour");
                     this.OnNumberOfLabourChanged();
-                }
-            }
-        }
-
-        [Association(Name = "FK_LabourData_Round", Storage = "_Round", ThisKey = "RoundId", OtherKey = "Id", IsForeignKey = true)]
-        public Round Round
-        {
-            get
-            {
-                return this._Round.Entity;
-            }
-            set
-            {
-                Round previousValue = this._Round.Entity;
-                if (((previousValue != value)
-                            || (this._Round.HasLoadedOrAssignedValue == false)))
-                {
-                    this.SendPropertyChanging();
-                    if ((previousValue != null))
-                    {
-                        this._Round.Entity = null;
-                        previousValue.LabourData.Remove(this);
-                    }
-                    this._Round.Entity = value;
-                    if ((value != null))
-                    {
-                        value.LabourData.Add(this);
-                        this._RoundId = value.Id;
-                    }
-                    else
-                    {
-                        this._RoundId = default(int);
-                    }
-                    this.SendPropertyChanged("Round");
-                }
-            }
-        }
-
-        [Association(Name = "FK_LabourData_Team", Storage = "_Team", ThisKey = "TeamId", OtherKey = "Id", IsForeignKey = true)]
-        public Team Team
-        {
-            get
-            {
-                return this._Team.Entity;
-            }
-            set
-            {
-                Team previousValue = this._Team.Entity;
-                if (((previousValue != value)
-                            || (this._Team.HasLoadedOrAssignedValue == false)))
-                {
-                    this.SendPropertyChanging();
-                    if ((previousValue != null))
-                    {
-                        this._Team.Entity = null;
-                        previousValue.LabourData.Remove(this);
-                    }
-                    this._Team.Entity = value;
-                    if ((value != null))
-                    {
-                        value.LabourData.Add(this);
-                        this._TeamId = value.Id;
-                    }
-                    else
-                    {
-                        this._TeamId = default(int);
-                    }
-                    this.SendPropertyChanged("Team");
                 }
             }
         }
@@ -2285,7 +2179,7 @@ namespace EduSim.CoreFramework.DTO
 
         private string _RoleName;
 
-        private System.Data.Linq.Binary _Description;
+        private string _Description;
 
         private EntitySet<UserRole> _UserRole;
 
@@ -2297,7 +2191,7 @@ namespace EduSim.CoreFramework.DTO
         partial void OnIdChanged();
         partial void OnRoleNameChanging(string value);
         partial void OnRoleNameChanged();
-        partial void OnDescriptionChanging(System.Data.Linq.Binary value);
+        partial void OnDescriptionChanging(string value);
         partial void OnDescriptionChanged();
         #endregion
 
@@ -2347,8 +2241,8 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_Description", DbType = "VarBinary(50)", CanBeNull = true)]
-        public System.Data.Linq.Binary Description
+        [Column(Storage = "_Description", DbType = "VarChar(50)")]
+        public string Description
         {
             get
             {
@@ -2403,13 +2297,13 @@ namespace EduSim.CoreFramework.DTO
         private void attach_UserRole(UserRole entity)
         {
             this.SendPropertyChanging();
-            entity.Role = this;
+            entity.RoleDetails = this;
         }
 
         private void detach_UserRole(UserRole entity)
         {
             this.SendPropertyChanging();
-            entity.Role = null;
+            entity.RoleDetails = null;
         }
     }
 
@@ -2428,8 +2322,6 @@ namespace EduSim.CoreFramework.DTO
         private bool _Current;
 
         private EntitySet<FinanceData> _FinanceData;
-
-        private EntitySet<LabourData> _LabourData;
 
         private EntityRef<RoundCategory> _RoundCategory;
 
@@ -2454,7 +2346,6 @@ namespace EduSim.CoreFramework.DTO
         public Round()
         {
             this._FinanceData = new EntitySet<FinanceData>(new Action<FinanceData>(this.attach_FinanceData), new Action<FinanceData>(this.detach_FinanceData));
-            this._LabourData = new EntitySet<LabourData>(new Action<LabourData>(this.attach_LabourData), new Action<LabourData>(this.detach_LabourData));
             this._RoundCategory = default(EntityRef<RoundCategory>);
             this._TeamGame = default(EntityRef<TeamGame>);
             this._RoundProduct = new EntitySet<RoundProduct>(new Action<RoundProduct>(this.attach_RoundProduct), new Action<RoundProduct>(this.detach_RoundProduct));
@@ -2559,19 +2450,6 @@ namespace EduSim.CoreFramework.DTO
             set
             {
                 this._FinanceData.Assign(value);
-            }
-        }
-
-        [Association(Name = "FK_LabourData_Round", Storage = "_LabourData", ThisKey = "Id", OtherKey = "RoundId", DeleteRule = "NO ACTION")]
-        public EntitySet<LabourData> LabourData
-        {
-            get
-            {
-                return this._LabourData;
-            }
-            set
-            {
-                this._LabourData.Assign(value);
             }
         }
 
@@ -2683,18 +2561,6 @@ namespace EduSim.CoreFramework.DTO
         }
 
         private void detach_FinanceData(FinanceData entity)
-        {
-            this.SendPropertyChanging();
-            entity.Round = null;
-        }
-
-        private void attach_LabourData(LabourData entity)
-        {
-            this.SendPropertyChanging();
-            entity.Round = this;
-        }
-
-        private void detach_LabourData(LabourData entity)
         {
             this.SendPropertyChanging();
             entity.Round = null;
@@ -3725,9 +3591,11 @@ namespace EduSim.CoreFramework.DTO
 
         private string _Name;
 
-        private System.Nullable<System.DateTime> _CreatedDate;
+        private string _Players;
 
-        private EntitySet<LabourData> _LabourData;
+        private System.DateTime _CreatedDate;
+
+        private bool _Active;
 
         private EntitySet<TeamUser> _TeamUser;
 
@@ -3739,13 +3607,16 @@ namespace EduSim.CoreFramework.DTO
         partial void OnIdChanged();
         partial void OnNameChanging(string value);
         partial void OnNameChanged();
-        partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
+        partial void OnPlayersChanging(string value);
+        partial void OnPlayersChanged();
+        partial void OnCreatedDateChanging(System.DateTime value);
         partial void OnCreatedDateChanged();
+        partial void OnActiveChanging(bool value);
+        partial void OnActiveChanged();
         #endregion
 
         public Team()
         {
-            this._LabourData = new EntitySet<LabourData>(new Action<LabourData>(this.attach_LabourData), new Action<LabourData>(this.detach_LabourData));
             this._TeamUser = new EntitySet<TeamUser>(new Action<TeamUser>(this.attach_TeamUser), new Action<TeamUser>(this.detach_TeamUser));
             OnCreated();
         }
@@ -3790,8 +3661,28 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_CreatedDate", DbType = "DateTime")]
-        public System.Nullable<System.DateTime> CreatedDate
+        [Column(Storage = "_Players", DbType = "VarChar(300) NOT NULL", CanBeNull = false)]
+        public string Players
+        {
+            get
+            {
+                return this._Players;
+            }
+            set
+            {
+                if ((this._Players != value))
+                {
+                    this.OnPlayersChanging(value);
+                    this.SendPropertyChanging();
+                    this._Players = value;
+                    this.SendPropertyChanged("Players");
+                    this.OnPlayersChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_CreatedDate", DbType = "DateTime NOT NULL")]
+        public System.DateTime CreatedDate
         {
             get
             {
@@ -3810,16 +3701,23 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Association(Name = "FK_LabourData_Team", Storage = "_LabourData", ThisKey = "Id", OtherKey = "TeamId", DeleteRule = "NO ACTION")]
-        public EntitySet<LabourData> LabourData
+        [Column(Storage = "_Active", DbType = "Bit NOT NULL")]
+        public bool Active
         {
             get
             {
-                return this._LabourData;
+                return this._Active;
             }
             set
             {
-                this._LabourData.Assign(value);
+                if ((this._Active != value))
+                {
+                    this.OnActiveChanging(value);
+                    this.SendPropertyChanging();
+                    this._Active = value;
+                    this.SendPropertyChanged("Active");
+                    this.OnActiveChanged();
+                }
             }
         }
 
@@ -3854,18 +3752,6 @@ namespace EduSim.CoreFramework.DTO
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
-        }
-
-        private void attach_LabourData(LabourData entity)
-        {
-            this.SendPropertyChanging();
-            entity.Team = this;
-        }
-
-        private void detach_LabourData(LabourData entity)
-        {
-            this.SendPropertyChanging();
-            entity.Team = null;
         }
 
         private void attach_TeamUser(TeamUser entity)
@@ -4117,7 +4003,7 @@ namespace EduSim.CoreFramework.DTO
 
         private EntityRef<Team> _Team;
 
-        private EntityRef<UserDetails> _User;
+        private EntityRef<UserDetails> _UserDetails;
 
         #region Extensibility Method Definitions
         partial void OnLoaded();
@@ -4135,7 +4021,7 @@ namespace EduSim.CoreFramework.DTO
         {
             this._TeamGame = new EntitySet<TeamGame>(new Action<TeamGame>(this.attach_TeamGame), new Action<TeamGame>(this.detach_TeamGame));
             this._Team = default(EntityRef<Team>);
-            this._User = default(EntityRef<UserDetails>);
+            this._UserDetails = default(EntityRef<UserDetails>);
             OnCreated();
         }
 
@@ -4194,7 +4080,7 @@ namespace EduSim.CoreFramework.DTO
             {
                 if ((this._UserId != value))
                 {
-                    if (this._User.HasLoadedOrAssignedValue)
+                    if (this._UserDetails.HasLoadedOrAssignedValue)
                     {
                         throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
                     }
@@ -4254,26 +4140,26 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Association(Name = "FK_TeamUser_User", Storage = "_User", ThisKey = "UserId", OtherKey = "Id", IsForeignKey = true)]
-        public UserDetails User
+        [Association(Name = "FK_TeamUser_User", Storage = "_UserDetails", ThisKey = "UserId", OtherKey = "Id", IsForeignKey = true)]
+        public UserDetails UserDetails
         {
             get
             {
-                return this._User.Entity;
+                return this._UserDetails.Entity;
             }
             set
             {
-                UserDetails previousValue = this._User.Entity;
+                UserDetails previousValue = this._UserDetails.Entity;
                 if (((previousValue != value)
-                            || (this._User.HasLoadedOrAssignedValue == false)))
+                            || (this._UserDetails.HasLoadedOrAssignedValue == false)))
                 {
                     this.SendPropertyChanging();
                     if ((previousValue != null))
                     {
-                        this._User.Entity = null;
+                        this._UserDetails.Entity = null;
                         previousValue.TeamUser.Remove(this);
                     }
-                    this._User.Entity = value;
+                    this._UserDetails.Entity = value;
                     if ((value != null))
                     {
                         value.TeamUser.Add(this);
@@ -4283,7 +4169,7 @@ namespace EduSim.CoreFramework.DTO
                     {
                         this._UserId = default(int);
                     }
-                    this.SendPropertyChanged("User");
+                    this.SendPropertyChanged("UserDetails");
                 }
             }
         }
@@ -4329,7 +4215,7 @@ namespace EduSim.CoreFramework.DTO
 
         private int _Id;
 
-        private string _UserName;
+        private string _Email;
 
         private string _Password;
 
@@ -4347,8 +4233,8 @@ namespace EduSim.CoreFramework.DTO
         partial void OnCreated();
         partial void OnIdChanging(int value);
         partial void OnIdChanged();
-        partial void OnUserNameChanging(string value);
-        partial void OnUserNameChanged();
+        partial void OnEmailChanging(string value);
+        partial void OnEmailChanged();
         partial void OnPasswordChanging(string value);
         partial void OnPasswordChanged();
         partial void OnFirstNameChanging(string value);
@@ -4384,22 +4270,22 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_UserName", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
-        public string UserName
+        [Column(Storage = "_Email", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string Email
         {
             get
             {
-                return this._UserName;
+                return this._Email;
             }
             set
             {
-                if ((this._UserName != value))
+                if ((this._Email != value))
                 {
-                    this.OnUserNameChanging(value);
+                    this.OnEmailChanging(value);
                     this.SendPropertyChanging();
-                    this._UserName = value;
-                    this.SendPropertyChanged("UserName");
-                    this.OnUserNameChanged();
+                    this._Email = value;
+                    this.SendPropertyChanged("Email");
+                    this.OnEmailChanged();
                 }
             }
         }
@@ -4513,25 +4399,25 @@ namespace EduSim.CoreFramework.DTO
         private void attach_TeamUser(TeamUser entity)
         {
             this.SendPropertyChanging();
-            entity.User = this;
+            entity.UserDetails = this;
         }
 
         private void detach_TeamUser(TeamUser entity)
         {
             this.SendPropertyChanging();
-            entity.User = null;
+            entity.UserDetails = null;
         }
 
         private void attach_UserRole(UserRole entity)
         {
             this.SendPropertyChanging();
-            entity.User = this;
+            entity.UserDetails = this;
         }
 
         private void detach_UserRole(UserRole entity)
         {
             this.SendPropertyChanging();
-            entity.User = null;
+            entity.UserDetails = null;
         }
     }
 
@@ -4545,9 +4431,9 @@ namespace EduSim.CoreFramework.DTO
 
         private int _RoleId;
 
-        private EntityRef<RoleDetails> _Role;
+        private EntityRef<RoleDetails> _RoleDetails;
 
-        private EntityRef<UserDetails> _User;
+        private EntityRef<UserDetails> _UserDetails;
 
         #region Extensibility Method Definitions
         partial void OnLoaded();
@@ -4561,8 +4447,8 @@ namespace EduSim.CoreFramework.DTO
 
         public UserRole()
         {
-            this._Role = default(EntityRef<RoleDetails>);
-            this._User = default(EntityRef<UserDetails>);
+            this._RoleDetails = default(EntityRef<RoleDetails>);
+            this._UserDetails = default(EntityRef<UserDetails>);
             OnCreated();
         }
 
@@ -4577,7 +4463,7 @@ namespace EduSim.CoreFramework.DTO
             {
                 if ((this._UserId != value))
                 {
-                    if (this._User.HasLoadedOrAssignedValue)
+                    if (this._UserDetails.HasLoadedOrAssignedValue)
                     {
                         throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
                     }
@@ -4601,7 +4487,7 @@ namespace EduSim.CoreFramework.DTO
             {
                 if ((this._RoleId != value))
                 {
-                    if (this._Role.HasLoadedOrAssignedValue)
+                    if (this._RoleDetails.HasLoadedOrAssignedValue)
                     {
                         throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
                     }
@@ -4614,26 +4500,26 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Association(Name = "FK_UserRole_Role", Storage = "_Role", ThisKey = "RoleId", OtherKey = "Id", IsForeignKey = true)]
-        public RoleDetails Role
+        [Association(Name = "FK_UserRole_Role", Storage = "_RoleDetails", ThisKey = "RoleId", OtherKey = "Id", IsForeignKey = true)]
+        public RoleDetails RoleDetails
         {
             get
             {
-                return this._Role.Entity;
+                return this._RoleDetails.Entity;
             }
             set
             {
-                RoleDetails previousValue = this._Role.Entity;
+                RoleDetails previousValue = this._RoleDetails.Entity;
                 if (((previousValue != value)
-                            || (this._Role.HasLoadedOrAssignedValue == false)))
+                            || (this._RoleDetails.HasLoadedOrAssignedValue == false)))
                 {
                     this.SendPropertyChanging();
                     if ((previousValue != null))
                     {
-                        this._Role.Entity = null;
+                        this._RoleDetails.Entity = null;
                         previousValue.UserRole.Remove(this);
                     }
-                    this._Role.Entity = value;
+                    this._RoleDetails.Entity = value;
                     if ((value != null))
                     {
                         value.UserRole.Add(this);
@@ -4643,31 +4529,31 @@ namespace EduSim.CoreFramework.DTO
                     {
                         this._RoleId = default(int);
                     }
-                    this.SendPropertyChanged("Role");
+                    this.SendPropertyChanged("RoleDetails");
                 }
             }
         }
 
-        [Association(Name = "FK_UserRole_User", Storage = "_User", ThisKey = "UserId", OtherKey = "Id", IsForeignKey = true)]
-        public UserDetails User
+        [Association(Name = "FK_UserRole_User", Storage = "_UserDetails", ThisKey = "UserId", OtherKey = "Id", IsForeignKey = true)]
+        public UserDetails UserDetails
         {
             get
             {
-                return this._User.Entity;
+                return this._UserDetails.Entity;
             }
             set
             {
-                UserDetails previousValue = this._User.Entity;
+                UserDetails previousValue = this._UserDetails.Entity;
                 if (((previousValue != value)
-                            || (this._User.HasLoadedOrAssignedValue == false)))
+                            || (this._UserDetails.HasLoadedOrAssignedValue == false)))
                 {
                     this.SendPropertyChanging();
                     if ((previousValue != null))
                     {
-                        this._User.Entity = null;
+                        this._UserDetails.Entity = null;
                         previousValue.UserRole.Remove(this);
                     }
-                    this._User.Entity = value;
+                    this._UserDetails.Entity = value;
                     if ((value != null))
                     {
                         value.UserRole.Add(this);
@@ -4677,7 +4563,7 @@ namespace EduSim.CoreFramework.DTO
                     {
                         this._UserId = default(int);
                     }
-                    this.SendPropertyChanged("User");
+                    this.SendPropertyChanged("UserDetails");
                 }
             }
         }
