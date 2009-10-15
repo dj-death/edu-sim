@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+
+<BrixMainForm TableName="RoleDetails" PrimaryKeyName="Id">
+  <BrixDataEntry BrixControl="TextBox" Name="RoleName" Text="Role Name" IsFirstColumn="true" IsPassword="false" />
+  <BrixDataEntry BrixControl="TextBox" Name="Description" Text="Role Description" IsFirstColumn="true" IsPassword="false" />
+
+</BrixMainForm>
