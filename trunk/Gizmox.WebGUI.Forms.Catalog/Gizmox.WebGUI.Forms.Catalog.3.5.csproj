@@ -114,14 +114,17 @@
     <Reference Include="Gizmox.WebGUI.Common, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=263fa4ef694acff6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Common.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Gizmox.WebGUI.Common.Design, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=ea5dfe57c8eb7edd, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Common.Design.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Gizmox.WebGUI.Forms, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=c508b41386c60f1d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Gizmox.WebGUI.Forms.Charts, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=f1bb83df6a8597fb, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -130,6 +133,7 @@
     <Reference Include="Gizmox.WebGUI.Forms.Design, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=dd2a1fd4d120c769, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.Design.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Gizmox.WebGUI.Forms.Extended, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=85eae29607c9f5f3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -146,6 +150,7 @@
     <Reference Include="Gizmox.WebGUI.Forms.Office.Design, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=e838c68aaf727726, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.Office.Design.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Gizmox.WebGUI.Forms.Themes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -166,6 +171,7 @@
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\EduSim.WebGUI\References\Microsoft.ReportViewer.WebForms.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
