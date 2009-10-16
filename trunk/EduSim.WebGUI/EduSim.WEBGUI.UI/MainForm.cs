@@ -12,6 +12,7 @@ using System.IO;
 using Gizmox.WebGUI.Common.Resources;
 using EduSim.CoreFramework.Common;
 using EduSim.WebGUI.UI;
+using EduSim.CoreFramework.DTO;
 
 
 namespace Gizmox.WebGUI.Forms.Catalog
@@ -339,6 +340,17 @@ namespace Gizmox.WebGUI.Forms.Catalog
         void mobjTabsMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Check that there is a selected item
+            UserDetails user = HttpContext.Current.Session["CurrentUser"] as UserDetails;
+
+            if (mobjTabsMain.SelectedIndex != 0 && user.Role.Equals("player"))
+            {
+                if (mobjTabsMain.SelectedItem.Text.Equals("Administrator"))
+                {
+                    MessageBox.Show("No permission to access this page");
+                    mobjTabsMain.SelectedIndex = 0;
+                }
+            }
+
             if (mobjTabsMain.SelectedItem != null)
             {
                 // Check that there are controls contained in this nav-tab

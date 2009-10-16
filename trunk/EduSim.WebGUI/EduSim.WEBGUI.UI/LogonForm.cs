@@ -7,6 +7,8 @@ using System.Globalization;
 using Gizmox.WebGUI.Forms;
 using Gizmox.WebGUI.Common.Interfaces;
 using EduSim.UserManagementBL;
+using EduSim.CoreFramework.DTO;
+using System.Web;
 
 
 
@@ -219,7 +221,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
 			this.mobjLabelUsername.Name = "mobjLabelUsername";
 			this.mobjLabelUsername.Size = new System.Drawing.Size(64, 16);
 			this.mobjLabelUsername.TabIndex = 4;
-			this.mobjLabelUsername.Text = "Username:";
+			this.mobjLabelUsername.Text = "Email:";
 			// 
 			// mobjCheckSavePassword
 			// 
@@ -303,8 +305,10 @@ namespace Gizmox.WebGUI.Forms.Catalog
 				Context.Cookies["Lang"] = "0";
 			}
 
-            if (UserManager.Instance.ValidateUser(this.mobjTextUsername.Text, this.mobjTextPassword.Text) > 0)
+            UserDetails user = UserManager.Instance.ValidateUser(this.mobjTextUsername.Text, this.mobjTextPassword.Text);
+            if (user != null)
 			{
+                HttpContext.Current.Session["CurrentUser"] = user;
 				Context.Session.IsLoggedOn = true;
 				Context.CurrentUICulture = ((LanguageOption)mobjComboLanguage.SelectedItem).Culture;
 				mobjLabelMessage.Text="";
@@ -366,13 +370,22 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
         protected override void OnClosed(EventArgs e)
         {
+            bool showLoginForm = false;
             if (string.IsNullOrEmpty(mobjTextUsername.Text) || string.IsNullOrEmpty(mobjTextPassword.Text))
+                showLoginForm = true;
+            else
+            {
+                UserDetails user = HttpContext.Current.Session["CurrentUser"] as UserDetails;
+                if (user == null)
+                    showLoginForm = true;
+            }
+            if (showLoginForm)
             {
                 LogonForm objLogonPopup = new LogonForm(baseForm);
                 objLogonPopup.Closed += new EventHandler((baseForm as MainForm).objLogonPopup_Closed);
                 objLogonPopup.ShowDialog();
-
             }
+
             base.OnClosed(e);
         }
 	}

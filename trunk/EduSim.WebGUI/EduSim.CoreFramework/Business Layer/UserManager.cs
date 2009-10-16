@@ -19,13 +19,19 @@ namespace EduSim.UserManagementBL
         public static UserManager Instance = new UserManager();
         private object lockObj = new object();
 
-        public int ValidateUser(string username, string password)
+        public UserDetails ValidateUser(string email, string password)
         {
             EduSimDb db = new EduSimDb();
+            UserDetails user = null;
 
-            return (from u in db.User
-                    where u.UserName.Equals(username) && u.Password.Equals(password)
-                    select u).Count<UserDetails>();
+            try
+            {
+                user = (from u in db.UserDetails
+                        where u.Email.Equals(email) && u.Password.Equals(password)
+                        select u).Single<UserDetails>();
+            }
+            catch (Exception) { }
+            return user;
         }
     }
 }
