@@ -9,6 +9,7 @@ using Gizmox.WebGUI.Common.Interfaces;
 using EduSim.UserManagementBL;
 using EduSim.CoreFramework.DTO;
 using System.Web;
+using EduSim.WebGUI.UI;
 
 
 
@@ -308,7 +309,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
             UserDetails user = UserManager.Instance.ValidateUser(this.mobjTextUsername.Text, this.mobjTextPassword.Text);
             if (user != null)
 			{
-                HttpContext.Current.Session["CurrentUser"] = user;
+                HttpContext.Current.Session[SessionConstants.CurrentUser] = user;
 				Context.Session.IsLoggedOn = true;
 				Context.CurrentUICulture = ((LanguageOption)mobjComboLanguage.SelectedItem).Culture;
 				mobjLabelMessage.Text="";
@@ -375,7 +376,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
                 showLoginForm = true;
             else
             {
-                UserDetails user = HttpContext.Current.Session["CurrentUser"] as UserDetails;
+                UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
                 if (user == null)
                     showLoginForm = true;
             }

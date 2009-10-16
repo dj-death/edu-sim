@@ -107,7 +107,7 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 
         void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
         {
-            MessageBox.Show("hi there");
+            //MessageBox.Show("hi there");
         }
 
 		#endregion
