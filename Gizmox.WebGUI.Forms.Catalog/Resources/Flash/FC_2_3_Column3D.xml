@@ -1,0 +1,14 @@
+<graph caption='Monthly Sales Summary' subcaption='For the year 2004' xAxisName='Month' yAxisName='Sales' numberPrefix='$' showNames='1'>
+<set name='Jan' value='17400' color='0099FF' />
+<set name='Feb' value='19800' color='FF66CC' />
+<set name='Mar' value='21800' color='996600' />
+<set name='Apr' value='23800' color='669966' />
+<set name='May' value='29600' color='7C7CB4' />
+<set name='Jun' value='27600' color='FF9933' />
+<set name='Jul' value='31800' color='CCCC00' />
+<set name='Aug' value='39700' color='9900FF' />
+<set name='Sep' value='37800' color='999999' />
+<set name='Oct' value='21900' color='99FFCC' />
+<set name='Nov' value='32900' color='CCCCFF' />
+<set name='Dec' value='39800' color='669900' />
+</graph>
