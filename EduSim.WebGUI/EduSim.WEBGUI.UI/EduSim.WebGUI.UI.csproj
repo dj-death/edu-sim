@@ -226,6 +226,7 @@
     <Compile Include="BrixXmlEditControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Constants.cs" />
     <Compile Include="ControlFactory.cs" />
     <Compile Include="DatabaseData.cs">
       <SubType>Component</SubType>

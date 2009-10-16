@@ -4373,8 +4373,8 @@ public partial class UserDetails : INotifyPropertyChanging, INotifyPropertyChang
 			}
 		}
 	}
-	
-	[Association(Name="FK_TeamUser_User", Storage="_TeamUser", ThisKey="Id", OtherKey="UserId", DeleteRule="NO ACTION")]
+
+    [Association(Name = "FK_TeamUser_User", Storage = "_TeamUser", ThisKey = "Id", OtherKey = "UserId", DeleteRule = "NO ACTION")]
 	public EntitySet<TeamUser> TeamUser
 	{
 		get
@@ -4443,6 +4443,14 @@ public partial class UserDetails : INotifyPropertyChanging, INotifyPropertyChang
 		this.SendPropertyChanging();
 		entity.UserDetails = null;
 	}
+
+    public Role RoleEnum
+    {
+        get
+        {
+            return (Role)Enum.Parse(typeof(Role), _Role);
+        }
+    }
 }
 
 [Table(Name="dbo.UserRole")]

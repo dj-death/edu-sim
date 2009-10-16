@@ -340,11 +340,11 @@ namespace Gizmox.WebGUI.Forms.Catalog
         void mobjTabsMain_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Check that there is a selected item
-            UserDetails user = HttpContext.Current.Session["CurrentUser"] as UserDetails;
+            UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
 
-            if (mobjTabsMain.SelectedIndex != 0 && user.Role.Equals("player"))
+            if (mobjTabsMain.SelectedIndex != 0 && user.RoleEnum == Role.Player)
             {
-                if (mobjTabsMain.SelectedItem.Text.Equals("Administrator"))
+                if (mobjTabsMain.SelectedItem.Text.Equals(TabConstants.Administrator))
                 {
                     MessageBox.Show("No permission to access this page");
                     mobjTabsMain.SelectedIndex = 0;
