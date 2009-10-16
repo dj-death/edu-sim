@@ -1,0 +1,943 @@
+﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{431E171C-3F35-4BA3-A3EA-49A89A937C6E}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Gizmox.WebGUI.Forms.Catalog</RootNamespace>
+    <AssemblyName>Gizmox.WebGUI.Forms.Catalog</AssemblyName>
+    <SccProjectName>
+    </SccProjectName>
+    <SccLocalPath>
+    </SccLocalPath>
+    <SccAuxPath>
+    </SccAuxPath>
+    <SccProvider>
+    </SccProvider>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WG_NET35</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;WG_NET35</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Deployment|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;WG_NET35</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Documentation|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;WG_NET35</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Nightly|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;WG_NET35</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Commercial Deployment|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;WG_NET35</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Express|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;WG_NET35</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Design|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;WG_NET35</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Web.Mobile" />
+    <Reference Include="System.Xml.Linq, Version=3.5.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Gizmox.WebGUI.Common, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=263fa4ef694acff6, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Common.Design, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=ea5dfe57c8eb7edd, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Common.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Forms, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=c508b41386c60f1d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Forms.Charts, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=f1bb83df6a8597fb, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.Charts.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Forms.Design, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=dd2a1fd4d120c769, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Forms.Extended, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=85eae29607c9f5f3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.Extended.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Forms.Help, Version=3.0.5701.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.Help.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Forms.Office, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=d50c2c7452ba77d9, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.Office.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Forms.Office.Design, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=e838c68aaf727726, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.Office.Design.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Forms.Themes, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Forms.Themes.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Reporting, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=ff9cb9557af1f587, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Reporting.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Server, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=3de6eb684226c24d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Server.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Server.Silverlight, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=ab72e83db5281dc3, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Gizmox.WebGUI.Server.Silverlight.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\EduSim.WebGUI\References\Microsoft.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomReference Include="Gizmox.WebGUI.Forms">
+      <HintPath>D:\My Work\Net3.5\Public\Core\Gizmox.WebGUI.Forms.Catalog\bin\Gizmox.WebGUI.Forms.dll</HintPath>
+      <Visible>false</Visible>
+    </CustomReference>
+    <CustomReference Include="Gizmox.WebGUI.Forms.Themes">
+      <HintPath>D:\My Work\Net3.5\Public\Core\Gizmox.WebGUI.Forms.Catalog\bin\Gizmox.WebGUI.Forms.Themes.dll</HintPath>
+      <Visible>false</Visible>
+    </CustomReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ClientBin\" />
+    <Folder Include="Resources\Capture\" />
+    <Folder Include="Resources\Generated\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v9.0\WebApplications\Microsoft.WebApplication.targets" Condition="" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>False</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>52788</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost/Gizmox.WebGUI.Forms.Catalog</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <ItemGroup>
+    <Compile Include="CatalogSettings.cs" />
+    <Compile Include="Categories\Behaviors\BindingNavigatorBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\DragAndDropBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\SurfacePanelBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\SplitContainerBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\XamlBoxBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\BindedDataGridViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\ListViewControlGroups.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\DatagridviewSelectionChanged.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\DataListViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\TreeViewControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\TreeViewControl2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Extenders\SilverlightExtender.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\InputControls\Controls\OwnerDrawnComboBox.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controls\WinPanelSkin.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Extensions\Charts\ChartSample1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Extensions\Charts\ChartSample2.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Extensions\Editors\FCKEditorSample.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Extensions\Office\Controls\SampleRibbon.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Extensions\Office\Controls\SampleRibbon.Designer.cs">
+      <DependentUpon>SampleRibbon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Office\RichTextEditorSample.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Extensions\Office\RibbonSample.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Extensions\Office\RibbonSample.designer.cs">
+      <DependentUpon>RibbonSample.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\Office\ScheduleBoxSample.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Forms\InspectorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MdiChildForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Applications\ClassBrowser\ClassBrowser.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Applications\ClassBrowser\Dialogs\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Applications\ClassBrowser\Library\ConsoleInfo.cs" />
+    <Compile Include="Applications\ClassBrowser\Library\NamespaceInfo.cs" />
+    <Compile Include="BaseForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categories\ActionControls\BottonsControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\ActionControls\ContextMenuControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\ActionControls\ToolBarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\AnchoringBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\BackgourndImage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\ContextUsage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\ErrorProviderBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\DockingBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\FlowLayoutBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\Forms\WindowsBehaviorForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\ListDataBindingBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\ResourcesBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\ResultsUsage.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\TableLayoutBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\Timers.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\UploadBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Behaviors\WindowsBehavior.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\CustomControls\CustomWindowPanelControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\ReportViewerControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\CustomDataGridViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\ListViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\ListViewControlViews.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\PropertyDridControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DataControls\TreeViewControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DialogForms\Forms\SearchForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categories\DialogForms\Forms\TestingForms.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Categories\DialogForms\MessageBoxForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\DialogForms\MiscellaneousForms.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Gateways\ASPX\AspPageControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\Gateways\ASPX\AspPageForm.aspx.cs">
+      <DependentUpon>AspPageForm.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Categories\Gateways\Controls\PieControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Categories\Gateways\GraphGeneratingGateway.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\HostControls\FlashControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\InputControls\DateInputControls.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\InputControls\ListInputControls.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\InputControls\RichTextInputControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\InputControls\TextInputControls.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\InputControls\TrackBarControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\InputControls\UpDownControls.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\LogicalCategory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\NavigationControls\TabControlControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Categories\NavigationControls\WorkspaceTabControlControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WinPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="DatabaseData.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Forms\AboutVWGForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="IHostedApplication.cs" />
+    <Compile Include="LogonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MdiMainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="RandomData.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Categories\Gateways\ASPX\AspPageForm.aspx" />
+    <Content Include="Resources\Data\Report.xml" />
+    <Content Include="Resources\Data\Orders.mdb" />
+    <Content Include="Resources\Flash\FC_2_3_Area2D.swf" />
+    <Content Include="Resources\Flash\FC_2_3_Column3D.swf" />
+    <Content Include="Resources\Flash\FC_2_3_Column3D.xml" />
+    <Content Include="Resources\Flash\FC_2_3_Doughnut2D.swf" />
+    <Content Include="Resources\Flash\FC_2_3_MSColumn3D.swf" />
+    <Content Include="Resources\Flash\FC_2_3_MSColumnLine_DY_3D.swf" />
+    <Content Include="Resources\Flash\FC_2_3_MSLine.swf" />
+    <Content Include="Resources\Flash\FC_2_3_MSLine_2.swf" />
+    <Content Include="Resources\Flash\FC_2_3_Pie2D.swf" />
+    <Content Include="Resources\Flash\FC_2_3_Pie3D.swf" />
+    <Content Include="Resources\Flash\FC_2_3_SSGrid.swf" />
+    <Content Include="Resources\Flash\FC_2_3_StckdColumn_MSLine_DY_2D.swf" />
+    <Content Include="Resources\Icons\24X24\Applications.gif" />
+    <Content Include="Resources\Icons\24X24\Behaviors.gif" />
+    <Content Include="Resources\Icons\24X24\Controls.gif" />
+    <Content Include="Resources\Icons\24X24\Folders.gif" />
+    <Content Include="Resources\Icons\Add.gif" />
+    <Content Include="Resources\Icons\AttachedMail.gif" />
+    <Content Include="Resources\Icons\Back.gif" />
+    <Content Include="Resources\Icons\CheckBoxes.gif" />
+    <Content Include="Resources\Icons\Class.gif" />
+    <Content Include="Resources\Icons\Clear.gif" />
+    <Content Include="Resources\Icons\ClosedMail.gif" />
+    <Content Include="Resources\Icons\Columns.gif" />
+    <Content Include="Resources\Icons\Copy.gif" />
+    <Content Include="Resources\Icons\Cut.gif" />
+    <Content Include="Resources\Icons\DayView.gif" />
+    <Content Include="Resources\Icons\Delete.GIF" />
+    <Content Include="Resources\Icons\DetailsView.gif" />
+    <Content Include="Resources\Icons\Disable.gif" />
+    <Content Include="Resources\Icons\Event.gif" />
+    <Content Include="Resources\Icons\focus.gif" />
+    <Content Include="Resources\Icons\Folder.gif" />
+    <Content Include="Resources\Icons\Folders.gif" />
+    <Content Include="Resources\Icons\Headers\Attachment.gif" />
+    <Content Include="Resources\Icons\Headers\Important.gif" />
+    <Content Include="Resources\Icons\Headers\Opened.gif" />
+    <Content Include="Resources\Icons\IconsView.gif" />
+    <Content Include="Resources\Icons\ImportantMail.gif" />
+    <Content Include="Resources\Icons\Interface.gif" />
+    <Content Include="Resources\Icons\ListView.gif" />
+    <Content Include="Resources\Icons\Member.gif" />
+    <Content Include="Resources\Icons\Method.gif" />
+    <Content Include="Resources\Icons\MonthView.gif" />
+    <Content Include="Resources\Icons\MultiSelect.gif" />
+    <Content Include="Resources\Icons\Namespace.gif" />
+    <Content Include="Resources\Icons\NewEvent.gif" />
+    <Content Include="Resources\Icons\NewItem.gif" />
+    <Content Include="Resources\Icons\Next.gif" />
+    <Content Include="Resources\Icons\Open.gif" />
+    <Content Include="Resources\Icons\OpenedMail.gif" />
+    <Content Include="Resources\Icons\Paste.gif" />
+    <Content Include="Resources\Icons\Remove.gif" />
+    <Content Include="Resources\Icons\RemoveItem.gif" />
+    <Content Include="Resources\Icons\Save.gif" />
+    <Content Include="Resources\Icons\Search.gif" />
+    <Content Include="Resources\Icons\Sorting.gif" />
+    <Content Include="Resources\Icons\weekView.gif" />
+    <Content Include="Resources\Icons\WorkWeekView.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\AddressBook.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\AddressBook.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\AttachedMail.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\AttachedMail.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\AttachmentColumnHeader.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\AttachmentColumnHeader.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Blank.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Blank.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\BottomReadingPane.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\BottomReadingPane.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\ChangeAccount.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\ChangeAccount.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\ClosedEmail.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\ClosedEmail.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Delete.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Delete.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\DeletedItems.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\DeletedItems.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\DeleteFolder.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\DeleteFolder.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Down.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Down.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\EmptyDeletedFolder.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\EmptyDeletedFolder.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Errors.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Errors.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Failed.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Failed.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\FileTypes\gif.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\FileTypes\jpg.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\FileTypes\pdf.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\FileTypes\ppt.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\FileTypes\rar.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\FileTypes\txt.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\FileTypes\UnknownFileType.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Folder.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Folder.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Forward.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Forward.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\GoContacts.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\GoContacts.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\GoMail.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\GoMail.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Help.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Help.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\HighImportance.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\HighImportance.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\ImageColumnHeder.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\ImageColumnHeder.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Inbox.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Inbox.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\information.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\information.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\InProgress.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\InProgress.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Junk.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Junk.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\LogOff.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\LogOff.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\LowImportance.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\LowImportance.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\MarkAsRead.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\MarkAsRead.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\MarkAsUnRead.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\MarkAsUnRead.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Mouse.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Mouse.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\MoveFolder.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\MoveFolder.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\MoveToFolder.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\MoveToFolder.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\NewAccount.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\NewAccount.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\NewContact.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\NewContact.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\NewFolder.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\NewFolder.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\NewMailMessage.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\NewMailMessage.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\NotJunk.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\NotJunk.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\OffReadingPane.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\OffReadingPane.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\OpenedEmail.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\OpenedEmail.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Outbox.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Outbox.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Permission.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Permission.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Print.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Print.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Processing.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Processing.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\RecoverDeletedItems.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\RecoverDeletedItems.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\RenameFolder.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\RenameFolder.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Reply.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Reply.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\ReplyToAll.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\ReplyToAll.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\RightReadingPane.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\RightReadingPane.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\RulesAndAlerts.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\RulesAndAlerts.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\SafeLists.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\SafeLists.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\SelectAll.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\SelectAll.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\SendAndReceive.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\SendAndReceive.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\SentItems.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\SentItems.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\SetAccountAsDefault.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\SetAccountAsDefault.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Success.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Success.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\ThumbTack.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\ThumbTack.png" />
+    <EmbeddedResource Include="Resources\Images\16x16\Up.gif" />
+    <EmbeddedResource Include="Resources\Images\16x16\Up.png" />
+    <EmbeddedResource Include="Resources\Images\24x24\ContactsView.gif" />
+    <EmbeddedResource Include="Resources\Images\24x24\ContactsView.png" />
+    <EmbeddedResource Include="Resources\Images\24x24\EmailView.gif" />
+    <EmbeddedResource Include="Resources\Images\24x24\EmailView.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\AddressBook.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\AddressBook.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\AttachFile.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\AttachFile.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\AttachItem.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\AttachItem.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\BlockSender.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\BlockSender.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\BusinessCard.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\BusinessCard.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\Calendar.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\Calendar.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\Categorize.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\Categorize.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\CheckNames.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\CheckNames.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\CreateRule.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\CreateRule.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\Delete.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\Delete.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\FollowUp.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\FollowUp.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\Forward.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\Forward.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\MarkAsUnread.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\MarkAsUnread.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\MoveToFolder.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\MoveToFolder.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\OtherActions.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\OtherActions.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\Relply.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\Relply.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\ReplyToAll.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\ReplyToAll.png" />
+    <EmbeddedResource Include="Resources\Images\32x32\Signature.gif" />
+    <EmbeddedResource Include="Resources\Images\32x32\Signature.png" />
+    <EmbeddedResource Include="Resources\Images\AboutVWGLogo.jpg" />
+    <EmbeddedResource Include="Resources\Images\AccountManagementFinish.gif" />
+    <EmbeddedResource Include="Resources\Images\AccountManagementFinish.png" />
+    <EmbeddedResource Include="Resources\Images\Background.jpg" />
+    <EmbeddedResource Include="Resources\Images\EmailAccountEditFormIcon.gif" />
+    <EmbeddedResource Include="Resources\Images\EmailAccountEditFormIcon.png" />
+    <EmbeddedResource Include="Resources\Images\PoweredByLogo.jpg" />
+    <EmbeddedResource Include="Resources\Images\Sea.jpg" />
+    <EmbeddedResource Include="Resources\Images\SendEmail.gif" />
+    <EmbeddedResource Include="Resources\Images\SendEmail.png" />
+    <EmbeddedResource Include="Resources\Images\Stone.jpg" />
+    <EmbeddedResource Include="Resources\Images\View.jpg" />
+    <Content Include="Web.config" />
+    <Content Include="Controls\WinPanelSkin.ToolBottomCenter.gif">
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </Content>
+    <Content Include="Controls\WinPanelSkin.ToolBottomLeft.gif">
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </Content>
+    <Content Include="Controls\WinPanelSkin.ToolBottomRight.gif">
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </Content>
+    <Content Include="Controls\WinPanelSkin.ToolClose.gif">
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </Content>
+    <Content Include="Controls\WinPanelSkin.ToolLeft.gif">
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </Content>
+    <Content Include="Controls\WinPanelSkin.ToolRight.gif">
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </Content>
+    <Content Include="Controls\WinPanelSkin.ToolTopCenter.gif">
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </Content>
+    <Content Include="Controls\WinPanelSkin.ToolTopLeft.gif">
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </Content>
+    <Content Include="Controls\WinPanelSkin.ToolTopRight.gif">
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </Content>
+    <Content Include="Controls\WinPanelSkin.WinPanel.xslt">
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </Content>
+    <Content Include="Resources\Icons\EnsureVisible.gif" />
+    <Content Include="Resources\Icons\favicon.ico" />
+    <Content Include="Resources\Icons\Properties.gif" />
+    <Content Include="Resources\Icons\Font.gif" />
+    <Content Include="Resources\Icons\Help.gif" />
+    <Content Include="Resources\Icons\Print.gif" />
+    <Content Include="Resources\Icons\Show.gif" />
+    <Content Include="Resources\Icons\ShowLines.gif" />
+    <Content Include="Resources\Icons\Spelling.gif" />
+    <Content Include="Resources\Data\Report.rdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Forms\InspectorForm.resx">
+      <DependentUpon>InspectorForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MdiChildForm.resx">
+      <DependentUpon>MdiChildForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Applications\ClassBrowser\ClassBrowser.resx">
+      <DependentUpon>ClassBrowser.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Applications\ClassBrowser\Dialogs\SearchForm.resx">
+      <DependentUpon>SearchForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BaseForm.resx">
+      <DependentUpon>BaseForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\ActionControls\BottonsControl.resx">
+      <DependentUpon>BottonsControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\ActionControls\ContextMenuControl.resx">
+      <DependentUpon>ContextMenuControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\ActionControls\ToolBarControl.resx">
+      <DependentUpon>ToolBarControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\AnchoringBehavior.resx">
+      <DependentUpon>AnchoringBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\ContextUsage.resx">
+      <DependentUpon>ContextUsage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\ErrorProviderBehavior.resx">
+      <DependentUpon>ErrorProviderBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\DockingBehavior.resx">
+      <DependentUpon>DockingBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\FlowLayoutBehavior.resx">
+      <DependentUpon>FlowLayoutBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\Forms\WindowsBehaviorForm.resx">
+      <DependentUpon>WindowsBehaviorForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\ListDataBindingBehavior.resx">
+      <DependentUpon>ListDataBindingBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\ResourcesBehavior.resx">
+      <DependentUpon>ResourcesBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\ResultsUsage.resx">
+      <DependentUpon>ResultsUsage.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\TableLayoutBehavior.resx">
+      <DependentUpon>TableLayoutBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\UploadBehavior.resx">
+      <DependentUpon>UploadBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\WindowsBehavior.resx">
+      <DependentUpon>WindowsBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\CustomControls\CustomWindowPanelControl.resx">
+      <DependentUpon>CustomWindowPanelControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DataControls\ReportViewerControl.resx">
+      <DependentUpon>ReportViewerControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DataControls\CustomDataGridViewControl.resx">
+      <DependentUpon>CustomDataGridViewControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DataControls\ListViewControl.resx">
+      <DependentUpon>ListViewControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DataControls\ListViewControlViews.resx">
+      <DependentUpon>ListViewControlViews.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DataControls\PropertyDridControl.resx">
+      <DependentUpon>PropertyDridControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DataControls\TreeViewControl.resx">
+      <DependentUpon>TreeViewControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DialogForms\Forms\TestingForms.resx">
+      <DependentUpon>TestingForms.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DialogForms\MessageBoxForm.resx">
+      <DependentUpon>MessageBoxForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DialogForms\MiscellaneousForms.resx">
+      <DependentUpon>MiscellaneousForms.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Gateways\ASPX\AspPageControl.resx">
+      <DependentUpon>AspPageControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\HostControls\FlashControl.resx">
+      <DependentUpon>FlashControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\InputControls\DateInputControls.resx">
+      <DependentUpon>DateInputControls.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\InputControls\ListInputControls.resx">
+      <DependentUpon>ListInputControls.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\InputControls\RichTextInputControl.resx">
+      <DependentUpon>RichTextInputControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\InputControls\TextInputControls.resx">
+      <DependentUpon>TextInputControls.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\NavigationControls\TabControlControl.resx">
+      <DependentUpon>TabControlControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\NavigationControls\WorkspaceTabControlControl.resx">
+      <DependentUpon>WorkspaceTabControlControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutVWGForm.resx">
+      <DependentUpon>AboutVWGForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="LogonForm.resx">
+      <DependentUpon>LogonForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\BindingNavigatorBehavior.resx">
+      <DependentUpon>BindingNavigatorBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\DragAndDropBehavior.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>DragAndDropBehavior.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\Behaviors\XamlBoxBehavior.resx">
+      <DependentUpon>XamlBoxBehavior.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DataControls\BindedDataGridViewControl.resx">
+      <DependentUpon>BindedDataGridViewControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DataControls\ListViewControlGroups.resx">
+      <DependentUpon>ListViewControlGroups.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Categories\DataControls\DatagridviewSelectionChanged.resx">
+      <DependentUpon>DatagridviewSelectionChanged.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Controls\WinPanelSkin.resx">
+      <SubType>Designer</SubType>
+      <DependentUpon>WinPanelSkin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Extensions\Office\Controls\SampleRibbon.resx">
+      <DependentUpon>SampleRibbon.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Extensions\Office\RibbonSample.resx">
+      <DependentUpon>RibbonSample.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Extensions\Office\ScheduleBoxSample.resx">
+      <DependentUpon>ScheduleBoxSample.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="Resources\Data\Help.chm" />
+    <None Include="Resources\Xaml\Sample.xaml" />
+  </ItemGroup>
+</Project>
