@@ -833,3 +833,10 @@ INSERT SegmentType(Id,Description) VALUES('2','Low')
 INSERT SegmentType(Id,Description) VALUES('3','High')
 INSERT SegmentType(Id,Description) VALUES('4','Performance')
 INSERT SegmentType(Id,Description) VALUES('5','Size')
+
+/***********Create Init Script for GameInitialData******************/
+INSERT GameInitialData(SegmentTyoeId,UnitSold,UnitInventory,RevisionDate,AgeDec31,Reliability,Performance,Size,Price,MaterialCost,LabourCost,Overtime,AutomationForNextRound,CapacityForNextRound,PlantUtilization) VALUES('1','999','189',convert(datetime,'2006-11-21 00:00:00.000',121),'3.1','17500','5.5','14.5','28','11.59','7.49','0','4','1800','0.66')
+INSERT GameInitialData(SegmentTyoeId,UnitSold,UnitInventory,RevisionDate,AgeDec31,Reliability,Performance,Size,Price,MaterialCost,LabourCost,Overtime,AutomationForNextRound,CapacityForNextRound,PlantUtilization) VALUES('2','1763','39',convert(datetime,'2005-05-25 00:00:00.000',121),'4.6','14000','3','17','21','7.81','7.12','0.3','5','1400','1.29')
+INSERT GameInitialData(SegmentTyoeId,UnitSold,UnitInventory,RevisionDate,AgeDec31,Reliability,Performance,Size,Price,MaterialCost,LabourCost,Overtime,AutomationForNextRound,CapacityForNextRound,PlantUtilization) VALUES('3','366','40',convert(datetime,'2008-04-17 00:00:00.000',121),'1.7','23000','8','12','38','15.98','8.57','0','3','900','0.45')
+INSERT GameInitialData(SegmentTyoeId,UnitSold,UnitInventory,RevisionDate,AgeDec31,Reliability,Performance,Size,Price,MaterialCost,LabourCost,Overtime,AutomationForNextRound,CapacityForNextRound,PlantUtilization) VALUES('4','358','78',convert(datetime,'2007-06-30 00:00:00.000',121),'2.5','25000','9.4','15.5','33','15.57','8.57','0','3','600','0.73')
+INSERT GameInitialData(SegmentTyoeId,UnitSold,UnitInventory,RevisionDate,AgeDec31,Reliability,Performance,Size,Price,MaterialCost,LabourCost,Overtime,AutomationForNextRound,CapacityForNextRound,PlantUtilization) VALUES('5','314','62',convert(datetime,'2007-05-25 00:00:00.000',121),'2.6','19000','4','11','33','13.62','8.57','0','3','600','0.63')
