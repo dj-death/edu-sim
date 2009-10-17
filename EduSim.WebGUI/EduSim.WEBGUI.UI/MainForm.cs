@@ -575,7 +575,9 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
         private void mobjTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            HttpContext.Current.Session[SessionConstants.CurrentNode] = e.Node.FullPath;
+            string[] split = e.Node.FullPath.Split("\\".ToCharArray());
+            string[] split1 = split[1].Split("|".ToCharArray());
+            HttpContext.Current.Session[SessionConstants.CurrentRound] = int.Parse(split1[1]);
             (mobjBaseForm as MainForm).SelectCategory(e.Node.Tag as CategoryNode, true);
         }
 

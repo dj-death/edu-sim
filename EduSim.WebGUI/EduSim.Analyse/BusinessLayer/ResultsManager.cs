@@ -77,7 +77,7 @@ namespace EduSim.Analyse.BusinessLayer
                            select new CurrentRoundForecast
                            {
                                SegmentTypeId = grp.Key.SegmentTypeId,
-                               Quantity = grp.Sum(o => o.ForecastingQuantity)
+                               Quantity = grp.Sum(o => o.ForecastingQuantity.HasValue ? o.ForecastingQuantity.Value : 0)
                            };
 
             foreach (CurrentRoundForecast forecastDataVal in forecastData)
