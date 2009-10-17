@@ -213,7 +213,16 @@
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
-    <Compile Include="BindedGrid\BindedDataGridViewControl.cs">
+    <Compile Include="BindedGrid\FinanceDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BindedGrid\ProductionDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BindedGrid\MarketingDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BindedGrid\RnDDataGridView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="BrixListControl.cs">
@@ -256,8 +265,17 @@
     <Content Include="XmlForms\Administrator\User Management\User.xml" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BindedGrid\BindedDataGridViewControl.resx">
-      <DependentUpon>BindedDataGridViewControl.cs</DependentUpon>
+    <EmbeddedResource Include="BindedGrid\FinanceDataGridView.resx">
+      <DependentUpon>FinanceDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindedGrid\ProductionDataGridView.resx">
+      <DependentUpon>ProductionDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindedGrid\MarketingDataGridView.resx">
+      <DependentUpon>MarketingDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindedGrid\RnDDataGridView.resx">
+      <DependentUpon>RnDDataGridView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BrixListControl.resx">
       <DependentUpon>BrixListControl.cs</DependentUpon>
