@@ -3,7 +3,7 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
-
+using System.Linq;
 using Gizmox.WebGUI.Forms;
 using System.Xml;
 using System.Xml.Serialization;
@@ -13,6 +13,7 @@ using Gizmox.WebGUI.Common.Resources;
 using EduSim.CoreFramework.Common;
 using EduSim.WebGUI.UI;
 using EduSim.CoreFramework.DTO;
+using Gizmox.WebGUI.Forms.Catalog.Categories.DataControls;
 
 
 namespace Gizmox.WebGUI.Forms.Catalog
@@ -29,6 +30,8 @@ namespace Gizmox.WebGUI.Forms.Catalog
         //TODO: We need to implement ModuleManagement
         private Gizmox.WebGUI.Forms.Panel mobjPanelCategory;
         private RootCategoryNode mobjRootCategoryNode = null;
+        private CategoryNode simulationHandle = null;
+        private XmlElement simulationSection = null;
 
         public MainForm()
         {
@@ -202,6 +205,11 @@ namespace Gizmox.WebGUI.Forms.Catalog
             {
                 // Create section
                 objCategoryNode = this.RootCategory.AddCategory(objCatalogSection.GetAttribute("Label"), objCatalogSection.GetAttribute("Icon"));
+                if(objCatalogSection.GetAttribute("Label").Equals("Simulations"))
+                {
+                    simulationSection = objCatalogSection;
+                    simulationHandle = objCategoryNode;
+                }
             }
             else
             {
@@ -262,9 +270,44 @@ namespace Gizmox.WebGUI.Forms.Catalog
         {
 
             txtMeaningOfLife.Text = GetMeaningOfLifeFromSecureDatabase();
-            //MessageBox.Show("Logon successfully!");
             //Implement here what you usually do in Form_Load.
+            BuildGameTree();
         }
+
+        private void BuildGameTree()
+        {
+            UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
+
+            EduSimDb db = new EduSimDb();
+
+            (from g in db.Game
+             join t in db.TeamGame on g.Id equals t.GameId
+             where t.TeamUser.UserDetails == user
+             select g).ToList<Game>().ForEach(o =>
+            {
+                CategoryNode catNode = simulationHandle.AddCategory(o.Id.ToString());
+
+                BuildRoundTree(o.Id, catNode, user, db);
+            });
+        }
+
+        private void BuildRoundTree(int gameId, CategoryNode catNode, UserDetails user, EduSimDb db)
+        {
+            (from r in db.Round
+             join t in db.TeamGame on r.TeamGameId equals t.Id
+             join g in db.Game on gameId equals g.Id
+             where t.TeamUser.UserDetails == user
+             select r).ToList<Round>().ForEach(o =>
+             {
+                 CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id );
+                 catNode1.AddCategory("R&D", typeof(RnDDataGridView));
+                 catNode1.AddCategory("Marketing", typeof(MarketingDataGridView));
+                 catNode1.AddCategory("Production", typeof(ProductionDataGridView));
+                 catNode1.AddCategory("Finance", typeof(FinanceDataGridView));
+                 catNode1.AddCategory("Reports", typeof(RnDDataGridView));
+             });
+        }
+
         private string GetMeaningOfLifeFromSecureDatabase()
         {
             return "42";
@@ -532,8 +575,8 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
         private void mobjTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
+            HttpContext.Current.Session[SessionConstants.CurrentNode] = e.Node.FullPath;
             (mobjBaseForm as MainForm).SelectCategory(e.Node.Tag as CategoryNode, true);
-
         }
 
         public override TreeNodeCollection Nodes
@@ -559,7 +602,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
         {
         }
 
-        public TypeCategoryNode(CategoryNode objParent, TreeNodeCollection objParebtNodes, string strLabel, string xmlForm, string brixModule, string strIcon)
+        public TypeCategoryNode(CategoryNode objParent, TreeNodeCollection objParentNodes, string strLabel, string xmlForm, string brixModule, string strIcon)
             : base(objParent, strLabel)
         {
             mobjNode = new TreeNode(strLabel);
@@ -567,7 +610,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
             //mobjNode.ExpandedImage = new IconResourceHandle("Interface.gif");
             mobjNode.Tag = this;
             mobjNode.IsExpanded = false;
-            objParebtNodes.Add(mobjNode);
+            objParentNodes.Add(mobjNode);
             mobjNodes = mobjNode.Nodes;
             this.xmlForm = xmlForm;
             this.brixModule = brixModule;
