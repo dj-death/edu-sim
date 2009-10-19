@@ -46,8 +46,10 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             EduSimDb db = new EduSimDb();
             var data = from r in db.RnDData
                        join rp in db.RoundProduct on r.RoundProduct equals rp
-                       where r.RoundProduct.RoundId == roundId
-                       where r.RoundProduct.Round.TeamGame.TeamUser.UserDetails == user
+                       join rd in db.Round on rp.Round equals rd
+                       join t in db.TeamGame on rd.TeamGameId equals t.Id
+                       join tu in db.TeamUser on t.TeamId equals tu.Id
+                       where rd.Id == roundId && tu.UserDetails == user
                        select new
                        {
                            ProductName = rp.ProductName,

@@ -14,6 +14,12 @@ namespace EduSim.CoreFramework.Common
         public string TableName = string.Empty;
         [XmlAttribute("PrimaryKeyName")]
         public string PrimaryKeyName = string.Empty;
+        [XmlAttribute("HandlerClass")]
+        public string HandlerClass = string.Empty;
+        [XmlAttribute("SaveEvent")]
+        public string SaveEvent = string.Empty;
+        [XmlAttribute("DeleteEvent")]
+        public string DeleteEvent = string.Empty;
         [XmlElement("BrixDataEntry")]
         public List<BrixDataEntry> BrixDataEntries = new List<BrixDataEntry>();
     }
@@ -31,12 +37,8 @@ namespace EduSim.CoreFramework.Common
         public bool IsFirstColumn = true;
         [XmlAttribute("IsPassword")]
         public bool IsPassword = false;
+        [XmlAttribute("DataSource")]
+        public string DataSource = string.Empty;
     }
 
-    [Serializable]
-    public enum BrixControl
-    {
-        TextBox,
-        Grid
-    }
 }

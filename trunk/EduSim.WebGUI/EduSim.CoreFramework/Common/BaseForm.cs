@@ -25,7 +25,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
 		private Gizmox.WebGUI.Forms.Splitter mobjSplitterVert;
 		
-		protected Gizmox.WebGUI.Forms.NavigationTabs mobjTabsMain;
+		public Gizmox.WebGUI.Forms.NavigationTabs mobjTabsMain;
 		protected Gizmox.WebGUI.Forms.ToolBar mobjToolBarMain;
 		private Gizmox.WebGUI.Forms.Panel mobjPanelSpace;
         private Gizmox.WebGUI.Forms.Panel mobjPoweredByPanel;

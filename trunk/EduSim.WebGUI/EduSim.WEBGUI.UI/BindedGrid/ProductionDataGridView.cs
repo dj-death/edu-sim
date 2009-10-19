@@ -32,9 +32,9 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
         private System.ComponentModel.Container components = null;
 
         public ProductionDataGridView()
-		{
-			// This call is required by the WebGUI Form Designer.
-			InitializeComponent();
+        {
+            // This call is required by the WebGUI Form Designer.
+            InitializeComponent();
 
             // Initialize dataGridView1 data source
             /*mobjDatabaseData = new DatabaseData();
@@ -47,33 +47,35 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 
             var data = from p in db.ProductionData
                        join rp in db.RoundProduct on p.RoundProduct equals rp
+                       join rd in db.Round on rp.Round equals rd
+                       join t in db.TeamGame on rd.TeamGameId equals t.Id
+                       join tu in db.TeamUser on t.TeamId equals tu.Id
                        join m in db.MarketingData on p.RoundProduct equals m.RoundProduct
-                       where p.RoundProduct.RoundId == roundId
-                                              where p.RoundProduct.Round.TeamGame.TeamUser.UserDetails == user
-                                              select new 
-                                              {
-                                                  ProductName = rp.ProductName,
-                                                  ProductCategory = rp.SegmentType.Description,
-                                                  Inventory = p.Inventory,
-                                                  ForecastedQuantity = m.ForecastingQuantity,
-                                                  TotalQuantity = p.Inventory + m.ForecastingQuantity,
-                                                  ManufacturedQuantity = p.ManufacturedQuantity,     
-                                                  MaterialCost = 0,
-                                                  LabourCost = 0,
-                                                  ContributionMargin = p.Contribution,
-                                                  SecondShift = 0,
-                                                  OldAutomation = p.CurrentAutomation,
-                                                  NewAutomation = p.AutomationForNextRound,
-                                                  Capacity = p.OldCapacity,
-                                                  NewCapacity = p.NewCapacity,
-                                                  NewCapacityCost = 0,
-                                                  NumberOfLabour = 0,
-                                                  Utilization = 0,
-                                              };
+                       where rd.Id == roundId && tu.UserDetails == user
+                       select new
+                       {
+                           ProductName = rp.ProductName,
+                           ProductCategory = rp.SegmentType.Description,
+                           Inventory = p.Inventory,
+                           ForecastedQuantity = m.ForecastingQuantity,
+                           TotalQuantity = p.Inventory + m.ForecastingQuantity,
+                           ManufacturedQuantity = p.ManufacturedQuantity,
+                           MaterialCost = 0,
+                           LabourCost = 0,
+                           ContributionMargin = p.Contribution,
+                           SecondShift = 0,
+                           OldAutomation = p.CurrentAutomation,
+                           NewAutomation = p.AutomationForNextRound,
+                           Capacity = p.OldCapacity,
+                           NewCapacity = p.NewCapacity,
+                           NewCapacityCost = 0,
+                           NumberOfLabour = 0,
+                           Utilization = 0,
+                       };
 
             this.dataGridView1.DataMember = "Customers";
             this.dataGridView1.DataSource = data;
-		}
+        }
 
 		#region Component Designer generated code
 		/// <summary> 

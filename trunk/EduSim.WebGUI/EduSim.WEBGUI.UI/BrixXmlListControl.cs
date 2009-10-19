@@ -11,6 +11,7 @@ using Gizmox.WebGUI.Forms.Catalog;
 using System.Collections.Generic;
 using System.Reflection;
 using EduSim.CoreFramework.Common;
+using EduSim.CoreFramework.DataAccess;
 
 namespace EduSim.WebGUI.UI
 {
@@ -204,6 +205,13 @@ namespace EduSim.WebGUI.UI
             if (bindingNavigator1.AddNewItem == objEvent.Button)
             {
                 MainForm.SelectCategory(typeof(BrixXmlEditControl), new object[] { BrixMainForm, null });
+            }
+            if (bindingNavigator1.DeleteItem == objEvent.Button)
+            {
+                Type type = Type.GetType(BrixMainForm.HandlerClass);
+                MethodInfo miHandler = type.GetMethod(BrixMainForm.DeleteEvent, BindingFlags.Public | BindingFlags.Static);
+
+                miHandler.Invoke(null, new object[] { BrixMainForm, mobjListView.SelectedItem.SubItems[0].Text });
             }
         }
 
