@@ -393,7 +393,7 @@ public partial class FinanceData : INotifyPropertyChanging, INotifyPropertyChang
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -600,7 +600,7 @@ public partial class Game : INotifyPropertyChanging, INotifyPropertyChanged
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -1484,7 +1484,7 @@ public partial class LabourData : INotifyPropertyChanging, INotifyPropertyChange
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -1657,7 +1657,7 @@ public partial class MarketingData : INotifyPropertyChanging, INotifyPropertyCha
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -2085,7 +2085,7 @@ public partial class ProductionData : INotifyPropertyChanging, INotifyPropertyCh
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -2499,7 +2499,7 @@ public partial class RnDData : INotifyPropertyChanging, INotifyPropertyChanged
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -3001,7 +3001,7 @@ public partial class Round : INotifyPropertyChanging, INotifyPropertyChanged
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -3695,7 +3695,7 @@ public partial class RoundProduct : INotifyPropertyChanging, INotifyPropertyChan
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -4240,11 +4240,11 @@ public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private string _Name;
 	
-	private string _Players;
-	
 	private System.DateTime _CreatedDate;
 	
 	private bool _Active;
+	
+	private EntitySet<TeamGame> _TeamGame;
 	
 	private EntitySet<TeamUser> _TeamUser;
 	
@@ -4256,8 +4256,6 @@ public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
     partial void OnIdChanged();
     partial void OnNameChanging(string value);
     partial void OnNameChanged();
-    partial void OnPlayersChanging(string value);
-    partial void OnPlayersChanged();
     partial void OnCreatedDateChanging(System.DateTime value);
     partial void OnCreatedDateChanged();
     partial void OnActiveChanging(bool value);
@@ -4266,11 +4264,12 @@ public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public Team()
 	{
+		this._TeamGame = new EntitySet<TeamGame>(new Action<TeamGame>(this.attach_TeamGame), new Action<TeamGame>(this.detach_TeamGame));
 		this._TeamUser = new EntitySet<TeamUser>(new Action<TeamUser>(this.attach_TeamUser), new Action<TeamUser>(this.detach_TeamUser));
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -4306,26 +4305,6 @@ public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
 				this._Name = value;
 				this.SendPropertyChanged("Name");
 				this.OnNameChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Players", DbType="VarChar(300) NOT NULL", CanBeNull=false)]
-	public string Players
-	{
-		get
-		{
-			return this._Players;
-		}
-		set
-		{
-			if ((this._Players != value))
-			{
-				this.OnPlayersChanging(value);
-				this.SendPropertyChanging();
-				this._Players = value;
-				this.SendPropertyChanged("Players");
-				this.OnPlayersChanged();
 			}
 		}
 	}
@@ -4370,6 +4349,19 @@ public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	[Association(Name="FK_TeamGame_Team", Storage="_TeamGame", ThisKey="Id", OtherKey="TeamId", DeleteRule="NO ACTION")]
+	public EntitySet<TeamGame> TeamGame
+	{
+		get
+		{
+			return this._TeamGame;
+		}
+		set
+		{
+			this._TeamGame.Assign(value);
+		}
+	}
+	
 	[Association(Name="FK_TeamUser_Team", Storage="_TeamUser", ThisKey="Id", OtherKey="TeamId", DeleteRule="NO ACTION")]
 	public EntitySet<TeamUser> TeamUser
 	{
@@ -4403,6 +4395,18 @@ public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
+	private void attach_TeamGame(TeamGame entity)
+	{
+		this.SendPropertyChanging();
+		entity.Team = this;
+	}
+	
+	private void detach_TeamGame(TeamGame entity)
+	{
+		this.SendPropertyChanging();
+		entity.Team = null;
+	}
+	
 	private void attach_TeamUser(TeamUser entity)
 	{
 		this.SendPropertyChanging();
@@ -4432,7 +4436,7 @@ public partial class TeamGame : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private EntityRef<Game> _Game;
 	
-	private EntityRef<TeamUser> _TeamUser;
+	private EntityRef<Team> _Team;
 	
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -4450,11 +4454,11 @@ public partial class TeamGame : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		this._Round = new EntitySet<Round>(new Action<Round>(this.attach_Round), new Action<Round>(this.detach_Round));
 		this._Game = default(EntityRef<Game>);
-		this._TeamUser = default(EntityRef<TeamUser>);
+		this._Team = default(EntityRef<Team>);
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -4509,7 +4513,7 @@ public partial class TeamGame : INotifyPropertyChanging, INotifyPropertyChanged
 		{
 			if ((this._TeamId != value))
 			{
-				if (this._TeamUser.HasLoadedOrAssignedValue)
+				if (this._Team.HasLoadedOrAssignedValue)
 				{
 					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
 				}
@@ -4569,26 +4573,26 @@ public partial class TeamGame : INotifyPropertyChanging, INotifyPropertyChanged
 		}
 	}
 	
-	[Association(Name="FK_TeamGame_TeamUser", Storage="_TeamUser", ThisKey="TeamId", OtherKey="Id", IsForeignKey=true)]
-	public TeamUser TeamUser
+	[Association(Name="FK_TeamGame_Team", Storage="_Team", ThisKey="TeamId", OtherKey="Id", IsForeignKey=true)]
+	public Team Team
 	{
 		get
 		{
-			return this._TeamUser.Entity;
+			return this._Team.Entity;
 		}
 		set
 		{
-			TeamUser previousValue = this._TeamUser.Entity;
+			Team previousValue = this._Team.Entity;
 			if (((previousValue != value) 
-						|| (this._TeamUser.HasLoadedOrAssignedValue == false)))
+						|| (this._Team.HasLoadedOrAssignedValue == false)))
 			{
 				this.SendPropertyChanging();
 				if ((previousValue != null))
 				{
-					this._TeamUser.Entity = null;
+					this._Team.Entity = null;
 					previousValue.TeamGame.Remove(this);
 				}
-				this._TeamUser.Entity = value;
+				this._Team.Entity = value;
 				if ((value != null))
 				{
 					value.TeamGame.Add(this);
@@ -4598,7 +4602,7 @@ public partial class TeamGame : INotifyPropertyChanging, INotifyPropertyChanged
 				{
 					this._TeamId = default(int);
 				}
-				this.SendPropertyChanged("TeamUser");
+				this.SendPropertyChanged("Team");
 			}
 		}
 	}
@@ -4648,8 +4652,6 @@ public partial class TeamUser : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	private int _UserId;
 	
-	private EntitySet<TeamGame> _TeamGame;
-	
 	private EntityRef<Team> _Team;
 	
 	private EntityRef<UserDetails> _UserDetails;
@@ -4668,13 +4670,12 @@ public partial class TeamUser : INotifyPropertyChanging, INotifyPropertyChanged
 	
 	public TeamUser()
 	{
-		this._TeamGame = new EntitySet<TeamGame>(new Action<TeamGame>(this.attach_TeamGame), new Action<TeamGame>(this.detach_TeamGame));
 		this._Team = default(EntityRef<Team>);
 		this._UserDetails = default(EntityRef<UserDetails>);
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -4739,19 +4740,6 @@ public partial class TeamUser : INotifyPropertyChanging, INotifyPropertyChanged
 				this.SendPropertyChanged("UserId");
 				this.OnUserIdChanged();
 			}
-		}
-	}
-	
-	[Association(Name="FK_TeamGame_TeamUser", Storage="_TeamGame", ThisKey="Id", OtherKey="TeamId", DeleteRule="NO ACTION")]
-	public EntitySet<TeamGame> TeamGame
-	{
-		get
-		{
-			return this._TeamGame;
-		}
-		set
-		{
-			this._TeamGame.Assign(value);
 		}
 	}
 	
@@ -4842,18 +4830,6 @@ public partial class TeamUser : INotifyPropertyChanging, INotifyPropertyChanged
 			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 		}
 	}
-	
-	private void attach_TeamGame(TeamGame entity)
-	{
-		this.SendPropertyChanging();
-		entity.TeamUser = this;
-	}
-	
-	private void detach_TeamGame(TeamGame entity)
-	{
-		this.SendPropertyChanging();
-		entity.TeamUser = null;
-	}
 }
 
 [Table(Name="dbo.UserDetails")]
@@ -4903,7 +4879,7 @@ public partial class UserDetails : INotifyPropertyChanging, INotifyPropertyChang
 		OnCreated();
 	}
 	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
+	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
 	public int Id
 	{
 		get
@@ -5022,12 +4998,7 @@ public partial class UserDetails : INotifyPropertyChanging, INotifyPropertyChang
 			}
 		}
 	}
-
-    public Role RoleEnum
-    {
-        get { return (Role)Enum.Parse(typeof(Role), _Role); }
-    }
-
+	
 	[Association(Name="FK_TeamUser_User", Storage="_TeamUser", ThisKey="Id", OtherKey="UserId", DeleteRule="NO ACTION")]
 	public EntitySet<TeamUser> TeamUser
 	{

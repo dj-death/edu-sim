@@ -294,7 +294,7 @@ namespace EduSim.CoreFramework.DataAccess
                     if ((prop.PropertyType).FullName.Contains("System.Int64"))
                     {
                         if (!obj.Equals(DBNull.Value))
-                            prop.SetValue(dto, BrixDatatypeHelper.ToInt64_2(obj), null);
+                            prop.SetValue(dto, DatatypeHelper.ToInt64_2(obj), null);
                     }
                     else
                         prop.SetValue(dto, obj.Equals(DBNull.Value) ? null : obj, null);

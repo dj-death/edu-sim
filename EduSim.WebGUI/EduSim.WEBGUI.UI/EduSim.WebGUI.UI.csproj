@@ -200,7 +200,7 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>2273</DevelopmentServerPort>
+          <DevelopmentServerPort>57638</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost/Gizmox.WebGUI.Forms.Catalog</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
@@ -236,10 +236,6 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="Constants.cs" />
-    <Compile Include="ControlFactory.cs" />
-    <Compile Include="DatabaseData.cs">
-      <SubType>Component</SubType>
-    </Compile>
     <Compile Include="LogicalCategory.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -258,9 +254,13 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="XmlForms\Administrator\Game Definition\GameManager.cs" />
+    <Compile Include="XmlForms\Administrator\Game Definition\TeamManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
+    <Content Include="XmlForms\Administrator\Game Definition\TeamGame.xml" />
+    <Content Include="XmlForms\Administrator\Game Definition\UserTeam.xml" />
     <Content Include="XmlForms\Administrator\User Management\Role.xml" />
     <Content Include="XmlForms\Administrator\User Management\User.xml" />
   </ItemGroup>

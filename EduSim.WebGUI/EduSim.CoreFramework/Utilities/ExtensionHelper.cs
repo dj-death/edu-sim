@@ -7,10 +7,11 @@ using System.Data;
 using System.Reflection;
 using System.Xml;
 using EduSim.CoreFramework.DataAccess;
+using EduSim.CoreFramework.DTO;
 
 namespace EduSim.CoreUtilities.Utility
 {
-    public static class BrixDatatypeHelper
+    public static class DatatypeHelper
     {
         public static string ToUpper2(this string str)
         {
@@ -174,6 +175,11 @@ namespace EduSim.CoreUtilities.Utility
                 foreach (PropertyInfo trgPI in trgProps)
                     if (srcPI.Name.Equals(trgPI.Name))
                         trgPI.SetValue(trg, srcPI.GetValue(src, null), null);
+        }
+
+        public static Role RoleEnum( this UserDetails user)
+        {
+            return (Role)Enum.Parse(typeof(Role), user.Role);
         }
     }
 

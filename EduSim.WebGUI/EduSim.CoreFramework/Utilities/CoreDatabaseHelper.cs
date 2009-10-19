@@ -12,8 +12,6 @@ using System.IO.Compression;
 using System.Text;
 using System.Web;
 using System.Web.Configuration;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using System.Xml;
 using System.Reflection;
 using Microsoft.Practices.EnterpriseLibrary.Data;
@@ -23,9 +21,12 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Globalization;
 using EduSim.CoreFramework.DataAccess;
+using Gizmox.WebGUI.Forms;
 
 namespace EduSim.CoreFramework.Common
 {
+    public delegate void CreateAssociation(object obj, CheckedListBox checkedListBox);
+
     public static class CoreDatabaseHelper
     {
         private const string IMGPATHCATALOG = "~/Images/IcnPage.gif";
@@ -269,5 +270,35 @@ namespace EduSim.CoreFramework.Common
             return new string[] { "\r\nGO", "\nGO", "\r\nGo", "\nGo" };
         }
 
+        public static void Modify(List<Control> list, object obj, CreateAssociation CreateAssociation)
+        {
+            if (obj != null)
+            {
+                foreach (Control control in list)
+                {
+                    foreach (PropertyInfo prop in obj.GetType().GetProperties())
+                    {
+                        if (control.Name.Equals(prop.Name))
+                        {
+                            if (control is TextBox)
+                            {
+                                prop.SetValue(obj, control.Text, null);
+                                break;
+                            }
+                            else if (control is CheckBox)
+                            {
+                                prop.SetValue(obj, (control as CheckBox).Checked, null);
+                                break;
+                            }
+                        }
+                        else if (control is CheckedListBox)
+                        {
+                            CreateAssociation(obj, control as CheckedListBox);
+                            break;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

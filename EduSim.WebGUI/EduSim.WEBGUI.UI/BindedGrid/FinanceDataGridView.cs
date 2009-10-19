@@ -40,18 +40,17 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             /*mobjDatabaseData = new DatabaseData();
             mobjDatabaseData.LoadCustomers();*/
 
-            string path = HttpContext.Current.Session[SessionConstants.CurrentRound] as string;
             UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
-
-            string[] split = path.Split("\\".ToCharArray());
-            string[] split1 = split[1].Split("|".ToCharArray());
+            int roundId = (int)HttpContext.Current.Session[SessionConstants.CurrentRound];
 
             EduSimDb db = new EduSimDb();
 
-            IQueryable<FinanceData> data = from r in db.FinanceData
-                                             where r.Round.Id == int.Parse(split1[1])
-                                             where r.Round.TeamGame.TeamUser.UserDetails == user
-                                             select r;
+            IQueryable<FinanceData> data = from f in db.FinanceData
+                                           join r in db.Round on f.Round equals r
+                                           join t in db.TeamGame on r.TeamGameId equals t.Id
+                                           join tu in db.TeamUser on t.TeamId equals tu.Id
+                                           where r.Id == roundId && tu.UserDetails == user
+                                           select f;
 
             this.dataGridView1.DataMember = "Customers";
             this.dataGridView1.DataSource = data;

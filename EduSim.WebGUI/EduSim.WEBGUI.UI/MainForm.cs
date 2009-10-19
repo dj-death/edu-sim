@@ -13,6 +13,7 @@ using Gizmox.WebGUI.Common.Resources;
 using EduSim.CoreFramework.Common;
 using EduSim.WebGUI.UI;
 using EduSim.CoreFramework.DTO;
+using EduSim.CoreUtilities.Utility;
 using Gizmox.WebGUI.Forms.Catalog.Categories.DataControls;
 
 
@@ -281,8 +282,9 @@ namespace Gizmox.WebGUI.Forms.Catalog
             EduSimDb db = new EduSimDb();
 
             (from g in db.Game
-             join t in db.TeamGame on g.Id equals t.GameId
-             where t.TeamUser.UserDetails == user
+             join tg in db.TeamGame on g.Id equals tg.GameId
+             join tu in db.TeamUser on tg.TeamId equals tu.UserId
+             where tu.UserDetails == user
              select g).ToList<Game>().ForEach(o =>
             {
                 CategoryNode catNode = simulationHandle.AddCategory(o.Id.ToString());
@@ -295,8 +297,8 @@ namespace Gizmox.WebGUI.Forms.Catalog
         {
             (from r in db.Round
              join t in db.TeamGame on r.TeamGameId equals t.Id
-             join g in db.Game on gameId equals g.Id
-             where t.TeamUser.UserDetails == user
+             join tu in db.TeamUser on t.TeamId equals tu.Id
+             where tu.UserDetails == user && t.GameId ==  gameId 
              select r).ToList<Round>().ForEach(o =>
              {
                  CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id );
@@ -385,7 +387,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
             // Check that there is a selected item
             UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
 
-            if (mobjTabsMain.SelectedIndex != 0 && user.RoleEnum == Role.Player)
+            if (mobjTabsMain.SelectedIndex != 0 && user.RoleEnum() == Role.Player)
             {
                 if (mobjTabsMain.SelectedItem.Text.Equals(TabConstants.Administrator))
                 {
@@ -575,9 +577,15 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
         private void mobjTreeView_AfterSelect(object sender, TreeViewEventArgs e)
         {
-            string[] split = e.Node.FullPath.Split("\\".ToCharArray());
-            string[] split1 = split[1].Split("|".ToCharArray());
-            HttpContext.Current.Session[SessionConstants.CurrentRound] = int.Parse(split1[1]);
+            if (mobjBaseForm.mobjTabsMain.SelectedIndex == 0)
+            {
+                string[] split = e.Node.FullPath.Split("\\".ToCharArray());
+                if (split.Length > 1)
+                {
+                    string[] split1 = split[1].Split("|".ToCharArray());
+                    HttpContext.Current.Session[SessionConstants.CurrentRound] = int.Parse(split1[1]);
+                }
+            }
             (mobjBaseForm as MainForm).SelectCategory(e.Node.Tag as CategoryNode, true);
         }
 
