@@ -24,5218 +24,5759 @@ using Microsoft.Practices.EnterpriseLibrary.Data.Configuration;
 
 namespace EduSim.CoreFramework.DTO
 {
-    public partial class EduSimDb : System.Data.Linq.DataContext
+    public partial class Edusim : System.Data.Linq.DataContext
     {
-        public EduSimDb() :
+        public Edusim() :
             base(ConfigurationManager.ConnectionStrings[((DatabaseSettings)ConfigurationManager.GetSection(DatabaseSettings.SectionName)).DefaultDatabase].ConnectionString, mappingSource)
         {
             OnCreated();
         }
 
-	private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
-	
-  #region Extensibility Method Definitions
-  partial void OnCreated();
-  partial void InsertFinanceData(FinanceData instance);
-  partial void UpdateFinanceData(FinanceData instance);
-  partial void DeleteFinanceData(FinanceData instance);
-  partial void InsertGame(Game instance);
-  partial void UpdateGame(Game instance);
-  partial void DeleteGame(Game instance);
-  partial void InsertGameCriteria(GameCriteria instance);
-  partial void UpdateGameCriteria(GameCriteria instance);
-  partial void DeleteGameCriteria(GameCriteria instance);
-  partial void InsertGameInitialData(GameInitialData instance);
-  partial void UpdateGameInitialData(GameInitialData instance);
-  partial void DeleteGameInitialData(GameInitialData instance);
-  partial void InsertLabourData(LabourData instance);
-  partial void UpdateLabourData(LabourData instance);
-  partial void DeleteLabourData(LabourData instance);
-  partial void InsertMarketingData(MarketingData instance);
-  partial void UpdateMarketingData(MarketingData instance);
-  partial void DeleteMarketingData(MarketingData instance);
-  partial void InsertProductionData(ProductionData instance);
-  partial void UpdateProductionData(ProductionData instance);
-  partial void DeleteProductionData(ProductionData instance);
-  partial void InsertRnDData(RnDData instance);
-  partial void UpdateRnDData(RnDData instance);
-  partial void DeleteRnDData(RnDData instance);
-  partial void InsertRoleDetails(RoleDetails instance);
-  partial void UpdateRoleDetails(RoleDetails instance);
-  partial void DeleteRoleDetails(RoleDetails instance);
-  partial void InsertRound(Round instance);
-  partial void UpdateRound(Round instance);
-  partial void DeleteRound(Round instance);
-  partial void InsertRoundCategory(RoundCategory instance);
-  partial void UpdateRoundCategory(RoundCategory instance);
-  partial void DeleteRoundCategory(RoundCategory instance);
-  partial void InsertRoundCriteria(RoundCriteria instance);
-  partial void UpdateRoundCriteria(RoundCriteria instance);
-  partial void DeleteRoundCriteria(RoundCriteria instance);
-  partial void InsertRoundProduct(RoundProduct instance);
-  partial void UpdateRoundProduct(RoundProduct instance);
-  partial void DeleteRoundProduct(RoundProduct instance);
-  partial void InsertSegmentType(SegmentType instance);
-  partial void UpdateSegmentType(SegmentType instance);
-  partial void DeleteSegmentType(SegmentType instance);
-  partial void InsertTeam(Team instance);
-  partial void UpdateTeam(Team instance);
-  partial void DeleteTeam(Team instance);
-  partial void InsertTeamGame(TeamGame instance);
-  partial void UpdateTeamGame(TeamGame instance);
-  partial void DeleteTeamGame(TeamGame instance);
-  partial void InsertTeamUser(TeamUser instance);
-  partial void UpdateTeamUser(TeamUser instance);
-  partial void DeleteTeamUser(TeamUser instance);
-  partial void InsertUserDetails(UserDetails instance);
-  partial void UpdateUserDetails(UserDetails instance);
-  partial void DeleteUserDetails(UserDetails instance);
-  partial void InsertUserRole(UserRole instance);
-  partial void UpdateUserRole(UserRole instance);
-  partial void DeleteUserRole(UserRole instance);
-  #endregion
-	
-	public EduSimDb(string connection) : 
-			base(connection, mappingSource)
-	{
-		OnCreated();
-	}
-	
-	public EduSimDb(System.Data.IDbConnection connection) : 
-			base(connection, mappingSource)
-	{
-		OnCreated();
-	}
-	
-	public EduSimDb(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
-			base(connection, mappingSource)
-	{
-		OnCreated();
-	}
-	
-	public EduSimDb(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
-			base(connection, mappingSource)
-	{
-		OnCreated();
-	}
-	
-	public System.Data.Linq.Table<ConfigurationData> ConfigurationData
-	{
-		get
-		{
-			return this.GetTable<ConfigurationData>();
-		}
-	}
-	
-	public System.Data.Linq.Table<FinanceData> FinanceData
-	{
-		get
-		{
-			return this.GetTable<FinanceData>();
-		}
-	}
-	
-	public System.Data.Linq.Table<Game> Game
-	{
-		get
-		{
-			return this.GetTable<Game>();
-		}
-	}
-	
-	public System.Data.Linq.Table<GameCriteria> GameCriteria
-	{
-		get
-		{
-			return this.GetTable<GameCriteria>();
-		}
-	}
-	
-	public System.Data.Linq.Table<GameInitialData> GameInitialData
-	{
-		get
-		{
-			return this.GetTable<GameInitialData>();
-		}
-	}
-	
-	public System.Data.Linq.Table<LabourData> LabourData
-	{
-		get
-		{
-			return this.GetTable<LabourData>();
-		}
-	}
-	
-	public System.Data.Linq.Table<MarketingData> MarketingData
-	{
-		get
-		{
-			return this.GetTable<MarketingData>();
-		}
-	}
-	
-	public System.Data.Linq.Table<ProductCategory> ProductCategory
-	{
-		get
-		{
-			return this.GetTable<ProductCategory>();
-		}
-	}
-	
-	public System.Data.Linq.Table<ProductionData> ProductionData
-	{
-		get
-		{
-			return this.GetTable<ProductionData>();
-		}
-	}
-	
-	public System.Data.Linq.Table<ProductsAvailablePerRound> ProductsAvailablePerRound
-	{
-		get
-		{
-			return this.GetTable<ProductsAvailablePerRound>();
-		}
-	}
-	
-	public System.Data.Linq.Table<RnDData> RnDData
-	{
-		get
-		{
-			return this.GetTable<RnDData>();
-		}
-	}
-	
-	public System.Data.Linq.Table<RoleDetails> RoleDetails
-	{
-		get
-		{
-			return this.GetTable<RoleDetails>();
-		}
-	}
-	
-	public System.Data.Linq.Table<Round> Round
-	{
-		get
-		{
-			return this.GetTable<Round>();
-		}
-	}
-	
-	public System.Data.Linq.Table<RoundCategory> RoundCategory
-	{
-		get
-		{
-			return this.GetTable<RoundCategory>();
-		}
-	}
-	
-	public System.Data.Linq.Table<RoundCriteria> RoundCriteria
-	{
-		get
-		{
-			return this.GetTable<RoundCriteria>();
-		}
-	}
-	
-	public System.Data.Linq.Table<RoundProduct> RoundProduct
-	{
-		get
-		{
-			return this.GetTable<RoundProduct>();
-		}
-	}
-	
-	public System.Data.Linq.Table<SegmentMarketDemand> SegmentMarketDemand
-	{
-		get
-		{
-			return this.GetTable<SegmentMarketDemand>();
-		}
-	}
-	
-	public System.Data.Linq.Table<SegmentType> SegmentType
-	{
-		get
-		{
-			return this.GetTable<SegmentType>();
-		}
-	}
-	
-	public System.Data.Linq.Table<Team> Team
-	{
-		get
-		{
-			return this.GetTable<Team>();
-		}
-	}
-	
-	public System.Data.Linq.Table<TeamGame> TeamGame
-	{
-		get
-		{
-			return this.GetTable<TeamGame>();
-		}
-	}
-	
-	public System.Data.Linq.Table<TeamUser> TeamUser
-	{
-		get
-		{
-			return this.GetTable<TeamUser>();
-		}
-	}
-	
-	public System.Data.Linq.Table<UserDetails> UserDetails
-	{
-		get
-		{
-			return this.GetTable<UserDetails>();
-		}
-	}
-	
-	public System.Data.Linq.Table<UserRole> UserRole
-	{
-		get
-		{
-			return this.GetTable<UserRole>();
-		}
-	}
-}
+        private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
 
-[Table(Name="dbo.ConfigurationData")]
-public partial class ConfigurationData
-{
-	
-	private string _Name;
-	
-	private double _Value;
-	
-	public ConfigurationData()
-	{
-	}
-	
-	[Column(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string Name
-	{
-		get
-		{
-			return this._Name;
-		}
-		set
-		{
-			if ((this._Name != value))
-			{
-				this._Name = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_Value", DbType="Float NOT NULL")]
-	public double Value
-	{
-		get
-		{
-			return this._Value;
-		}
-		set
-		{
-			if ((this._Value != value))
-			{
-				this._Value = value;
-			}
-		}
-	}
-}
+        #region Extensibility Method Definitions
+        partial void OnCreated();
+        partial void InsertFinanceData(FinanceData instance);
+        partial void UpdateFinanceData(FinanceData instance);
+        partial void DeleteFinanceData(FinanceData instance);
+        partial void InsertGame(Game instance);
+        partial void UpdateGame(Game instance);
+        partial void DeleteGame(Game instance);
+        partial void InsertGameCriteria(GameCriteria instance);
+        partial void UpdateGameCriteria(GameCriteria instance);
+        partial void DeleteGameCriteria(GameCriteria instance);
+        partial void InsertGameInitialData(GameInitialData instance);
+        partial void UpdateGameInitialData(GameInitialData instance);
+        partial void DeleteGameInitialData(GameInitialData instance);
+        partial void InsertLabourData(LabourData instance);
+        partial void UpdateLabourData(LabourData instance);
+        partial void DeleteLabourData(LabourData instance);
+        partial void InsertMarketingData(MarketingData instance);
+        partial void UpdateMarketingData(MarketingData instance);
+        partial void DeleteMarketingData(MarketingData instance);
+        partial void InsertProductCategory(ProductCategory instance);
+        partial void UpdateProductCategory(ProductCategory instance);
+        partial void DeleteProductCategory(ProductCategory instance);
+        partial void InsertProductionData(ProductionData instance);
+        partial void UpdateProductionData(ProductionData instance);
+        partial void DeleteProductionData(ProductionData instance);
+        partial void InsertRnDData(RnDData instance);
+        partial void UpdateRnDData(RnDData instance);
+        partial void DeleteRnDData(RnDData instance);
+        partial void InsertRoleDetails(RoleDetails instance);
+        partial void UpdateRoleDetails(RoleDetails instance);
+        partial void DeleteRoleDetails(RoleDetails instance);
+        partial void InsertRound(Round instance);
+        partial void UpdateRound(Round instance);
+        partial void DeleteRound(Round instance);
+        partial void InsertRoundCategory(RoundCategory instance);
+        partial void UpdateRoundCategory(RoundCategory instance);
+        partial void DeleteRoundCategory(RoundCategory instance);
+        partial void InsertRoundCriteria(RoundCriteria instance);
+        partial void UpdateRoundCriteria(RoundCriteria instance);
+        partial void DeleteRoundCriteria(RoundCriteria instance);
+        partial void InsertRoundProduct(RoundProduct instance);
+        partial void UpdateRoundProduct(RoundProduct instance);
+        partial void DeleteRoundProduct(RoundProduct instance);
+        partial void InsertSegmentType(SegmentType instance);
+        partial void UpdateSegmentType(SegmentType instance);
+        partial void DeleteSegmentType(SegmentType instance);
+        partial void InsertTeam(Team instance);
+        partial void UpdateTeam(Team instance);
+        partial void DeleteTeam(Team instance);
+        partial void InsertTeamCategory(TeamCategory instance);
+        partial void UpdateTeamCategory(TeamCategory instance);
+        partial void DeleteTeamCategory(TeamCategory instance);
+        partial void InsertTeamGame(TeamGame instance);
+        partial void UpdateTeamGame(TeamGame instance);
+        partial void DeleteTeamGame(TeamGame instance);
+        partial void InsertTeamUser(TeamUser instance);
+        partial void UpdateTeamUser(TeamUser instance);
+        partial void DeleteTeamUser(TeamUser instance);
+        partial void InsertUserDetails(UserDetails instance);
+        partial void UpdateUserDetails(UserDetails instance);
+        partial void DeleteUserDetails(UserDetails instance);
+        partial void InsertUserRole(UserRole instance);
+        partial void UpdateUserRole(UserRole instance);
+        partial void DeleteUserRole(UserRole instance);
+        #endregion
 
-[Table(Name="dbo.FinanceData")]
-public partial class FinanceData : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _RoundId;
-	
-	private int _TeamId;
-	
-	private double _Cash;
-	
-	private double _LongTermLoad;
-	
-	private double _ShortTermLoad;
-	
-	private EntityRef<Round> _Round;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnRoundIdChanging(int value);
-    partial void OnRoundIdChanged();
-    partial void OnTeamIdChanging(int value);
-    partial void OnTeamIdChanged();
-    partial void OnCashChanging(double value);
-    partial void OnCashChanged();
-    partial void OnLongTermLoadChanging(double value);
-    partial void OnLongTermLoadChanged();
-    partial void OnShortTermLoadChanging(double value);
-    partial void OnShortTermLoadChanged();
-    #endregion
-	
-	public FinanceData()
-	{
-		this._Round = default(EntityRef<Round>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RoundId", DbType="Int NOT NULL")]
-	public int RoundId
-	{
-		get
-		{
-			return this._RoundId;
-		}
-		set
-		{
-			if ((this._RoundId != value))
-			{
-				if (this._Round.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnRoundIdChanging(value);
-				this.SendPropertyChanging();
-				this._RoundId = value;
-				this.SendPropertyChanged("RoundId");
-				this.OnRoundIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_TeamId", DbType="Int NOT NULL")]
-	public int TeamId
-	{
-		get
-		{
-			return this._TeamId;
-		}
-		set
-		{
-			if ((this._TeamId != value))
-			{
-				this.OnTeamIdChanging(value);
-				this.SendPropertyChanging();
-				this._TeamId = value;
-				this.SendPropertyChanged("TeamId");
-				this.OnTeamIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Cash", DbType="Float NOT NULL")]
-	public double Cash
-	{
-		get
-		{
-			return this._Cash;
-		}
-		set
-		{
-			if ((this._Cash != value))
-			{
-				this.OnCashChanging(value);
-				this.SendPropertyChanging();
-				this._Cash = value;
-				this.SendPropertyChanged("Cash");
-				this.OnCashChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_LongTermLoad", DbType="Float NOT NULL")]
-	public double LongTermLoad
-	{
-		get
-		{
-			return this._LongTermLoad;
-		}
-		set
-		{
-			if ((this._LongTermLoad != value))
-			{
-				this.OnLongTermLoadChanging(value);
-				this.SendPropertyChanging();
-				this._LongTermLoad = value;
-				this.SendPropertyChanged("LongTermLoad");
-				this.OnLongTermLoadChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ShortTermLoad", DbType="Float NOT NULL")]
-	public double ShortTermLoad
-	{
-		get
-		{
-			return this._ShortTermLoad;
-		}
-		set
-		{
-			if ((this._ShortTermLoad != value))
-			{
-				this.OnShortTermLoadChanging(value);
-				this.SendPropertyChanging();
-				this._ShortTermLoad = value;
-				this.SendPropertyChanged("ShortTermLoad");
-				this.OnShortTermLoadChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_FinanceData_Round", Storage="_Round", ThisKey="RoundId", OtherKey="Id", IsForeignKey=true)]
-	public Round Round
-	{
-		get
-		{
-			return this._Round.Entity;
-		}
-		set
-		{
-			Round previousValue = this._Round.Entity;
-			if (((previousValue != value) 
-						|| (this._Round.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Round.Entity = null;
-					previousValue.FinanceData.Remove(this);
-				}
-				this._Round.Entity = value;
-				if ((value != null))
-				{
-					value.FinanceData.Add(this);
-					this._RoundId = value.Id;
-				}
-				else
-				{
-					this._RoundId = default(int);
-				}
-				this.SendPropertyChanged("Round");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
+        public Edusim(string connection) :
+            base(connection, mappingSource)
+        {
+            OnCreated();
+        }
 
-[Table(Name="dbo.Game")]
-public partial class Game : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private System.Nullable<System.DateTime> _CreatedDate;
-	
-	private EntitySet<TeamGame> _TeamGame;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnCreatedDateChanged();
-    #endregion
-	
-	public Game()
-	{
-		this._TeamGame = new EntitySet<TeamGame>(new Action<TeamGame>(this.attach_TeamGame), new Action<TeamGame>(this.detach_TeamGame));
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_CreatedDate", DbType="DateTime")]
-	public System.Nullable<System.DateTime> CreatedDate
-	{
-		get
-		{
-			return this._CreatedDate;
-		}
-		set
-		{
-			if ((this._CreatedDate != value))
-			{
-				this.OnCreatedDateChanging(value);
-				this.SendPropertyChanging();
-				this._CreatedDate = value;
-				this.SendPropertyChanged("CreatedDate");
-				this.OnCreatedDateChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_TeamGame_Game", Storage="_TeamGame", ThisKey="Id", OtherKey="GameId", DeleteRule="NO ACTION")]
-	public EntitySet<TeamGame> TeamGame
-	{
-		get
-		{
-			return this._TeamGame;
-		}
-		set
-		{
-			this._TeamGame.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_TeamGame(TeamGame entity)
-	{
-		this.SendPropertyChanging();
-		entity.Game = this;
-	}
-	
-	private void detach_TeamGame(TeamGame entity)
-	{
-		this.SendPropertyChanging();
-		entity.Game = null;
-	}
-}
+        public Edusim(System.Data.IDbConnection connection) :
+            base(connection, mappingSource)
+        {
+            OnCreated();
+        }
 
-[Table(Name="dbo.GameCriteria")]
-public partial class GameCriteria : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _SegmentTypeId;
-	
-	private double _Age;
-	
-	private double _AgeDecision;
-	
-	private double _TopPrice;
-	
-	private double _BottomPrice;
-	
-	private double _PriceDecision;
-	
-	private double _Performance;
-	
-	private double _Size;
-	
-	private double _PerformanceDecision;
-	
-	private double _TopReliability;
-	
-	private double _BottomReliability;
-	
-	private double _ReliabilityDecision;
-	
-	private EntityRef<SegmentType> _SegmentType;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSegmentTypeIdChanging(int value);
-    partial void OnSegmentTypeIdChanged();
-    partial void OnAgeChanging(double value);
-    partial void OnAgeChanged();
-    partial void OnAgeDecisionChanging(double value);
-    partial void OnAgeDecisionChanged();
-    partial void OnTopPriceChanging(double value);
-    partial void OnTopPriceChanged();
-    partial void OnBottomPriceChanging(double value);
-    partial void OnBottomPriceChanged();
-    partial void OnPriceDecisionChanging(double value);
-    partial void OnPriceDecisionChanged();
-    partial void OnPerformanceChanging(double value);
-    partial void OnPerformanceChanged();
-    partial void OnSizeChanging(double value);
-    partial void OnSizeChanged();
-    partial void OnPerformanceDecisionChanging(double value);
-    partial void OnPerformanceDecisionChanged();
-    partial void OnTopReliabilityChanging(double value);
-    partial void OnTopReliabilityChanged();
-    partial void OnBottomReliabilityChanging(double value);
-    partial void OnBottomReliabilityChanged();
-    partial void OnReliabilityDecisionChanging(double value);
-    partial void OnReliabilityDecisionChanged();
-    #endregion
-	
-	public GameCriteria()
-	{
-		this._SegmentType = default(EntityRef<SegmentType>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_SegmentTypeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int SegmentTypeId
-	{
-		get
-		{
-			return this._SegmentTypeId;
-		}
-		set
-		{
-			if ((this._SegmentTypeId != value))
-			{
-				if (this._SegmentType.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnSegmentTypeIdChanging(value);
-				this.SendPropertyChanging();
-				this._SegmentTypeId = value;
-				this.SendPropertyChanged("SegmentTypeId");
-				this.OnSegmentTypeIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Age", DbType="Float NOT NULL")]
-	public double Age
-	{
-		get
-		{
-			return this._Age;
-		}
-		set
-		{
-			if ((this._Age != value))
-			{
-				this.OnAgeChanging(value);
-				this.SendPropertyChanging();
-				this._Age = value;
-				this.SendPropertyChanged("Age");
-				this.OnAgeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_AgeDecision", DbType="Float NOT NULL")]
-	public double AgeDecision
-	{
-		get
-		{
-			return this._AgeDecision;
-		}
-		set
-		{
-			if ((this._AgeDecision != value))
-			{
-				this.OnAgeDecisionChanging(value);
-				this.SendPropertyChanging();
-				this._AgeDecision = value;
-				this.SendPropertyChanged("AgeDecision");
-				this.OnAgeDecisionChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_TopPrice", DbType="Float NOT NULL")]
-	public double TopPrice
-	{
-		get
-		{
-			return this._TopPrice;
-		}
-		set
-		{
-			if ((this._TopPrice != value))
-			{
-				this.OnTopPriceChanging(value);
-				this.SendPropertyChanging();
-				this._TopPrice = value;
-				this.SendPropertyChanged("TopPrice");
-				this.OnTopPriceChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_BottomPrice", DbType="Float NOT NULL")]
-	public double BottomPrice
-	{
-		get
-		{
-			return this._BottomPrice;
-		}
-		set
-		{
-			if ((this._BottomPrice != value))
-			{
-				this.OnBottomPriceChanging(value);
-				this.SendPropertyChanging();
-				this._BottomPrice = value;
-				this.SendPropertyChanged("BottomPrice");
-				this.OnBottomPriceChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PriceDecision", DbType="Float NOT NULL")]
-	public double PriceDecision
-	{
-		get
-		{
-			return this._PriceDecision;
-		}
-		set
-		{
-			if ((this._PriceDecision != value))
-			{
-				this.OnPriceDecisionChanging(value);
-				this.SendPropertyChanging();
-				this._PriceDecision = value;
-				this.SendPropertyChanged("PriceDecision");
-				this.OnPriceDecisionChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Performance", DbType="Float NOT NULL")]
-	public double Performance
-	{
-		get
-		{
-			return this._Performance;
-		}
-		set
-		{
-			if ((this._Performance != value))
-			{
-				this.OnPerformanceChanging(value);
-				this.SendPropertyChanging();
-				this._Performance = value;
-				this.SendPropertyChanged("Performance");
-				this.OnPerformanceChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Size", DbType="Float NOT NULL")]
-	public double Size
-	{
-		get
-		{
-			return this._Size;
-		}
-		set
-		{
-			if ((this._Size != value))
-			{
-				this.OnSizeChanging(value);
-				this.SendPropertyChanging();
-				this._Size = value;
-				this.SendPropertyChanged("Size");
-				this.OnSizeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PerformanceDecision", DbType="Float NOT NULL")]
-	public double PerformanceDecision
-	{
-		get
-		{
-			return this._PerformanceDecision;
-		}
-		set
-		{
-			if ((this._PerformanceDecision != value))
-			{
-				this.OnPerformanceDecisionChanging(value);
-				this.SendPropertyChanging();
-				this._PerformanceDecision = value;
-				this.SendPropertyChanged("PerformanceDecision");
-				this.OnPerformanceDecisionChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_TopReliability", DbType="Float NOT NULL")]
-	public double TopReliability
-	{
-		get
-		{
-			return this._TopReliability;
-		}
-		set
-		{
-			if ((this._TopReliability != value))
-			{
-				this.OnTopReliabilityChanging(value);
-				this.SendPropertyChanging();
-				this._TopReliability = value;
-				this.SendPropertyChanged("TopReliability");
-				this.OnTopReliabilityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_BottomReliability", DbType="Float NOT NULL")]
-	public double BottomReliability
-	{
-		get
-		{
-			return this._BottomReliability;
-		}
-		set
-		{
-			if ((this._BottomReliability != value))
-			{
-				this.OnBottomReliabilityChanging(value);
-				this.SendPropertyChanging();
-				this._BottomReliability = value;
-				this.SendPropertyChanged("BottomReliability");
-				this.OnBottomReliabilityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ReliabilityDecision", DbType="Float NOT NULL")]
-	public double ReliabilityDecision
-	{
-		get
-		{
-			return this._ReliabilityDecision;
-		}
-		set
-		{
-			if ((this._ReliabilityDecision != value))
-			{
-				this.OnReliabilityDecisionChanging(value);
-				this.SendPropertyChanging();
-				this._ReliabilityDecision = value;
-				this.SendPropertyChanged("ReliabilityDecision");
-				this.OnReliabilityDecisionChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_GameCriteria_SegmentType", Storage="_SegmentType", ThisKey="SegmentTypeId", OtherKey="Id", IsForeignKey=true)]
-	public SegmentType SegmentType
-	{
-		get
-		{
-			return this._SegmentType.Entity;
-		}
-		set
-		{
-			SegmentType previousValue = this._SegmentType.Entity;
-			if (((previousValue != value) 
-						|| (this._SegmentType.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._SegmentType.Entity = null;
-					previousValue.GameCriteria = null;
-				}
-				this._SegmentType.Entity = value;
-				if ((value != null))
-				{
-					value.GameCriteria = this;
-					this._SegmentTypeId = value.Id;
-				}
-				else
-				{
-					this._SegmentTypeId = default(int);
-				}
-				this.SendPropertyChanged("SegmentType");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
+        public Edusim(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
+            base(connection, mappingSource)
+        {
+            OnCreated();
+        }
 
-[Table(Name="dbo.GameInitialData")]
-public partial class GameInitialData : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _SegmentTyoeId;
-	
-	private double _UnitSold;
-	
-	private double _UnitInventory;
-	
-	private System.DateTime _RevisionDate;
-	
-	private double _AgeDec31;
-	
-	private double _Reliability;
-	
-	private double _Performance;
-	
-	private double _Size;
-	
-	private double _Price;
-	
-	private double _MaterialCost;
-	
-	private double _LabourCost;
-	
-	private double _Overtime;
-	
-	private double _AutomationForNextRound;
-	
-	private double _CapacityForNextRound;
-	
-	private double _PlantUtilization;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnSegmentTyoeIdChanging(int value);
-    partial void OnSegmentTyoeIdChanged();
-    partial void OnUnitSoldChanging(double value);
-    partial void OnUnitSoldChanged();
-    partial void OnUnitInventoryChanging(double value);
-    partial void OnUnitInventoryChanged();
-    partial void OnRevisionDateChanging(System.DateTime value);
-    partial void OnRevisionDateChanged();
-    partial void OnAgeDec31Changing(double value);
-    partial void OnAgeDec31Changed();
-    partial void OnReliabilityChanging(double value);
-    partial void OnReliabilityChanged();
-    partial void OnPerformanceChanging(double value);
-    partial void OnPerformanceChanged();
-    partial void OnSizeChanging(double value);
-    partial void OnSizeChanged();
-    partial void OnPriceChanging(double value);
-    partial void OnPriceChanged();
-    partial void OnMaterialCostChanging(double value);
-    partial void OnMaterialCostChanged();
-    partial void OnLabourCostChanging(double value);
-    partial void OnLabourCostChanged();
-    partial void OnOvertimeChanging(double value);
-    partial void OnOvertimeChanged();
-    partial void OnAutomationForNextRoundChanging(double value);
-    partial void OnAutomationForNextRoundChanged();
-    partial void OnCapacityForNextRoundChanging(double value);
-    partial void OnCapacityForNextRoundChanged();
-    partial void OnPlantUtilizationChanging(double value);
-    partial void OnPlantUtilizationChanged();
-    #endregion
-	
-	public GameInitialData()
-	{
-		OnCreated();
-	}
-	
-	[Column(Storage="_SegmentTyoeId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int SegmentTyoeId
-	{
-		get
-		{
-			return this._SegmentTyoeId;
-		}
-		set
-		{
-			if ((this._SegmentTyoeId != value))
-			{
-				this.OnSegmentTyoeIdChanging(value);
-				this.SendPropertyChanging();
-				this._SegmentTyoeId = value;
-				this.SendPropertyChanged("SegmentTyoeId");
-				this.OnSegmentTyoeIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_UnitSold", DbType="Float NOT NULL")]
-	public double UnitSold
-	{
-		get
-		{
-			return this._UnitSold;
-		}
-		set
-		{
-			if ((this._UnitSold != value))
-			{
-				this.OnUnitSoldChanging(value);
-				this.SendPropertyChanging();
-				this._UnitSold = value;
-				this.SendPropertyChanged("UnitSold");
-				this.OnUnitSoldChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_UnitInventory", DbType="Float NOT NULL")]
-	public double UnitInventory
-	{
-		get
-		{
-			return this._UnitInventory;
-		}
-		set
-		{
-			if ((this._UnitInventory != value))
-			{
-				this.OnUnitInventoryChanging(value);
-				this.SendPropertyChanging();
-				this._UnitInventory = value;
-				this.SendPropertyChanged("UnitInventory");
-				this.OnUnitInventoryChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RevisionDate", DbType="DateTime NOT NULL")]
-	public System.DateTime RevisionDate
-	{
-		get
-		{
-			return this._RevisionDate;
-		}
-		set
-		{
-			if ((this._RevisionDate != value))
-			{
-				this.OnRevisionDateChanging(value);
-				this.SendPropertyChanging();
-				this._RevisionDate = value;
-				this.SendPropertyChanged("RevisionDate");
-				this.OnRevisionDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_AgeDec31", DbType="Float NOT NULL")]
-	public double AgeDec31
-	{
-		get
-		{
-			return this._AgeDec31;
-		}
-		set
-		{
-			if ((this._AgeDec31 != value))
-			{
-				this.OnAgeDec31Changing(value);
-				this.SendPropertyChanging();
-				this._AgeDec31 = value;
-				this.SendPropertyChanged("AgeDec31");
-				this.OnAgeDec31Changed();
-			}
-		}
-	}
-	
-	[Column(Storage="_Reliability", DbType="Float NOT NULL")]
-	public double Reliability
-	{
-		get
-		{
-			return this._Reliability;
-		}
-		set
-		{
-			if ((this._Reliability != value))
-			{
-				this.OnReliabilityChanging(value);
-				this.SendPropertyChanging();
-				this._Reliability = value;
-				this.SendPropertyChanged("Reliability");
-				this.OnReliabilityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Performance", DbType="Float NOT NULL")]
-	public double Performance
-	{
-		get
-		{
-			return this._Performance;
-		}
-		set
-		{
-			if ((this._Performance != value))
-			{
-				this.OnPerformanceChanging(value);
-				this.SendPropertyChanging();
-				this._Performance = value;
-				this.SendPropertyChanged("Performance");
-				this.OnPerformanceChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Size", DbType="Float NOT NULL")]
-	public double Size
-	{
-		get
-		{
-			return this._Size;
-		}
-		set
-		{
-			if ((this._Size != value))
-			{
-				this.OnSizeChanging(value);
-				this.SendPropertyChanging();
-				this._Size = value;
-				this.SendPropertyChanged("Size");
-				this.OnSizeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Price", DbType="Float NOT NULL")]
-	public double Price
-	{
-		get
-		{
-			return this._Price;
-		}
-		set
-		{
-			if ((this._Price != value))
-			{
-				this.OnPriceChanging(value);
-				this.SendPropertyChanging();
-				this._Price = value;
-				this.SendPropertyChanged("Price");
-				this.OnPriceChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_MaterialCost", DbType="Float NOT NULL")]
-	public double MaterialCost
-	{
-		get
-		{
-			return this._MaterialCost;
-		}
-		set
-		{
-			if ((this._MaterialCost != value))
-			{
-				this.OnMaterialCostChanging(value);
-				this.SendPropertyChanging();
-				this._MaterialCost = value;
-				this.SendPropertyChanged("MaterialCost");
-				this.OnMaterialCostChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_LabourCost", DbType="Float NOT NULL")]
-	public double LabourCost
-	{
-		get
-		{
-			return this._LabourCost;
-		}
-		set
-		{
-			if ((this._LabourCost != value))
-			{
-				this.OnLabourCostChanging(value);
-				this.SendPropertyChanging();
-				this._LabourCost = value;
-				this.SendPropertyChanged("LabourCost");
-				this.OnLabourCostChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Overtime", DbType="Float NOT NULL")]
-	public double Overtime
-	{
-		get
-		{
-			return this._Overtime;
-		}
-		set
-		{
-			if ((this._Overtime != value))
-			{
-				this.OnOvertimeChanging(value);
-				this.SendPropertyChanging();
-				this._Overtime = value;
-				this.SendPropertyChanged("Overtime");
-				this.OnOvertimeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_AutomationForNextRound", DbType="Float NOT NULL")]
-	public double AutomationForNextRound
-	{
-		get
-		{
-			return this._AutomationForNextRound;
-		}
-		set
-		{
-			if ((this._AutomationForNextRound != value))
-			{
-				this.OnAutomationForNextRoundChanging(value);
-				this.SendPropertyChanging();
-				this._AutomationForNextRound = value;
-				this.SendPropertyChanged("AutomationForNextRound");
-				this.OnAutomationForNextRoundChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_CapacityForNextRound", DbType="Float NOT NULL")]
-	public double CapacityForNextRound
-	{
-		get
-		{
-			return this._CapacityForNextRound;
-		}
-		set
-		{
-			if ((this._CapacityForNextRound != value))
-			{
-				this.OnCapacityForNextRoundChanging(value);
-				this.SendPropertyChanging();
-				this._CapacityForNextRound = value;
-				this.SendPropertyChanged("CapacityForNextRound");
-				this.OnCapacityForNextRoundChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PlantUtilization", DbType="Float NOT NULL")]
-	public double PlantUtilization
-	{
-		get
-		{
-			return this._PlantUtilization;
-		}
-		set
-		{
-			if ((this._PlantUtilization != value))
-			{
-				this.OnPlantUtilizationChanging(value);
-				this.SendPropertyChanging();
-				this._PlantUtilization = value;
-				this.SendPropertyChanged("PlantUtilization");
-				this.OnPlantUtilizationChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
+        public Edusim(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) :
+            base(connection, mappingSource)
+        {
+            OnCreated();
+        }
 
-[Table(Name="dbo.LabourData")]
-public partial class LabourData : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _TeamId;
-	
-	private double _Rate;
-	
-	private double _NumberOfLabour;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnTeamIdChanging(int value);
-    partial void OnTeamIdChanged();
-    partial void OnRateChanging(double value);
-    partial void OnRateChanged();
-    partial void OnNumberOfLabourChanging(double value);
-    partial void OnNumberOfLabourChanged();
-    #endregion
-	
-	public LabourData()
-	{
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_TeamId", DbType="Int NOT NULL")]
-	public int TeamId
-	{
-		get
-		{
-			return this._TeamId;
-		}
-		set
-		{
-			if ((this._TeamId != value))
-			{
-				this.OnTeamIdChanging(value);
-				this.SendPropertyChanging();
-				this._TeamId = value;
-				this.SendPropertyChanged("TeamId");
-				this.OnTeamIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Rate", DbType="Float NOT NULL")]
-	public double Rate
-	{
-		get
-		{
-			return this._Rate;
-		}
-		set
-		{
-			if ((this._Rate != value))
-			{
-				this.OnRateChanging(value);
-				this.SendPropertyChanging();
-				this._Rate = value;
-				this.SendPropertyChanged("Rate");
-				this.OnRateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_NumberOfLabour", DbType="Float NOT NULL")]
-	public double NumberOfLabour
-	{
-		get
-		{
-			return this._NumberOfLabour;
-		}
-		set
-		{
-			if ((this._NumberOfLabour != value))
-			{
-				this.OnNumberOfLabourChanging(value);
-				this.SendPropertyChanging();
-				this._NumberOfLabour = value;
-				this.SendPropertyChanged("NumberOfLabour");
-				this.OnNumberOfLabourChanged();
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
+        public System.Data.Linq.Table<ConfigurationData> ConfigurationData
+        {
+            get
+            {
+                return this.GetTable<ConfigurationData>();
+            }
+        }
 
-[Table(Name="dbo.MarketingData")]
-public partial class MarketingData : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _RoundProductId;
-	
-	private double _PreviousSaleExpense;
-	
-	private System.Nullable<double> _SalesExpense;
-	
-	private double _PreviousMarketingExpense;
-	
-	private System.Nullable<double> _MarketingExpense;
-	
-	private double _PreviousPrice;
-	
-	private System.Nullable<double> _Price;
-	
-	private double _PreviousForecastingQuantity;
-	
-	private System.Nullable<double> _ForecastingQuantity;
-	
-	private System.Nullable<double> _PurchasedQuantity;
-	
-	private System.Nullable<double> _Rating;
-	
-	private bool _Purchased;
-	
-	private EntityRef<RoundProduct> _RoundProduct;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnRoundProductIdChanging(int value);
-    partial void OnRoundProductIdChanged();
-    partial void OnPreviousSaleExpenseChanging(double value);
-    partial void OnPreviousSaleExpenseChanged();
-    partial void OnSalesExpenseChanging(System.Nullable<double> value);
-    partial void OnSalesExpenseChanged();
-    partial void OnPreviousMarketingExpenseChanging(double value);
-    partial void OnPreviousMarketingExpenseChanged();
-    partial void OnMarketingExpenseChanging(System.Nullable<double> value);
-    partial void OnMarketingExpenseChanged();
-    partial void OnPreviousPriceChanging(double value);
-    partial void OnPreviousPriceChanged();
-    partial void OnPriceChanging(System.Nullable<double> value);
-    partial void OnPriceChanged();
-    partial void OnPreviousForecastingQuantityChanging(double value);
-    partial void OnPreviousForecastingQuantityChanged();
-    partial void OnForecastingQuantityChanging(System.Nullable<double> value);
-    partial void OnForecastingQuantityChanged();
-    partial void OnPurchasedQuantityChanging(System.Nullable<double> value);
-    partial void OnPurchasedQuantityChanged();
-    partial void OnRatingChanging(System.Nullable<double> value);
-    partial void OnRatingChanged();
-    partial void OnPurchasedChanging(bool value);
-    partial void OnPurchasedChanged();
-    #endregion
-	
-	public MarketingData()
-	{
-		this._RoundProduct = default(EntityRef<RoundProduct>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RoundProductId", DbType="Int NOT NULL")]
-	public int RoundProductId
-	{
-		get
-		{
-			return this._RoundProductId;
-		}
-		set
-		{
-			if ((this._RoundProductId != value))
-			{
-				if (this._RoundProduct.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnRoundProductIdChanging(value);
-				this.SendPropertyChanging();
-				this._RoundProductId = value;
-				this.SendPropertyChanged("RoundProductId");
-				this.OnRoundProductIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PreviousSaleExpense", DbType="Float NOT NULL")]
-	public double PreviousSaleExpense
-	{
-		get
-		{
-			return this._PreviousSaleExpense;
-		}
-		set
-		{
-			if ((this._PreviousSaleExpense != value))
-			{
-				this.OnPreviousSaleExpenseChanging(value);
-				this.SendPropertyChanging();
-				this._PreviousSaleExpense = value;
-				this.SendPropertyChanged("PreviousSaleExpense");
-				this.OnPreviousSaleExpenseChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_SalesExpense", DbType="Float")]
-	public System.Nullable<double> SalesExpense
-	{
-		get
-		{
-			return this._SalesExpense;
-		}
-		set
-		{
-			if ((this._SalesExpense != value))
-			{
-				this.OnSalesExpenseChanging(value);
-				this.SendPropertyChanging();
-				this._SalesExpense = value;
-				this.SendPropertyChanged("SalesExpense");
-				this.OnSalesExpenseChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PreviousMarketingExpense", DbType="Float NOT NULL")]
-	public double PreviousMarketingExpense
-	{
-		get
-		{
-			return this._PreviousMarketingExpense;
-		}
-		set
-		{
-			if ((this._PreviousMarketingExpense != value))
-			{
-				this.OnPreviousMarketingExpenseChanging(value);
-				this.SendPropertyChanging();
-				this._PreviousMarketingExpense = value;
-				this.SendPropertyChanged("PreviousMarketingExpense");
-				this.OnPreviousMarketingExpenseChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_MarketingExpense", DbType="Float")]
-	public System.Nullable<double> MarketingExpense
-	{
-		get
-		{
-			return this._MarketingExpense;
-		}
-		set
-		{
-			if ((this._MarketingExpense != value))
-			{
-				this.OnMarketingExpenseChanging(value);
-				this.SendPropertyChanging();
-				this._MarketingExpense = value;
-				this.SendPropertyChanged("MarketingExpense");
-				this.OnMarketingExpenseChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PreviousPrice", DbType="Float NOT NULL")]
-	public double PreviousPrice
-	{
-		get
-		{
-			return this._PreviousPrice;
-		}
-		set
-		{
-			if ((this._PreviousPrice != value))
-			{
-				this.OnPreviousPriceChanging(value);
-				this.SendPropertyChanging();
-				this._PreviousPrice = value;
-				this.SendPropertyChanged("PreviousPrice");
-				this.OnPreviousPriceChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Price", DbType="Float")]
-	public System.Nullable<double> Price
-	{
-		get
-		{
-			return this._Price;
-		}
-		set
-		{
-			if ((this._Price != value))
-			{
-				this.OnPriceChanging(value);
-				this.SendPropertyChanging();
-				this._Price = value;
-				this.SendPropertyChanged("Price");
-				this.OnPriceChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PreviousForecastingQuantity", DbType="Float NOT NULL")]
-	public double PreviousForecastingQuantity
-	{
-		get
-		{
-			return this._PreviousForecastingQuantity;
-		}
-		set
-		{
-			if ((this._PreviousForecastingQuantity != value))
-			{
-				this.OnPreviousForecastingQuantityChanging(value);
-				this.SendPropertyChanging();
-				this._PreviousForecastingQuantity = value;
-				this.SendPropertyChanged("PreviousForecastingQuantity");
-				this.OnPreviousForecastingQuantityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ForecastingQuantity", DbType="Float")]
-	public System.Nullable<double> ForecastingQuantity
-	{
-		get
-		{
-			return this._ForecastingQuantity;
-		}
-		set
-		{
-			if ((this._ForecastingQuantity != value))
-			{
-				this.OnForecastingQuantityChanging(value);
-				this.SendPropertyChanging();
-				this._ForecastingQuantity = value;
-				this.SendPropertyChanged("ForecastingQuantity");
-				this.OnForecastingQuantityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PurchasedQuantity", DbType="Float")]
-	public System.Nullable<double> PurchasedQuantity
-	{
-		get
-		{
-			return this._PurchasedQuantity;
-		}
-		set
-		{
-			if ((this._PurchasedQuantity != value))
-			{
-				this.OnPurchasedQuantityChanging(value);
-				this.SendPropertyChanging();
-				this._PurchasedQuantity = value;
-				this.SendPropertyChanged("PurchasedQuantity");
-				this.OnPurchasedQuantityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Rating", DbType="Float")]
-	public System.Nullable<double> Rating
-	{
-		get
-		{
-			return this._Rating;
-		}
-		set
-		{
-			if ((this._Rating != value))
-			{
-				this.OnRatingChanging(value);
-				this.SendPropertyChanging();
-				this._Rating = value;
-				this.SendPropertyChanged("Rating");
-				this.OnRatingChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Purchased", DbType="Bit NOT NULL")]
-	public bool Purchased
-	{
-		get
-		{
-			return this._Purchased;
-		}
-		set
-		{
-			if ((this._Purchased != value))
-			{
-				this.OnPurchasedChanging(value);
-				this.SendPropertyChanging();
-				this._Purchased = value;
-				this.SendPropertyChanged("Purchased");
-				this.OnPurchasedChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_MarketingData_RoundProduct", Storage="_RoundProduct", ThisKey="RoundProductId", OtherKey="Id", IsForeignKey=true)]
-	public RoundProduct RoundProduct
-	{
-		get
-		{
-			return this._RoundProduct.Entity;
-		}
-		set
-		{
-			RoundProduct previousValue = this._RoundProduct.Entity;
-			if (((previousValue != value) 
-						|| (this._RoundProduct.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._RoundProduct.Entity = null;
-					previousValue.MarketingData.Remove(this);
-				}
-				this._RoundProduct.Entity = value;
-				if ((value != null))
-				{
-					value.MarketingData.Add(this);
-					this._RoundProductId = value.Id;
-				}
-				else
-				{
-					this._RoundProductId = default(int);
-				}
-				this.SendPropertyChanged("RoundProduct");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
+        public System.Data.Linq.Table<FinanceData> FinanceData
+        {
+            get
+            {
+                return this.GetTable<FinanceData>();
+            }
+        }
 
-[Table(Name="dbo.ProductCategory")]
-public partial class ProductCategory
-{
-	
-	private int _Id;
-	
-	private string _ProductName;
-	
-	public ProductCategory()
-	{
-	}
-	
-	[Column(Storage="_Id", DbType="Int NOT NULL")]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this._Id = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_ProductName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string ProductName
-	{
-		get
-		{
-			return this._ProductName;
-		}
-		set
-		{
-			if ((this._ProductName != value))
-			{
-				this._ProductName = value;
-			}
-		}
-	}
-}
+        public System.Data.Linq.Table<Game> Game
+        {
+            get
+            {
+                return this.GetTable<Game>();
+            }
+        }
 
-[Table(Name="dbo.ProductionData")]
-public partial class ProductionData : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _RoundProductId;
-	
-	private double _Inventory;
-	
-	private double _ManufacturedQuantity;
-	
-	private System.Nullable<double> _Contribution;
-	
-	private double _CurrentAutomation;
-	
-	private System.Nullable<double> _AutomationForNextRound;
-	
-	private double _OldCapacity;
-	
-	private System.Nullable<double> _NewCapacity;
-	
-	private System.Nullable<double> _PreviousNumberOfLabour;
-	
-	private System.Nullable<double> _NumberOfLabour;
-	
-	private EntityRef<RoundProduct> _RoundProduct;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnRoundProductIdChanging(int value);
-    partial void OnRoundProductIdChanged();
-    partial void OnInventoryChanging(double value);
-    partial void OnInventoryChanged();
-    partial void OnManufacturedQuantityChanging(double value);
-    partial void OnManufacturedQuantityChanged();
-    partial void OnContributionChanging(System.Nullable<double> value);
-    partial void OnContributionChanged();
-    partial void OnCurrentAutomationChanging(double value);
-    partial void OnCurrentAutomationChanged();
-    partial void OnAutomationForNextRoundChanging(System.Nullable<double> value);
-    partial void OnAutomationForNextRoundChanged();
-    partial void OnOldCapacityChanging(double value);
-    partial void OnOldCapacityChanged();
-    partial void OnNewCapacityChanging(System.Nullable<double> value);
-    partial void OnNewCapacityChanged();
-    partial void OnPreviousNumberOfLabourChanging(System.Nullable<double> value);
-    partial void OnPreviousNumberOfLabourChanged();
-    partial void OnNumberOfLabourChanging(System.Nullable<double> value);
-    partial void OnNumberOfLabourChanged();
-    #endregion
-	
-	public ProductionData()
-	{
-		this._RoundProduct = default(EntityRef<RoundProduct>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RoundProductId", DbType="Int NOT NULL")]
-	public int RoundProductId
-	{
-		get
-		{
-			return this._RoundProductId;
-		}
-		set
-		{
-			if ((this._RoundProductId != value))
-			{
-				if (this._RoundProduct.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnRoundProductIdChanging(value);
-				this.SendPropertyChanging();
-				this._RoundProductId = value;
-				this.SendPropertyChanged("RoundProductId");
-				this.OnRoundProductIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Inventory", DbType="Float NOT NULL")]
-	public double Inventory
-	{
-		get
-		{
-			return this._Inventory;
-		}
-		set
-		{
-			if ((this._Inventory != value))
-			{
-				this.OnInventoryChanging(value);
-				this.SendPropertyChanging();
-				this._Inventory = value;
-				this.SendPropertyChanged("Inventory");
-				this.OnInventoryChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ManufacturedQuantity", DbType="Float NOT NULL")]
-	public double ManufacturedQuantity
-	{
-		get
-		{
-			return this._ManufacturedQuantity;
-		}
-		set
-		{
-			if ((this._ManufacturedQuantity != value))
-			{
-				this.OnManufacturedQuantityChanging(value);
-				this.SendPropertyChanging();
-				this._ManufacturedQuantity = value;
-				this.SendPropertyChanged("ManufacturedQuantity");
-				this.OnManufacturedQuantityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Contribution", DbType="Float")]
-	public System.Nullable<double> Contribution
-	{
-		get
-		{
-			return this._Contribution;
-		}
-		set
-		{
-			if ((this._Contribution != value))
-			{
-				this.OnContributionChanging(value);
-				this.SendPropertyChanging();
-				this._Contribution = value;
-				this.SendPropertyChanged("Contribution");
-				this.OnContributionChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_CurrentAutomation", DbType="Float NOT NULL")]
-	public double CurrentAutomation
-	{
-		get
-		{
-			return this._CurrentAutomation;
-		}
-		set
-		{
-			if ((this._CurrentAutomation != value))
-			{
-				this.OnCurrentAutomationChanging(value);
-				this.SendPropertyChanging();
-				this._CurrentAutomation = value;
-				this.SendPropertyChanged("CurrentAutomation");
-				this.OnCurrentAutomationChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_AutomationForNextRound", DbType="Float")]
-	public System.Nullable<double> AutomationForNextRound
-	{
-		get
-		{
-			return this._AutomationForNextRound;
-		}
-		set
-		{
-			if ((this._AutomationForNextRound != value))
-			{
-				this.OnAutomationForNextRoundChanging(value);
-				this.SendPropertyChanging();
-				this._AutomationForNextRound = value;
-				this.SendPropertyChanged("AutomationForNextRound");
-				this.OnAutomationForNextRoundChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_OldCapacity", DbType="Float NOT NULL")]
-	public double OldCapacity
-	{
-		get
-		{
-			return this._OldCapacity;
-		}
-		set
-		{
-			if ((this._OldCapacity != value))
-			{
-				this.OnOldCapacityChanging(value);
-				this.SendPropertyChanging();
-				this._OldCapacity = value;
-				this.SendPropertyChanged("OldCapacity");
-				this.OnOldCapacityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_NewCapacity", DbType="Float")]
-	public System.Nullable<double> NewCapacity
-	{
-		get
-		{
-			return this._NewCapacity;
-		}
-		set
-		{
-			if ((this._NewCapacity != value))
-			{
-				this.OnNewCapacityChanging(value);
-				this.SendPropertyChanging();
-				this._NewCapacity = value;
-				this.SendPropertyChanged("NewCapacity");
-				this.OnNewCapacityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PreviousNumberOfLabour", DbType="Float")]
-	public System.Nullable<double> PreviousNumberOfLabour
-	{
-		get
-		{
-			return this._PreviousNumberOfLabour;
-		}
-		set
-		{
-			if ((this._PreviousNumberOfLabour != value))
-			{
-				this.OnPreviousNumberOfLabourChanging(value);
-				this.SendPropertyChanging();
-				this._PreviousNumberOfLabour = value;
-				this.SendPropertyChanged("PreviousNumberOfLabour");
-				this.OnPreviousNumberOfLabourChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_NumberOfLabour", DbType="Float")]
-	public System.Nullable<double> NumberOfLabour
-	{
-		get
-		{
-			return this._NumberOfLabour;
-		}
-		set
-		{
-			if ((this._NumberOfLabour != value))
-			{
-				this.OnNumberOfLabourChanging(value);
-				this.SendPropertyChanging();
-				this._NumberOfLabour = value;
-				this.SendPropertyChanged("NumberOfLabour");
-				this.OnNumberOfLabourChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_ProductionData_RoundProduct", Storage="_RoundProduct", ThisKey="RoundProductId", OtherKey="Id", IsForeignKey=true)]
-	public RoundProduct RoundProduct
-	{
-		get
-		{
-			return this._RoundProduct.Entity;
-		}
-		set
-		{
-			RoundProduct previousValue = this._RoundProduct.Entity;
-			if (((previousValue != value) 
-						|| (this._RoundProduct.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._RoundProduct.Entity = null;
-					previousValue.ProductionData.Remove(this);
-				}
-				this._RoundProduct.Entity = value;
-				if ((value != null))
-				{
-					value.ProductionData.Add(this);
-					this._RoundProductId = value.Id;
-				}
-				else
-				{
-					this._RoundProductId = default(int);
-				}
-				this.SendPropertyChanged("RoundProduct");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
+        public System.Data.Linq.Table<GameCriteria> GameCriteria
+        {
+            get
+            {
+                return this.GetTable<GameCriteria>();
+            }
+        }
 
-[Table(Name="dbo.ProductsAvailablePerRound")]
-public partial class ProductsAvailablePerRound
-{
-	
-	private int _Id;
-	
-	private int _RoundProductId;
-	
-	private double _Quantity;
-	
-	public ProductsAvailablePerRound()
-	{
-	}
-	
-	[Column(Storage="_Id", DbType="Int NOT NULL")]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this._Id = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_RoundProductId", DbType="Int NOT NULL")]
-	public int RoundProductId
-	{
-		get
-		{
-			return this._RoundProductId;
-		}
-		set
-		{
-			if ((this._RoundProductId != value))
-			{
-				this._RoundProductId = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_Quantity", DbType="Float NOT NULL")]
-	public double Quantity
-	{
-		get
-		{
-			return this._Quantity;
-		}
-		set
-		{
-			if ((this._Quantity != value))
-			{
-				this._Quantity = value;
-			}
-		}
-	}
-}
+        public System.Data.Linq.Table<GameInitialData> GameInitialData
+        {
+            get
+            {
+                return this.GetTable<GameInitialData>();
+            }
+        }
 
-[Table(Name="dbo.RnDData")]
-public partial class RnDData : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _RoundProductId;
-	
-	private System.DateTime _PreviousRevisionDate;
-	
-	private System.Nullable<System.DateTime> _RevisionDate;
-	
-	private double _PreviousAge;
-	
-	private System.Nullable<double> _Age;
-	
-	private double _PreviousReliability;
-	
-	private System.Nullable<double> _Reliability;
-	
-	private double _PreviousPerformance;
-	
-	private System.Nullable<double> _Performance;
-	
-	private double _PreviousSize;
-	
-	private System.Nullable<double> _Size;
-	
-	private System.Nullable<double> _RnDCost;
-	
-	private EntityRef<RoundProduct> _RoundProduct;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnRoundProductIdChanging(int value);
-    partial void OnRoundProductIdChanged();
-    partial void OnPreviousRevisionDateChanging(System.DateTime value);
-    partial void OnPreviousRevisionDateChanged();
-    partial void OnRevisionDateChanging(System.Nullable<System.DateTime> value);
-    partial void OnRevisionDateChanged();
-    partial void OnPreviousAgeChanging(double value);
-    partial void OnPreviousAgeChanged();
-    partial void OnAgeChanging(System.Nullable<double> value);
-    partial void OnAgeChanged();
-    partial void OnPreviousReliabilityChanging(double value);
-    partial void OnPreviousReliabilityChanged();
-    partial void OnReliabilityChanging(System.Nullable<double> value);
-    partial void OnReliabilityChanged();
-    partial void OnPreviousPerformanceChanging(double value);
-    partial void OnPreviousPerformanceChanged();
-    partial void OnPerformanceChanging(System.Nullable<double> value);
-    partial void OnPerformanceChanged();
-    partial void OnPreviousSizeChanging(double value);
-    partial void OnPreviousSizeChanged();
-    partial void OnSizeChanging(System.Nullable<double> value);
-    partial void OnSizeChanged();
-    partial void OnRnDCostChanging(System.Nullable<double> value);
-    partial void OnRnDCostChanged();
-    #endregion
-	
-	public RnDData()
-	{
-		this._RoundProduct = default(EntityRef<RoundProduct>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RoundProductId", DbType="Int NOT NULL")]
-	public int RoundProductId
-	{
-		get
-		{
-			return this._RoundProductId;
-		}
-		set
-		{
-			if ((this._RoundProductId != value))
-			{
-				if (this._RoundProduct.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnRoundProductIdChanging(value);
-				this.SendPropertyChanging();
-				this._RoundProductId = value;
-				this.SendPropertyChanged("RoundProductId");
-				this.OnRoundProductIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PreviousRevisionDate", DbType="DateTime NOT NULL")]
-	public System.DateTime PreviousRevisionDate
-	{
-		get
-		{
-			return this._PreviousRevisionDate;
-		}
-		set
-		{
-			if ((this._PreviousRevisionDate != value))
-			{
-				this.OnPreviousRevisionDateChanging(value);
-				this.SendPropertyChanging();
-				this._PreviousRevisionDate = value;
-				this.SendPropertyChanged("PreviousRevisionDate");
-				this.OnPreviousRevisionDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RevisionDate", DbType="DateTime")]
-	public System.Nullable<System.DateTime> RevisionDate
-	{
-		get
-		{
-			return this._RevisionDate;
-		}
-		set
-		{
-			if ((this._RevisionDate != value))
-			{
-				this.OnRevisionDateChanging(value);
-				this.SendPropertyChanging();
-				this._RevisionDate = value;
-				this.SendPropertyChanged("RevisionDate");
-				this.OnRevisionDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PreviousAge", DbType="Float NOT NULL")]
-	public double PreviousAge
-	{
-		get
-		{
-			return this._PreviousAge;
-		}
-		set
-		{
-			if ((this._PreviousAge != value))
-			{
-				this.OnPreviousAgeChanging(value);
-				this.SendPropertyChanging();
-				this._PreviousAge = value;
-				this.SendPropertyChanged("PreviousAge");
-				this.OnPreviousAgeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Age", DbType="Float")]
-	public System.Nullable<double> Age
-	{
-		get
-		{
-			return this._Age;
-		}
-		set
-		{
-			if ((this._Age != value))
-			{
-				this.OnAgeChanging(value);
-				this.SendPropertyChanging();
-				this._Age = value;
-				this.SendPropertyChanged("Age");
-				this.OnAgeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PreviousReliability", DbType="Float NOT NULL")]
-	public double PreviousReliability
-	{
-		get
-		{
-			return this._PreviousReliability;
-		}
-		set
-		{
-			if ((this._PreviousReliability != value))
-			{
-				this.OnPreviousReliabilityChanging(value);
-				this.SendPropertyChanging();
-				this._PreviousReliability = value;
-				this.SendPropertyChanged("PreviousReliability");
-				this.OnPreviousReliabilityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Reliability", DbType="Float")]
-	public System.Nullable<double> Reliability
-	{
-		get
-		{
-			return this._Reliability;
-		}
-		set
-		{
-			if ((this._Reliability != value))
-			{
-				this.OnReliabilityChanging(value);
-				this.SendPropertyChanging();
-				this._Reliability = value;
-				this.SendPropertyChanged("Reliability");
-				this.OnReliabilityChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PreviousPerformance", DbType="Float NOT NULL")]
-	public double PreviousPerformance
-	{
-		get
-		{
-			return this._PreviousPerformance;
-		}
-		set
-		{
-			if ((this._PreviousPerformance != value))
-			{
-				this.OnPreviousPerformanceChanging(value);
-				this.SendPropertyChanging();
-				this._PreviousPerformance = value;
-				this.SendPropertyChanged("PreviousPerformance");
-				this.OnPreviousPerformanceChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Performance", DbType="Float")]
-	public System.Nullable<double> Performance
-	{
-		get
-		{
-			return this._Performance;
-		}
-		set
-		{
-			if ((this._Performance != value))
-			{
-				this.OnPerformanceChanging(value);
-				this.SendPropertyChanging();
-				this._Performance = value;
-				this.SendPropertyChanged("Performance");
-				this.OnPerformanceChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_PreviousSize", DbType="Float NOT NULL")]
-	public double PreviousSize
-	{
-		get
-		{
-			return this._PreviousSize;
-		}
-		set
-		{
-			if ((this._PreviousSize != value))
-			{
-				this.OnPreviousSizeChanging(value);
-				this.SendPropertyChanging();
-				this._PreviousSize = value;
-				this.SendPropertyChanged("PreviousSize");
-				this.OnPreviousSizeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Size", DbType="Float")]
-	public System.Nullable<double> Size
-	{
-		get
-		{
-			return this._Size;
-		}
-		set
-		{
-			if ((this._Size != value))
-			{
-				this.OnSizeChanging(value);
-				this.SendPropertyChanging();
-				this._Size = value;
-				this.SendPropertyChanged("Size");
-				this.OnSizeChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RnDCost", DbType="Float")]
-	public System.Nullable<double> RnDCost
-	{
-		get
-		{
-			return this._RnDCost;
-		}
-		set
-		{
-			if ((this._RnDCost != value))
-			{
-				this.OnRnDCostChanging(value);
-				this.SendPropertyChanging();
-				this._RnDCost = value;
-				this.SendPropertyChanged("RnDCost");
-				this.OnRnDCostChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_RnDData_RoundProduct", Storage="_RoundProduct", ThisKey="RoundProductId", OtherKey="Id", IsForeignKey=true)]
-	public RoundProduct RoundProduct
-	{
-		get
-		{
-			return this._RoundProduct.Entity;
-		}
-		set
-		{
-			RoundProduct previousValue = this._RoundProduct.Entity;
-			if (((previousValue != value) 
-						|| (this._RoundProduct.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._RoundProduct.Entity = null;
-					previousValue.RnDData.Remove(this);
-				}
-				this._RoundProduct.Entity = value;
-				if ((value != null))
-				{
-					value.RnDData.Add(this);
-					this._RoundProductId = value.Id;
-				}
-				else
-				{
-					this._RoundProductId = default(int);
-				}
-				this.SendPropertyChanged("RoundProduct");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
+        public System.Data.Linq.Table<LabourData> LabourData
+        {
+            get
+            {
+                return this.GetTable<LabourData>();
+            }
+        }
 
-[Table(Name="dbo.RoleDetails")]
-public partial class RoleDetails : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private string _RoleName;
-	
-	private string _Description;
-	
-	private EntitySet<UserRole> _UserRole;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnRoleNameChanging(string value);
-    partial void OnRoleNameChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    #endregion
-	
-	public RoleDetails()
-	{
-		this._UserRole = new EntitySet<UserRole>(new Action<UserRole>(this.attach_UserRole), new Action<UserRole>(this.detach_UserRole));
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RoleName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string RoleName
-	{
-		get
-		{
-			return this._RoleName;
-		}
-		set
-		{
-			if ((this._RoleName != value))
-			{
-				this.OnRoleNameChanging(value);
-				this.SendPropertyChanging();
-				this._RoleName = value;
-				this.SendPropertyChanged("RoleName");
-				this.OnRoleNameChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Description", DbType="VarChar(50)")]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this.OnDescriptionChanging(value);
-				this.SendPropertyChanging();
-				this._Description = value;
-				this.SendPropertyChanged("Description");
-				this.OnDescriptionChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_UserRole_Role", Storage="_UserRole", ThisKey="Id", OtherKey="RoleId", DeleteRule="NO ACTION")]
-	public EntitySet<UserRole> UserRole
-	{
-		get
-		{
-			return this._UserRole;
-		}
-		set
-		{
-			this._UserRole.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_UserRole(UserRole entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoleDetails = this;
-	}
-	
-	private void detach_UserRole(UserRole entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoleDetails = null;
-	}
-}
+        public System.Data.Linq.Table<MarketingData> MarketingData
+        {
+            get
+            {
+                return this.GetTable<MarketingData>();
+            }
+        }
 
-[Table(Name="dbo.Round")]
-public partial class Round : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _TeamGameId;
-	
-	private int _RoundCategoryId;
-	
-	private bool _Current;
-	
-	private EntitySet<FinanceData> _FinanceData;
-	
-	private EntityRef<RoundCategory> _RoundCategory;
-	
-	private EntityRef<TeamGame> _TeamGame;
-	
-	private EntitySet<RoundProduct> _RoundProduct;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnTeamGameIdChanging(int value);
-    partial void OnTeamGameIdChanged();
-    partial void OnRoundCategoryIdChanging(int value);
-    partial void OnRoundCategoryIdChanged();
-    partial void OnCurrentChanging(bool value);
-    partial void OnCurrentChanged();
-    #endregion
-	
-	public Round()
-	{
-		this._FinanceData = new EntitySet<FinanceData>(new Action<FinanceData>(this.attach_FinanceData), new Action<FinanceData>(this.detach_FinanceData));
-		this._RoundCategory = default(EntityRef<RoundCategory>);
-		this._TeamGame = default(EntityRef<TeamGame>);
-		this._RoundProduct = new EntitySet<RoundProduct>(new Action<RoundProduct>(this.attach_RoundProduct), new Action<RoundProduct>(this.detach_RoundProduct));
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_TeamGameId", DbType="Int NOT NULL")]
-	public int TeamGameId
-	{
-		get
-		{
-			return this._TeamGameId;
-		}
-		set
-		{
-			if ((this._TeamGameId != value))
-			{
-				if (this._TeamGame.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnTeamGameIdChanging(value);
-				this.SendPropertyChanging();
-				this._TeamGameId = value;
-				this.SendPropertyChanged("TeamGameId");
-				this.OnTeamGameIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RoundCategoryId", DbType="Int NOT NULL")]
-	public int RoundCategoryId
-	{
-		get
-		{
-			return this._RoundCategoryId;
-		}
-		set
-		{
-			if ((this._RoundCategoryId != value))
-			{
-				if (this._RoundCategory.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnRoundCategoryIdChanging(value);
-				this.SendPropertyChanging();
-				this._RoundCategoryId = value;
-				this.SendPropertyChanged("RoundCategoryId");
-				this.OnRoundCategoryIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Current", DbType="Bit NOT NULL")]
-	public bool Current
-	{
-		get
-		{
-			return this._Current;
-		}
-		set
-		{
-			if ((this._Current != value))
-			{
-				this.OnCurrentChanging(value);
-				this.SendPropertyChanging();
-				this._Current = value;
-				this.SendPropertyChanged("Current");
-				this.OnCurrentChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_FinanceData_Round", Storage="_FinanceData", ThisKey="Id", OtherKey="RoundId", DeleteRule="NO ACTION")]
-	public EntitySet<FinanceData> FinanceData
-	{
-		get
-		{
-			return this._FinanceData;
-		}
-		set
-		{
-			this._FinanceData.Assign(value);
-		}
-	}
-	
-	[Association(Name="FK_Round_RoundCategory", Storage="_RoundCategory", ThisKey="RoundCategoryId", OtherKey="Id", IsForeignKey=true)]
-	public RoundCategory RoundCategory
-	{
-		get
-		{
-			return this._RoundCategory.Entity;
-		}
-		set
-		{
-			RoundCategory previousValue = this._RoundCategory.Entity;
-			if (((previousValue != value) 
-						|| (this._RoundCategory.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._RoundCategory.Entity = null;
-					previousValue.Round.Remove(this);
-				}
-				this._RoundCategory.Entity = value;
-				if ((value != null))
-				{
-					value.Round.Add(this);
-					this._RoundCategoryId = value.Id;
-				}
-				else
-				{
-					this._RoundCategoryId = default(int);
-				}
-				this.SendPropertyChanged("RoundCategory");
-			}
-		}
-	}
-	
-	[Association(Name="FK_Round_TeamGame", Storage="_TeamGame", ThisKey="TeamGameId", OtherKey="Id", IsForeignKey=true)]
-	public TeamGame TeamGame
-	{
-		get
-		{
-			return this._TeamGame.Entity;
-		}
-		set
-		{
-			TeamGame previousValue = this._TeamGame.Entity;
-			if (((previousValue != value) 
-						|| (this._TeamGame.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._TeamGame.Entity = null;
-					previousValue.Round.Remove(this);
-				}
-				this._TeamGame.Entity = value;
-				if ((value != null))
-				{
-					value.Round.Add(this);
-					this._TeamGameId = value.Id;
-				}
-				else
-				{
-					this._TeamGameId = default(int);
-				}
-				this.SendPropertyChanged("TeamGame");
-			}
-		}
-	}
-	
-	[Association(Name="FK_RoundProduct_Round", Storage="_RoundProduct", ThisKey="Id", OtherKey="RoundId", DeleteRule="NO ACTION")]
-	public EntitySet<RoundProduct> RoundProduct
-	{
-		get
-		{
-			return this._RoundProduct;
-		}
-		set
-		{
-			this._RoundProduct.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_FinanceData(FinanceData entity)
-	{
-		this.SendPropertyChanging();
-		entity.Round = this;
-	}
-	
-	private void detach_FinanceData(FinanceData entity)
-	{
-		this.SendPropertyChanging();
-		entity.Round = null;
-	}
-	
-	private void attach_RoundProduct(RoundProduct entity)
-	{
-		this.SendPropertyChanging();
-		entity.Round = this;
-	}
-	
-	private void detach_RoundProduct(RoundProduct entity)
-	{
-		this.SendPropertyChanging();
-		entity.Round = null;
-	}
-}
+        public System.Data.Linq.Table<ProductCategory> ProductCategory
+        {
+            get
+            {
+                return this.GetTable<ProductCategory>();
+            }
+        }
 
-[Table(Name="dbo.RoundCategory")]
-public partial class RoundCategory : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private string _RoundName;
-	
-	private EntitySet<Round> _Round;
-	
-	private EntitySet<RoundCriteria> _RoundCriteria;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnRoundNameChanging(string value);
-    partial void OnRoundNameChanged();
-    #endregion
-	
-	public RoundCategory()
-	{
-		this._Round = new EntitySet<Round>(new Action<Round>(this.attach_Round), new Action<Round>(this.detach_Round));
-		this._RoundCriteria = new EntitySet<RoundCriteria>(new Action<RoundCriteria>(this.attach_RoundCriteria), new Action<RoundCriteria>(this.detach_RoundCriteria));
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RoundName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string RoundName
-	{
-		get
-		{
-			return this._RoundName;
-		}
-		set
-		{
-			if ((this._RoundName != value))
-			{
-				this.OnRoundNameChanging(value);
-				this.SendPropertyChanging();
-				this._RoundName = value;
-				this.SendPropertyChanged("RoundName");
-				this.OnRoundNameChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_Round_RoundCategory", Storage="_Round", ThisKey="Id", OtherKey="RoundCategoryId", DeleteRule="NO ACTION")]
-	public EntitySet<Round> Round
-	{
-		get
-		{
-			return this._Round;
-		}
-		set
-		{
-			this._Round.Assign(value);
-		}
-	}
-	
-	[Association(Name="FK_RoundCriteria_RoundCategory", Storage="_RoundCriteria", ThisKey="Id", OtherKey="RoundCategoryId", DeleteRule="NO ACTION")]
-	public EntitySet<RoundCriteria> RoundCriteria
-	{
-		get
-		{
-			return this._RoundCriteria;
-		}
-		set
-		{
-			this._RoundCriteria.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_Round(Round entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundCategory = this;
-	}
-	
-	private void detach_Round(Round entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundCategory = null;
-	}
-	
-	private void attach_RoundCriteria(RoundCriteria entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundCategory = this;
-	}
-	
-	private void detach_RoundCriteria(RoundCriteria entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundCategory = null;
-	}
-}
+        public System.Data.Linq.Table<ProductionData> ProductionData
+        {
+            get
+            {
+                return this.GetTable<ProductionData>();
+            }
+        }
 
-[Table(Name="dbo.RoundCriteria")]
-public partial class RoundCriteria : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _RoundCategoryId;
-	
-	private int _SegmentTypeId;
-	
-	private double _Performance;
-	
-	private double _Size;
-	
-	private EntityRef<RoundCategory> _RoundCategory;
-	
-	private EntityRef<SegmentType> _SegmentType;
-	
-	private EntityRef<SegmentType> _RoundCriteria_SegmentType1;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnRoundCategoryIdChanging(int value);
-    partial void OnRoundCategoryIdChanged();
-    partial void OnSegmentTypeIdChanging(int value);
-    partial void OnSegmentTypeIdChanged();
-    partial void OnPerformanceChanging(double value);
-    partial void OnPerformanceChanged();
-    partial void OnSizeChanging(double value);
-    partial void OnSizeChanged();
-    #endregion
-	
-	public RoundCriteria()
-	{
-		this._RoundCategory = default(EntityRef<RoundCategory>);
-		this._SegmentType = default(EntityRef<SegmentType>);
-		this._RoundCriteria_SegmentType1 = default(EntityRef<SegmentType>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RoundCategoryId", DbType="Int NOT NULL")]
-	public int RoundCategoryId
-	{
-		get
-		{
-			return this._RoundCategoryId;
-		}
-		set
-		{
-			if ((this._RoundCategoryId != value))
-			{
-				if (this._RoundCategory.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnRoundCategoryIdChanging(value);
-				this.SendPropertyChanging();
-				this._RoundCategoryId = value;
-				this.SendPropertyChanged("RoundCategoryId");
-				this.OnRoundCategoryIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_SegmentTypeId", DbType="Int NOT NULL")]
-	public int SegmentTypeId
-	{
-		get
-		{
-			return this._SegmentTypeId;
-		}
-		set
-		{
-			if ((this._SegmentTypeId != value))
-			{
-				if (this._SegmentType.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnSegmentTypeIdChanging(value);
-				this.SendPropertyChanging();
-				this._SegmentTypeId = value;
-				this.SendPropertyChanged("SegmentTypeId");
-				this.OnSegmentTypeIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Performance", DbType="Float NOT NULL")]
-	public double Performance
-	{
-		get
-		{
-			return this._Performance;
-		}
-		set
-		{
-			if ((this._Performance != value))
-			{
-				this.OnPerformanceChanging(value);
-				this.SendPropertyChanging();
-				this._Performance = value;
-				this.SendPropertyChanged("Performance");
-				this.OnPerformanceChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Size", DbType="Float NOT NULL")]
-	public double Size
-	{
-		get
-		{
-			return this._Size;
-		}
-		set
-		{
-			if ((this._Size != value))
-			{
-				this.OnSizeChanging(value);
-				this.SendPropertyChanging();
-				this._Size = value;
-				this.SendPropertyChanged("Size");
-				this.OnSizeChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_RoundCriteria_RoundCategory", Storage="_RoundCategory", ThisKey="RoundCategoryId", OtherKey="Id", IsForeignKey=true)]
-	public RoundCategory RoundCategory
-	{
-		get
-		{
-			return this._RoundCategory.Entity;
-		}
-		set
-		{
-			RoundCategory previousValue = this._RoundCategory.Entity;
-			if (((previousValue != value) 
-						|| (this._RoundCategory.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._RoundCategory.Entity = null;
-					previousValue.RoundCriteria.Remove(this);
-				}
-				this._RoundCategory.Entity = value;
-				if ((value != null))
-				{
-					value.RoundCriteria.Add(this);
-					this._RoundCategoryId = value.Id;
-				}
-				else
-				{
-					this._RoundCategoryId = default(int);
-				}
-				this.SendPropertyChanged("RoundCategory");
-			}
-		}
-	}
-	
-	[Association(Name="FK_RoundCriteria_SegmentType", Storage="_SegmentType", ThisKey="SegmentTypeId", OtherKey="Id", IsForeignKey=true)]
-	public SegmentType SegmentType
-	{
-		get
-		{
-			return this._SegmentType.Entity;
-		}
-		set
-		{
-			SegmentType previousValue = this._SegmentType.Entity;
-			if (((previousValue != value) 
-						|| (this._SegmentType.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._SegmentType.Entity = null;
-					previousValue.RoundCriteria.Remove(this);
-				}
-				this._SegmentType.Entity = value;
-				if ((value != null))
-				{
-					value.RoundCriteria.Add(this);
-					this._SegmentTypeId = value.Id;
-				}
-				else
-				{
-					this._SegmentTypeId = default(int);
-				}
-				this.SendPropertyChanged("SegmentType");
-			}
-		}
-	}
-	
-	[Association(Name="FK_RoundCriteria_SegmentType1", Storage="_RoundCriteria_SegmentType1", ThisKey="SegmentTypeId", OtherKey="Id", IsForeignKey=true)]
-	public SegmentType RoundCriteria_SegmentType1
-	{
-		get
-		{
-			return this._RoundCriteria_SegmentType1.Entity;
-		}
-		set
-		{
-			SegmentType previousValue = this._RoundCriteria_SegmentType1.Entity;
-			if (((previousValue != value) 
-						|| (this._RoundCriteria_SegmentType1.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._RoundCriteria_SegmentType1.Entity = null;
-					previousValue.RoundCriteria_SegmentType1.Remove(this);
-				}
-				this._RoundCriteria_SegmentType1.Entity = value;
-				if ((value != null))
-				{
-					value.RoundCriteria_SegmentType1.Add(this);
-					this._SegmentTypeId = value.Id;
-				}
-				else
-				{
-					this._SegmentTypeId = default(int);
-				}
-				this.SendPropertyChanged("RoundCriteria_SegmentType1");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
+        public System.Data.Linq.Table<ProductsAvailablePerRound> ProductsAvailablePerRound
+        {
+            get
+            {
+                return this.GetTable<ProductsAvailablePerRound>();
+            }
+        }
 
-[Table(Name="dbo.RoundProduct")]
-public partial class RoundProduct : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _RoundId;
-	
-	private string _ProductName;
-	
-	private int _SegmentTypeId;
-	
-	private EntitySet<MarketingData> _MarketingData;
-	
-	private EntitySet<ProductionData> _ProductionData;
-	
-	private EntitySet<RnDData> _RnDData;
-	
-	private EntityRef<Round> _Round;
-	
-	private EntityRef<SegmentType> _SegmentType;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnRoundIdChanging(int value);
-    partial void OnRoundIdChanged();
-    partial void OnProductNameChanging(string value);
-    partial void OnProductNameChanged();
-    partial void OnSegmentTypeIdChanging(int value);
-    partial void OnSegmentTypeIdChanged();
-    #endregion
-	
-	public RoundProduct()
-	{
-		this._MarketingData = new EntitySet<MarketingData>(new Action<MarketingData>(this.attach_MarketingData), new Action<MarketingData>(this.detach_MarketingData));
-		this._ProductionData = new EntitySet<ProductionData>(new Action<ProductionData>(this.attach_ProductionData), new Action<ProductionData>(this.detach_ProductionData));
-		this._RnDData = new EntitySet<RnDData>(new Action<RnDData>(this.attach_RnDData), new Action<RnDData>(this.detach_RnDData));
-		this._Round = default(EntityRef<Round>);
-		this._SegmentType = default(EntityRef<SegmentType>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RoundId", DbType="Int NOT NULL")]
-	public int RoundId
-	{
-		get
-		{
-			return this._RoundId;
-		}
-		set
-		{
-			if ((this._RoundId != value))
-			{
-				if (this._Round.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnRoundIdChanging(value);
-				this.SendPropertyChanging();
-				this._RoundId = value;
-				this.SendPropertyChanged("RoundId");
-				this.OnRoundIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_ProductName", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string ProductName
-	{
-		get
-		{
-			return this._ProductName;
-		}
-		set
-		{
-			if ((this._ProductName != value))
-			{
-				this.OnProductNameChanging(value);
-				this.SendPropertyChanging();
-				this._ProductName = value;
-				this.SendPropertyChanged("ProductName");
-				this.OnProductNameChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_SegmentTypeId", DbType="Int NOT NULL")]
-	public int SegmentTypeId
-	{
-		get
-		{
-			return this._SegmentTypeId;
-		}
-		set
-		{
-			if ((this._SegmentTypeId != value))
-			{
-				if (this._SegmentType.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnSegmentTypeIdChanging(value);
-				this.SendPropertyChanging();
-				this._SegmentTypeId = value;
-				this.SendPropertyChanged("SegmentTypeId");
-				this.OnSegmentTypeIdChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_MarketingData_RoundProduct", Storage="_MarketingData", ThisKey="Id", OtherKey="RoundProductId", DeleteRule="NO ACTION")]
-	public EntitySet<MarketingData> MarketingData
-	{
-		get
-		{
-			return this._MarketingData;
-		}
-		set
-		{
-			this._MarketingData.Assign(value);
-		}
-	}
-	
-	[Association(Name="FK_ProductionData_RoundProduct", Storage="_ProductionData", ThisKey="Id", OtherKey="RoundProductId", DeleteRule="NO ACTION")]
-	public EntitySet<ProductionData> ProductionData
-	{
-		get
-		{
-			return this._ProductionData;
-		}
-		set
-		{
-			this._ProductionData.Assign(value);
-		}
-	}
-	
-	[Association(Name="FK_RnDData_RoundProduct", Storage="_RnDData", ThisKey="Id", OtherKey="RoundProductId", DeleteRule="NO ACTION")]
-	public EntitySet<RnDData> RnDData
-	{
-		get
-		{
-			return this._RnDData;
-		}
-		set
-		{
-			this._RnDData.Assign(value);
-		}
-	}
-	
-	[Association(Name="FK_RoundProduct_Round", Storage="_Round", ThisKey="RoundId", OtherKey="Id", IsForeignKey=true)]
-	public Round Round
-	{
-		get
-		{
-			return this._Round.Entity;
-		}
-		set
-		{
-			Round previousValue = this._Round.Entity;
-			if (((previousValue != value) 
-						|| (this._Round.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Round.Entity = null;
-					previousValue.RoundProduct.Remove(this);
-				}
-				this._Round.Entity = value;
-				if ((value != null))
-				{
-					value.RoundProduct.Add(this);
-					this._RoundId = value.Id;
-				}
-				else
-				{
-					this._RoundId = default(int);
-				}
-				this.SendPropertyChanged("Round");
-			}
-		}
-	}
-	
-	[Association(Name="FK_RoundProduct_SegmentType", Storage="_SegmentType", ThisKey="SegmentTypeId", OtherKey="Id", IsForeignKey=true)]
-	public SegmentType SegmentType
-	{
-		get
-		{
-			return this._SegmentType.Entity;
-		}
-		set
-		{
-			SegmentType previousValue = this._SegmentType.Entity;
-			if (((previousValue != value) 
-						|| (this._SegmentType.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._SegmentType.Entity = null;
-					previousValue.RoundProduct.Remove(this);
-				}
-				this._SegmentType.Entity = value;
-				if ((value != null))
-				{
-					value.RoundProduct.Add(this);
-					this._SegmentTypeId = value.Id;
-				}
-				else
-				{
-					this._SegmentTypeId = default(int);
-				}
-				this.SendPropertyChanged("SegmentType");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_MarketingData(MarketingData entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundProduct = this;
-	}
-	
-	private void detach_MarketingData(MarketingData entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundProduct = null;
-	}
-	
-	private void attach_ProductionData(ProductionData entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundProduct = this;
-	}
-	
-	private void detach_ProductionData(ProductionData entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundProduct = null;
-	}
-	
-	private void attach_RnDData(RnDData entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundProduct = this;
-	}
-	
-	private void detach_RnDData(RnDData entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundProduct = null;
-	}
-}
+        public System.Data.Linq.Table<RnDData> RnDData
+        {
+            get
+            {
+                return this.GetTable<RnDData>();
+            }
+        }
 
-[Table(Name="dbo.SegmentMarketDemand")]
-public partial class SegmentMarketDemand
-{
-	
-	private int _Id;
-	
-	private int _RoundCategoryId;
-	
-	private int _SegmentTypeId;
-	
-	private double _Quantity;
-	
-	public SegmentMarketDemand()
-	{
-	}
-	
-	[Column(Storage="_Id", DbType="Int NOT NULL")]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this._Id = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_RoundCategoryId", DbType="Int NOT NULL")]
-	public int RoundCategoryId
-	{
-		get
-		{
-			return this._RoundCategoryId;
-		}
-		set
-		{
-			if ((this._RoundCategoryId != value))
-			{
-				this._RoundCategoryId = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_SegmentTypeId", DbType="Int NOT NULL")]
-	public int SegmentTypeId
-	{
-		get
-		{
-			return this._SegmentTypeId;
-		}
-		set
-		{
-			if ((this._SegmentTypeId != value))
-			{
-				this._SegmentTypeId = value;
-			}
-		}
-	}
-	
-	[Column(Storage="_Quantity", DbType="Float NOT NULL")]
-	public double Quantity
-	{
-		get
-		{
-			return this._Quantity;
-		}
-		set
-		{
-			if ((this._Quantity != value))
-			{
-				this._Quantity = value;
-			}
-		}
-	}
-}
+        public System.Data.Linq.Table<RoleDetails> RoleDetails
+        {
+            get
+            {
+                return this.GetTable<RoleDetails>();
+            }
+        }
 
-[Table(Name="dbo.SegmentType")]
-public partial class SegmentType : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private string _Description;
-	
-	private EntityRef<GameCriteria> _GameCriteria;
-	
-	private EntitySet<RoundCriteria> _RoundCriteria;
-	
-	private EntitySet<RoundCriteria> _RoundCriteria_SegmentType1;
-	
-	private EntitySet<RoundProduct> _RoundProduct;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnDescriptionChanging(string value);
-    partial void OnDescriptionChanged();
-    #endregion
-	
-	public SegmentType()
-	{
-		this._GameCriteria = default(EntityRef<GameCriteria>);
-		this._RoundCriteria = new EntitySet<RoundCriteria>(new Action<RoundCriteria>(this.attach_RoundCriteria), new Action<RoundCriteria>(this.detach_RoundCriteria));
-		this._RoundCriteria_SegmentType1 = new EntitySet<RoundCriteria>(new Action<RoundCriteria>(this.attach_RoundCriteria_SegmentType1), new Action<RoundCriteria>(this.detach_RoundCriteria_SegmentType1));
-		this._RoundProduct = new EntitySet<RoundProduct>(new Action<RoundProduct>(this.attach_RoundProduct), new Action<RoundProduct>(this.detach_RoundProduct));
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Description", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string Description
-	{
-		get
-		{
-			return this._Description;
-		}
-		set
-		{
-			if ((this._Description != value))
-			{
-				this.OnDescriptionChanging(value);
-				this.SendPropertyChanging();
-				this._Description = value;
-				this.SendPropertyChanged("Description");
-				this.OnDescriptionChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_GameCriteria_SegmentType", Storage="_GameCriteria", ThisKey="Id", OtherKey="SegmentTypeId", IsUnique=true, IsForeignKey=false, DeleteRule="NO ACTION")]
-	public GameCriteria GameCriteria
-	{
-		get
-		{
-			return this._GameCriteria.Entity;
-		}
-		set
-		{
-			GameCriteria previousValue = this._GameCriteria.Entity;
-			if (((previousValue != value) 
-						|| (this._GameCriteria.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._GameCriteria.Entity = null;
-					previousValue.SegmentType = null;
-				}
-				this._GameCriteria.Entity = value;
-				if ((value != null))
-				{
-					value.SegmentType = this;
-				}
-				this.SendPropertyChanged("GameCriteria");
-			}
-		}
-	}
-	
-	[Association(Name="FK_RoundCriteria_SegmentType", Storage="_RoundCriteria", ThisKey="Id", OtherKey="SegmentTypeId", DeleteRule="NO ACTION")]
-	public EntitySet<RoundCriteria> RoundCriteria
-	{
-		get
-		{
-			return this._RoundCriteria;
-		}
-		set
-		{
-			this._RoundCriteria.Assign(value);
-		}
-	}
-	
-	[Association(Name="FK_RoundCriteria_SegmentType1", Storage="_RoundCriteria_SegmentType1", ThisKey="Id", OtherKey="SegmentTypeId", DeleteRule="NO ACTION")]
-	public EntitySet<RoundCriteria> RoundCriteria_SegmentType1
-	{
-		get
-		{
-			return this._RoundCriteria_SegmentType1;
-		}
-		set
-		{
-			this._RoundCriteria_SegmentType1.Assign(value);
-		}
-	}
-	
-	[Association(Name="FK_RoundProduct_SegmentType", Storage="_RoundProduct", ThisKey="Id", OtherKey="SegmentTypeId", DeleteRule="NO ACTION")]
-	public EntitySet<RoundProduct> RoundProduct
-	{
-		get
-		{
-			return this._RoundProduct;
-		}
-		set
-		{
-			this._RoundProduct.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_RoundCriteria(RoundCriteria entity)
-	{
-		this.SendPropertyChanging();
-		entity.SegmentType = this;
-	}
-	
-	private void detach_RoundCriteria(RoundCriteria entity)
-	{
-		this.SendPropertyChanging();
-		entity.SegmentType = null;
-	}
-	
-	private void attach_RoundCriteria_SegmentType1(RoundCriteria entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundCriteria_SegmentType1 = this;
-	}
-	
-	private void detach_RoundCriteria_SegmentType1(RoundCriteria entity)
-	{
-		this.SendPropertyChanging();
-		entity.RoundCriteria_SegmentType1 = null;
-	}
-	
-	private void attach_RoundProduct(RoundProduct entity)
-	{
-		this.SendPropertyChanging();
-		entity.SegmentType = this;
-	}
-	
-	private void detach_RoundProduct(RoundProduct entity)
-	{
-		this.SendPropertyChanging();
-		entity.SegmentType = null;
-	}
-}
+        public System.Data.Linq.Table<Round> Round
+        {
+            get
+            {
+                return this.GetTable<Round>();
+            }
+        }
 
-[Table(Name="dbo.Team")]
-public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private string _Name;
-	
-	private System.DateTime _CreatedDate;
-	
-	private bool _Active;
-	
-	private EntitySet<TeamGame> _TeamGame;
-	
-	private EntitySet<TeamUser> _TeamUser;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnNameChanging(string value);
-    partial void OnNameChanged();
-    partial void OnCreatedDateChanging(System.DateTime value);
-    partial void OnCreatedDateChanged();
-    partial void OnActiveChanging(bool value);
-    partial void OnActiveChanged();
-    #endregion
-	
-	public Team()
-	{
-		this._TeamGame = new EntitySet<TeamGame>(new Action<TeamGame>(this.attach_TeamGame), new Action<TeamGame>(this.detach_TeamGame));
-		this._TeamUser = new EntitySet<TeamUser>(new Action<TeamUser>(this.attach_TeamUser), new Action<TeamUser>(this.detach_TeamUser));
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Name", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string Name
-	{
-		get
-		{
-			return this._Name;
-		}
-		set
-		{
-			if ((this._Name != value))
-			{
-				this.OnNameChanging(value);
-				this.SendPropertyChanging();
-				this._Name = value;
-				this.SendPropertyChanged("Name");
-				this.OnNameChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_CreatedDate", DbType="DateTime NOT NULL")]
-	public System.DateTime CreatedDate
-	{
-		get
-		{
-			return this._CreatedDate;
-		}
-		set
-		{
-			if ((this._CreatedDate != value))
-			{
-				this.OnCreatedDateChanging(value);
-				this.SendPropertyChanging();
-				this._CreatedDate = value;
-				this.SendPropertyChanged("CreatedDate");
-				this.OnCreatedDateChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Active", DbType="Bit NOT NULL")]
-	public bool Active
-	{
-		get
-		{
-			return this._Active;
-		}
-		set
-		{
-			if ((this._Active != value))
-			{
-				this.OnActiveChanging(value);
-				this.SendPropertyChanging();
-				this._Active = value;
-				this.SendPropertyChanged("Active");
-				this.OnActiveChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_TeamGame_Team", Storage="_TeamGame", ThisKey="Id", OtherKey="TeamId", DeleteRule="NO ACTION")]
-	public EntitySet<TeamGame> TeamGame
-	{
-		get
-		{
-			return this._TeamGame;
-		}
-		set
-		{
-			this._TeamGame.Assign(value);
-		}
-	}
-	
-	[Association(Name="FK_TeamUser_Team", Storage="_TeamUser", ThisKey="Id", OtherKey="TeamId", DeleteRule="NO ACTION")]
-	public EntitySet<TeamUser> TeamUser
-	{
-		get
-		{
-			return this._TeamUser;
-		}
-		set
-		{
-			this._TeamUser.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_TeamGame(TeamGame entity)
-	{
-		this.SendPropertyChanging();
-		entity.Team = this;
-	}
-	
-	private void detach_TeamGame(TeamGame entity)
-	{
-		this.SendPropertyChanging();
-		entity.Team = null;
-	}
-	
-	private void attach_TeamUser(TeamUser entity)
-	{
-		this.SendPropertyChanging();
-		entity.Team = this;
-	}
-	
-	private void detach_TeamUser(TeamUser entity)
-	{
-		this.SendPropertyChanging();
-		entity.Team = null;
-	}
-}
+        public System.Data.Linq.Table<RoundCategory> RoundCategory
+        {
+            get
+            {
+                return this.GetTable<RoundCategory>();
+            }
+        }
 
-[Table(Name="dbo.TeamGame")]
-public partial class TeamGame : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _GameId;
-	
-	private int _TeamId;
-	
-	private EntitySet<Round> _Round;
-	
-	private EntityRef<Game> _Game;
-	
-	private EntityRef<Team> _Team;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnGameIdChanging(int value);
-    partial void OnGameIdChanged();
-    partial void OnTeamIdChanging(int value);
-    partial void OnTeamIdChanged();
-    #endregion
-	
-	public TeamGame()
-	{
-		this._Round = new EntitySet<Round>(new Action<Round>(this.attach_Round), new Action<Round>(this.detach_Round));
-		this._Game = default(EntityRef<Game>);
-		this._Team = default(EntityRef<Team>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_GameId", DbType="Int NOT NULL")]
-	public int GameId
-	{
-		get
-		{
-			return this._GameId;
-		}
-		set
-		{
-			if ((this._GameId != value))
-			{
-				if (this._Game.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnGameIdChanging(value);
-				this.SendPropertyChanging();
-				this._GameId = value;
-				this.SendPropertyChanged("GameId");
-				this.OnGameIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_TeamId", DbType="Int NOT NULL")]
-	public int TeamId
-	{
-		get
-		{
-			return this._TeamId;
-		}
-		set
-		{
-			if ((this._TeamId != value))
-			{
-				if (this._Team.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnTeamIdChanging(value);
-				this.SendPropertyChanging();
-				this._TeamId = value;
-				this.SendPropertyChanged("TeamId");
-				this.OnTeamIdChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_Round_TeamGame", Storage="_Round", ThisKey="Id", OtherKey="TeamGameId", DeleteRule="NO ACTION")]
-	public EntitySet<Round> Round
-	{
-		get
-		{
-			return this._Round;
-		}
-		set
-		{
-			this._Round.Assign(value);
-		}
-	}
-	
-	[Association(Name="FK_TeamGame_Game", Storage="_Game", ThisKey="GameId", OtherKey="Id", IsForeignKey=true)]
-	public Game Game
-	{
-		get
-		{
-			return this._Game.Entity;
-		}
-		set
-		{
-			Game previousValue = this._Game.Entity;
-			if (((previousValue != value) 
-						|| (this._Game.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Game.Entity = null;
-					previousValue.TeamGame.Remove(this);
-				}
-				this._Game.Entity = value;
-				if ((value != null))
-				{
-					value.TeamGame.Add(this);
-					this._GameId = value.Id;
-				}
-				else
-				{
-					this._GameId = default(int);
-				}
-				this.SendPropertyChanged("Game");
-			}
-		}
-	}
-	
-	[Association(Name="FK_TeamGame_Team", Storage="_Team", ThisKey="TeamId", OtherKey="Id", IsForeignKey=true)]
-	public Team Team
-	{
-		get
-		{
-			return this._Team.Entity;
-		}
-		set
-		{
-			Team previousValue = this._Team.Entity;
-			if (((previousValue != value) 
-						|| (this._Team.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Team.Entity = null;
-					previousValue.TeamGame.Remove(this);
-				}
-				this._Team.Entity = value;
-				if ((value != null))
-				{
-					value.TeamGame.Add(this);
-					this._TeamId = value.Id;
-				}
-				else
-				{
-					this._TeamId = default(int);
-				}
-				this.SendPropertyChanged("Team");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_Round(Round entity)
-	{
-		this.SendPropertyChanging();
-		entity.TeamGame = this;
-	}
-	
-	private void detach_Round(Round entity)
-	{
-		this.SendPropertyChanging();
-		entity.TeamGame = null;
-	}
-}
+        public System.Data.Linq.Table<RoundCriteria> RoundCriteria
+        {
+            get
+            {
+                return this.GetTable<RoundCriteria>();
+            }
+        }
 
-[Table(Name="dbo.TeamUser")]
-public partial class TeamUser : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private int _TeamId;
-	
-	private int _UserId;
-	
-	private EntityRef<Team> _Team;
-	
-	private EntityRef<UserDetails> _UserDetails;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnTeamIdChanging(int value);
-    partial void OnTeamIdChanged();
-    partial void OnUserIdChanging(int value);
-    partial void OnUserIdChanged();
-    #endregion
-	
-	public TeamUser()
-	{
-		this._Team = default(EntityRef<Team>);
-		this._UserDetails = default(EntityRef<UserDetails>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_TeamId", DbType="Int NOT NULL")]
-	public int TeamId
-	{
-		get
-		{
-			return this._TeamId;
-		}
-		set
-		{
-			if ((this._TeamId != value))
-			{
-				if (this._Team.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnTeamIdChanging(value);
-				this.SendPropertyChanging();
-				this._TeamId = value;
-				this.SendPropertyChanged("TeamId");
-				this.OnTeamIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_UserId", DbType="Int NOT NULL")]
-	public int UserId
-	{
-		get
-		{
-			return this._UserId;
-		}
-		set
-		{
-			if ((this._UserId != value))
-			{
-				if (this._UserDetails.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnUserIdChanging(value);
-				this.SendPropertyChanging();
-				this._UserId = value;
-				this.SendPropertyChanged("UserId");
-				this.OnUserIdChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_TeamUser_Team", Storage="_Team", ThisKey="TeamId", OtherKey="Id", IsForeignKey=true)]
-	public Team Team
-	{
-		get
-		{
-			return this._Team.Entity;
-		}
-		set
-		{
-			Team previousValue = this._Team.Entity;
-			if (((previousValue != value) 
-						|| (this._Team.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._Team.Entity = null;
-					previousValue.TeamUser.Remove(this);
-				}
-				this._Team.Entity = value;
-				if ((value != null))
-				{
-					value.TeamUser.Add(this);
-					this._TeamId = value.Id;
-				}
-				else
-				{
-					this._TeamId = default(int);
-				}
-				this.SendPropertyChanged("Team");
-			}
-		}
-	}
-	
-	[Association(Name="FK_TeamUser_User", Storage="_UserDetails", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
-	public UserDetails UserDetails
-	{
-		get
-		{
-			return this._UserDetails.Entity;
-		}
-		set
-		{
-			UserDetails previousValue = this._UserDetails.Entity;
-			if (((previousValue != value) 
-						|| (this._UserDetails.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._UserDetails.Entity = null;
-					previousValue.TeamUser.Remove(this);
-				}
-				this._UserDetails.Entity = value;
-				if ((value != null))
-				{
-					value.TeamUser.Add(this);
-					this._UserId = value.Id;
-				}
-				else
-				{
-					this._UserId = default(int);
-				}
-				this.SendPropertyChanged("UserDetails");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
+        public System.Data.Linq.Table<RoundProduct> RoundProduct
+        {
+            get
+            {
+                return this.GetTable<RoundProduct>();
+            }
+        }
 
-[Table(Name="dbo.UserDetails")]
-public partial class UserDetails : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _Id;
-	
-	private string _Email;
-	
-	private string _Password;
-	
-	private string _FirstName;
-	
-	private string _LastName;
-	
-	private string _Role;
-	
-	private EntitySet<TeamUser> _TeamUser;
-	
-	private EntitySet<UserRole> _UserRole;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnEmailChanging(string value);
-    partial void OnEmailChanged();
-    partial void OnPasswordChanging(string value);
-    partial void OnPasswordChanged();
-    partial void OnFirstNameChanging(string value);
-    partial void OnFirstNameChanged();
-    partial void OnLastNameChanging(string value);
-    partial void OnLastNameChanged();
-    partial void OnRoleChanging(string value);
-    partial void OnRoleChanged();
-    #endregion
-	
-	public UserDetails()
-	{
-		this._TeamUser = new EntitySet<TeamUser>(new Action<TeamUser>(this.attach_TeamUser), new Action<TeamUser>(this.detach_TeamUser));
-		this._UserRole = new EntitySet<UserRole>(new Action<UserRole>(this.attach_UserRole), new Action<UserRole>(this.detach_UserRole));
-		OnCreated();
-	}
-	
-	[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-	public int Id
-	{
-		get
-		{
-			return this._Id;
-		}
-		set
-		{
-			if ((this._Id != value))
-			{
-				this.OnIdChanging(value);
-				this.SendPropertyChanging();
-				this._Id = value;
-				this.SendPropertyChanged("Id");
-				this.OnIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Email", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string Email
-	{
-		get
-		{
-			return this._Email;
-		}
-		set
-		{
-			if ((this._Email != value))
-			{
-				this.OnEmailChanging(value);
-				this.SendPropertyChanging();
-				this._Email = value;
-				this.SendPropertyChanged("Email");
-				this.OnEmailChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Password", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-	public string Password
-	{
-		get
-		{
-			return this._Password;
-		}
-		set
-		{
-			if ((this._Password != value))
-			{
-				this.OnPasswordChanging(value);
-				this.SendPropertyChanging();
-				this._Password = value;
-				this.SendPropertyChanged("Password");
-				this.OnPasswordChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_FirstName", DbType="VarChar(50)")]
-	public string FirstName
-	{
-		get
-		{
-			return this._FirstName;
-		}
-		set
-		{
-			if ((this._FirstName != value))
-			{
-				this.OnFirstNameChanging(value);
-				this.SendPropertyChanging();
-				this._FirstName = value;
-				this.SendPropertyChanged("FirstName");
-				this.OnFirstNameChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_LastName", DbType="VarChar(50)")]
-	public string LastName
-	{
-		get
-		{
-			return this._LastName;
-		}
-		set
-		{
-			if ((this._LastName != value))
-			{
-				this.OnLastNameChanging(value);
-				this.SendPropertyChanging();
-				this._LastName = value;
-				this.SendPropertyChanged("LastName");
-				this.OnLastNameChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_Role", DbType="VarChar(50)")]
-	public string Role
-	{
-		get
-		{
-			return this._Role;
-		}
-		set
-		{
-			if ((this._Role != value))
-			{
-				this.OnRoleChanging(value);
-				this.SendPropertyChanging();
-				this._Role = value;
-				this.SendPropertyChanged("Role");
-				this.OnRoleChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_TeamUser_User", Storage="_TeamUser", ThisKey="Id", OtherKey="UserId", DeleteRule="NO ACTION")]
-	public EntitySet<TeamUser> TeamUser
-	{
-		get
-		{
-			return this._TeamUser;
-		}
-		set
-		{
-			this._TeamUser.Assign(value);
-		}
-	}
-	
-	[Association(Name="FK_UserRole_User", Storage="_UserRole", ThisKey="Id", OtherKey="UserId", DeleteRule="NO ACTION")]
-	public EntitySet<UserRole> UserRole
-	{
-		get
-		{
-			return this._UserRole;
-		}
-		set
-		{
-			this._UserRole.Assign(value);
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-	
-	private void attach_TeamUser(TeamUser entity)
-	{
-		this.SendPropertyChanging();
-		entity.UserDetails = this;
-	}
-	
-	private void detach_TeamUser(TeamUser entity)
-	{
-		this.SendPropertyChanging();
-		entity.UserDetails = null;
-	}
-	
-	private void attach_UserRole(UserRole entity)
-	{
-		this.SendPropertyChanging();
-		entity.UserDetails = this;
-	}
-	
-	private void detach_UserRole(UserRole entity)
-	{
-		this.SendPropertyChanging();
-		entity.UserDetails = null;
-	}
-}
+        public System.Data.Linq.Table<SegmentMarketDemand> SegmentMarketDemand
+        {
+            get
+            {
+                return this.GetTable<SegmentMarketDemand>();
+            }
+        }
 
-[Table(Name="dbo.UserRole")]
-public partial class UserRole : INotifyPropertyChanging, INotifyPropertyChanged
-{
-	
-	private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-	
-	private int _UserId;
-	
-	private int _RoleId;
-	
-	private EntityRef<RoleDetails> _RoleDetails;
-	
-	private EntityRef<UserDetails> _UserDetails;
-	
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnUserIdChanging(int value);
-    partial void OnUserIdChanged();
-    partial void OnRoleIdChanging(int value);
-    partial void OnRoleIdChanged();
-    #endregion
-	
-	public UserRole()
-	{
-		this._RoleDetails = default(EntityRef<RoleDetails>);
-		this._UserDetails = default(EntityRef<UserDetails>);
-		OnCreated();
-	}
-	
-	[Column(Storage="_UserId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int UserId
-	{
-		get
-		{
-			return this._UserId;
-		}
-		set
-		{
-			if ((this._UserId != value))
-			{
-				if (this._UserDetails.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnUserIdChanging(value);
-				this.SendPropertyChanging();
-				this._UserId = value;
-				this.SendPropertyChanged("UserId");
-				this.OnUserIdChanged();
-			}
-		}
-	}
-	
-	[Column(Storage="_RoleId", DbType="Int NOT NULL", IsPrimaryKey=true)]
-	public int RoleId
-	{
-		get
-		{
-			return this._RoleId;
-		}
-		set
-		{
-			if ((this._RoleId != value))
-			{
-				if (this._RoleDetails.HasLoadedOrAssignedValue)
-				{
-					throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-				}
-				this.OnRoleIdChanging(value);
-				this.SendPropertyChanging();
-				this._RoleId = value;
-				this.SendPropertyChanged("RoleId");
-				this.OnRoleIdChanged();
-			}
-		}
-	}
-	
-	[Association(Name="FK_UserRole_Role", Storage="_RoleDetails", ThisKey="RoleId", OtherKey="Id", IsForeignKey=true)]
-	public RoleDetails RoleDetails
-	{
-		get
-		{
-			return this._RoleDetails.Entity;
-		}
-		set
-		{
-			RoleDetails previousValue = this._RoleDetails.Entity;
-			if (((previousValue != value) 
-						|| (this._RoleDetails.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._RoleDetails.Entity = null;
-					previousValue.UserRole.Remove(this);
-				}
-				this._RoleDetails.Entity = value;
-				if ((value != null))
-				{
-					value.UserRole.Add(this);
-					this._RoleId = value.Id;
-				}
-				else
-				{
-					this._RoleId = default(int);
-				}
-				this.SendPropertyChanged("RoleDetails");
-			}
-		}
-	}
-	
-	[Association(Name="FK_UserRole_User", Storage="_UserDetails", ThisKey="UserId", OtherKey="Id", IsForeignKey=true)]
-	public UserDetails UserDetails
-	{
-		get
-		{
-			return this._UserDetails.Entity;
-		}
-		set
-		{
-			UserDetails previousValue = this._UserDetails.Entity;
-			if (((previousValue != value) 
-						|| (this._UserDetails.HasLoadedOrAssignedValue == false)))
-			{
-				this.SendPropertyChanging();
-				if ((previousValue != null))
-				{
-					this._UserDetails.Entity = null;
-					previousValue.UserRole.Remove(this);
-				}
-				this._UserDetails.Entity = value;
-				if ((value != null))
-				{
-					value.UserRole.Add(this);
-					this._UserId = value.Id;
-				}
-				else
-				{
-					this._UserId = default(int);
-				}
-				this.SendPropertyChanged("UserDetails");
-			}
-		}
-	}
-	
-	public event PropertyChangingEventHandler PropertyChanging;
-	
-	public event PropertyChangedEventHandler PropertyChanged;
-	
-	protected virtual void SendPropertyChanging()
-	{
-		if ((this.PropertyChanging != null))
-		{
-			this.PropertyChanging(this, emptyChangingEventArgs);
-		}
-	}
-	
-	protected virtual void SendPropertyChanged(String propertyName)
-	{
-		if ((this.PropertyChanged != null))
-		{
-			this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-		}
-	}
-}
+        public System.Data.Linq.Table<SegmentType> SegmentType
+        {
+            get
+            {
+                return this.GetTable<SegmentType>();
+            }
+        }
+
+        public System.Data.Linq.Table<Team> Team
+        {
+            get
+            {
+                return this.GetTable<Team>();
+            }
+        }
+
+        public System.Data.Linq.Table<TeamCategory> TeamCategory
+        {
+            get
+            {
+                return this.GetTable<TeamCategory>();
+            }
+        }
+
+        public System.Data.Linq.Table<TeamGame> TeamGame
+        {
+            get
+            {
+                return this.GetTable<TeamGame>();
+            }
+        }
+
+        public System.Data.Linq.Table<TeamUser> TeamUser
+        {
+            get
+            {
+                return this.GetTable<TeamUser>();
+            }
+        }
+
+        public System.Data.Linq.Table<UserDetails> UserDetails
+        {
+            get
+            {
+                return this.GetTable<UserDetails>();
+            }
+        }
+
+        public System.Data.Linq.Table<UserRole> UserRole
+        {
+            get
+            {
+                return this.GetTable<UserRole>();
+            }
+        }
+    }
+
+    [Table(Name = "dbo.ConfigurationData")]
+    public partial class ConfigurationData
+    {
+
+        private string _Name;
+
+        private double _Value;
+
+        public ConfigurationData()
+        {
+        }
+
+        [Column(Storage = "_Name", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                if ((this._Name != value))
+                {
+                    this._Name = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_Value", DbType = "Float NOT NULL")]
+        public double Value
+        {
+            get
+            {
+                return this._Value;
+            }
+            set
+            {
+                if ((this._Value != value))
+                {
+                    this._Value = value;
+                }
+            }
+        }
+    }
+
+    [Table(Name = "dbo.FinanceData")]
+    public partial class FinanceData : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _RoundId;
+
+        private int _TeamId;
+
+        private double _Cash;
+
+        private double _LongTermLoad;
+
+        private double _ShortTermLoad;
+
+        private EntityRef<Round> _Round;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnRoundIdChanging(int value);
+        partial void OnRoundIdChanged();
+        partial void OnTeamIdChanging(int value);
+        partial void OnTeamIdChanged();
+        partial void OnCashChanging(double value);
+        partial void OnCashChanged();
+        partial void OnLongTermLoadChanging(double value);
+        partial void OnLongTermLoadChanged();
+        partial void OnShortTermLoadChanging(double value);
+        partial void OnShortTermLoadChanged();
+        #endregion
+
+        public FinanceData()
+        {
+            this._Round = default(EntityRef<Round>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundId", DbType = "Int NOT NULL")]
+        public int RoundId
+        {
+            get
+            {
+                return this._RoundId;
+            }
+            set
+            {
+                if ((this._RoundId != value))
+                {
+                    if (this._Round.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnRoundIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoundId = value;
+                    this.SendPropertyChanged("RoundId");
+                    this.OnRoundIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_TeamId", DbType = "Int NOT NULL")]
+        public int TeamId
+        {
+            get
+            {
+                return this._TeamId;
+            }
+            set
+            {
+                if ((this._TeamId != value))
+                {
+                    this.OnTeamIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._TeamId = value;
+                    this.SendPropertyChanged("TeamId");
+                    this.OnTeamIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Cash", DbType = "Float NOT NULL")]
+        public double Cash
+        {
+            get
+            {
+                return this._Cash;
+            }
+            set
+            {
+                if ((this._Cash != value))
+                {
+                    this.OnCashChanging(value);
+                    this.SendPropertyChanging();
+                    this._Cash = value;
+                    this.SendPropertyChanged("Cash");
+                    this.OnCashChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_LongTermLoad", DbType = "Float NOT NULL")]
+        public double LongTermLoad
+        {
+            get
+            {
+                return this._LongTermLoad;
+            }
+            set
+            {
+                if ((this._LongTermLoad != value))
+                {
+                    this.OnLongTermLoadChanging(value);
+                    this.SendPropertyChanging();
+                    this._LongTermLoad = value;
+                    this.SendPropertyChanged("LongTermLoad");
+                    this.OnLongTermLoadChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ShortTermLoad", DbType = "Float NOT NULL")]
+        public double ShortTermLoad
+        {
+            get
+            {
+                return this._ShortTermLoad;
+            }
+            set
+            {
+                if ((this._ShortTermLoad != value))
+                {
+                    this.OnShortTermLoadChanging(value);
+                    this.SendPropertyChanging();
+                    this._ShortTermLoad = value;
+                    this.SendPropertyChanged("ShortTermLoad");
+                    this.OnShortTermLoadChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_FinanceData_Round", Storage = "_Round", ThisKey = "RoundId", OtherKey = "Id", IsForeignKey = true)]
+        public Round Round
+        {
+            get
+            {
+                return this._Round.Entity;
+            }
+            set
+            {
+                Round previousValue = this._Round.Entity;
+                if (((previousValue != value)
+                            || (this._Round.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Round.Entity = null;
+                        previousValue.FinanceData.Remove(this);
+                    }
+                    this._Round.Entity = value;
+                    if ((value != null))
+                    {
+                        value.FinanceData.Add(this);
+                        this._RoundId = value.Id;
+                    }
+                    else
+                    {
+                        this._RoundId = default(int);
+                    }
+                    this.SendPropertyChanged("Round");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.Game")]
+    public partial class Game : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private System.Nullable<System.DateTime> _CreatedDate;
+
+        private System.Nullable<bool> _Active;
+
+        private EntitySet<TeamGame> _TeamGame;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnCreatedDateChanging(System.Nullable<System.DateTime> value);
+        partial void OnCreatedDateChanged();
+        partial void OnActiveChanging(System.Nullable<bool> value);
+        partial void OnActiveChanged();
+        #endregion
+
+        public Game()
+        {
+            this._TeamGame = new EntitySet<TeamGame>(new Action<TeamGame>(this.attach_TeamGame), new Action<TeamGame>(this.detach_TeamGame));
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_CreatedDate", DbType = "DateTime")]
+        public System.Nullable<System.DateTime> CreatedDate
+        {
+            get
+            {
+                return this._CreatedDate;
+            }
+            set
+            {
+                if ((this._CreatedDate != value))
+                {
+                    this.OnCreatedDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._CreatedDate = value;
+                    this.SendPropertyChanged("CreatedDate");
+                    this.OnCreatedDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Active", DbType = "Bit")]
+        public System.Nullable<bool> Active
+        {
+            get
+            {
+                return this._Active;
+            }
+            set
+            {
+                if ((this._Active != value))
+                {
+                    this.OnActiveChanging(value);
+                    this.SendPropertyChanging();
+                    this._Active = value;
+                    this.SendPropertyChanged("Active");
+                    this.OnActiveChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_TeamGame_Game", Storage = "_TeamGame", ThisKey = "Id", OtherKey = "GameId", DeleteRule = "NO ACTION")]
+        public EntitySet<TeamGame> TeamGame
+        {
+            get
+            {
+                return this._TeamGame;
+            }
+            set
+            {
+                this._TeamGame.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_TeamGame(TeamGame entity)
+        {
+            this.SendPropertyChanging();
+            entity.Game = this;
+        }
+
+        private void detach_TeamGame(TeamGame entity)
+        {
+            this.SendPropertyChanging();
+            entity.Game = null;
+        }
+    }
+
+    [Table(Name = "dbo.GameCriteria")]
+    public partial class GameCriteria : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _SegmentTypeId;
+
+        private double _Age;
+
+        private double _AgeDecision;
+
+        private double _TopPrice;
+
+        private double _BottomPrice;
+
+        private double _PriceDecision;
+
+        private double _Performance;
+
+        private double _Size;
+
+        private double _PerformanceDecision;
+
+        private double _TopReliability;
+
+        private double _BottomReliability;
+
+        private double _ReliabilityDecision;
+
+        private EntityRef<SegmentType> _SegmentType;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnSegmentTypeIdChanging(int value);
+        partial void OnSegmentTypeIdChanged();
+        partial void OnAgeChanging(double value);
+        partial void OnAgeChanged();
+        partial void OnAgeDecisionChanging(double value);
+        partial void OnAgeDecisionChanged();
+        partial void OnTopPriceChanging(double value);
+        partial void OnTopPriceChanged();
+        partial void OnBottomPriceChanging(double value);
+        partial void OnBottomPriceChanged();
+        partial void OnPriceDecisionChanging(double value);
+        partial void OnPriceDecisionChanged();
+        partial void OnPerformanceChanging(double value);
+        partial void OnPerformanceChanged();
+        partial void OnSizeChanging(double value);
+        partial void OnSizeChanged();
+        partial void OnPerformanceDecisionChanging(double value);
+        partial void OnPerformanceDecisionChanged();
+        partial void OnTopReliabilityChanging(double value);
+        partial void OnTopReliabilityChanged();
+        partial void OnBottomReliabilityChanging(double value);
+        partial void OnBottomReliabilityChanged();
+        partial void OnReliabilityDecisionChanging(double value);
+        partial void OnReliabilityDecisionChanged();
+        #endregion
+
+        public GameCriteria()
+        {
+            this._SegmentType = default(EntityRef<SegmentType>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_SegmentTypeId", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int SegmentTypeId
+        {
+            get
+            {
+                return this._SegmentTypeId;
+            }
+            set
+            {
+                if ((this._SegmentTypeId != value))
+                {
+                    if (this._SegmentType.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnSegmentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._SegmentTypeId = value;
+                    this.SendPropertyChanged("SegmentTypeId");
+                    this.OnSegmentTypeIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Age", DbType = "Float NOT NULL")]
+        public double Age
+        {
+            get
+            {
+                return this._Age;
+            }
+            set
+            {
+                if ((this._Age != value))
+                {
+                    this.OnAgeChanging(value);
+                    this.SendPropertyChanging();
+                    this._Age = value;
+                    this.SendPropertyChanged("Age");
+                    this.OnAgeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_AgeDecision", DbType = "Float NOT NULL")]
+        public double AgeDecision
+        {
+            get
+            {
+                return this._AgeDecision;
+            }
+            set
+            {
+                if ((this._AgeDecision != value))
+                {
+                    this.OnAgeDecisionChanging(value);
+                    this.SendPropertyChanging();
+                    this._AgeDecision = value;
+                    this.SendPropertyChanged("AgeDecision");
+                    this.OnAgeDecisionChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_TopPrice", DbType = "Float NOT NULL")]
+        public double TopPrice
+        {
+            get
+            {
+                return this._TopPrice;
+            }
+            set
+            {
+                if ((this._TopPrice != value))
+                {
+                    this.OnTopPriceChanging(value);
+                    this.SendPropertyChanging();
+                    this._TopPrice = value;
+                    this.SendPropertyChanged("TopPrice");
+                    this.OnTopPriceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_BottomPrice", DbType = "Float NOT NULL")]
+        public double BottomPrice
+        {
+            get
+            {
+                return this._BottomPrice;
+            }
+            set
+            {
+                if ((this._BottomPrice != value))
+                {
+                    this.OnBottomPriceChanging(value);
+                    this.SendPropertyChanging();
+                    this._BottomPrice = value;
+                    this.SendPropertyChanged("BottomPrice");
+                    this.OnBottomPriceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PriceDecision", DbType = "Float NOT NULL")]
+        public double PriceDecision
+        {
+            get
+            {
+                return this._PriceDecision;
+            }
+            set
+            {
+                if ((this._PriceDecision != value))
+                {
+                    this.OnPriceDecisionChanging(value);
+                    this.SendPropertyChanging();
+                    this._PriceDecision = value;
+                    this.SendPropertyChanged("PriceDecision");
+                    this.OnPriceDecisionChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Performance", DbType = "Float NOT NULL")]
+        public double Performance
+        {
+            get
+            {
+                return this._Performance;
+            }
+            set
+            {
+                if ((this._Performance != value))
+                {
+                    this.OnPerformanceChanging(value);
+                    this.SendPropertyChanging();
+                    this._Performance = value;
+                    this.SendPropertyChanged("Performance");
+                    this.OnPerformanceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Size", DbType = "Float NOT NULL")]
+        public double Size
+        {
+            get
+            {
+                return this._Size;
+            }
+            set
+            {
+                if ((this._Size != value))
+                {
+                    this.OnSizeChanging(value);
+                    this.SendPropertyChanging();
+                    this._Size = value;
+                    this.SendPropertyChanged("Size");
+                    this.OnSizeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PerformanceDecision", DbType = "Float NOT NULL")]
+        public double PerformanceDecision
+        {
+            get
+            {
+                return this._PerformanceDecision;
+            }
+            set
+            {
+                if ((this._PerformanceDecision != value))
+                {
+                    this.OnPerformanceDecisionChanging(value);
+                    this.SendPropertyChanging();
+                    this._PerformanceDecision = value;
+                    this.SendPropertyChanged("PerformanceDecision");
+                    this.OnPerformanceDecisionChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_TopReliability", DbType = "Float NOT NULL")]
+        public double TopReliability
+        {
+            get
+            {
+                return this._TopReliability;
+            }
+            set
+            {
+                if ((this._TopReliability != value))
+                {
+                    this.OnTopReliabilityChanging(value);
+                    this.SendPropertyChanging();
+                    this._TopReliability = value;
+                    this.SendPropertyChanged("TopReliability");
+                    this.OnTopReliabilityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_BottomReliability", DbType = "Float NOT NULL")]
+        public double BottomReliability
+        {
+            get
+            {
+                return this._BottomReliability;
+            }
+            set
+            {
+                if ((this._BottomReliability != value))
+                {
+                    this.OnBottomReliabilityChanging(value);
+                    this.SendPropertyChanging();
+                    this._BottomReliability = value;
+                    this.SendPropertyChanged("BottomReliability");
+                    this.OnBottomReliabilityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ReliabilityDecision", DbType = "Float NOT NULL")]
+        public double ReliabilityDecision
+        {
+            get
+            {
+                return this._ReliabilityDecision;
+            }
+            set
+            {
+                if ((this._ReliabilityDecision != value))
+                {
+                    this.OnReliabilityDecisionChanging(value);
+                    this.SendPropertyChanging();
+                    this._ReliabilityDecision = value;
+                    this.SendPropertyChanged("ReliabilityDecision");
+                    this.OnReliabilityDecisionChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_GameCriteria_SegmentType", Storage = "_SegmentType", ThisKey = "SegmentTypeId", OtherKey = "Id", IsForeignKey = true)]
+        public SegmentType SegmentType
+        {
+            get
+            {
+                return this._SegmentType.Entity;
+            }
+            set
+            {
+                SegmentType previousValue = this._SegmentType.Entity;
+                if (((previousValue != value)
+                            || (this._SegmentType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._SegmentType.Entity = null;
+                        previousValue.GameCriteria = null;
+                    }
+                    this._SegmentType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.GameCriteria = this;
+                        this._SegmentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._SegmentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("SegmentType");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.GameInitialData")]
+    public partial class GameInitialData : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _SegmentTypeId;
+
+        private double _UnitSold;
+
+        private double _UnitInventory;
+
+        private System.DateTime _RevisionDate;
+
+        private double _AgeDec31;
+
+        private double _Reliability;
+
+        private double _Performance;
+
+        private double _Size;
+
+        private double _SalesExpense;
+
+        private double _MarketingExpense;
+
+        private double _Price;
+
+        private double _MaterialCost;
+
+        private double _LabourCost;
+
+        private double _Overtime;
+
+        private double _AutomationForNextRound;
+
+        private double _CapacityForNextRound;
+
+        private double _PlantUtilization;
+
+        private EntityRef<SegmentType> _SegmentType;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnSegmentTypeIdChanging(int value);
+        partial void OnSegmentTypeIdChanged();
+        partial void OnUnitSoldChanging(double value);
+        partial void OnUnitSoldChanged();
+        partial void OnUnitInventoryChanging(double value);
+        partial void OnUnitInventoryChanged();
+        partial void OnRevisionDateChanging(System.DateTime value);
+        partial void OnRevisionDateChanged();
+        partial void OnAgeDec31Changing(double value);
+        partial void OnAgeDec31Changed();
+        partial void OnReliabilityChanging(double value);
+        partial void OnReliabilityChanged();
+        partial void OnPerformanceChanging(double value);
+        partial void OnPerformanceChanged();
+        partial void OnSizeChanging(double value);
+        partial void OnSizeChanged();
+        partial void OnSalesExpenseChanging(double value);
+        partial void OnSalesExpenseChanged();
+        partial void OnMarketingExpenseChanging(double value);
+        partial void OnMarketingExpenseChanged();
+        partial void OnPriceChanging(double value);
+        partial void OnPriceChanged();
+        partial void OnMaterialCostChanging(double value);
+        partial void OnMaterialCostChanged();
+        partial void OnLabourCostChanging(double value);
+        partial void OnLabourCostChanged();
+        partial void OnOvertimeChanging(double value);
+        partial void OnOvertimeChanged();
+        partial void OnAutomationForNextRoundChanging(double value);
+        partial void OnAutomationForNextRoundChanged();
+        partial void OnCapacityForNextRoundChanging(double value);
+        partial void OnCapacityForNextRoundChanged();
+        partial void OnPlantUtilizationChanging(double value);
+        partial void OnPlantUtilizationChanged();
+        #endregion
+
+        public GameInitialData()
+        {
+            this._SegmentType = default(EntityRef<SegmentType>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_SegmentTypeId", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int SegmentTypeId
+        {
+            get
+            {
+                return this._SegmentTypeId;
+            }
+            set
+            {
+                if ((this._SegmentTypeId != value))
+                {
+                    this.OnSegmentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._SegmentTypeId = value;
+                    this.SendPropertyChanged("SegmentTypeId");
+                    this.OnSegmentTypeIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_UnitSold", DbType = "Float NOT NULL")]
+        public double UnitSold
+        {
+            get
+            {
+                return this._UnitSold;
+            }
+            set
+            {
+                if ((this._UnitSold != value))
+                {
+                    this.OnUnitSoldChanging(value);
+                    this.SendPropertyChanging();
+                    this._UnitSold = value;
+                    this.SendPropertyChanged("UnitSold");
+                    this.OnUnitSoldChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_UnitInventory", DbType = "Float NOT NULL")]
+        public double UnitInventory
+        {
+            get
+            {
+                return this._UnitInventory;
+            }
+            set
+            {
+                if ((this._UnitInventory != value))
+                {
+                    this.OnUnitInventoryChanging(value);
+                    this.SendPropertyChanging();
+                    this._UnitInventory = value;
+                    this.SendPropertyChanged("UnitInventory");
+                    this.OnUnitInventoryChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RevisionDate", DbType = "DateTime NOT NULL")]
+        public System.DateTime RevisionDate
+        {
+            get
+            {
+                return this._RevisionDate;
+            }
+            set
+            {
+                if ((this._RevisionDate != value))
+                {
+                    this.OnRevisionDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._RevisionDate = value;
+                    this.SendPropertyChanged("RevisionDate");
+                    this.OnRevisionDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_AgeDec31", DbType = "Float NOT NULL")]
+        public double AgeDec31
+        {
+            get
+            {
+                return this._AgeDec31;
+            }
+            set
+            {
+                if ((this._AgeDec31 != value))
+                {
+                    this.OnAgeDec31Changing(value);
+                    this.SendPropertyChanging();
+                    this._AgeDec31 = value;
+                    this.SendPropertyChanged("AgeDec31");
+                    this.OnAgeDec31Changed();
+                }
+            }
+        }
+
+        [Column(Storage = "_Reliability", DbType = "Float NOT NULL")]
+        public double Reliability
+        {
+            get
+            {
+                return this._Reliability;
+            }
+            set
+            {
+                if ((this._Reliability != value))
+                {
+                    this.OnReliabilityChanging(value);
+                    this.SendPropertyChanging();
+                    this._Reliability = value;
+                    this.SendPropertyChanged("Reliability");
+                    this.OnReliabilityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Performance", DbType = "Float NOT NULL")]
+        public double Performance
+        {
+            get
+            {
+                return this._Performance;
+            }
+            set
+            {
+                if ((this._Performance != value))
+                {
+                    this.OnPerformanceChanging(value);
+                    this.SendPropertyChanging();
+                    this._Performance = value;
+                    this.SendPropertyChanged("Performance");
+                    this.OnPerformanceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Size", DbType = "Float NOT NULL")]
+        public double Size
+        {
+            get
+            {
+                return this._Size;
+            }
+            set
+            {
+                if ((this._Size != value))
+                {
+                    this.OnSizeChanging(value);
+                    this.SendPropertyChanging();
+                    this._Size = value;
+                    this.SendPropertyChanged("Size");
+                    this.OnSizeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_SalesExpense", DbType = "Float NOT NULL")]
+        public double SalesExpense
+        {
+            get
+            {
+                return this._SalesExpense;
+            }
+            set
+            {
+                if ((this._SalesExpense != value))
+                {
+                    this.OnSalesExpenseChanging(value);
+                    this.SendPropertyChanging();
+                    this._SalesExpense = value;
+                    this.SendPropertyChanged("SalesExpense");
+                    this.OnSalesExpenseChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_MarketingExpense", DbType = "Float NOT NULL")]
+        public double MarketingExpense
+        {
+            get
+            {
+                return this._MarketingExpense;
+            }
+            set
+            {
+                if ((this._MarketingExpense != value))
+                {
+                    this.OnMarketingExpenseChanging(value);
+                    this.SendPropertyChanging();
+                    this._MarketingExpense = value;
+                    this.SendPropertyChanged("MarketingExpense");
+                    this.OnMarketingExpenseChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Price", DbType = "Float NOT NULL")]
+        public double Price
+        {
+            get
+            {
+                return this._Price;
+            }
+            set
+            {
+                if ((this._Price != value))
+                {
+                    this.OnPriceChanging(value);
+                    this.SendPropertyChanging();
+                    this._Price = value;
+                    this.SendPropertyChanged("Price");
+                    this.OnPriceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_MaterialCost", DbType = "Float NOT NULL")]
+        public double MaterialCost
+        {
+            get
+            {
+                return this._MaterialCost;
+            }
+            set
+            {
+                if ((this._MaterialCost != value))
+                {
+                    this.OnMaterialCostChanging(value);
+                    this.SendPropertyChanging();
+                    this._MaterialCost = value;
+                    this.SendPropertyChanged("MaterialCost");
+                    this.OnMaterialCostChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_LabourCost", DbType = "Float NOT NULL")]
+        public double LabourCost
+        {
+            get
+            {
+                return this._LabourCost;
+            }
+            set
+            {
+                if ((this._LabourCost != value))
+                {
+                    this.OnLabourCostChanging(value);
+                    this.SendPropertyChanging();
+                    this._LabourCost = value;
+                    this.SendPropertyChanged("LabourCost");
+                    this.OnLabourCostChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Overtime", DbType = "Float NOT NULL")]
+        public double Overtime
+        {
+            get
+            {
+                return this._Overtime;
+            }
+            set
+            {
+                if ((this._Overtime != value))
+                {
+                    this.OnOvertimeChanging(value);
+                    this.SendPropertyChanging();
+                    this._Overtime = value;
+                    this.SendPropertyChanged("Overtime");
+                    this.OnOvertimeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_AutomationForNextRound", DbType = "Float NOT NULL")]
+        public double AutomationForNextRound
+        {
+            get
+            {
+                return this._AutomationForNextRound;
+            }
+            set
+            {
+                if ((this._AutomationForNextRound != value))
+                {
+                    this.OnAutomationForNextRoundChanging(value);
+                    this.SendPropertyChanging();
+                    this._AutomationForNextRound = value;
+                    this.SendPropertyChanged("AutomationForNextRound");
+                    this.OnAutomationForNextRoundChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_CapacityForNextRound", DbType = "Float NOT NULL")]
+        public double CapacityForNextRound
+        {
+            get
+            {
+                return this._CapacityForNextRound;
+            }
+            set
+            {
+                if ((this._CapacityForNextRound != value))
+                {
+                    this.OnCapacityForNextRoundChanging(value);
+                    this.SendPropertyChanging();
+                    this._CapacityForNextRound = value;
+                    this.SendPropertyChanged("CapacityForNextRound");
+                    this.OnCapacityForNextRoundChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PlantUtilization", DbType = "Float NOT NULL")]
+        public double PlantUtilization
+        {
+            get
+            {
+                return this._PlantUtilization;
+            }
+            set
+            {
+                if ((this._PlantUtilization != value))
+                {
+                    this.OnPlantUtilizationChanging(value);
+                    this.SendPropertyChanging();
+                    this._PlantUtilization = value;
+                    this.SendPropertyChanged("PlantUtilization");
+                    this.OnPlantUtilizationChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_SegmentType_GameInitialData", Storage = "_SegmentType", ThisKey = "SegmentTypeId", OtherKey = "Id", IsUnique = true, IsForeignKey = false, DeleteRule = "NO ACTION")]
+        public SegmentType SegmentType
+        {
+            get
+            {
+                return this._SegmentType.Entity;
+            }
+            set
+            {
+                SegmentType previousValue = this._SegmentType.Entity;
+                if (((previousValue != value)
+                            || (this._SegmentType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._SegmentType.Entity = null;
+                        previousValue.GameInitialData = null;
+                    }
+                    this._SegmentType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.GameInitialData = this;
+                    }
+                    this.SendPropertyChanged("SegmentType");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.LabourData")]
+    public partial class LabourData : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _TeamId;
+
+        private double _Rate;
+
+        private double _NumberOfLabour;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnTeamIdChanging(int value);
+        partial void OnTeamIdChanged();
+        partial void OnRateChanging(double value);
+        partial void OnRateChanged();
+        partial void OnNumberOfLabourChanging(double value);
+        partial void OnNumberOfLabourChanged();
+        #endregion
+
+        public LabourData()
+        {
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_TeamId", DbType = "Int NOT NULL")]
+        public int TeamId
+        {
+            get
+            {
+                return this._TeamId;
+            }
+            set
+            {
+                if ((this._TeamId != value))
+                {
+                    this.OnTeamIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._TeamId = value;
+                    this.SendPropertyChanged("TeamId");
+                    this.OnTeamIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Rate", DbType = "Float NOT NULL")]
+        public double Rate
+        {
+            get
+            {
+                return this._Rate;
+            }
+            set
+            {
+                if ((this._Rate != value))
+                {
+                    this.OnRateChanging(value);
+                    this.SendPropertyChanging();
+                    this._Rate = value;
+                    this.SendPropertyChanged("Rate");
+                    this.OnRateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_NumberOfLabour", DbType = "Float NOT NULL")]
+        public double NumberOfLabour
+        {
+            get
+            {
+                return this._NumberOfLabour;
+            }
+            set
+            {
+                if ((this._NumberOfLabour != value))
+                {
+                    this.OnNumberOfLabourChanging(value);
+                    this.SendPropertyChanging();
+                    this._NumberOfLabour = value;
+                    this.SendPropertyChanged("NumberOfLabour");
+                    this.OnNumberOfLabourChanged();
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.MarketingData")]
+    public partial class MarketingData : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _RoundProductId;
+
+        private double _PreviousSaleExpense;
+
+        private System.Nullable<double> _SalesExpense;
+
+        private double _PreviousMarketingExpense;
+
+        private System.Nullable<double> _MarketingExpense;
+
+        private double _PreviousPrice;
+
+        private System.Nullable<double> _Price;
+
+        private double _PreviousForecastingQuantity;
+
+        private System.Nullable<double> _ForecastingQuantity;
+
+        private System.Nullable<double> _PurchasedQuantity;
+
+        private System.Nullable<double> _Rating;
+
+        private bool _Purchased;
+
+        private EntityRef<RoundProduct> _RoundProduct;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnRoundProductIdChanging(int value);
+        partial void OnRoundProductIdChanged();
+        partial void OnPreviousSaleExpenseChanging(double value);
+        partial void OnPreviousSaleExpenseChanged();
+        partial void OnSalesExpenseChanging(System.Nullable<double> value);
+        partial void OnSalesExpenseChanged();
+        partial void OnPreviousMarketingExpenseChanging(double value);
+        partial void OnPreviousMarketingExpenseChanged();
+        partial void OnMarketingExpenseChanging(System.Nullable<double> value);
+        partial void OnMarketingExpenseChanged();
+        partial void OnPreviousPriceChanging(double value);
+        partial void OnPreviousPriceChanged();
+        partial void OnPriceChanging(System.Nullable<double> value);
+        partial void OnPriceChanged();
+        partial void OnPreviousForecastingQuantityChanging(double value);
+        partial void OnPreviousForecastingQuantityChanged();
+        partial void OnForecastingQuantityChanging(System.Nullable<double> value);
+        partial void OnForecastingQuantityChanged();
+        partial void OnPurchasedQuantityChanging(System.Nullable<double> value);
+        partial void OnPurchasedQuantityChanged();
+        partial void OnRatingChanging(System.Nullable<double> value);
+        partial void OnRatingChanged();
+        partial void OnPurchasedChanging(bool value);
+        partial void OnPurchasedChanged();
+        #endregion
+
+        public MarketingData()
+        {
+            this._RoundProduct = default(EntityRef<RoundProduct>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundProductId", DbType = "Int NOT NULL")]
+        public int RoundProductId
+        {
+            get
+            {
+                return this._RoundProductId;
+            }
+            set
+            {
+                if ((this._RoundProductId != value))
+                {
+                    if (this._RoundProduct.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnRoundProductIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoundProductId = value;
+                    this.SendPropertyChanged("RoundProductId");
+                    this.OnRoundProductIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousSaleExpense", DbType = "Float NOT NULL")]
+        public double PreviousSaleExpense
+        {
+            get
+            {
+                return this._PreviousSaleExpense;
+            }
+            set
+            {
+                if ((this._PreviousSaleExpense != value))
+                {
+                    this.OnPreviousSaleExpenseChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousSaleExpense = value;
+                    this.SendPropertyChanged("PreviousSaleExpense");
+                    this.OnPreviousSaleExpenseChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_SalesExpense", DbType = "Float")]
+        public System.Nullable<double> SalesExpense
+        {
+            get
+            {
+                return this._SalesExpense;
+            }
+            set
+            {
+                if ((this._SalesExpense != value))
+                {
+                    this.OnSalesExpenseChanging(value);
+                    this.SendPropertyChanging();
+                    this._SalesExpense = value;
+                    this.SendPropertyChanged("SalesExpense");
+                    this.OnSalesExpenseChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousMarketingExpense", DbType = "Float NOT NULL")]
+        public double PreviousMarketingExpense
+        {
+            get
+            {
+                return this._PreviousMarketingExpense;
+            }
+            set
+            {
+                if ((this._PreviousMarketingExpense != value))
+                {
+                    this.OnPreviousMarketingExpenseChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousMarketingExpense = value;
+                    this.SendPropertyChanged("PreviousMarketingExpense");
+                    this.OnPreviousMarketingExpenseChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_MarketingExpense", DbType = "Float")]
+        public System.Nullable<double> MarketingExpense
+        {
+            get
+            {
+                return this._MarketingExpense;
+            }
+            set
+            {
+                if ((this._MarketingExpense != value))
+                {
+                    this.OnMarketingExpenseChanging(value);
+                    this.SendPropertyChanging();
+                    this._MarketingExpense = value;
+                    this.SendPropertyChanged("MarketingExpense");
+                    this.OnMarketingExpenseChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousPrice", DbType = "Float NOT NULL")]
+        public double PreviousPrice
+        {
+            get
+            {
+                return this._PreviousPrice;
+            }
+            set
+            {
+                if ((this._PreviousPrice != value))
+                {
+                    this.OnPreviousPriceChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousPrice = value;
+                    this.SendPropertyChanged("PreviousPrice");
+                    this.OnPreviousPriceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Price", DbType = "Float")]
+        public System.Nullable<double> Price
+        {
+            get
+            {
+                return this._Price;
+            }
+            set
+            {
+                if ((this._Price != value))
+                {
+                    this.OnPriceChanging(value);
+                    this.SendPropertyChanging();
+                    this._Price = value;
+                    this.SendPropertyChanged("Price");
+                    this.OnPriceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousForecastingQuantity", DbType = "Float NOT NULL")]
+        public double PreviousForecastingQuantity
+        {
+            get
+            {
+                return this._PreviousForecastingQuantity;
+            }
+            set
+            {
+                if ((this._PreviousForecastingQuantity != value))
+                {
+                    this.OnPreviousForecastingQuantityChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousForecastingQuantity = value;
+                    this.SendPropertyChanged("PreviousForecastingQuantity");
+                    this.OnPreviousForecastingQuantityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ForecastingQuantity", DbType = "Float")]
+        public System.Nullable<double> ForecastingQuantity
+        {
+            get
+            {
+                return this._ForecastingQuantity;
+            }
+            set
+            {
+                if ((this._ForecastingQuantity != value))
+                {
+                    this.OnForecastingQuantityChanging(value);
+                    this.SendPropertyChanging();
+                    this._ForecastingQuantity = value;
+                    this.SendPropertyChanged("ForecastingQuantity");
+                    this.OnForecastingQuantityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PurchasedQuantity", DbType = "Float")]
+        public System.Nullable<double> PurchasedQuantity
+        {
+            get
+            {
+                return this._PurchasedQuantity;
+            }
+            set
+            {
+                if ((this._PurchasedQuantity != value))
+                {
+                    this.OnPurchasedQuantityChanging(value);
+                    this.SendPropertyChanging();
+                    this._PurchasedQuantity = value;
+                    this.SendPropertyChanged("PurchasedQuantity");
+                    this.OnPurchasedQuantityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Rating", DbType = "Float")]
+        public System.Nullable<double> Rating
+        {
+            get
+            {
+                return this._Rating;
+            }
+            set
+            {
+                if ((this._Rating != value))
+                {
+                    this.OnRatingChanging(value);
+                    this.SendPropertyChanging();
+                    this._Rating = value;
+                    this.SendPropertyChanged("Rating");
+                    this.OnRatingChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Purchased", DbType = "Bit NOT NULL")]
+        public bool Purchased
+        {
+            get
+            {
+                return this._Purchased;
+            }
+            set
+            {
+                if ((this._Purchased != value))
+                {
+                    this.OnPurchasedChanging(value);
+                    this.SendPropertyChanging();
+                    this._Purchased = value;
+                    this.SendPropertyChanged("Purchased");
+                    this.OnPurchasedChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_MarketingData_RoundProduct", Storage = "_RoundProduct", ThisKey = "RoundProductId", OtherKey = "Id", IsForeignKey = true)]
+        public RoundProduct RoundProduct
+        {
+            get
+            {
+                return this._RoundProduct.Entity;
+            }
+            set
+            {
+                RoundProduct previousValue = this._RoundProduct.Entity;
+                if (((previousValue != value)
+                            || (this._RoundProduct.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._RoundProduct.Entity = null;
+                        previousValue.MarketingData.Remove(this);
+                    }
+                    this._RoundProduct.Entity = value;
+                    if ((value != null))
+                    {
+                        value.MarketingData.Add(this);
+                        this._RoundProductId = value.Id;
+                    }
+                    else
+                    {
+                        this._RoundProductId = default(int);
+                    }
+                    this.SendPropertyChanged("RoundProduct");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.ProductCategory")]
+    public partial class ProductCategory : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _TeamCategoryId;
+
+        private int _SegmentTypeId;
+
+        private string _ProductName;
+
+        private EntityRef<SegmentType> _SegmentType;
+
+        private EntityRef<TeamCategory> _TeamCategory;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnTeamCategoryIdChanging(int value);
+        partial void OnTeamCategoryIdChanged();
+        partial void OnSegmentTypeIdChanging(int value);
+        partial void OnSegmentTypeIdChanged();
+        partial void OnProductNameChanging(string value);
+        partial void OnProductNameChanged();
+        #endregion
+
+        public ProductCategory()
+        {
+            this._SegmentType = default(EntityRef<SegmentType>);
+            this._TeamCategory = default(EntityRef<TeamCategory>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_TeamCategoryId", DbType = "Int NOT NULL")]
+        public int TeamCategoryId
+        {
+            get
+            {
+                return this._TeamCategoryId;
+            }
+            set
+            {
+                if ((this._TeamCategoryId != value))
+                {
+                    if (this._TeamCategory.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnTeamCategoryIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._TeamCategoryId = value;
+                    this.SendPropertyChanged("TeamCategoryId");
+                    this.OnTeamCategoryIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_SegmentTypeId", DbType = "Int NOT NULL")]
+        public int SegmentTypeId
+        {
+            get
+            {
+                return this._SegmentTypeId;
+            }
+            set
+            {
+                if ((this._SegmentTypeId != value))
+                {
+                    if (this._SegmentType.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnSegmentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._SegmentTypeId = value;
+                    this.SendPropertyChanged("SegmentTypeId");
+                    this.OnSegmentTypeIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ProductName", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string ProductName
+        {
+            get
+            {
+                return this._ProductName;
+            }
+            set
+            {
+                if ((this._ProductName != value))
+                {
+                    this.OnProductNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._ProductName = value;
+                    this.SendPropertyChanged("ProductName");
+                    this.OnProductNameChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_ProductCategory_SegmentType", Storage = "_SegmentType", ThisKey = "SegmentTypeId", OtherKey = "Id", IsForeignKey = true)]
+        public SegmentType SegmentType
+        {
+            get
+            {
+                return this._SegmentType.Entity;
+            }
+            set
+            {
+                SegmentType previousValue = this._SegmentType.Entity;
+                if (((previousValue != value)
+                            || (this._SegmentType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._SegmentType.Entity = null;
+                        previousValue.ProductCategory.Remove(this);
+                    }
+                    this._SegmentType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ProductCategory.Add(this);
+                        this._SegmentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._SegmentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("SegmentType");
+                }
+            }
+        }
+
+        [Association(Name = "FK_ProductCategory_TeamCategory", Storage = "_TeamCategory", ThisKey = "TeamCategoryId", OtherKey = "Id", IsForeignKey = true)]
+        public TeamCategory TeamCategory
+        {
+            get
+            {
+                return this._TeamCategory.Entity;
+            }
+            set
+            {
+                TeamCategory previousValue = this._TeamCategory.Entity;
+                if (((previousValue != value)
+                            || (this._TeamCategory.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._TeamCategory.Entity = null;
+                        previousValue.ProductCategory.Remove(this);
+                    }
+                    this._TeamCategory.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ProductCategory.Add(this);
+                        this._TeamCategoryId = value.Id;
+                    }
+                    else
+                    {
+                        this._TeamCategoryId = default(int);
+                    }
+                    this.SendPropertyChanged("TeamCategory");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.ProductionData")]
+    public partial class ProductionData : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _RoundProductId;
+
+        private double _Inventory;
+
+        private double _ManufacturedQuantity;
+
+        private System.Nullable<double> _Contribution;
+
+        private double _CurrentAutomation;
+
+        private System.Nullable<double> _AutomationForNextRound;
+
+        private double _OldCapacity;
+
+        private System.Nullable<double> _NewCapacity;
+
+        private System.Nullable<double> _PreviousNumberOfLabour;
+
+        private System.Nullable<double> _NumberOfLabour;
+
+        private EntityRef<RoundProduct> _RoundProduct;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnRoundProductIdChanging(int value);
+        partial void OnRoundProductIdChanged();
+        partial void OnInventoryChanging(double value);
+        partial void OnInventoryChanged();
+        partial void OnManufacturedQuantityChanging(double value);
+        partial void OnManufacturedQuantityChanged();
+        partial void OnContributionChanging(System.Nullable<double> value);
+        partial void OnContributionChanged();
+        partial void OnCurrentAutomationChanging(double value);
+        partial void OnCurrentAutomationChanged();
+        partial void OnAutomationForNextRoundChanging(System.Nullable<double> value);
+        partial void OnAutomationForNextRoundChanged();
+        partial void OnOldCapacityChanging(double value);
+        partial void OnOldCapacityChanged();
+        partial void OnNewCapacityChanging(System.Nullable<double> value);
+        partial void OnNewCapacityChanged();
+        partial void OnPreviousNumberOfLabourChanging(System.Nullable<double> value);
+        partial void OnPreviousNumberOfLabourChanged();
+        partial void OnNumberOfLabourChanging(System.Nullable<double> value);
+        partial void OnNumberOfLabourChanged();
+        #endregion
+
+        public ProductionData()
+        {
+            this._RoundProduct = default(EntityRef<RoundProduct>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundProductId", DbType = "Int NOT NULL")]
+        public int RoundProductId
+        {
+            get
+            {
+                return this._RoundProductId;
+            }
+            set
+            {
+                if ((this._RoundProductId != value))
+                {
+                    if (this._RoundProduct.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnRoundProductIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoundProductId = value;
+                    this.SendPropertyChanged("RoundProductId");
+                    this.OnRoundProductIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Inventory", DbType = "Float NOT NULL")]
+        public double Inventory
+        {
+            get
+            {
+                return this._Inventory;
+            }
+            set
+            {
+                if ((this._Inventory != value))
+                {
+                    this.OnInventoryChanging(value);
+                    this.SendPropertyChanging();
+                    this._Inventory = value;
+                    this.SendPropertyChanged("Inventory");
+                    this.OnInventoryChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ManufacturedQuantity", DbType = "Float NOT NULL")]
+        public double ManufacturedQuantity
+        {
+            get
+            {
+                return this._ManufacturedQuantity;
+            }
+            set
+            {
+                if ((this._ManufacturedQuantity != value))
+                {
+                    this.OnManufacturedQuantityChanging(value);
+                    this.SendPropertyChanging();
+                    this._ManufacturedQuantity = value;
+                    this.SendPropertyChanged("ManufacturedQuantity");
+                    this.OnManufacturedQuantityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Contribution", DbType = "Float")]
+        public System.Nullable<double> Contribution
+        {
+            get
+            {
+                return this._Contribution;
+            }
+            set
+            {
+                if ((this._Contribution != value))
+                {
+                    this.OnContributionChanging(value);
+                    this.SendPropertyChanging();
+                    this._Contribution = value;
+                    this.SendPropertyChanged("Contribution");
+                    this.OnContributionChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_CurrentAutomation", DbType = "Float NOT NULL")]
+        public double CurrentAutomation
+        {
+            get
+            {
+                return this._CurrentAutomation;
+            }
+            set
+            {
+                if ((this._CurrentAutomation != value))
+                {
+                    this.OnCurrentAutomationChanging(value);
+                    this.SendPropertyChanging();
+                    this._CurrentAutomation = value;
+                    this.SendPropertyChanged("CurrentAutomation");
+                    this.OnCurrentAutomationChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_AutomationForNextRound", DbType = "Float")]
+        public System.Nullable<double> AutomationForNextRound
+        {
+            get
+            {
+                return this._AutomationForNextRound;
+            }
+            set
+            {
+                if ((this._AutomationForNextRound != value))
+                {
+                    this.OnAutomationForNextRoundChanging(value);
+                    this.SendPropertyChanging();
+                    this._AutomationForNextRound = value;
+                    this.SendPropertyChanged("AutomationForNextRound");
+                    this.OnAutomationForNextRoundChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_OldCapacity", DbType = "Float NOT NULL")]
+        public double OldCapacity
+        {
+            get
+            {
+                return this._OldCapacity;
+            }
+            set
+            {
+                if ((this._OldCapacity != value))
+                {
+                    this.OnOldCapacityChanging(value);
+                    this.SendPropertyChanging();
+                    this._OldCapacity = value;
+                    this.SendPropertyChanged("OldCapacity");
+                    this.OnOldCapacityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_NewCapacity", DbType = "Float")]
+        public System.Nullable<double> NewCapacity
+        {
+            get
+            {
+                return this._NewCapacity;
+            }
+            set
+            {
+                if ((this._NewCapacity != value))
+                {
+                    this.OnNewCapacityChanging(value);
+                    this.SendPropertyChanging();
+                    this._NewCapacity = value;
+                    this.SendPropertyChanged("NewCapacity");
+                    this.OnNewCapacityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousNumberOfLabour", DbType = "Float")]
+        public System.Nullable<double> PreviousNumberOfLabour
+        {
+            get
+            {
+                return this._PreviousNumberOfLabour;
+            }
+            set
+            {
+                if ((this._PreviousNumberOfLabour != value))
+                {
+                    this.OnPreviousNumberOfLabourChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousNumberOfLabour = value;
+                    this.SendPropertyChanged("PreviousNumberOfLabour");
+                    this.OnPreviousNumberOfLabourChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_NumberOfLabour", DbType = "Float")]
+        public System.Nullable<double> NumberOfLabour
+        {
+            get
+            {
+                return this._NumberOfLabour;
+            }
+            set
+            {
+                if ((this._NumberOfLabour != value))
+                {
+                    this.OnNumberOfLabourChanging(value);
+                    this.SendPropertyChanging();
+                    this._NumberOfLabour = value;
+                    this.SendPropertyChanged("NumberOfLabour");
+                    this.OnNumberOfLabourChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_ProductionData_RoundProduct", Storage = "_RoundProduct", ThisKey = "RoundProductId", OtherKey = "Id", IsForeignKey = true)]
+        public RoundProduct RoundProduct
+        {
+            get
+            {
+                return this._RoundProduct.Entity;
+            }
+            set
+            {
+                RoundProduct previousValue = this._RoundProduct.Entity;
+                if (((previousValue != value)
+                            || (this._RoundProduct.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._RoundProduct.Entity = null;
+                        previousValue.ProductionData.Remove(this);
+                    }
+                    this._RoundProduct.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ProductionData.Add(this);
+                        this._RoundProductId = value.Id;
+                    }
+                    else
+                    {
+                        this._RoundProductId = default(int);
+                    }
+                    this.SendPropertyChanged("RoundProduct");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.ProductsAvailablePerRound")]
+    public partial class ProductsAvailablePerRound
+    {
+
+        private int _Id;
+
+        private int _RoundProductId;
+
+        private double _Quantity;
+
+        public ProductsAvailablePerRound()
+        {
+        }
+
+        [Column(Storage = "_Id", DbType = "Int NOT NULL")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this._Id = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundProductId", DbType = "Int NOT NULL")]
+        public int RoundProductId
+        {
+            get
+            {
+                return this._RoundProductId;
+            }
+            set
+            {
+                if ((this._RoundProductId != value))
+                {
+                    this._RoundProductId = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_Quantity", DbType = "Float NOT NULL")]
+        public double Quantity
+        {
+            get
+            {
+                return this._Quantity;
+            }
+            set
+            {
+                if ((this._Quantity != value))
+                {
+                    this._Quantity = value;
+                }
+            }
+        }
+    }
+
+    [Table(Name = "dbo.RnDData")]
+    public partial class RnDData : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _RoundProductId;
+
+        private System.DateTime _PreviousRevisionDate;
+
+        private System.Nullable<System.DateTime> _RevisionDate;
+
+        private double _PreviousAge;
+
+        private System.Nullable<double> _Age;
+
+        private double _PreviousReliability;
+
+        private System.Nullable<double> _Reliability;
+
+        private double _PreviousPerformance;
+
+        private System.Nullable<double> _Performance;
+
+        private double _PreviousSize;
+
+        private System.Nullable<double> _Size;
+
+        private System.Nullable<double> _RnDCost;
+
+        private EntityRef<RoundProduct> _RoundProduct;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnRoundProductIdChanging(int value);
+        partial void OnRoundProductIdChanged();
+        partial void OnPreviousRevisionDateChanging(System.DateTime value);
+        partial void OnPreviousRevisionDateChanged();
+        partial void OnRevisionDateChanging(System.Nullable<System.DateTime> value);
+        partial void OnRevisionDateChanged();
+        partial void OnPreviousAgeChanging(double value);
+        partial void OnPreviousAgeChanged();
+        partial void OnAgeChanging(System.Nullable<double> value);
+        partial void OnAgeChanged();
+        partial void OnPreviousReliabilityChanging(double value);
+        partial void OnPreviousReliabilityChanged();
+        partial void OnReliabilityChanging(System.Nullable<double> value);
+        partial void OnReliabilityChanged();
+        partial void OnPreviousPerformanceChanging(double value);
+        partial void OnPreviousPerformanceChanged();
+        partial void OnPerformanceChanging(System.Nullable<double> value);
+        partial void OnPerformanceChanged();
+        partial void OnPreviousSizeChanging(double value);
+        partial void OnPreviousSizeChanged();
+        partial void OnSizeChanging(System.Nullable<double> value);
+        partial void OnSizeChanged();
+        partial void OnRnDCostChanging(System.Nullable<double> value);
+        partial void OnRnDCostChanged();
+        #endregion
+
+        public RnDData()
+        {
+            this._RoundProduct = default(EntityRef<RoundProduct>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundProductId", DbType = "Int NOT NULL")]
+        public int RoundProductId
+        {
+            get
+            {
+                return this._RoundProductId;
+            }
+            set
+            {
+                if ((this._RoundProductId != value))
+                {
+                    if (this._RoundProduct.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnRoundProductIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoundProductId = value;
+                    this.SendPropertyChanged("RoundProductId");
+                    this.OnRoundProductIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousRevisionDate", DbType = "DateTime NOT NULL")]
+        public System.DateTime PreviousRevisionDate
+        {
+            get
+            {
+                return this._PreviousRevisionDate;
+            }
+            set
+            {
+                if ((this._PreviousRevisionDate != value))
+                {
+                    this.OnPreviousRevisionDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousRevisionDate = value;
+                    this.SendPropertyChanged("PreviousRevisionDate");
+                    this.OnPreviousRevisionDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RevisionDate", DbType = "DateTime")]
+        public System.Nullable<System.DateTime> RevisionDate
+        {
+            get
+            {
+                return this._RevisionDate;
+            }
+            set
+            {
+                if ((this._RevisionDate != value))
+                {
+                    this.OnRevisionDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._RevisionDate = value;
+                    this.SendPropertyChanged("RevisionDate");
+                    this.OnRevisionDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousAge", DbType = "Float NOT NULL")]
+        public double PreviousAge
+        {
+            get
+            {
+                return this._PreviousAge;
+            }
+            set
+            {
+                if ((this._PreviousAge != value))
+                {
+                    this.OnPreviousAgeChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousAge = value;
+                    this.SendPropertyChanged("PreviousAge");
+                    this.OnPreviousAgeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Age", DbType = "Float")]
+        public System.Nullable<double> Age
+        {
+            get
+            {
+                return this._Age;
+            }
+            set
+            {
+                if ((this._Age != value))
+                {
+                    this.OnAgeChanging(value);
+                    this.SendPropertyChanging();
+                    this._Age = value;
+                    this.SendPropertyChanged("Age");
+                    this.OnAgeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousReliability", DbType = "Float NOT NULL")]
+        public double PreviousReliability
+        {
+            get
+            {
+                return this._PreviousReliability;
+            }
+            set
+            {
+                if ((this._PreviousReliability != value))
+                {
+                    this.OnPreviousReliabilityChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousReliability = value;
+                    this.SendPropertyChanged("PreviousReliability");
+                    this.OnPreviousReliabilityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Reliability", DbType = "Float")]
+        public System.Nullable<double> Reliability
+        {
+            get
+            {
+                return this._Reliability;
+            }
+            set
+            {
+                if ((this._Reliability != value))
+                {
+                    this.OnReliabilityChanging(value);
+                    this.SendPropertyChanging();
+                    this._Reliability = value;
+                    this.SendPropertyChanged("Reliability");
+                    this.OnReliabilityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousPerformance", DbType = "Float NOT NULL")]
+        public double PreviousPerformance
+        {
+            get
+            {
+                return this._PreviousPerformance;
+            }
+            set
+            {
+                if ((this._PreviousPerformance != value))
+                {
+                    this.OnPreviousPerformanceChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousPerformance = value;
+                    this.SendPropertyChanged("PreviousPerformance");
+                    this.OnPreviousPerformanceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Performance", DbType = "Float")]
+        public System.Nullable<double> Performance
+        {
+            get
+            {
+                return this._Performance;
+            }
+            set
+            {
+                if ((this._Performance != value))
+                {
+                    this.OnPerformanceChanging(value);
+                    this.SendPropertyChanging();
+                    this._Performance = value;
+                    this.SendPropertyChanged("Performance");
+                    this.OnPerformanceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousSize", DbType = "Float NOT NULL")]
+        public double PreviousSize
+        {
+            get
+            {
+                return this._PreviousSize;
+            }
+            set
+            {
+                if ((this._PreviousSize != value))
+                {
+                    this.OnPreviousSizeChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousSize = value;
+                    this.SendPropertyChanged("PreviousSize");
+                    this.OnPreviousSizeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Size", DbType = "Float")]
+        public System.Nullable<double> Size
+        {
+            get
+            {
+                return this._Size;
+            }
+            set
+            {
+                if ((this._Size != value))
+                {
+                    this.OnSizeChanging(value);
+                    this.SendPropertyChanging();
+                    this._Size = value;
+                    this.SendPropertyChanged("Size");
+                    this.OnSizeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RnDCost", DbType = "Float")]
+        public System.Nullable<double> RnDCost
+        {
+            get
+            {
+                return this._RnDCost;
+            }
+            set
+            {
+                if ((this._RnDCost != value))
+                {
+                    this.OnRnDCostChanging(value);
+                    this.SendPropertyChanging();
+                    this._RnDCost = value;
+                    this.SendPropertyChanged("RnDCost");
+                    this.OnRnDCostChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_RnDData_RoundProduct", Storage = "_RoundProduct", ThisKey = "RoundProductId", OtherKey = "Id", IsForeignKey = true)]
+        public RoundProduct RoundProduct
+        {
+            get
+            {
+                return this._RoundProduct.Entity;
+            }
+            set
+            {
+                RoundProduct previousValue = this._RoundProduct.Entity;
+                if (((previousValue != value)
+                            || (this._RoundProduct.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._RoundProduct.Entity = null;
+                        previousValue.RnDData.Remove(this);
+                    }
+                    this._RoundProduct.Entity = value;
+                    if ((value != null))
+                    {
+                        value.RnDData.Add(this);
+                        this._RoundProductId = value.Id;
+                    }
+                    else
+                    {
+                        this._RoundProductId = default(int);
+                    }
+                    this.SendPropertyChanged("RoundProduct");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.RoleDetails")]
+    public partial class RoleDetails : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private string _RoleName;
+
+        private string _Description;
+
+        private EntitySet<UserRole> _UserRole;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnRoleNameChanging(string value);
+        partial void OnRoleNameChanged();
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        #endregion
+
+        public RoleDetails()
+        {
+            this._UserRole = new EntitySet<UserRole>(new Action<UserRole>(this.attach_UserRole), new Action<UserRole>(this.detach_UserRole));
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoleName", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string RoleName
+        {
+            get
+            {
+                return this._RoleName;
+            }
+            set
+            {
+                if ((this._RoleName != value))
+                {
+                    this.OnRoleNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoleName = value;
+                    this.SendPropertyChanged("RoleName");
+                    this.OnRoleNameChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Description", DbType = "VarChar(50)")]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                if ((this._Description != value))
+                {
+                    this.OnDescriptionChanging(value);
+                    this.SendPropertyChanging();
+                    this._Description = value;
+                    this.SendPropertyChanged("Description");
+                    this.OnDescriptionChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_UserRole_Role", Storage = "_UserRole", ThisKey = "Id", OtherKey = "RoleId", DeleteRule = "NO ACTION")]
+        public EntitySet<UserRole> UserRole
+        {
+            get
+            {
+                return this._UserRole;
+            }
+            set
+            {
+                this._UserRole.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_UserRole(UserRole entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoleDetails = this;
+        }
+
+        private void detach_UserRole(UserRole entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoleDetails = null;
+        }
+    }
+
+    [Table(Name = "dbo.Round")]
+    public partial class Round : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _TeamGameId;
+
+        private int _RoundCategoryId;
+
+        private bool _Current;
+
+        private EntitySet<FinanceData> _FinanceData;
+
+        private EntityRef<RoundCategory> _RoundCategory;
+
+        private EntityRef<TeamGame> _TeamGame;
+
+        private EntitySet<RoundProduct> _RoundProduct;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnTeamGameIdChanging(int value);
+        partial void OnTeamGameIdChanged();
+        partial void OnRoundCategoryIdChanging(int value);
+        partial void OnRoundCategoryIdChanged();
+        partial void OnCurrentChanging(bool value);
+        partial void OnCurrentChanged();
+        #endregion
+
+        public Round()
+        {
+            this._FinanceData = new EntitySet<FinanceData>(new Action<FinanceData>(this.attach_FinanceData), new Action<FinanceData>(this.detach_FinanceData));
+            this._RoundCategory = default(EntityRef<RoundCategory>);
+            this._TeamGame = default(EntityRef<TeamGame>);
+            this._RoundProduct = new EntitySet<RoundProduct>(new Action<RoundProduct>(this.attach_RoundProduct), new Action<RoundProduct>(this.detach_RoundProduct));
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_TeamGameId", DbType = "Int NOT NULL")]
+        public int TeamGameId
+        {
+            get
+            {
+                return this._TeamGameId;
+            }
+            set
+            {
+                if ((this._TeamGameId != value))
+                {
+                    if (this._TeamGame.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnTeamGameIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._TeamGameId = value;
+                    this.SendPropertyChanged("TeamGameId");
+                    this.OnTeamGameIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundCategoryId", DbType = "Int NOT NULL")]
+        public int RoundCategoryId
+        {
+            get
+            {
+                return this._RoundCategoryId;
+            }
+            set
+            {
+                if ((this._RoundCategoryId != value))
+                {
+                    if (this._RoundCategory.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnRoundCategoryIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoundCategoryId = value;
+                    this.SendPropertyChanged("RoundCategoryId");
+                    this.OnRoundCategoryIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Current", DbType = "Bit NOT NULL")]
+        public bool Current
+        {
+            get
+            {
+                return this._Current;
+            }
+            set
+            {
+                if ((this._Current != value))
+                {
+                    this.OnCurrentChanging(value);
+                    this.SendPropertyChanging();
+                    this._Current = value;
+                    this.SendPropertyChanged("Current");
+                    this.OnCurrentChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_FinanceData_Round", Storage = "_FinanceData", ThisKey = "Id", OtherKey = "RoundId", DeleteRule = "NO ACTION")]
+        public EntitySet<FinanceData> FinanceData
+        {
+            get
+            {
+                return this._FinanceData;
+            }
+            set
+            {
+                this._FinanceData.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_Round_RoundCategory", Storage = "_RoundCategory", ThisKey = "RoundCategoryId", OtherKey = "Id", IsForeignKey = true)]
+        public RoundCategory RoundCategory
+        {
+            get
+            {
+                return this._RoundCategory.Entity;
+            }
+            set
+            {
+                RoundCategory previousValue = this._RoundCategory.Entity;
+                if (((previousValue != value)
+                            || (this._RoundCategory.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._RoundCategory.Entity = null;
+                        previousValue.Round.Remove(this);
+                    }
+                    this._RoundCategory.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Round.Add(this);
+                        this._RoundCategoryId = value.Id;
+                    }
+                    else
+                    {
+                        this._RoundCategoryId = default(int);
+                    }
+                    this.SendPropertyChanged("RoundCategory");
+                }
+            }
+        }
+
+        [Association(Name = "FK_Round_TeamGame", Storage = "_TeamGame", ThisKey = "TeamGameId", OtherKey = "Id", IsForeignKey = true)]
+        public TeamGame TeamGame
+        {
+            get
+            {
+                return this._TeamGame.Entity;
+            }
+            set
+            {
+                TeamGame previousValue = this._TeamGame.Entity;
+                if (((previousValue != value)
+                            || (this._TeamGame.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._TeamGame.Entity = null;
+                        previousValue.Round.Remove(this);
+                    }
+                    this._TeamGame.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Round.Add(this);
+                        this._TeamGameId = value.Id;
+                    }
+                    else
+                    {
+                        this._TeamGameId = default(int);
+                    }
+                    this.SendPropertyChanged("TeamGame");
+                }
+            }
+        }
+
+        [Association(Name = "FK_RoundProduct_Round", Storage = "_RoundProduct", ThisKey = "Id", OtherKey = "RoundId", DeleteRule = "NO ACTION")]
+        public EntitySet<RoundProduct> RoundProduct
+        {
+            get
+            {
+                return this._RoundProduct;
+            }
+            set
+            {
+                this._RoundProduct.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_FinanceData(FinanceData entity)
+        {
+            this.SendPropertyChanging();
+            entity.Round = this;
+        }
+
+        private void detach_FinanceData(FinanceData entity)
+        {
+            this.SendPropertyChanging();
+            entity.Round = null;
+        }
+
+        private void attach_RoundProduct(RoundProduct entity)
+        {
+            this.SendPropertyChanging();
+            entity.Round = this;
+        }
+
+        private void detach_RoundProduct(RoundProduct entity)
+        {
+            this.SendPropertyChanging();
+            entity.Round = null;
+        }
+    }
+
+    [Table(Name = "dbo.RoundCategory")]
+    public partial class RoundCategory : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private string _RoundName;
+
+        private EntitySet<Round> _Round;
+
+        private EntitySet<RoundCriteria> _RoundCriteria;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnRoundNameChanging(string value);
+        partial void OnRoundNameChanged();
+        #endregion
+
+        public RoundCategory()
+        {
+            this._Round = new EntitySet<Round>(new Action<Round>(this.attach_Round), new Action<Round>(this.detach_Round));
+            this._RoundCriteria = new EntitySet<RoundCriteria>(new Action<RoundCriteria>(this.attach_RoundCriteria), new Action<RoundCriteria>(this.detach_RoundCriteria));
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundName", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string RoundName
+        {
+            get
+            {
+                return this._RoundName;
+            }
+            set
+            {
+                if ((this._RoundName != value))
+                {
+                    this.OnRoundNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoundName = value;
+                    this.SendPropertyChanged("RoundName");
+                    this.OnRoundNameChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_Round_RoundCategory", Storage = "_Round", ThisKey = "Id", OtherKey = "RoundCategoryId", DeleteRule = "NO ACTION")]
+        public EntitySet<Round> Round
+        {
+            get
+            {
+                return this._Round;
+            }
+            set
+            {
+                this._Round.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_RoundCriteria_RoundCategory", Storage = "_RoundCriteria", ThisKey = "Id", OtherKey = "RoundCategoryId", DeleteRule = "NO ACTION")]
+        public EntitySet<RoundCriteria> RoundCriteria
+        {
+            get
+            {
+                return this._RoundCriteria;
+            }
+            set
+            {
+                this._RoundCriteria.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Round(Round entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundCategory = this;
+        }
+
+        private void detach_Round(Round entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundCategory = null;
+        }
+
+        private void attach_RoundCriteria(RoundCriteria entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundCategory = this;
+        }
+
+        private void detach_RoundCriteria(RoundCriteria entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundCategory = null;
+        }
+    }
+
+    [Table(Name = "dbo.RoundCriteria")]
+    public partial class RoundCriteria : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _RoundCategoryId;
+
+        private int _SegmentTypeId;
+
+        private double _Performance;
+
+        private double _Size;
+
+        private EntityRef<RoundCategory> _RoundCategory;
+
+        private EntityRef<SegmentType> _SegmentType;
+
+        private EntityRef<SegmentType> _RoundCriteria_SegmentType1;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnRoundCategoryIdChanging(int value);
+        partial void OnRoundCategoryIdChanged();
+        partial void OnSegmentTypeIdChanging(int value);
+        partial void OnSegmentTypeIdChanged();
+        partial void OnPerformanceChanging(double value);
+        partial void OnPerformanceChanged();
+        partial void OnSizeChanging(double value);
+        partial void OnSizeChanged();
+        #endregion
+
+        public RoundCriteria()
+        {
+            this._RoundCategory = default(EntityRef<RoundCategory>);
+            this._SegmentType = default(EntityRef<SegmentType>);
+            this._RoundCriteria_SegmentType1 = default(EntityRef<SegmentType>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundCategoryId", DbType = "Int NOT NULL")]
+        public int RoundCategoryId
+        {
+            get
+            {
+                return this._RoundCategoryId;
+            }
+            set
+            {
+                if ((this._RoundCategoryId != value))
+                {
+                    if (this._RoundCategory.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnRoundCategoryIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoundCategoryId = value;
+                    this.SendPropertyChanged("RoundCategoryId");
+                    this.OnRoundCategoryIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_SegmentTypeId", DbType = "Int NOT NULL")]
+        public int SegmentTypeId
+        {
+            get
+            {
+                return this._SegmentTypeId;
+            }
+            set
+            {
+                if ((this._SegmentTypeId != value))
+                {
+                    if (this._SegmentType.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnSegmentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._SegmentTypeId = value;
+                    this.SendPropertyChanged("SegmentTypeId");
+                    this.OnSegmentTypeIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Performance", DbType = "Float NOT NULL")]
+        public double Performance
+        {
+            get
+            {
+                return this._Performance;
+            }
+            set
+            {
+                if ((this._Performance != value))
+                {
+                    this.OnPerformanceChanging(value);
+                    this.SendPropertyChanging();
+                    this._Performance = value;
+                    this.SendPropertyChanged("Performance");
+                    this.OnPerformanceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Size", DbType = "Float NOT NULL")]
+        public double Size
+        {
+            get
+            {
+                return this._Size;
+            }
+            set
+            {
+                if ((this._Size != value))
+                {
+                    this.OnSizeChanging(value);
+                    this.SendPropertyChanging();
+                    this._Size = value;
+                    this.SendPropertyChanged("Size");
+                    this.OnSizeChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_RoundCriteria_RoundCategory", Storage = "_RoundCategory", ThisKey = "RoundCategoryId", OtherKey = "Id", IsForeignKey = true)]
+        public RoundCategory RoundCategory
+        {
+            get
+            {
+                return this._RoundCategory.Entity;
+            }
+            set
+            {
+                RoundCategory previousValue = this._RoundCategory.Entity;
+                if (((previousValue != value)
+                            || (this._RoundCategory.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._RoundCategory.Entity = null;
+                        previousValue.RoundCriteria.Remove(this);
+                    }
+                    this._RoundCategory.Entity = value;
+                    if ((value != null))
+                    {
+                        value.RoundCriteria.Add(this);
+                        this._RoundCategoryId = value.Id;
+                    }
+                    else
+                    {
+                        this._RoundCategoryId = default(int);
+                    }
+                    this.SendPropertyChanged("RoundCategory");
+                }
+            }
+        }
+
+        [Association(Name = "FK_RoundCriteria_SegmentType", Storage = "_SegmentType", ThisKey = "SegmentTypeId", OtherKey = "Id", IsForeignKey = true)]
+        public SegmentType SegmentType
+        {
+            get
+            {
+                return this._SegmentType.Entity;
+            }
+            set
+            {
+                SegmentType previousValue = this._SegmentType.Entity;
+                if (((previousValue != value)
+                            || (this._SegmentType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._SegmentType.Entity = null;
+                        previousValue.RoundCriteria.Remove(this);
+                    }
+                    this._SegmentType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.RoundCriteria.Add(this);
+                        this._SegmentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._SegmentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("SegmentType");
+                }
+            }
+        }
+
+        [Association(Name = "FK_RoundCriteria_SegmentType1", Storage = "_RoundCriteria_SegmentType1", ThisKey = "SegmentTypeId", OtherKey = "Id", IsForeignKey = true)]
+        public SegmentType RoundCriteria_SegmentType1
+        {
+            get
+            {
+                return this._RoundCriteria_SegmentType1.Entity;
+            }
+            set
+            {
+                SegmentType previousValue = this._RoundCriteria_SegmentType1.Entity;
+                if (((previousValue != value)
+                            || (this._RoundCriteria_SegmentType1.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._RoundCriteria_SegmentType1.Entity = null;
+                        previousValue.RoundCriteria_SegmentType1.Remove(this);
+                    }
+                    this._RoundCriteria_SegmentType1.Entity = value;
+                    if ((value != null))
+                    {
+                        value.RoundCriteria_SegmentType1.Add(this);
+                        this._SegmentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._SegmentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("RoundCriteria_SegmentType1");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.RoundProduct")]
+    public partial class RoundProduct : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _RoundId;
+
+        private string _ProductName;
+
+        private int _SegmentTypeId;
+
+        private EntitySet<MarketingData> _MarketingData;
+
+        private EntitySet<ProductionData> _ProductionData;
+
+        private EntitySet<RnDData> _RnDData;
+
+        private EntityRef<Round> _Round;
+
+        private EntityRef<SegmentType> _SegmentType;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnRoundIdChanging(int value);
+        partial void OnRoundIdChanged();
+        partial void OnProductNameChanging(string value);
+        partial void OnProductNameChanged();
+        partial void OnSegmentTypeIdChanging(int value);
+        partial void OnSegmentTypeIdChanged();
+        #endregion
+
+        public RoundProduct()
+        {
+            this._MarketingData = new EntitySet<MarketingData>(new Action<MarketingData>(this.attach_MarketingData), new Action<MarketingData>(this.detach_MarketingData));
+            this._ProductionData = new EntitySet<ProductionData>(new Action<ProductionData>(this.attach_ProductionData), new Action<ProductionData>(this.detach_ProductionData));
+            this._RnDData = new EntitySet<RnDData>(new Action<RnDData>(this.attach_RnDData), new Action<RnDData>(this.detach_RnDData));
+            this._Round = default(EntityRef<Round>);
+            this._SegmentType = default(EntityRef<SegmentType>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundId", DbType = "Int NOT NULL")]
+        public int RoundId
+        {
+            get
+            {
+                return this._RoundId;
+            }
+            set
+            {
+                if ((this._RoundId != value))
+                {
+                    if (this._Round.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnRoundIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoundId = value;
+                    this.SendPropertyChanged("RoundId");
+                    this.OnRoundIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ProductName", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string ProductName
+        {
+            get
+            {
+                return this._ProductName;
+            }
+            set
+            {
+                if ((this._ProductName != value))
+                {
+                    this.OnProductNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._ProductName = value;
+                    this.SendPropertyChanged("ProductName");
+                    this.OnProductNameChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_SegmentTypeId", DbType = "Int NOT NULL")]
+        public int SegmentTypeId
+        {
+            get
+            {
+                return this._SegmentTypeId;
+            }
+            set
+            {
+                if ((this._SegmentTypeId != value))
+                {
+                    if (this._SegmentType.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnSegmentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._SegmentTypeId = value;
+                    this.SendPropertyChanged("SegmentTypeId");
+                    this.OnSegmentTypeIdChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_MarketingData_RoundProduct", Storage = "_MarketingData", ThisKey = "Id", OtherKey = "RoundProductId", DeleteRule = "NO ACTION")]
+        public EntitySet<MarketingData> MarketingData
+        {
+            get
+            {
+                return this._MarketingData;
+            }
+            set
+            {
+                this._MarketingData.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_ProductionData_RoundProduct", Storage = "_ProductionData", ThisKey = "Id", OtherKey = "RoundProductId", DeleteRule = "NO ACTION")]
+        public EntitySet<ProductionData> ProductionData
+        {
+            get
+            {
+                return this._ProductionData;
+            }
+            set
+            {
+                this._ProductionData.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_RnDData_RoundProduct", Storage = "_RnDData", ThisKey = "Id", OtherKey = "RoundProductId", DeleteRule = "NO ACTION")]
+        public EntitySet<RnDData> RnDData
+        {
+            get
+            {
+                return this._RnDData;
+            }
+            set
+            {
+                this._RnDData.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_RoundProduct_Round", Storage = "_Round", ThisKey = "RoundId", OtherKey = "Id", IsForeignKey = true)]
+        public Round Round
+        {
+            get
+            {
+                return this._Round.Entity;
+            }
+            set
+            {
+                Round previousValue = this._Round.Entity;
+                if (((previousValue != value)
+                            || (this._Round.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Round.Entity = null;
+                        previousValue.RoundProduct.Remove(this);
+                    }
+                    this._Round.Entity = value;
+                    if ((value != null))
+                    {
+                        value.RoundProduct.Add(this);
+                        this._RoundId = value.Id;
+                    }
+                    else
+                    {
+                        this._RoundId = default(int);
+                    }
+                    this.SendPropertyChanged("Round");
+                }
+            }
+        }
+
+        [Association(Name = "FK_RoundProduct_SegmentType", Storage = "_SegmentType", ThisKey = "SegmentTypeId", OtherKey = "Id", IsForeignKey = true)]
+        public SegmentType SegmentType
+        {
+            get
+            {
+                return this._SegmentType.Entity;
+            }
+            set
+            {
+                SegmentType previousValue = this._SegmentType.Entity;
+                if (((previousValue != value)
+                            || (this._SegmentType.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._SegmentType.Entity = null;
+                        previousValue.RoundProduct.Remove(this);
+                    }
+                    this._SegmentType.Entity = value;
+                    if ((value != null))
+                    {
+                        value.RoundProduct.Add(this);
+                        this._SegmentTypeId = value.Id;
+                    }
+                    else
+                    {
+                        this._SegmentTypeId = default(int);
+                    }
+                    this.SendPropertyChanged("SegmentType");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_MarketingData(MarketingData entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundProduct = this;
+        }
+
+        private void detach_MarketingData(MarketingData entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundProduct = null;
+        }
+
+        private void attach_ProductionData(ProductionData entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundProduct = this;
+        }
+
+        private void detach_ProductionData(ProductionData entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundProduct = null;
+        }
+
+        private void attach_RnDData(RnDData entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundProduct = this;
+        }
+
+        private void detach_RnDData(RnDData entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundProduct = null;
+        }
+    }
+
+    [Table(Name = "dbo.SegmentMarketDemand")]
+    public partial class SegmentMarketDemand
+    {
+
+        private int _Id;
+
+        private int _RoundCategoryId;
+
+        private int _SegmentTypeId;
+
+        private double _Quantity;
+
+        public SegmentMarketDemand()
+        {
+        }
+
+        [Column(Storage = "_Id", DbType = "Int NOT NULL")]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this._Id = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundCategoryId", DbType = "Int NOT NULL")]
+        public int RoundCategoryId
+        {
+            get
+            {
+                return this._RoundCategoryId;
+            }
+            set
+            {
+                if ((this._RoundCategoryId != value))
+                {
+                    this._RoundCategoryId = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_SegmentTypeId", DbType = "Int NOT NULL")]
+        public int SegmentTypeId
+        {
+            get
+            {
+                return this._SegmentTypeId;
+            }
+            set
+            {
+                if ((this._SegmentTypeId != value))
+                {
+                    this._SegmentTypeId = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_Quantity", DbType = "Float NOT NULL")]
+        public double Quantity
+        {
+            get
+            {
+                return this._Quantity;
+            }
+            set
+            {
+                if ((this._Quantity != value))
+                {
+                    this._Quantity = value;
+                }
+            }
+        }
+    }
+
+    [Table(Name = "dbo.SegmentType")]
+    public partial class SegmentType : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private string _Description;
+
+        private EntityRef<GameCriteria> _GameCriteria;
+
+        private EntitySet<ProductCategory> _ProductCategory;
+
+        private EntitySet<RoundCriteria> _RoundCriteria;
+
+        private EntitySet<RoundCriteria> _RoundCriteria_SegmentType1;
+
+        private EntitySet<RoundProduct> _RoundProduct;
+
+        private EntityRef<GameInitialData> _GameInitialData;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnDescriptionChanging(string value);
+        partial void OnDescriptionChanged();
+        #endregion
+
+        public SegmentType()
+        {
+            this._GameCriteria = default(EntityRef<GameCriteria>);
+            this._ProductCategory = new EntitySet<ProductCategory>(new Action<ProductCategory>(this.attach_ProductCategory), new Action<ProductCategory>(this.detach_ProductCategory));
+            this._RoundCriteria = new EntitySet<RoundCriteria>(new Action<RoundCriteria>(this.attach_RoundCriteria), new Action<RoundCriteria>(this.detach_RoundCriteria));
+            this._RoundCriteria_SegmentType1 = new EntitySet<RoundCriteria>(new Action<RoundCriteria>(this.attach_RoundCriteria_SegmentType1), new Action<RoundCriteria>(this.detach_RoundCriteria_SegmentType1));
+            this._RoundProduct = new EntitySet<RoundProduct>(new Action<RoundProduct>(this.attach_RoundProduct), new Action<RoundProduct>(this.detach_RoundProduct));
+            this._GameInitialData = default(EntityRef<GameInitialData>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    if (this._GameInitialData.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Description", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string Description
+        {
+            get
+            {
+                return this._Description;
+            }
+            set
+            {
+                if ((this._Description != value))
+                {
+                    this.OnDescriptionChanging(value);
+                    this.SendPropertyChanging();
+                    this._Description = value;
+                    this.SendPropertyChanged("Description");
+                    this.OnDescriptionChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_GameCriteria_SegmentType", Storage = "_GameCriteria", ThisKey = "Id", OtherKey = "SegmentTypeId", IsUnique = true, IsForeignKey = false, DeleteRule = "NO ACTION")]
+        public GameCriteria GameCriteria
+        {
+            get
+            {
+                return this._GameCriteria.Entity;
+            }
+            set
+            {
+                GameCriteria previousValue = this._GameCriteria.Entity;
+                if (((previousValue != value)
+                            || (this._GameCriteria.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._GameCriteria.Entity = null;
+                        previousValue.SegmentType = null;
+                    }
+                    this._GameCriteria.Entity = value;
+                    if ((value != null))
+                    {
+                        value.SegmentType = this;
+                    }
+                    this.SendPropertyChanged("GameCriteria");
+                }
+            }
+        }
+
+        [Association(Name = "FK_ProductCategory_SegmentType", Storage = "_ProductCategory", ThisKey = "Id", OtherKey = "SegmentTypeId", DeleteRule = "NO ACTION")]
+        public EntitySet<ProductCategory> ProductCategory
+        {
+            get
+            {
+                return this._ProductCategory;
+            }
+            set
+            {
+                this._ProductCategory.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_RoundCriteria_SegmentType", Storage = "_RoundCriteria", ThisKey = "Id", OtherKey = "SegmentTypeId", DeleteRule = "NO ACTION")]
+        public EntitySet<RoundCriteria> RoundCriteria
+        {
+            get
+            {
+                return this._RoundCriteria;
+            }
+            set
+            {
+                this._RoundCriteria.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_RoundCriteria_SegmentType1", Storage = "_RoundCriteria_SegmentType1", ThisKey = "Id", OtherKey = "SegmentTypeId", DeleteRule = "NO ACTION")]
+        public EntitySet<RoundCriteria> RoundCriteria_SegmentType1
+        {
+            get
+            {
+                return this._RoundCriteria_SegmentType1;
+            }
+            set
+            {
+                this._RoundCriteria_SegmentType1.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_RoundProduct_SegmentType", Storage = "_RoundProduct", ThisKey = "Id", OtherKey = "SegmentTypeId", DeleteRule = "NO ACTION")]
+        public EntitySet<RoundProduct> RoundProduct
+        {
+            get
+            {
+                return this._RoundProduct;
+            }
+            set
+            {
+                this._RoundProduct.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_SegmentType_GameInitialData", Storage = "_GameInitialData", ThisKey = "Id", OtherKey = "SegmentTypeId", IsForeignKey = true)]
+        public GameInitialData GameInitialData
+        {
+            get
+            {
+                return this._GameInitialData.Entity;
+            }
+            set
+            {
+                GameInitialData previousValue = this._GameInitialData.Entity;
+                if (((previousValue != value)
+                            || (this._GameInitialData.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._GameInitialData.Entity = null;
+                        previousValue.SegmentType = null;
+                    }
+                    this._GameInitialData.Entity = value;
+                    if ((value != null))
+                    {
+                        value.SegmentType = this;
+                        this._Id = value.SegmentTypeId;
+                    }
+                    else
+                    {
+                        this._Id = default(int);
+                    }
+                    this.SendPropertyChanged("GameInitialData");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_ProductCategory(ProductCategory entity)
+        {
+            this.SendPropertyChanging();
+            entity.SegmentType = this;
+        }
+
+        private void detach_ProductCategory(ProductCategory entity)
+        {
+            this.SendPropertyChanging();
+            entity.SegmentType = null;
+        }
+
+        private void attach_RoundCriteria(RoundCriteria entity)
+        {
+            this.SendPropertyChanging();
+            entity.SegmentType = this;
+        }
+
+        private void detach_RoundCriteria(RoundCriteria entity)
+        {
+            this.SendPropertyChanging();
+            entity.SegmentType = null;
+        }
+
+        private void attach_RoundCriteria_SegmentType1(RoundCriteria entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundCriteria_SegmentType1 = this;
+        }
+
+        private void detach_RoundCriteria_SegmentType1(RoundCriteria entity)
+        {
+            this.SendPropertyChanging();
+            entity.RoundCriteria_SegmentType1 = null;
+        }
+
+        private void attach_RoundProduct(RoundProduct entity)
+        {
+            this.SendPropertyChanging();
+            entity.SegmentType = this;
+        }
+
+        private void detach_RoundProduct(RoundProduct entity)
+        {
+            this.SendPropertyChanging();
+            entity.SegmentType = null;
+        }
+    }
+
+    [Table(Name = "dbo.Team")]
+    public partial class Team : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private System.Nullable<int> _TeamCategoryId;
+
+        private System.DateTime _CreatedDate;
+
+        private bool _Active;
+
+        private EntityRef<TeamCategory> _TeamCategory;
+
+        private EntitySet<TeamGame> _TeamGame;
+
+        private EntitySet<TeamUser> _TeamUser;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnTeamCategoryIdChanging(System.Nullable<int> value);
+        partial void OnTeamCategoryIdChanged();
+        partial void OnCreatedDateChanging(System.DateTime value);
+        partial void OnCreatedDateChanged();
+        partial void OnActiveChanging(bool value);
+        partial void OnActiveChanged();
+        #endregion
+
+        public Team()
+        {
+            this._TeamCategory = default(EntityRef<TeamCategory>);
+            this._TeamGame = new EntitySet<TeamGame>(new Action<TeamGame>(this.attach_TeamGame), new Action<TeamGame>(this.detach_TeamGame));
+            this._TeamUser = new EntitySet<TeamUser>(new Action<TeamUser>(this.attach_TeamUser), new Action<TeamUser>(this.detach_TeamUser));
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_TeamCategoryId", DbType = "Int")]
+        public System.Nullable<int> TeamCategoryId
+        {
+            get
+            {
+                return this._TeamCategoryId;
+            }
+            set
+            {
+                if ((this._TeamCategoryId != value))
+                {
+                    if (this._TeamCategory.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnTeamCategoryIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._TeamCategoryId = value;
+                    this.SendPropertyChanged("TeamCategoryId");
+                    this.OnTeamCategoryIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_CreatedDate", DbType = "DateTime NOT NULL")]
+        public System.DateTime CreatedDate
+        {
+            get
+            {
+                return this._CreatedDate;
+            }
+            set
+            {
+                if ((this._CreatedDate != value))
+                {
+                    this.OnCreatedDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._CreatedDate = value;
+                    this.SendPropertyChanged("CreatedDate");
+                    this.OnCreatedDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Active", DbType = "Bit NOT NULL")]
+        public bool Active
+        {
+            get
+            {
+                return this._Active;
+            }
+            set
+            {
+                if ((this._Active != value))
+                {
+                    this.OnActiveChanging(value);
+                    this.SendPropertyChanging();
+                    this._Active = value;
+                    this.SendPropertyChanged("Active");
+                    this.OnActiveChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_Team_TeamCategory", Storage = "_TeamCategory", ThisKey = "TeamCategoryId", OtherKey = "Id", IsForeignKey = true)]
+        public TeamCategory TeamCategory
+        {
+            get
+            {
+                return this._TeamCategory.Entity;
+            }
+            set
+            {
+                TeamCategory previousValue = this._TeamCategory.Entity;
+                if (((previousValue != value)
+                            || (this._TeamCategory.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._TeamCategory.Entity = null;
+                        previousValue.Team.Remove(this);
+                    }
+                    this._TeamCategory.Entity = value;
+                    if ((value != null))
+                    {
+                        value.Team.Add(this);
+                        this._TeamCategoryId = value.Id;
+                    }
+                    else
+                    {
+                        this._TeamCategoryId = default(Nullable<int>);
+                    }
+                    this.SendPropertyChanged("TeamCategory");
+                }
+            }
+        }
+
+        [Association(Name = "FK_TeamGame_Team", Storage = "_TeamGame", ThisKey = "Id", OtherKey = "TeamId", DeleteRule = "NO ACTION")]
+        public EntitySet<TeamGame> TeamGame
+        {
+            get
+            {
+                return this._TeamGame;
+            }
+            set
+            {
+                this._TeamGame.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_TeamUser_Team", Storage = "_TeamUser", ThisKey = "Id", OtherKey = "TeamId", DeleteRule = "NO ACTION")]
+        public EntitySet<TeamUser> TeamUser
+        {
+            get
+            {
+                return this._TeamUser;
+            }
+            set
+            {
+                this._TeamUser.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_TeamGame(TeamGame entity)
+        {
+            this.SendPropertyChanging();
+            entity.Team = this;
+        }
+
+        private void detach_TeamGame(TeamGame entity)
+        {
+            this.SendPropertyChanging();
+            entity.Team = null;
+        }
+
+        private void attach_TeamUser(TeamUser entity)
+        {
+            this.SendPropertyChanging();
+            entity.Team = this;
+        }
+
+        private void detach_TeamUser(TeamUser entity)
+        {
+            this.SendPropertyChanging();
+            entity.Team = null;
+        }
+    }
+
+    [Table(Name = "dbo.TeamCategory")]
+    public partial class TeamCategory : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private string _Name;
+
+        private EntitySet<ProductCategory> _ProductCategory;
+
+        private EntitySet<Team> _Team;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnNameChanging(string value);
+        partial void OnNameChanged();
+        #endregion
+
+        public TeamCategory()
+        {
+            this._ProductCategory = new EntitySet<ProductCategory>(new Action<ProductCategory>(this.attach_ProductCategory), new Action<ProductCategory>(this.detach_ProductCategory));
+            this._Team = new EntitySet<Team>(new Action<Team>(this.attach_Team), new Action<Team>(this.detach_Team));
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Name", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string Name
+        {
+            get
+            {
+                return this._Name;
+            }
+            set
+            {
+                if ((this._Name != value))
+                {
+                    this.OnNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._Name = value;
+                    this.SendPropertyChanged("Name");
+                    this.OnNameChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_ProductCategory_TeamCategory", Storage = "_ProductCategory", ThisKey = "Id", OtherKey = "TeamCategoryId", DeleteRule = "NO ACTION")]
+        public EntitySet<ProductCategory> ProductCategory
+        {
+            get
+            {
+                return this._ProductCategory;
+            }
+            set
+            {
+                this._ProductCategory.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_Team_TeamCategory", Storage = "_Team", ThisKey = "Id", OtherKey = "TeamCategoryId", DeleteRule = "NO ACTION")]
+        public EntitySet<Team> Team
+        {
+            get
+            {
+                return this._Team;
+            }
+            set
+            {
+                this._Team.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_ProductCategory(ProductCategory entity)
+        {
+            this.SendPropertyChanging();
+            entity.TeamCategory = this;
+        }
+
+        private void detach_ProductCategory(ProductCategory entity)
+        {
+            this.SendPropertyChanging();
+            entity.TeamCategory = null;
+        }
+
+        private void attach_Team(Team entity)
+        {
+            this.SendPropertyChanging();
+            entity.TeamCategory = this;
+        }
+
+        private void detach_Team(Team entity)
+        {
+            this.SendPropertyChanging();
+            entity.TeamCategory = null;
+        }
+    }
+
+    [Table(Name = "dbo.TeamGame")]
+    public partial class TeamGame : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _GameId;
+
+        private int _TeamId;
+
+        private EntitySet<Round> _Round;
+
+        private EntityRef<Game> _Game;
+
+        private EntityRef<Team> _Team;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnGameIdChanging(int value);
+        partial void OnGameIdChanged();
+        partial void OnTeamIdChanging(int value);
+        partial void OnTeamIdChanged();
+        #endregion
+
+        public TeamGame()
+        {
+            this._Round = new EntitySet<Round>(new Action<Round>(this.attach_Round), new Action<Round>(this.detach_Round));
+            this._Game = default(EntityRef<Game>);
+            this._Team = default(EntityRef<Team>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_GameId", DbType = "Int NOT NULL")]
+        public int GameId
+        {
+            get
+            {
+                return this._GameId;
+            }
+            set
+            {
+                if ((this._GameId != value))
+                {
+                    if (this._Game.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnGameIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._GameId = value;
+                    this.SendPropertyChanged("GameId");
+                    this.OnGameIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_TeamId", DbType = "Int NOT NULL")]
+        public int TeamId
+        {
+            get
+            {
+                return this._TeamId;
+            }
+            set
+            {
+                if ((this._TeamId != value))
+                {
+                    if (this._Team.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnTeamIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._TeamId = value;
+                    this.SendPropertyChanged("TeamId");
+                    this.OnTeamIdChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_Round_TeamGame", Storage = "_Round", ThisKey = "Id", OtherKey = "TeamGameId", DeleteRule = "NO ACTION")]
+        public EntitySet<Round> Round
+        {
+            get
+            {
+                return this._Round;
+            }
+            set
+            {
+                this._Round.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_TeamGame_Game", Storage = "_Game", ThisKey = "GameId", OtherKey = "Id", IsForeignKey = true)]
+        public Game Game
+        {
+            get
+            {
+                return this._Game.Entity;
+            }
+            set
+            {
+                Game previousValue = this._Game.Entity;
+                if (((previousValue != value)
+                            || (this._Game.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Game.Entity = null;
+                        previousValue.TeamGame.Remove(this);
+                    }
+                    this._Game.Entity = value;
+                    if ((value != null))
+                    {
+                        value.TeamGame.Add(this);
+                        this._GameId = value.Id;
+                    }
+                    else
+                    {
+                        this._GameId = default(int);
+                    }
+                    this.SendPropertyChanged("Game");
+                }
+            }
+        }
+
+        [Association(Name = "FK_TeamGame_Team", Storage = "_Team", ThisKey = "TeamId", OtherKey = "Id", IsForeignKey = true)]
+        public Team Team
+        {
+            get
+            {
+                return this._Team.Entity;
+            }
+            set
+            {
+                Team previousValue = this._Team.Entity;
+                if (((previousValue != value)
+                            || (this._Team.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Team.Entity = null;
+                        previousValue.TeamGame.Remove(this);
+                    }
+                    this._Team.Entity = value;
+                    if ((value != null))
+                    {
+                        value.TeamGame.Add(this);
+                        this._TeamId = value.Id;
+                    }
+                    else
+                    {
+                        this._TeamId = default(int);
+                    }
+                    this.SendPropertyChanged("Team");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_Round(Round entity)
+        {
+            this.SendPropertyChanging();
+            entity.TeamGame = this;
+        }
+
+        private void detach_Round(Round entity)
+        {
+            this.SendPropertyChanging();
+            entity.TeamGame = null;
+        }
+    }
+
+    [Table(Name = "dbo.TeamUser")]
+    public partial class TeamUser : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _TeamId;
+
+        private int _UserId;
+
+        private EntityRef<Team> _Team;
+
+        private EntityRef<UserDetails> _UserDetails;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnTeamIdChanging(int value);
+        partial void OnTeamIdChanged();
+        partial void OnUserIdChanging(int value);
+        partial void OnUserIdChanged();
+        #endregion
+
+        public TeamUser()
+        {
+            this._Team = default(EntityRef<Team>);
+            this._UserDetails = default(EntityRef<UserDetails>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_TeamId", DbType = "Int NOT NULL")]
+        public int TeamId
+        {
+            get
+            {
+                return this._TeamId;
+            }
+            set
+            {
+                if ((this._TeamId != value))
+                {
+                    if (this._Team.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnTeamIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._TeamId = value;
+                    this.SendPropertyChanged("TeamId");
+                    this.OnTeamIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_UserId", DbType = "Int NOT NULL")]
+        public int UserId
+        {
+            get
+            {
+                return this._UserId;
+            }
+            set
+            {
+                if ((this._UserId != value))
+                {
+                    if (this._UserDetails.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnUserIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._UserId = value;
+                    this.SendPropertyChanged("UserId");
+                    this.OnUserIdChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_TeamUser_Team", Storage = "_Team", ThisKey = "TeamId", OtherKey = "Id", IsForeignKey = true)]
+        public Team Team
+        {
+            get
+            {
+                return this._Team.Entity;
+            }
+            set
+            {
+                Team previousValue = this._Team.Entity;
+                if (((previousValue != value)
+                            || (this._Team.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Team.Entity = null;
+                        previousValue.TeamUser.Remove(this);
+                    }
+                    this._Team.Entity = value;
+                    if ((value != null))
+                    {
+                        value.TeamUser.Add(this);
+                        this._TeamId = value.Id;
+                    }
+                    else
+                    {
+                        this._TeamId = default(int);
+                    }
+                    this.SendPropertyChanged("Team");
+                }
+            }
+        }
+
+        [Association(Name = "FK_TeamUser_User", Storage = "_UserDetails", ThisKey = "UserId", OtherKey = "Id", IsForeignKey = true)]
+        public UserDetails UserDetails
+        {
+            get
+            {
+                return this._UserDetails.Entity;
+            }
+            set
+            {
+                UserDetails previousValue = this._UserDetails.Entity;
+                if (((previousValue != value)
+                            || (this._UserDetails.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._UserDetails.Entity = null;
+                        previousValue.TeamUser.Remove(this);
+                    }
+                    this._UserDetails.Entity = value;
+                    if ((value != null))
+                    {
+                        value.TeamUser.Add(this);
+                        this._UserId = value.Id;
+                    }
+                    else
+                    {
+                        this._UserId = default(int);
+                    }
+                    this.SendPropertyChanged("UserDetails");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.UserDetails")]
+    public partial class UserDetails : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private string _Email;
+
+        private string _Password;
+
+        private string _FirstName;
+
+        private string _LastName;
+
+        private string _Role;
+
+        private EntitySet<TeamUser> _TeamUser;
+
+        private EntitySet<UserRole> _UserRole;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnEmailChanging(string value);
+        partial void OnEmailChanged();
+        partial void OnPasswordChanging(string value);
+        partial void OnPasswordChanged();
+        partial void OnFirstNameChanging(string value);
+        partial void OnFirstNameChanged();
+        partial void OnLastNameChanging(string value);
+        partial void OnLastNameChanged();
+        partial void OnRoleChanging(string value);
+        partial void OnRoleChanged();
+        #endregion
+
+        public UserDetails()
+        {
+            this._TeamUser = new EntitySet<TeamUser>(new Action<TeamUser>(this.attach_TeamUser), new Action<TeamUser>(this.detach_TeamUser));
+            this._UserRole = new EntitySet<UserRole>(new Action<UserRole>(this.attach_UserRole), new Action<UserRole>(this.detach_UserRole));
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.OnInsert, DbType = "Int NOT NULL IDENTITY", IsPrimaryKey = true, IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Email", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string Email
+        {
+            get
+            {
+                return this._Email;
+            }
+            set
+            {
+                if ((this._Email != value))
+                {
+                    this.OnEmailChanging(value);
+                    this.SendPropertyChanging();
+                    this._Email = value;
+                    this.SendPropertyChanged("Email");
+                    this.OnEmailChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Password", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string Password
+        {
+            get
+            {
+                return this._Password;
+            }
+            set
+            {
+                if ((this._Password != value))
+                {
+                    this.OnPasswordChanging(value);
+                    this.SendPropertyChanging();
+                    this._Password = value;
+                    this.SendPropertyChanged("Password");
+                    this.OnPasswordChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_FirstName", DbType = "VarChar(50)")]
+        public string FirstName
+        {
+            get
+            {
+                return this._FirstName;
+            }
+            set
+            {
+                if ((this._FirstName != value))
+                {
+                    this.OnFirstNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._FirstName = value;
+                    this.SendPropertyChanged("FirstName");
+                    this.OnFirstNameChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_LastName", DbType = "VarChar(50)")]
+        public string LastName
+        {
+            get
+            {
+                return this._LastName;
+            }
+            set
+            {
+                if ((this._LastName != value))
+                {
+                    this.OnLastNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._LastName = value;
+                    this.SendPropertyChanged("LastName");
+                    this.OnLastNameChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Role", DbType = "VarChar(50)")]
+        public string Role
+        {
+            get
+            {
+                return this._Role;
+            }
+            set
+            {
+                if ((this._Role != value))
+                {
+                    this.OnRoleChanging(value);
+                    this.SendPropertyChanging();
+                    this._Role = value;
+                    this.SendPropertyChanged("Role");
+                    this.OnRoleChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_TeamUser_User", Storage = "_TeamUser", ThisKey = "Id", OtherKey = "UserId", DeleteRule = "NO ACTION")]
+        public EntitySet<TeamUser> TeamUser
+        {
+            get
+            {
+                return this._TeamUser;
+            }
+            set
+            {
+                this._TeamUser.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_UserRole_User", Storage = "_UserRole", ThisKey = "Id", OtherKey = "UserId", DeleteRule = "NO ACTION")]
+        public EntitySet<UserRole> UserRole
+        {
+            get
+            {
+                return this._UserRole;
+            }
+            set
+            {
+                this._UserRole.Assign(value);
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        private void attach_TeamUser(TeamUser entity)
+        {
+            this.SendPropertyChanging();
+            entity.UserDetails = this;
+        }
+
+        private void detach_TeamUser(TeamUser entity)
+        {
+            this.SendPropertyChanging();
+            entity.UserDetails = null;
+        }
+
+        private void attach_UserRole(UserRole entity)
+        {
+            this.SendPropertyChanging();
+            entity.UserDetails = this;
+        }
+
+        private void detach_UserRole(UserRole entity)
+        {
+            this.SendPropertyChanging();
+            entity.UserDetails = null;
+        }
+    }
+
+    [Table(Name = "dbo.UserRole")]
+    public partial class UserRole : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _UserId;
+
+        private int _RoleId;
+
+        private EntityRef<RoleDetails> _RoleDetails;
+
+        private EntityRef<UserDetails> _UserDetails;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnUserIdChanging(int value);
+        partial void OnUserIdChanged();
+        partial void OnRoleIdChanging(int value);
+        partial void OnRoleIdChanged();
+        #endregion
+
+        public UserRole()
+        {
+            this._RoleDetails = default(EntityRef<RoleDetails>);
+            this._UserDetails = default(EntityRef<UserDetails>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_UserId", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int UserId
+        {
+            get
+            {
+                return this._UserId;
+            }
+            set
+            {
+                if ((this._UserId != value))
+                {
+                    if (this._UserDetails.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnUserIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._UserId = value;
+                    this.SendPropertyChanged("UserId");
+                    this.OnUserIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoleId", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int RoleId
+        {
+            get
+            {
+                return this._RoleId;
+            }
+            set
+            {
+                if ((this._RoleId != value))
+                {
+                    if (this._RoleDetails.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnRoleIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoleId = value;
+                    this.SendPropertyChanged("RoleId");
+                    this.OnRoleIdChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_UserRole_Role", Storage = "_RoleDetails", ThisKey = "RoleId", OtherKey = "Id", IsForeignKey = true)]
+        public RoleDetails RoleDetails
+        {
+            get
+            {
+                return this._RoleDetails.Entity;
+            }
+            set
+            {
+                RoleDetails previousValue = this._RoleDetails.Entity;
+                if (((previousValue != value)
+                            || (this._RoleDetails.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._RoleDetails.Entity = null;
+                        previousValue.UserRole.Remove(this);
+                    }
+                    this._RoleDetails.Entity = value;
+                    if ((value != null))
+                    {
+                        value.UserRole.Add(this);
+                        this._RoleId = value.Id;
+                    }
+                    else
+                    {
+                        this._RoleId = default(int);
+                    }
+                    this.SendPropertyChanged("RoleDetails");
+                }
+            }
+        }
+
+        [Association(Name = "FK_UserRole_User", Storage = "_UserDetails", ThisKey = "UserId", OtherKey = "Id", IsForeignKey = true)]
+        public UserDetails UserDetails
+        {
+            get
+            {
+                return this._UserDetails.Entity;
+            }
+            set
+            {
+                UserDetails previousValue = this._UserDetails.Entity;
+                if (((previousValue != value)
+                            || (this._UserDetails.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._UserDetails.Entity = null;
+                        previousValue.UserRole.Remove(this);
+                    }
+                    this._UserDetails.Entity = value;
+                    if ((value != null))
+                    {
+                        value.UserRole.Add(this);
+                        this._UserId = value.Id;
+                    }
+                    else
+                    {
+                        this._UserId = default(int);
+                    }
+                    this.SendPropertyChanged("UserDetails");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
 }
 #pragma warning restore 1591

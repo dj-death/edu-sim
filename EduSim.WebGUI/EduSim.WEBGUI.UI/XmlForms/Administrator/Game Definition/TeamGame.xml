@@ -2,5 +2,6 @@
 
 <BrixMainForm TableName="Game" PrimaryKeyName="Id" HandlerClass="EduSim.WebGUI.UI.GameManager,EduSim.WebGUI.UI" SaveEvent="SaveGame" DeleteEvent="DeleteGame">
   <BrixDataEntry BrixControl="CheckedListBox" Name="TeamIds" Text="Teams" IsFirstColumn="true" DataSource="FillGameDetails"/>
+  <BrixDataEntry BrixControl="CheckBox" Name="Active" Text="Active" IsFirstColumn="true" />
 
 </BrixMainForm>

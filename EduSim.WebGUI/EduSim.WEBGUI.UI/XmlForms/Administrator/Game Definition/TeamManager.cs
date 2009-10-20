@@ -15,28 +15,38 @@ namespace EduSim.WebGUI.UI
     {
         public static void SaveTeam(List<Control> list, BrixMainForm brixMainForm, string filter)
         {
-            EduSimDb db = new EduSimDb();
+            Edusim db = new Edusim();
             Team team;
             //Insert
             if (filter.Equals(string.Empty))
             {
                 team = new Team();
-                CoreDatabaseHelper.Modify(list, team, (o, c) =>
+                CoreDatabaseHelper.Modify(list, team, (o, c1) =>
                     {
-                        int count = 0;
-                        foreach (string str in c.Items)
+                        if (c1 is CheckedListBox)
                         {
-                            if (c.GetItemChecked(count++))
+                            CheckedListBox c = (c1 as CheckedListBox);
+
+                            int count = 0;
+                            foreach (string str in c.Items)
                             {
-                                TeamUser tu = new TeamUser();
-                                tu.Team = (o as Team);
-                                UserDetails user = (from u in db.UserDetails
-                                              where u.Email.Equals(str)
-                                              select u).FirstOrDefault<UserDetails>();
-                                tu.UserDetails = user;
-                                db.TeamUser.InsertOnSubmit(tu);
-                                break;
+                                if (c.GetItemChecked(count++))
+                                {
+                                    TeamUser tu = new TeamUser();
+                                    tu.Team = (o as Team);
+                                    UserDetails user = (from u in db.UserDetails
+                                                        where u.Email.Equals(str)
+                                                        select u).FirstOrDefault<UserDetails>();
+                                    tu.UserDetails = user;
+                                    db.TeamUser.InsertOnSubmit(tu);
+                                    break;
+                                }
                             }
+                        }
+                        if (c1 is ComboBox)
+                        {
+                            ComboBox c = (c1 as ComboBox);
+                            team.TeamCategoryId = c.SelectedIndex + 1;
                         }
                     });
 
@@ -51,28 +61,37 @@ namespace EduSim.WebGUI.UI
                              where t.Id == int.Parse(splits[1])
                              select t).FirstOrDefault<Team>();
 
-                CoreDatabaseHelper.Modify(list, team, (o, c) =>
+                CoreDatabaseHelper.Modify(list, team, (o, c1) =>
                     {
-                        int count = 0;
-                        foreach (string str in c.Items)
+                        if (c1 is CheckedListBox)
                         {
-                            if (c.GetItemChecked(count++))
+                            CheckedListBox c = (c1 as CheckedListBox);
+                            int count = 0;
+                            foreach (string str in c.Items)
                             {
-                                UserDetails user = (from u in db.UserDetails
-                                                    where u.Email.Equals(str)
-                                                    select u).FirstOrDefault<UserDetails>();
-                                TeamUser tu1 = (from tu in db.TeamUser
-                                                where tu.Team == (o as Team) && tu.UserDetails == user
-                                                select tu).FirstOrDefault<TeamUser>();
-                                if (tu1 == null)
+                                if (c.GetItemChecked(count++))
                                 {
-                                    TeamUser tu = new TeamUser();
-                                    tu.Team = (o as Team);
-                                    tu.UserDetails = user;
-                                    db.TeamUser.InsertOnSubmit(tu);
+                                    UserDetails user = (from u in db.UserDetails
+                                                        where u.Email.Equals(str)
+                                                        select u).FirstOrDefault<UserDetails>();
+                                    TeamUser tu1 = (from tu in db.TeamUser
+                                                    where tu.Team == (o as Team) && tu.UserDetails == user
+                                                    select tu).FirstOrDefault<TeamUser>();
+                                    if (tu1 == null)
+                                    {
+                                        TeamUser tu = new TeamUser();
+                                        tu.Team = (o as Team);
+                                        tu.UserDetails = user;
+                                        db.TeamUser.InsertOnSubmit(tu);
+                                    }
+                                    break;
                                 }
-                                break;
                             }
+                        }
+                        if (c1 is ComboBox)
+                        {
+                            ComboBox c = (c1 as ComboBox);
+                            team.TeamCategoryId = c.SelectedIndex + 1;
                         }
                     });
             }
@@ -81,7 +100,7 @@ namespace EduSim.WebGUI.UI
 
         public static void FillUserDetails(CheckedListBox control, BrixDataEntry dataEntry, DataTable table)
         {
-            EduSimDb db = new EduSimDb();
+            Edusim db = new Edusim();
             
             (from u in db.UserDetails
              select u.Email).ToList<string>().ForEach(o => control.Items.Add(o));
@@ -110,9 +129,27 @@ namespace EduSim.WebGUI.UI
             }
         }
 
+        public static void FillTeamNamesDetails(ComboBox control, BrixDataEntry dataEntry, DataTable table)
+        {
+            Edusim db = new Edusim();
+
+            (from tc in db.TeamCategory
+             select tc.Name).ToList<string>().ForEach(o => control.Items.Add(o));
+
+            if (table != null)
+            {
+                DataRow row = table.Rows[0];
+
+                int tcId = (int)row["TeamCategoryId"];
+
+                control.SelectedIndex = tcId - 1;
+            }
+        }
+
         public static void DeleteTeam(BrixMainForm brixMainForm, string filter)
         {
-            EduSimDb db = new EduSimDb();
+            Edusim db = new Edusim();
+
             (from tu in db.TeamUser
              where tu.TeamId == int.Parse(filter)
              select tu).ToList<TeamUser>().ForEach(o => db.TeamUser.DeleteOnSubmit(o));
