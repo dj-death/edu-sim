@@ -41,7 +41,7 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             mobjDatabaseData.LoadCustomers();*/
 
             UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
-            int roundId = (int)HttpContext.Current.Session[SessionConstants.CurrentRound];
+            Round round = HttpContext.Current.Session[SessionConstants.CurrentRound] as Round;
 
             Edusim db = new Edusim();
 
@@ -49,7 +49,7 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
                                            join r in db.Round on f.Round equals r
                                            join t in db.TeamGame on r.TeamGame equals t
                                            join tu in db.TeamUser on t.TeamId equals tu.Id
-                                           where r.Id == roundId && tu.UserDetails == user
+                                           where r.Id == round.Id && tu.UserDetails == user
                                            select f;
 
             this.dataGridView1.DataMember = "Customers";
