@@ -43,12 +43,12 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
             int roundId = (int)HttpContext.Current.Session[SessionConstants.CurrentRound];
 
-            EduSimDb db = new EduSimDb();
+            Edusim db = new Edusim();
 
             var data = from m in db.MarketingData
                        join rp in db.RoundProduct on m.RoundProduct equals rp
                        join rd in db.Round on rp.Round equals rd
-                       join t in db.TeamGame on rd.TeamGameId equals t.Id
+                       join t in db.TeamGame on rd.TeamGame equals t
                        join tu in db.TeamUser on t.TeamId equals tu.Id
                        where rd.Id == roundId && tu.UserDetails == user
                        select new

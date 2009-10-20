@@ -19,7 +19,7 @@ namespace EduSim.Analyse.BusinessLayer
         public void Init(org.drools.dotnet.WorkingMemory workingMemory)
         {
 
-            EduSimDb edusim = new EduSimDb();
+            Edusim edusim = new Edusim();
 
             round = (from r in edusim.Round
                      where r.Current == true

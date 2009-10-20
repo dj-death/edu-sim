@@ -17,6 +17,7 @@ namespace EduSim.CoreFramework.Common
         TextBox,
         CheckedListBox,
         CheckBox,
+        ComboBox,
         Grid
     }
 
@@ -38,9 +39,35 @@ namespace EduSim.CoreFramework.Common
                 case BrixControl.CheckBox:
                     CreateCheckBoxControl(list, ref count, dataEntry, table);
                     break;
+                case BrixControl.ComboBox:
+                    CreateListBoxControl(list, ref count, brixMainForm, dataEntry, table);
+                    break;
                 default:
                     break;
             }
+        }
+
+        private static void CreateListBoxControl(List<Control> list, 
+            ref int count, 
+            BrixMainForm brixMainForm, 
+            BrixDataEntry dataEntry, 
+            DataTable table)
+        {
+            ComboBox comboBox = new ComboBox();
+
+            comboBox.Location = dataEntry.IsFirstColumn ? new Point(100, count * 25) : new Point(280, count * 25);
+
+            comboBox.Name = dataEntry.Name; ;
+            comboBox.Size = new System.Drawing.Size(100, 20);
+            comboBox.TabIndex = count;
+
+            Type type = Type.GetType(brixMainForm.HandlerClass);
+            MethodInfo miHandler = type.GetMethod(dataEntry.DataSource, BindingFlags.Public | BindingFlags.Static);
+
+            miHandler.Invoke(null, new object[] { comboBox, dataEntry, table });
+
+            list.Add(comboBox);
+            count++;
         }
 
         private static void CreateCheckBoxControl(List<Control> list, ref int count, BrixDataEntry dataEntry, DataTable table)

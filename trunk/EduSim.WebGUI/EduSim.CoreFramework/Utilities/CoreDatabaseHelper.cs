@@ -25,7 +25,7 @@ using Gizmox.WebGUI.Forms;
 
 namespace EduSim.CoreFramework.Common
 {
-    public delegate void CreateAssociation(object obj, CheckedListBox checkedListBox);
+    public delegate void CreateAssociation(object obj, Control checkedListBox);
 
     public static class CoreDatabaseHelper
     {
@@ -276,6 +276,15 @@ namespace EduSim.CoreFramework.Common
             {
                 foreach (Control control in list)
                 {
+                    if (control is Label)
+                    {
+                        continue;
+                    }
+                    else if (control is CheckedListBox || control is ComboBox)
+                    {
+                        CreateAssociation(obj, control );
+                        continue;
+                    }
                     foreach (PropertyInfo prop in obj.GetType().GetProperties())
                     {
                         if (control.Name.Equals(prop.Name))
@@ -290,11 +299,6 @@ namespace EduSim.CoreFramework.Common
                                 prop.SetValue(obj, (control as CheckBox).Checked, null);
                                 break;
                             }
-                        }
-                        else if (control is CheckedListBox)
-                        {
-                            CreateAssociation(obj, control as CheckedListBox);
-                            break;
                         }
                     }
                 }

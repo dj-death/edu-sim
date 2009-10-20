@@ -21,7 +21,7 @@ namespace EduSim.UserManagementBL
 
         public UserDetails ValidateUser(string email, string password)
         {
-            EduSimDb db = new EduSimDb();
+            Edusim db = new Edusim();
             UserDetails user = null;
 
             try

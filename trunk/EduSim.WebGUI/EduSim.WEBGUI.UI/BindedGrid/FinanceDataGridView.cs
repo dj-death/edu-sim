@@ -43,11 +43,11 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
             int roundId = (int)HttpContext.Current.Session[SessionConstants.CurrentRound];
 
-            EduSimDb db = new EduSimDb();
+            Edusim db = new Edusim();
 
             IQueryable<FinanceData> data = from f in db.FinanceData
                                            join r in db.Round on f.Round equals r
-                                           join t in db.TeamGame on r.TeamGameId equals t.Id
+                                           join t in db.TeamGame on r.TeamGame equals t
                                            join tu in db.TeamUser on t.TeamId equals tu.Id
                                            where r.Id == roundId && tu.UserDetails == user
                                            select f;

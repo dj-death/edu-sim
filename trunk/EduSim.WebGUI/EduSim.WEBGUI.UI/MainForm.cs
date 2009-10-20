@@ -279,7 +279,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
         {
             UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
 
-            EduSimDb db = new EduSimDb();
+            Edusim db = new Edusim();
 
             (from g in db.Game
              join tg in db.TeamGame on g.Id equals tg.GameId
@@ -293,21 +293,28 @@ namespace Gizmox.WebGUI.Forms.Catalog
             });
         }
 
-        private void BuildRoundTree(int gameId, CategoryNode catNode, UserDetails user, EduSimDb db)
+        private void BuildRoundTree(int gameId, CategoryNode catNode, UserDetails user, Edusim db)
         {
+            //IQueryable<Round> data = (from r in db.Round
+            //                          join tg in db.TeamGame on r.GameId equals tg.GameId
+            //                          join tu in db.TeamUser on tg.TeamId equals tu.TeamId
+            //                          where tu.UserId == user.Id && r.GameId == gameId
+            //                          select r);
+
             (from r in db.Round
-             join t in db.TeamGame on r.TeamGameId equals t.Id
-             join tu in db.TeamUser on t.TeamId equals tu.Id
-             where tu.UserDetails == user && t.GameId ==  gameId 
+             join tg in db.TeamGame on r.TeamGame equals tg
+             join tu in db.TeamUser on tg.Team equals tu.Team
+             where tu.UserId == user.Id && r.TeamGame.GameId == gameId
              select r).ToList<Round>().ForEach(o =>
-             {
-                 CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id );
-                 catNode1.AddCategory("R&D", typeof(RnDDataGridView));
-                 catNode1.AddCategory("Marketing", typeof(MarketingDataGridView));
-                 catNode1.AddCategory("Production", typeof(ProductionDataGridView));
-                 catNode1.AddCategory("Finance", typeof(FinanceDataGridView));
-                 catNode1.AddCategory("Reports", typeof(RnDDataGridView));
-             });
+                                              {
+                                                  CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id);
+                                                  catNode1.AddCategory("R&D", typeof(RnDDataGridView));
+                                                  catNode1.AddCategory("Marketing", typeof(MarketingDataGridView));
+                                                  catNode1.AddCategory("Production", typeof(ProductionDataGridView));
+                                                  catNode1.AddCategory("Finance", typeof(FinanceDataGridView));
+                                                  catNode1.AddCategory("Reports", typeof(RnDDataGridView));
+                                              }
+                                              );
         }
 
         private string GetMeaningOfLifeFromSecureDatabase()
