@@ -13,6 +13,8 @@ using System.Linq;
 using EduSim.CoreFramework.DTO;
 using System.Web;
 using EduSim.WebGUI.UI;
+using EduSim.CoreUtilities.Utility;
+
 //Test
 namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 {
@@ -36,39 +38,52 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             // This call is required by the WebGUI Form Designer.
             InitializeComponent();
 
-            // Initialize dataGridView1 data source
-            /*mobjDatabaseData = new DatabaseData();
-            mobjDatabaseData.LoadCustomers();*/
-
             UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
-            int roundId = (int)HttpContext.Current.Session[SessionConstants.CurrentRound];
+            Round round = HttpContext.Current.Session[SessionConstants.CurrentRound] as Round;
 
-            Edusim db = new Edusim();
-            var data = from r in db.RnDData
-                       join rp in db.RoundProduct on r.RoundProduct equals rp
-                       join rd in db.Round on rp.Round equals rd
-                       join t in db.TeamGame on rd.TeamGame equals t
-                       join tu in db.TeamUser on t.TeamId equals tu.Id
-                       where rd.Id == roundId && tu.UserDetails == user
-                       select new
-                       {
-                           ProductName = rp.ProductName,
-                           ProductCategory = rp.SegmentType.Description,
-                           PreviousAge = r.PreviousAge,
-                           Age = r.Age,
-                           PreviousRevisionDate = r.PreviousRevisionDate,
-                           RevisionDate = r.RevisionDate,
-                           PreviousPerformance = r.PreviousPerformance,
-                           Performance = r.Performance,
-                           PreviousSize = r.PreviousSize,
-                           Size = r.Size,
-                           PreviousReliability = r.PreviousReliability,
-                           Reliability = r.Reliability,
-                           RnDCost = r.RnDCost
-                       };
+            if (round.Current)
+            {
+                Edusim db = new Edusim();
+                IQueryable<RnDDataView> data = from r in db.RnDData
+                                               join rp in db.RoundProduct on r.RoundProduct equals rp
+                                               join rd in db.Round on rp.Round equals rd
+                                               join t in db.TeamGame on rd.TeamGame equals t
+                                               join tu in db.TeamUser on t.TeamId equals tu.Id
+                                               where rd.Id == round.Id && tu.UserDetails == user
+                                               select new RnDDataView()
+                                                {
+                                                    ProductName = rp.ProductName,
+                                                    ProductCategory = rp.SegmentType.Description,
+                                                    PreviousAge = r.PreviousAge,
+                                                    Age = r.Age,
+                                                    PreviousRevisionDate = r.PreviousRevisionDate,
+                                                    RevisionDate = r.RevisionDate,
+                                                    PreviousPerformance = r.PreviousPerformance,
+                                                    Performance = r.Performance,
+                                                    PreviousSize = r.PreviousSize,
+                                                    Size = r.Size,
+                                                    PreviousReliability = r.PreviousReliability,
+                                                    Reliability = r.Reliability,
+                                                    RnDCost = r.RnDCost
+                                                };
 
-            this.dataGridView1.DataMember = "Customers";
-            this.dataGridView1.DataSource = data;
+                this.dataGridView1.DataMember = "RnDDataView";
+
+                this.dataGridView1.DataSource = data;
+                int[] readOnlyColumns = { 0, 1, 2, 4, 6, 8, 10, 12 };
+
+                foreach (int readOnlyColumn in readOnlyColumns)
+                {
+                    this.dataGridView1.Columns[readOnlyColumn].ReadOnly = true;
+                }
+            }
+            else
+            {
+                foreach (DataGridView d in this.dataGridView1.Columns)
+                {
+                    d.ReadOnly = true;
+                }
+            }
         }
 
 		#region Component Designer generated code
@@ -109,7 +124,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             this.dataGridView1.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.BackColor = Color.LightGray;
             this.dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Red;
-            this.dataGridView1.AllowUserToAddRows = true;
             this.dataGridView1.CellLeave += new DataGridViewCellEventHandler(dataGridView1_CellLeave);
 			// 
 			// DataGridViewControl

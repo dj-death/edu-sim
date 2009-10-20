@@ -295,12 +295,6 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
         private void BuildRoundTree(int gameId, CategoryNode catNode, UserDetails user, Edusim db)
         {
-            //IQueryable<Round> data = (from r in db.Round
-            //                          join tg in db.TeamGame on r.GameId equals tg.GameId
-            //                          join tu in db.TeamUser on tg.TeamId equals tu.TeamId
-            //                          where tu.UserId == user.Id && r.GameId == gameId
-            //                          select r);
-
             (from r in db.Round
              join tg in db.TeamGame on r.TeamGame equals tg
              join tu in db.TeamUser on tg.Team equals tu.Team
@@ -590,7 +584,12 @@ namespace Gizmox.WebGUI.Forms.Catalog
                 if (split.Length > 1)
                 {
                     string[] split1 = split[1].Split("|".ToCharArray());
-                    HttpContext.Current.Session[SessionConstants.CurrentRound] = int.Parse(split1[1]);
+                    Edusim db = new Edusim();
+
+                    Round round = (from r in db.Round
+                                   where r.Id == int.Parse(split1[1])
+                                   select r).FirstOrDefault<Round>();
+                    HttpContext.Current.Session[SessionConstants.CurrentRound] = round;
                 }
             }
             (mobjBaseForm as MainForm).SelectCategory(e.Node.Tag as CategoryNode, true);
