@@ -213,6 +213,8 @@
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
+    <Compile Include="BindedGrid\ProductionDataModel.cs" />
+    <Compile Include="BindedGrid\MarketingDataModel.cs" />
     <Compile Include="BindedGrid\FinanceDataGridView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -225,6 +227,8 @@
     <Compile Include="BindedGrid\RnDDataGridView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="BindedGrid\RnDDataHandler.cs" />
+    <Compile Include="BindedGrid\RndDataModel.cs" />
     <Compile Include="BrixListControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -235,7 +239,6 @@
     <Compile Include="BrixXmlEditControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Constants.cs" />
     <Compile Include="LogicalCategory.cs">
       <SubType>UserControl</SubType>
     </Compile>

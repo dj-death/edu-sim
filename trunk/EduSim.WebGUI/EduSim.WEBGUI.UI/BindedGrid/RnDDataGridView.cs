@@ -14,6 +14,8 @@ using EduSim.CoreFramework.DTO;
 using System.Web;
 using EduSim.WebGUI.UI;
 using EduSim.CoreUtilities.Utility;
+using System.Collections.Generic;
+using EduSim.CoreFramework.Common;
 
 //Test
 namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
@@ -26,60 +28,39 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
     public class RnDDataGridView : UserControl, IHostedApplication
 	{
         private DataGridView dataGridView1;
-
+        private Button compute;
+        private Button save;
+        private Button addProduct;
+        private RoundDataModel rdm;
 		/// <summary> 
 		/// Required designer variable.
 		/// </summary>
         [NonSerialized]
         private System.ComponentModel.Container components = null;
+        private Dictionary<string, string> parameter = new Dictionary<string,string>();
 
-        public RnDDataGridView()
+        public RnDDataGridView(Type model)
         {
             // This call is required by the WebGUI Form Designer.
             InitializeComponent();
 
-            UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
-            Round round = HttpContext.Current.Session[SessionConstants.CurrentRound] as Round;
+            rdm = Activator.CreateInstance(model) as RoundDataModel;
 
-            if (round.Current)
+            this.dataGridView1.DataSource = rdm.GetList();
+
+            if (rdm.Current)
             {
-                Edusim db = new Edusim();
-                IQueryable<RnDDataView> data = from r in db.RnDData
-                                               join rp in db.RoundProduct on r.RoundProduct equals rp
-                                               join rd in db.Round on rp.Round equals rd
-                                               join t in db.TeamGame on rd.TeamGame equals t
-                                               join tu in db.TeamUser on t.TeamId equals tu.Id
-                                               where rd.Id == round.Id && tu.UserDetails == user
-                                               select new RnDDataView()
-                                                {
-                                                    ProductName = rp.ProductName,
-                                                    ProductCategory = rp.SegmentType.Description,
-                                                    PreviousAge = r.PreviousAge,
-                                                    Age = r.Age,
-                                                    PreviousRevisionDate = r.PreviousRevisionDate,
-                                                    RevisionDate = r.RevisionDate,
-                                                    PreviousPerformance = r.PreviousPerformance,
-                                                    Performance = r.Performance,
-                                                    PreviousSize = r.PreviousSize,
-                                                    Size = r.Size,
-                                                    PreviousReliability = r.PreviousReliability,
-                                                    Reliability = r.Reliability,
-                                                    RnDCost = r.RnDCost
-                                                };
-
-                this.dataGridView1.DataMember = "RnDDataView";
-
-                this.dataGridView1.DataSource = data;
-                int[] readOnlyColumns = { 0, 1, 2, 4, 6, 8, 10, 12 };
-
-                foreach (int readOnlyColumn in readOnlyColumns)
+                foreach (int readOnlyColumn in rdm.HiddenColumns())
                 {
                     this.dataGridView1.Columns[readOnlyColumn].ReadOnly = true;
+                    DataGridViewCellStyle s = this.dataGridView1.Columns[readOnlyColumn].DefaultCellStyle;
+
+                    s.BackColor = Color.LightGray;
                 }
             }
             else
             {
-                foreach (DataGridView d in this.dataGridView1.Columns)
+                foreach (DataGridViewColumn d in this.dataGridView1.Columns)
                 {
                     d.ReadOnly = true;
                 }
@@ -109,8 +90,39 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 		private void InitializeComponent()
 		{
             this.dataGridView1 = new Gizmox.WebGUI.Forms.DataGridView();
+            compute = new Button();
+            save = new Button() ;
+            addProduct = new Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
+
+            compute.Location = new Point(16, 0);
+            compute.Name = "backButton";
+            compute.Text = "Compute";
+            compute.Size = new Size(60, 20);
+            compute.Click += new EventHandler((sender, e) =>
+            {
+                rdm.ComputeAllCells(dataGridView1);
+            });
+
+            save.Location = new Point(70, 0);
+            save.Name = "saveButton";
+            save.Text = "Save";
+            save.Size = new Size(60, 20);
+            save.Click += new EventHandler((sender, e) =>
+            {
+                rdm.Save(dataGridView1);
+            });
+
+            addProduct.Location = new Point(120, 0);
+            addProduct.Name = "addProduct";
+            addProduct.Text = "Add Product";
+            addProduct.Size = new Size(100, 20);
+            addProduct.Click += new EventHandler((sender, e) =>
+            {
+                rdm.ComputeAllCells(dataGridView1);
+            });
+
             // 
             // dataGridView1
             // 
@@ -122,15 +134,18 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.BackColor = Color.White;
-            this.dataGridView1.DefaultCellStyle.BackColor = Color.LightGray;
+            this.dataGridView1.DefaultCellStyle.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Red;
-            this.dataGridView1.CellLeave += new DataGridViewCellEventHandler(dataGridView1_CellLeave);
+            //this.dataGridView1.CellEndEdit += new DataGridViewCellEventHandler(dataGridView1_CellValueChanged);
 			// 
 			// DataGridViewControl
 			// 
 			this.ClientSize = new System.Drawing.Size(640, 600);
             this.Controls.Add(this.dataGridView1);
-			this.DockPadding.All = 0;
+            this.Controls.Add(this.compute);
+            this.Controls.Add(this.save);
+            this.Controls.Add(this.addProduct);
+            this.DockPadding.All = 0;
 			this.DockPadding.Bottom = 0;
 			this.DockPadding.Left = 0;
 			this.DockPadding.Right = 0;
@@ -141,9 +156,13 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 
 		}
 
-        void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
+        void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
-            //MessageBox.Show("hi there");
+            DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+            DataGridViewCell c = row.Cells[e.ColumnIndex];
+
+            rdm.HandleDataChange(row, c);
+            //MessageBox.Show("hi there the value is " + c.Value);
         }
 
 		#endregion

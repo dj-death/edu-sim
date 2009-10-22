@@ -13,6 +13,8 @@ using System.Linq;
 using EduSim.CoreFramework.DTO;
 using System.Web;
 using EduSim.WebGUI.UI;
+using EduSim.CoreFramework.Common;
+using EduSim.WebGUI.UI.BindedGrid;
 //Test
 namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 {
@@ -24,6 +26,12 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
     public class ProductionDataGridView : UserControl, IHostedApplication
 	{
         private DataGridView dataGridView1;
+        private Button compute;
+        private Button save;
+        private Label labourCountLabel;
+        private TextBox labourCountTextBox;
+
+        private ProductionDataModel rdm;
 
 		/// <summary> 
 		/// Required designer variable.
@@ -36,45 +44,28 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             // This call is required by the WebGUI Form Designer.
             InitializeComponent();
 
-            // Initialize dataGridView1 data source
-            /*mobjDatabaseData = new DatabaseData();
-            mobjDatabaseData.LoadCustomers();*/
 
-            UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
-            Round round = HttpContext.Current.Session[SessionConstants.CurrentRound] as Round;
+            rdm = Activator.CreateInstance<ProductionDataModel>();
 
-            Edusim db = new Edusim();
+            this.dataGridView1.DataSource = rdm.GetList();
 
-            var data = from p in db.ProductionData
-                       join rp in db.RoundProduct on p.RoundProduct equals rp
-                       join rd in db.Round on rp.Round equals rd
-                       join t in db.TeamGame on rd.TeamGame equals t
-                       join tu in db.TeamUser on t.TeamId equals tu.Id
-                       join m in db.MarketingData on p.RoundProduct equals m.RoundProduct
-                       where rd.Id == round.Id && tu.UserDetails == user
-                       select new
-                       {
-                           ProductName = rp.ProductName,
-                           ProductCategory = rp.SegmentType.Description,
-                           Inventory = p.Inventory,
-                           ForecastedQuantity = m.ForecastingQuantity,
-                           TotalQuantity = p.Inventory + m.ForecastingQuantity,
-                           ManufacturedQuantity = p.ManufacturedQuantity,
-                           MaterialCost = 0,
-                           LabourCost = 0,
-                           ContributionMargin = p.Contribution,
-                           SecondShift = 0,
-                           OldAutomation = p.CurrentAutomation,
-                           NewAutomation = p.AutomationForNextRound,
-                           Capacity = p.OldCapacity,
-                           NewCapacity = p.NewCapacity,
-                           NewCapacityCost = 0,
-                           NumberOfLabour = 0,
-                           Utilization = 0,
-                       };
+            if (rdm.Current)
+            {
+                foreach (int readOnlyColumn in rdm.HiddenColumns())
+                {
+                    this.dataGridView1.Columns[readOnlyColumn].ReadOnly = true;
+                    DataGridViewCellStyle s = this.dataGridView1.Columns[readOnlyColumn].DefaultCellStyle;
 
-            this.dataGridView1.DataMember = "Customers";
-            this.dataGridView1.DataSource = data;
+                    s.BackColor = Color.LightGray;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewColumn d in this.dataGridView1.Columns)
+                {
+                    d.ReadOnly = true;
+                }
+            }
         }
 
 		#region Component Designer generated code
@@ -100,11 +91,42 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 		private void InitializeComponent()
 		{
             this.dataGridView1 = new Gizmox.WebGUI.Forms.DataGridView();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
-			this.SuspendLayout();
+            compute = new Button();
+            save = new Button();
+            labourCountLabel = new Label();
+            labourCountTextBox = new TextBox();
+
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            this.SuspendLayout();
+            compute.Location = new Point(16, 0);
+            compute.Name = "backButton";
+            compute.Text = "Compute";
+            compute.Size = new Size(50, 16);
+            compute.Click += new EventHandler((sender, e) =>
+            {
+                rdm.ComputeAllCells(dataGridView1);
+            });
+
+            save.Location = new Point(70, 0);
+            save.Name = "saveButton";
+            save.Text = "Save";
+            save.Size = new Size(50, 16);
+            save.Click += new EventHandler((sender, e) =>
+            {
+                rdm.Save(dataGridView1);
+            });
             // 
             // dataGridView1
             // 
+            labourCountLabel.Location = new Point(0, 500);
+            labourCountLabel.Name = "labourCountLbl";
+            labourCountLabel.Text = "Labour Count";
+            labourCountLabel.Size = new Size(70, 20);
+
+            labourCountTextBox.Location = new Point(70, 500);
+            labourCountTextBox.Name = "labourCountTxt";
+            labourCountTextBox.Size = new Size(70, 20);
+
             this.dataGridView1.ColumnHeadersHeightSizeMode = Gizmox.WebGUI.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Dock = Gizmox.WebGUI.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -113,21 +135,25 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.BackColor = Color.White;
-            this.dataGridView1.DefaultCellStyle.BackColor = Color.LightGray;
+            this.dataGridView1.DefaultCellStyle.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Red;
-            this.dataGridView1.AllowUserToAddRows = true;
             this.dataGridView1.CellLeave += new DataGridViewCellEventHandler(dataGridView1_CellLeave);
 			// 
 			// DataGridViewControl
 			// 
-			this.ClientSize = new System.Drawing.Size(640, 600);
+			this.ClientSize = new System.Drawing.Size(800, 800);
             this.Controls.Add(this.dataGridView1);
-			this.DockPadding.All = 0;
+            this.Controls.Add(labourCountLabel);
+            this.Controls.Add(labourCountTextBox);
+            this.Controls.Add(this.save);
+            this.Controls.Add(this.compute);
+
+            this.DockPadding.All = 0;
 			this.DockPadding.Bottom = 0;
 			this.DockPadding.Left = 0;
 			this.DockPadding.Right = 0;
 			this.DockPadding.Top = 0;
-			this.Size = new System.Drawing.Size(640, 600);
+            this.Size = new System.Drawing.Size(800, 800);
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
 			this.ResumeLayout(false);
 
