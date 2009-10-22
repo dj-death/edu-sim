@@ -13,6 +13,8 @@ using System.Linq;
 using EduSim.CoreFramework.DTO;
 using System.Web;
 using EduSim.WebGUI.UI;
+using EduSim.CoreFramework.Common;
+using EduSim.WebGUI.UI.BindedGrid;
 //Test
 namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 {
@@ -24,6 +26,9 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
     public class MarketingDataGridView : UserControl, IHostedApplication
 	{
         private DataGridView dataGridView1;
+        private Button compute;
+        private Button save;
+        private MarketingDataModel rdm;
 
 		/// <summary> 
 		/// Required designer variable.
@@ -36,38 +41,28 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             // This call is required by the WebGUI Form Designer.
             InitializeComponent();
 
-            // Initialize dataGridView1 data source
-            /*mobjDatabaseData = new DatabaseData();
-            mobjDatabaseData.LoadCustomers();*/
 
-            UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
-            Round round = HttpContext.Current.Session[SessionConstants.CurrentRound] as Round;
+            rdm = Activator.CreateInstance<MarketingDataModel>() ;
 
-            Edusim db = new Edusim();
+            this.dataGridView1.DataSource = rdm.GetList();
 
-            var data = from m in db.MarketingData
-                       join rp in db.RoundProduct on m.RoundProduct equals rp
-                       join rd in db.Round on rp.Round equals rd
-                       join t in db.TeamGame on rd.TeamGame equals t
-                       join tu in db.TeamUser on t.TeamId equals tu.Id
-                       where rd.Id == round.Id && tu.UserDetails == user
-                       select new
-                       {
-                           ProductName = rp.ProductName,
-                           ProductCategory = rp.SegmentType.Description,
-                           PreviousUnitPrice = m.PreviousPrice,
-                           UnitPrice = m.Price,
-                           PreviousSalesExpense = m.PreviousSaleExpense,
-                           SalesExpense = m.SalesExpense,
-                           PreviousMarketingExpense = m.PreviousMarketingExpense,
-                           MarketingExpense = m.MarketingExpense,
-                           PreviousForecastingQuantity = m.PreviousForecastingQuantity,
-                           ForecastedQuantity = m.ForecastingQuantity,
-                           ProjectedSales = m.ForecastingQuantity * m.Price
-                       };
+            if (rdm.Current)
+            {
+                foreach (int readOnlyColumn in rdm.HiddenColumns())
+                {
+                    this.dataGridView1.Columns[readOnlyColumn].ReadOnly = true;
+                    DataGridViewCellStyle s = this.dataGridView1.Columns[readOnlyColumn].DefaultCellStyle;
 
-            this.dataGridView1.DataMember = "Customers";
-            this.dataGridView1.DataSource = data;
+                    s.BackColor = Color.LightGray;
+                }
+            }
+            else
+            {
+                foreach (DataGridViewColumn d in this.dataGridView1.Columns)
+                {
+                    d.ReadOnly = true;
+                }
+            }
         }
 
 		#region Component Designer generated code
@@ -93,8 +88,27 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 		private void InitializeComponent()
 		{
             this.dataGridView1 = new Gizmox.WebGUI.Forms.DataGridView();
-			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            compute = new Button();
+            save = new Button();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
+            compute.Location = new Point(16, 0);
+            compute.Name = "backButton";
+            compute.Text = "Compute";
+            compute.Size = new Size(50, 16);
+            compute.Click += new EventHandler((sender, e) =>
+            {
+                rdm.ComputeAllCells(dataGridView1);
+            });
+
+            save.Location = new Point(70, 0);
+            save.Name = "saveButton";
+            save.Text = "Save";
+            save.Size = new Size(50, 16);
+            save.Click += new EventHandler((sender, e) =>
+            {
+                rdm.Save(dataGridView1);
+            });
             // 
             // dataGridView1
             // 
@@ -106,16 +120,17 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.BackColor = Color.White;
-            this.dataGridView1.DefaultCellStyle.BackColor = Color.LightGray;
+            this.dataGridView1.DefaultCellStyle.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Red;
-            this.dataGridView1.AllowUserToAddRows = true;
             this.dataGridView1.CellLeave += new DataGridViewCellEventHandler(dataGridView1_CellLeave);
 			// 
 			// DataGridViewControl
 			// 
 			this.ClientSize = new System.Drawing.Size(640, 600);
             this.Controls.Add(this.dataGridView1);
-			this.DockPadding.All = 0;
+            this.Controls.Add(this.save);
+            this.Controls.Add(this.compute);
+            this.DockPadding.All = 0;
 			this.DockPadding.Bottom = 0;
 			this.DockPadding.Left = 0;
 			this.DockPadding.Right = 0;

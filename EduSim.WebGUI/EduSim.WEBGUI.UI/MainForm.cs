@@ -15,6 +15,7 @@ using EduSim.WebGUI.UI;
 using EduSim.CoreFramework.DTO;
 using EduSim.CoreUtilities.Utility;
 using Gizmox.WebGUI.Forms.Catalog.Categories.DataControls;
+using EduSim.WebGUI.UI.BindedGrid;
 
 
 namespace Gizmox.WebGUI.Forms.Catalog
@@ -302,11 +303,11 @@ namespace Gizmox.WebGUI.Forms.Catalog
              select r).ToList<Round>().ForEach(o =>
                                               {
                                                   CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id);
-                                                  catNode1.AddCategory("R&D", typeof(RnDDataGridView));
-                                                  catNode1.AddCategory("Marketing", typeof(MarketingDataGridView));
-                                                  catNode1.AddCategory("Production", typeof(ProductionDataGridView));
-                                                  catNode1.AddCategory("Finance", typeof(FinanceDataGridView));
-                                                  catNode1.AddCategory("Reports", typeof(RnDDataGridView));
+                                                  catNode1.AddCategory("R&D", typeof(RnDDataGridView), typeof(RnDDataModel), "DayView.gif" );
+                                                  catNode1.AddCategory("Marketing", typeof(MarketingDataGridView), "DayView.gif");
+                                                  catNode1.AddCategory("Production", typeof(ProductionDataGridView), "DayView.gif");
+                                                  catNode1.AddCategory("Finance", typeof(FinanceDataGridView), "DayView.gif");
+                                                  catNode1.AddCategory("Reports", typeof(RnDDataGridView), "DayView.gif");
                                               }
                                               );
         }
@@ -494,6 +495,11 @@ namespace Gizmox.WebGUI.Forms.Catalog
                 return "Category Node";
             }
         }
+
+        internal TypeCategoryNode AddCategory(string p, Type type, Type typeParam, string p_4)
+        {
+            return new TypeCategoryNode(this, this.Nodes, p, type, typeParam, p_4);
+        }
     }
 
     [Serializable()]
@@ -609,9 +615,16 @@ namespace Gizmox.WebGUI.Forms.Catalog
     {
         private TreeNodeCollection mobjNodes = null;
         protected Type mobjType = null;
+        protected Type objParameters = null;
         private TreeNode mobjNode = null;
         protected string xmlForm = string.Empty;
         protected string brixModule = string.Empty;
+
+        public TypeCategoryNode(CategoryNode objParent, TreeNodeCollection objParebtNodes, string strLabel, Type objType, Type typeParam, string strIcon)
+            : this(objParent, objParebtNodes, strLabel, objType, strIcon)
+        {
+            objParameters = typeParam;
+        }
 
         public TypeCategoryNode(CategoryNode objParent, TreeNodeCollection objParebtNodes, string strLabel, Type objType)
             : this(objParent, objParebtNodes, strLabel, objType, "Folder.gif")
@@ -673,7 +686,10 @@ namespace Gizmox.WebGUI.Forms.Catalog
             }
             else
             {
-                return Activator.CreateInstance(this.mobjType) as Control;
+                if(objParameters == null)
+                    return Activator.CreateInstance(this.mobjType) as Control;
+                else
+                    return Activator.CreateInstance(this.mobjType, objParameters) as Control;
             }
         }
 
