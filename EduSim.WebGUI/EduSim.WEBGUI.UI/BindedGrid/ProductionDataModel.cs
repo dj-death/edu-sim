@@ -25,6 +25,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
         private List<double> O = new List<double>();
         private List<double> P = new List<double>();
         private List<double> Q = new List<double>();
+        private List<double> R = new List<double>();
 
         public override object GetList()
         {
@@ -47,9 +48,10 @@ namespace EduSim.WebGUI.UI.BindedGrid
                                                    MaterialCost = 0,
                                                    LabourCost = 0,
                                                    ContributionMargin = p.Contribution.HasValue ? p.Contribution.Value : 0.0,
-                                                   SecondShift = 0,
+                                                   SecondShift = 0.0,
                                                    OldAutomation = p.CurrentAutomation,
                                                    NewAutomation = p.AutomationForNextRound.HasValue ? p.AutomationForNextRound.Value : 0.0,
+                                                   AutomationCost = 0.0,
                                                    Capacity = p.OldCapacity,
                                                    NewCapacity = p.NewCapacity.HasValue ? p.NewCapacity.Value : 0.0,
                                                    NewCapacityCost = 0,
@@ -69,11 +71,12 @@ namespace EduSim.WebGUI.UI.BindedGrid
                     J.Add(o.SecondShift);
                     K.Add(o.OldAutomation);
                     L.Add(o.NewAutomation);
-                    M.Add(o.Capacity);
-                    N.Add(o.NewCapacity);
-                    O.Add(o.NewCapacityCost);
-                    P.Add(o.NumberOfLabour);
-                    Q.Add(o.Utilization);
+                    M.Add(o.AutomationCost );
+                    N.Add(o.Capacity);
+                    O.Add(o.NewCapacity);
+                    P.Add(o.NewCapacityCost);
+                    Q.Add(o.NumberOfLabour);
+                    R.Add(o.Utilization);
                 });
 
             return rs;
@@ -81,7 +84,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
         public override int[] HiddenColumns()
         {
-            return new int[]  { 0, 1, 3, 4, 5, 6, 7, 9, 10, 12, 13, 14, 15};
+            return new int[] { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 16 };
         }
 
         public override void HandleDataChange(DataGridViewRow row, DataGridViewCell c)
@@ -109,30 +112,53 @@ namespace EduSim.WebGUI.UI.BindedGrid
             Edusim db = new Edusim();
             Dictionary<string, double> dic = new Dictionary<string, double>();
 
+            LabourData ld = (from l in db.LabourData
+                           where l.Round == round
+                           select l).FirstOrDefault<LabourData>();
+
             (from c in db.ConfigurationData
              select c).ToList<ConfigurationData>().ForEach(o => dic[o.Name] = o.Value);
 
             int i = 0;
+            double workerRequired = 0;
             foreach (DataGridViewRow r in dataGridView1.Rows)
             {
-                C[i] = (double)r.Cells[2].Value; //ManufacturedQuantity
-                I[i] = (double)r.Cells[8].Value; //NewAutomation
-                K[i] = (double)r.Cells[11].Value; //NewCapacity
-                //M[i] = (double)r.Cells[12].Value;//RnDCost
+                D[i] = (double)r.Cells[2].Value; //ManufacturedQuantity
 
-                ////(H2-G2)*$B$9+ (J2-I2)*$B$10 + (K2-L2)*$B$11
-                //r.Cells[12].Value = M[i] = (H[i] - G[i]) * dic["ReliabilityCost"] + (J[i] - I[i]) * dic["PerformanceCost"] + 
-                //    (K[i] - L[i]) * dic["SizeCost"];
+                //Number of Labour: =D5/K5*$B$3
+                Q[i] = D[i] / K[i] * dic["LabourFactor"];
+                r.Cells[16].Value = Q[i].ToString("###0.00");
+                workerRequired += N[i];
+            }
 
-                ////Age=IF(M2=0, E2, (E2+((H2-G2)*$B$14+(J2-I2)*$B$13+(K2-L2)*$B$12)/365)/2)
-                //r.Cells[5].Value = M[i] == 0.0 ? E[i] : (E[i] + ((H[i] - G[i]) * dic["ReliabilityFactor"] +
-                //    (J[i] - I[i]) * dic["PerformanceFactor"] + (K[i] - L[i]) * dic["SizeFactor"]) / 365) / 2;
+            foreach (DataGridViewRow r in dataGridView1.Rows)
+            {
+                L[i] = (double)r.Cells[8].Value; //NewAutomation
+                O[i] = (double)r.Cells[11].Value; //NewCapacity
 
-                ////RevisionDate=C2+(H2-G2)*$B$14+(J2-I2)*$B$13+(K2-L2)*$B$12
-                //r.Cells[3].Value = C[i].AddDays((H[i] - G[i]) * dic["ReliabilityFactor"] +
-                //    (J[i] - I[i]) * dic["PerformanceFactor"] + (K[i] - L[i]) * dic["SizeFactor"]);
+                //Utilization: =$Q$10/$S$5
+                R[i] = workerRequired / ld.NumberOfLabour;
+                r.Cells[17].Value = R[i].ToString("###0.00");
+
+                //Automation Cost: J[i] =(L5-K5)*$B$1
+                M[i] = (I[i] - H[i]) * dic["AutomationCost"];
+                r.Cells[12].Value = M[i].ToString("###0.00");
+
+                //Capacity Cost=L5*$B$2
+                P[i] = O[i] * dic["CapacityCost"];
+                r.Cells[15].Value = P[i].ToString("###0.00");
+                
+                //=IF(R5<=100%,HR!$B$1/K5, (100%*HR!$B$1/K5+((R5-100%)*1.5*HR!$B$1/K5)))
+                H[i] = (R[i] <= 1) ? (ld.Rate / K[i]) : (ld.Rate / K[i] + ((R[i]-1)* 1.5 * ld.Rate/K[i]));
+                r.Cells[4].Value = H[i].ToString("###0.00");
 
                 i++;
+            }
+
+            foreach (DataGridViewRow r in dataGridView1.Rows)
+            {
+                //==$N$10/$P$5
+                r.Cells[14].Value = workerRequired / ld.NumberOfLabour;
             }
         }
 

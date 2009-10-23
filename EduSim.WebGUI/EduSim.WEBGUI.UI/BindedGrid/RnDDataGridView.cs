@@ -48,6 +48,11 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 
             this.dataGridView1.DataSource = rdm.GetList();
 
+            foreach (DataGridViewColumn d in this.dataGridView1.Columns)
+            {
+                d.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
             if (rdm.Current)
             {
                 foreach (int readOnlyColumn in rdm.HiddenColumns())
@@ -56,6 +61,7 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
                     DataGridViewCellStyle s = this.dataGridView1.Columns[readOnlyColumn].DefaultCellStyle;
 
                     s.BackColor = Color.LightGray;
+
                 }
             }
             else
@@ -136,6 +142,7 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             this.dataGridView1.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Red;
+
             //this.dataGridView1.CellEndEdit += new DataGridViewCellEventHandler(dataGridView1_CellValueChanged);
 			// 
 			// DataGridViewControl

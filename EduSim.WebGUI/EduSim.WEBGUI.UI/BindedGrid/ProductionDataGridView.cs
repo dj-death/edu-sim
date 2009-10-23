@@ -49,6 +49,11 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 
             this.dataGridView1.DataSource = rdm.GetList();
 
+            foreach (DataGridViewColumn d in this.dataGridView1.Columns)
+            {
+                d.SortMode = DataGridViewColumnSortMode.NotSortable;
+            }
+
             if (rdm.Current)
             {
                 foreach (int readOnlyColumn in rdm.HiddenColumns())
