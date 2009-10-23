@@ -373,13 +373,15 @@ namespace EduSim.CoreFramework.DTO
 
         private int _RoundId;
 
-        private int _TeamId;
-
         private double _Cash;
 
-        private double _LongTermLoad;
+        private System.Nullable<double> _PreviousLongTermLoan;
 
-        private double _ShortTermLoad;
+        private double _LongTermLoan;
+
+        private System.Nullable<double> _PreviousShortTermLoan;
+
+        private double _ShortTermLoan;
 
         private EntityRef<Round> _Round;
 
@@ -391,14 +393,16 @@ namespace EduSim.CoreFramework.DTO
         partial void OnIdChanged();
         partial void OnRoundIdChanging(int value);
         partial void OnRoundIdChanged();
-        partial void OnTeamIdChanging(int value);
-        partial void OnTeamIdChanged();
         partial void OnCashChanging(double value);
         partial void OnCashChanged();
-        partial void OnLongTermLoadChanging(double value);
-        partial void OnLongTermLoadChanged();
-        partial void OnShortTermLoadChanging(double value);
-        partial void OnShortTermLoadChanged();
+        partial void OnPreviousLongTermLoanChanging(System.Nullable<double> value);
+        partial void OnPreviousLongTermLoanChanged();
+        partial void OnLongTermLoanChanging(double value);
+        partial void OnLongTermLoanChanged();
+        partial void OnPreviousShortTermLoanChanging(System.Nullable<double> value);
+        partial void OnPreviousShortTermLoanChanged();
+        partial void OnShortTermLoanChanging(double value);
+        partial void OnShortTermLoanChanged();
         #endregion
 
         public FinanceData()
@@ -451,26 +455,6 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_TeamId", DbType = "Int NOT NULL")]
-        public int TeamId
-        {
-            get
-            {
-                return this._TeamId;
-            }
-            set
-            {
-                if ((this._TeamId != value))
-                {
-                    this.OnTeamIdChanging(value);
-                    this.SendPropertyChanging();
-                    this._TeamId = value;
-                    this.SendPropertyChanged("TeamId");
-                    this.OnTeamIdChanged();
-                }
-            }
-        }
-
         [Column(Storage = "_Cash", DbType = "Float NOT NULL")]
         public double Cash
         {
@@ -491,42 +475,82 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_LongTermLoad", DbType = "Float NOT NULL")]
-        public double LongTermLoad
+        [Column(Storage = "_PreviousLongTermLoan", DbType = "Float")]
+        public System.Nullable<double> PreviousLongTermLoan
         {
             get
             {
-                return this._LongTermLoad;
+                return this._PreviousLongTermLoan;
             }
             set
             {
-                if ((this._LongTermLoad != value))
+                if ((this._PreviousLongTermLoan != value))
                 {
-                    this.OnLongTermLoadChanging(value);
+                    this.OnPreviousLongTermLoanChanging(value);
                     this.SendPropertyChanging();
-                    this._LongTermLoad = value;
-                    this.SendPropertyChanged("LongTermLoad");
-                    this.OnLongTermLoadChanged();
+                    this._PreviousLongTermLoan = value;
+                    this.SendPropertyChanged("PreviousLongTermLoan");
+                    this.OnPreviousLongTermLoanChanged();
                 }
             }
         }
 
-        [Column(Storage = "_ShortTermLoad", DbType = "Float NOT NULL")]
-        public double ShortTermLoad
+        [Column(Storage = "_LongTermLoan", DbType = "Float NOT NULL")]
+        public double LongTermLoan
         {
             get
             {
-                return this._ShortTermLoad;
+                return this._LongTermLoan;
             }
             set
             {
-                if ((this._ShortTermLoad != value))
+                if ((this._LongTermLoan != value))
                 {
-                    this.OnShortTermLoadChanging(value);
+                    this.OnLongTermLoanChanging(value);
                     this.SendPropertyChanging();
-                    this._ShortTermLoad = value;
-                    this.SendPropertyChanged("ShortTermLoad");
-                    this.OnShortTermLoadChanged();
+                    this._LongTermLoan = value;
+                    this.SendPropertyChanged("LongTermLoan");
+                    this.OnLongTermLoanChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousShortTermLoan", DbType = "Float")]
+        public System.Nullable<double> PreviousShortTermLoan
+        {
+            get
+            {
+                return this._PreviousShortTermLoan;
+            }
+            set
+            {
+                if ((this._PreviousShortTermLoan != value))
+                {
+                    this.OnPreviousShortTermLoanChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousShortTermLoan = value;
+                    this.SendPropertyChanged("PreviousShortTermLoan");
+                    this.OnPreviousShortTermLoanChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ShortTermLoan", DbType = "Float NOT NULL")]
+        public double ShortTermLoan
+        {
+            get
+            {
+                return this._ShortTermLoan;
+            }
+            set
+            {
+                if ((this._ShortTermLoan != value))
+                {
+                    this.OnShortTermLoanChanging(value);
+                    this.SendPropertyChanging();
+                    this._ShortTermLoan = value;
+                    this.SendPropertyChanged("ShortTermLoan");
+                    this.OnShortTermLoanChanged();
                 }
             }
         }
@@ -1577,11 +1601,17 @@ namespace EduSim.CoreFramework.DTO
 
         private int _Id;
 
-        private int _TeamId;
+        private int _RoundId;
+
+        private System.Nullable<double> _PreviousRate;
 
         private double _Rate;
 
+        private System.Nullable<double> _PreviousNumberOfLabour;
+
         private double _NumberOfLabour;
+
+        private EntityRef<Round> _Round;
 
         #region Extensibility Method Definitions
         partial void OnLoaded();
@@ -1589,16 +1619,21 @@ namespace EduSim.CoreFramework.DTO
         partial void OnCreated();
         partial void OnIdChanging(int value);
         partial void OnIdChanged();
-        partial void OnTeamIdChanging(int value);
-        partial void OnTeamIdChanged();
+        partial void OnRoundIdChanging(int value);
+        partial void OnRoundIdChanged();
+        partial void OnPreviousRateChanging(System.Nullable<double> value);
+        partial void OnPreviousRateChanged();
         partial void OnRateChanging(double value);
         partial void OnRateChanged();
+        partial void OnPreviousNumberOfLabourChanging(System.Nullable<double> value);
+        partial void OnPreviousNumberOfLabourChanged();
         partial void OnNumberOfLabourChanging(double value);
         partial void OnNumberOfLabourChanged();
         #endregion
 
         public LabourData()
         {
+            this._Round = default(EntityRef<Round>);
             OnCreated();
         }
 
@@ -1622,22 +1657,46 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_TeamId", DbType = "Int NOT NULL")]
-        public int TeamId
+        [Column(Storage = "_RoundId", DbType = "Int NOT NULL")]
+        public int RoundId
         {
             get
             {
-                return this._TeamId;
+                return this._RoundId;
             }
             set
             {
-                if ((this._TeamId != value))
+                if ((this._RoundId != value))
                 {
-                    this.OnTeamIdChanging(value);
+                    if (this._Round.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnRoundIdChanging(value);
                     this.SendPropertyChanging();
-                    this._TeamId = value;
-                    this.SendPropertyChanged("TeamId");
-                    this.OnTeamIdChanged();
+                    this._RoundId = value;
+                    this.SendPropertyChanged("RoundId");
+                    this.OnRoundIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousRate", DbType = "Float")]
+        public System.Nullable<double> PreviousRate
+        {
+            get
+            {
+                return this._PreviousRate;
+            }
+            set
+            {
+                if ((this._PreviousRate != value))
+                {
+                    this.OnPreviousRateChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousRate = value;
+                    this.SendPropertyChanged("PreviousRate");
+                    this.OnPreviousRateChanged();
                 }
             }
         }
@@ -1662,6 +1721,26 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
+        [Column(Storage = "_PreviousNumberOfLabour", DbType = "Float")]
+        public System.Nullable<double> PreviousNumberOfLabour
+        {
+            get
+            {
+                return this._PreviousNumberOfLabour;
+            }
+            set
+            {
+                if ((this._PreviousNumberOfLabour != value))
+                {
+                    this.OnPreviousNumberOfLabourChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousNumberOfLabour = value;
+                    this.SendPropertyChanged("PreviousNumberOfLabour");
+                    this.OnPreviousNumberOfLabourChanged();
+                }
+            }
+        }
+
         [Column(Storage = "_NumberOfLabour", DbType = "Float NOT NULL")]
         public double NumberOfLabour
         {
@@ -1678,6 +1757,40 @@ namespace EduSim.CoreFramework.DTO
                     this._NumberOfLabour = value;
                     this.SendPropertyChanged("NumberOfLabour");
                     this.OnNumberOfLabourChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_LabourData_Round", Storage = "_Round", ThisKey = "RoundId", OtherKey = "Id", IsForeignKey = true)]
+        public Round Round
+        {
+            get
+            {
+                return this._Round.Entity;
+            }
+            set
+            {
+                Round previousValue = this._Round.Entity;
+                if (((previousValue != value)
+                            || (this._Round.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._Round.Entity = null;
+                        previousValue.LabourData.Remove(this);
+                    }
+                    this._Round.Entity = value;
+                    if ((value != null))
+                    {
+                        value.LabourData.Add(this);
+                        this._RoundId = value.Id;
+                    }
+                    else
+                    {
+                        this._RoundId = default(int);
+                    }
+                    this.SendPropertyChanged("Round");
                 }
             }
         }
@@ -3261,6 +3374,8 @@ namespace EduSim.CoreFramework.DTO
 
         private EntitySet<FinanceData> _FinanceData;
 
+        private EntitySet<LabourData> _LabourData;
+
         private EntityRef<RoundCategory> _RoundCategory;
 
         private EntityRef<TeamGame> _TeamGame;
@@ -3284,6 +3399,7 @@ namespace EduSim.CoreFramework.DTO
         public Round()
         {
             this._FinanceData = new EntitySet<FinanceData>(new Action<FinanceData>(this.attach_FinanceData), new Action<FinanceData>(this.detach_FinanceData));
+            this._LabourData = new EntitySet<LabourData>(new Action<LabourData>(this.attach_LabourData), new Action<LabourData>(this.detach_LabourData));
             this._RoundCategory = default(EntityRef<RoundCategory>);
             this._TeamGame = default(EntityRef<TeamGame>);
             this._RoundProduct = new EntitySet<RoundProduct>(new Action<RoundProduct>(this.attach_RoundProduct), new Action<RoundProduct>(this.detach_RoundProduct));
@@ -3388,6 +3504,19 @@ namespace EduSim.CoreFramework.DTO
             set
             {
                 this._FinanceData.Assign(value);
+            }
+        }
+
+        [Association(Name = "FK_LabourData_Round", Storage = "_LabourData", ThisKey = "Id", OtherKey = "RoundId", DeleteRule = "NO ACTION")]
+        public EntitySet<LabourData> LabourData
+        {
+            get
+            {
+                return this._LabourData;
+            }
+            set
+            {
+                this._LabourData.Assign(value);
             }
         }
 
@@ -3499,6 +3628,18 @@ namespace EduSim.CoreFramework.DTO
         }
 
         private void detach_FinanceData(FinanceData entity)
+        {
+            this.SendPropertyChanging();
+            entity.Round = null;
+        }
+
+        private void attach_LabourData(LabourData entity)
+        {
+            this.SendPropertyChanging();
+            entity.Round = this;
+        }
+
+        private void detach_LabourData(LabourData entity)
         {
             this.SendPropertyChanging();
             entity.Round = null;

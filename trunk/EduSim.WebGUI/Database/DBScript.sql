@@ -982,3 +982,13 @@ INSERT ProductCategory(Id,TeamCategoryId,SegmentTypeId,ProductName) VALUES('27',
 INSERT ProductCategory(Id,TeamCategoryId,SegmentTypeId,ProductName) VALUES('28','6','3','Fact')
 INSERT ProductCategory(Id,TeamCategoryId,SegmentTypeId,ProductName) VALUES('29','6','4','Fig')
 INSERT ProductCategory(Id,TeamCategoryId,SegmentTypeId,ProductName) VALUES('30','6','5','Fake')
+
+
+/***********Create Init Script for UserDetails******************/
+INSERT UserDetails(Email,Password,FirstName,LastName,Role) VALUES('krishna@esim.in','password','krishna','prasad1','Player')
+INSERT UserDetails(Email,Password,FirstName,LastName,Role) VALUES('manjula@esim.in','password','Manjula','Rao','Player')
+INSERT UserDetails(Email,Password,FirstName,LastName,Role) VALUES('kartik@esim.in','password','Kartik','Krishna','Player')
+INSERT UserDetails(Email,Password,FirstName,LastName,Role) VALUES('aditya@esim.in','password','Aditya','Krishna','Player')
+INSERT UserDetails(Email,Password,FirstName,LastName,Role) VALUES('anna@esim.in','password','Anna','Sait','Player')
+INSERT UserDetails(Email,Password,FirstName,LastName,Role) VALUES('nagaraj@esim.in','password','Nagaraj','S','Player')
+INSERT UserDetails(Email,Password,FirstName,LastName,Role) VALUES('admin@esim.in','password','Admin','Admin','Admin')
