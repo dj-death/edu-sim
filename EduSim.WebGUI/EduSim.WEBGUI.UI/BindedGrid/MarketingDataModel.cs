@@ -15,7 +15,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
         private List<double> F = new List<double>();
         private List<double> H = new List<double>();
 
-        public override object GetList()
+        public override void GetList(DataGridView dataGridView1)
         {
             Edusim db = new Edusim();
             IQueryable < MarketingDataView> r = from m in db.MarketingData
@@ -44,7 +44,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
                 A.Add(o.ProductName);
             });
 
-            return r;
+            dataGridView1.DataSource = r;
         }
 
         public override int[] HiddenColumns()
@@ -80,9 +80,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
             (from c in db.ConfigurationData
              select c).ToList<ConfigurationData>().ForEach(o => dic[o.Name] = o.Value);
 
-            Dictionary<string, double> salesExpense = GetSessionData("SalesExpense");
-
-            Dictionary<string, double> marketingExpense = GetSessionData("MarketingExpense");
+            Dictionary<string, double> salesAndMarketingExpense = GetSessionData("SalesAndMarketingExpense");
 
             Dictionary<string, double> revenue = GetSessionData("Revenue");
 
@@ -92,8 +90,10 @@ namespace EduSim.WebGUI.UI.BindedGrid
                 double unitCost = (double)r.Cells[3].Value; 
                 double forcastQty = (double)r.Cells[9].Value;
 
-                salesExpense[A[i]] = (double)r.Cells[5].Value;
-                marketingExpense[A[i]] = (double)r.Cells[7].Value;
+                double salesExpense = (double)r.Cells[5].Value;
+                double marketingExpense = (double)r.Cells[7].Value;
+
+                salesAndMarketingExpense[A[i]] = salesExpense + marketingExpense;
 
                 r.Cells[10].Value = unitCost * forcastQty;
                 revenue[A[i]] = (double)r.Cells[10].Value;

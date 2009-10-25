@@ -23,7 +23,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
         private List<double> L = new List<double>();
         private List<double> M = new List<double>();
 
-        public override object GetList()
+        public override void GetList(DataGridView dataGridView1)
         {
             Edusim db = new Edusim();
             IQueryable<RnDDataView> rs = from r in db.RnDData
@@ -65,7 +65,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
                     M.Add(o.RnDCost);
                 });
 
-            return rs;
+            dataGridView1.DataSource = rs;
         }
 
         public override int[] HiddenColumns()

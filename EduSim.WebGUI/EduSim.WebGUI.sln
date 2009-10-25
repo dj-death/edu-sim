@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduSim.Analyse", "EduSim.An
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduSim.Forms", "EduSim.Forms\EduSim.Forms.csproj", "{439D36C6-EECA-4599-96EA-9326D67C3E9A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduSim.WebGUI.UI", "EduSim.WEBGUI.UI\EduSim.WebGUI.UI.csproj", "{17A20AAD-21E5-44C1-A225-AD61F2E619EE}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 4
@@ -82,6 +84,22 @@ Global
 		{439D36C6-EECA-4599-96EA-9326D67C3E9A}.Nightly|Any CPU.Build.0 = Release|Any CPU
 		{439D36C6-EECA-4599-96EA-9326D67C3E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{439D36C6-EECA-4599-96EA-9326D67C3E9A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Commercial Deployment|Any CPU.ActiveCfg = Commercial Deployment|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Commercial Deployment|Any CPU.Build.0 = Commercial Deployment|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Deployment|Any CPU.ActiveCfg = Deployment|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Deployment|Any CPU.Build.0 = Deployment|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Design|Any CPU.ActiveCfg = Design|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Design|Any CPU.Build.0 = Design|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Documentation|Any CPU.ActiveCfg = Documentation|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Documentation|Any CPU.Build.0 = Documentation|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Express|Any CPU.ActiveCfg = Express|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Express|Any CPU.Build.0 = Express|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Nightly|Any CPU.ActiveCfg = Nightly|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Nightly|Any CPU.Build.0 = Nightly|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

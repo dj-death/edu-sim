@@ -20,6 +20,7 @@
     <UpgradeBackupLocation>
     </UpgradeBackupLocation>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <ProjectGuid>{17A20AAD-21E5-44C1-A225-AD61F2E619EE}</ProjectGuid>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -87,6 +88,7 @@
     <ErrorReport>prompt</ErrorReport>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Gizmox.WebGUI.Common, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=263fa4ef694acff6" />
     <Reference Include="Gizmox.WebGUI.Common, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=263fa4ef694acff6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Gizmox.WebGUI.Common.dll</HintPath>
@@ -97,6 +99,7 @@
       <HintPath>..\References\Gizmox.WebGUI.Common.Design.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Gizmox.WebGUI.Forms, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=c508b41386c60f1d" />
     <Reference Include="Gizmox.WebGUI.Forms, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=c508b41386c60f1d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Gizmox.WebGUI.Forms.dll</HintPath>
@@ -136,6 +139,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Gizmox.WebGUI.Reporting.dll</HintPath>
     </Reference>
+    <Reference Include="Gizmox.WebGUI.Server, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=3de6eb684226c24d" />
     <Reference Include="Gizmox.WebGUI.Server, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=3de6eb684226c24d, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Gizmox.WebGUI.Server.dll</HintPath>
@@ -143,6 +147,18 @@
     <Reference Include="Gizmox.WebGUI.Server.Silverlight, Version=3.0.5701.0, Culture=neutral, PublicKeyToken=ab72e83db5281dc3, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\References\Gizmox.WebGUI.Server.Silverlight.dll</HintPath>
+    </Reference>
+    <Reference Include="Gizmox.WebGUI.Themes.XP, Version=3.0.5701.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Gizmox.WebGUI.Themes.XP.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data, Version=4.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\References\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.ReportViewer.WebForms, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -200,9 +216,10 @@
         <WebProjectProperties>
           <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57638</DevelopmentServerPort>
+          <DevelopmentServerPort>56370</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost/Gizmox.WebGUI.Forms.Catalog</IISUrl>
+          <IISUrl>
+          </IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -213,6 +230,11 @@
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
+    <Compile Include="BindedGrid\PnLDataModel.cs" />
+    <Compile Include="BindedGrid\DataViews.cs" />
+    <Compile Include="BindedGrid\PnLDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Include="BindedGrid\ProductionDataModel.cs" />
     <Compile Include="BindedGrid\MarketingDataModel.cs" />
     <Compile Include="BindedGrid\FinanceDataGridView.cs">
@@ -227,7 +249,6 @@
     <Compile Include="BindedGrid\RnDDataGridView.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="BindedGrid\RnDDataHandler.cs" />
     <Compile Include="BindedGrid\RndDataModel.cs" />
     <Compile Include="BrixListControl.cs">
       <SubType>UserControl</SubType>
@@ -238,6 +259,9 @@
     </Compile>
     <Compile Include="BrixXmlEditControl.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\WinPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="LogicalCategory.cs">
       <SubType>UserControl</SubType>
@@ -261,6 +285,7 @@
     <Compile Include="XmlForms\Administrator\Game Definition\TeamManager.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Controls\WinPanel.xslt" />
     <Content Include="Web.config" />
     <Content Include="XmlForms\Administrator\Game Definition\TeamGame.xml" />
     <Content Include="XmlForms\Administrator\Game Definition\UserTeam.xml" />
@@ -270,6 +295,9 @@
   <ItemGroup>
     <EmbeddedResource Include="BindedGrid\FinanceDataGridView.resx">
       <DependentUpon>FinanceDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindedGrid\PnLDataGridView.resx">
+      <DependentUpon>PnLDataGridView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BindedGrid\ProductionDataGridView.resx">
       <DependentUpon>ProductionDataGridView.cs</DependentUpon>

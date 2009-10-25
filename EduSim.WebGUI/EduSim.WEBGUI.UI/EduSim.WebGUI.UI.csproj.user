@@ -12,8 +12,9 @@
           <NativeDebugging>False</NativeDebugging>
           <SQLDebugging>False</SQLDebugging>
           <PublishCopyOption>RunFiles</PublishCopyOption>
-          <PublishTargetLocation>http://esim.co.in/</PublishTargetLocation>
-          <PublishDeleteAllFiles>True</PublishDeleteAllFiles>
+          <PublishTargetLocation>
+          </PublishTargetLocation>
+          <PublishDeleteAllFiles>False</PublishDeleteAllFiles>
           <PublishCopyAppData>True</PublishCopyAppData>
           <ExternalProgram>
           </ExternalProgram>
