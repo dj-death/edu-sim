@@ -68,52 +68,6 @@
             <param name="objWriter">The obj writer.</param>
             <returns></returns>
         </member>
-        <member name="M:Gizmox.WebGUI.Forms.Charts.DataSeries.GetChartDataXML(System.Xml.XmlTextWriter)">
-            <summary>
-            Gets the chart data XML.
-            </summary>
-            <param name="objWriter">The obj writer.</param>
-            <returns></returns>
-        </member>
-        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.RenderAs">
-            <summary>
-            Gets or sets the render as property(Data chart type).
-            
-            </summary>
-            <value>The render as.</value>
-        </member>
-        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.LabelEnabled">
-            <summary>
-            Gets or sets a value indicating whether the label is enabled.
-            </summary>
-            <value><c>true</c> if [label enabled]; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.Name">
-            <summary>
-            Gets or sets the name.
-            </summary>
-            <value>The name.</value>
-        </member>
-        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.MarkerScale">
-            <summary>
-            Gets or sets the marker scale.
-            Should be between 0-1.0
-            </summary>
-            <value>The marker scale.</value>
-        </member>
-        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.ToolTipText">
-            <summary>
-            Gets or sets the tool tip text.
-            </summary>
-            <value>The tool tip text.</value>
-        </member>
-        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.Opacity">
-            <summary>
-            Gets or sets the opacity.
-            Should be between 0-1.0
-            </summary>
-            <value>The opacity.</value>
-        </member>
         <member name="T:Gizmox.WebGUI.Forms.Charts.DataPoint">
             <summary>
             
@@ -166,6 +120,52 @@
             Gets or sets the Y value.
             </summary>
             <value>The Y value.</value>
+        </member>
+        <member name="M:Gizmox.WebGUI.Forms.Charts.DataSeries.GetChartDataXML(System.Xml.XmlTextWriter)">
+            <summary>
+            Gets the chart data XML.
+            </summary>
+            <param name="objWriter">The obj writer.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.RenderAs">
+            <summary>
+            Gets or sets the render as property(Data chart type).
+            
+            </summary>
+            <value>The render as.</value>
+        </member>
+        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.LabelEnabled">
+            <summary>
+            Gets or sets a value indicating whether the label is enabled.
+            </summary>
+            <value><c>true</c> if [label enabled]; otherwise, <c>false</c>.</value>
+        </member>
+        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.Name">
+            <summary>
+            Gets or sets the name.
+            </summary>
+            <value>The name.</value>
+        </member>
+        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.MarkerScale">
+            <summary>
+            Gets or sets the marker scale.
+            Should be between 0-1.0
+            </summary>
+            <value>The marker scale.</value>
+        </member>
+        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.ToolTipText">
+            <summary>
+            Gets or sets the tool tip text.
+            </summary>
+            <value>The tool tip text.</value>
+        </member>
+        <member name="P:Gizmox.WebGUI.Forms.Charts.DataSeries.Opacity">
+            <summary>
+            Gets or sets the opacity.
+            Should be between 0-1.0
+            </summary>
+            <value>The opacity.</value>
         </member>
         <member name="F:Gizmox.WebGUI.Forms.Charts.Data.mobjSeries">
             <summary>
@@ -239,56 +239,6 @@
             Summary description for Chart
             </summary>
         </member>
-        <member name="F:Gizmox.WebGUI.Forms.Charts.Chart.mobjAxisXProperty">
-            <summary>
-            The AxisX property registration.
-            </summary>
-        </member>
-        <member name="F:Gizmox.WebGUI.Forms.Charts.Chart.AnimationEnabledProperty">
-            <summary>
-            The string property registration.
-            </summary>
-        </member>
-        <member name="F:Gizmox.WebGUI.Forms.Charts.Chart.mobjTitleProperty">
-            <summary>
-            The Title property registration.
-            </summary>
-        </member>
-        <member name="F:Gizmox.WebGUI.Forms.Charts.Chart.mobjAxisYProperty">
-            <summary>
-            The AxisY property registration.
-            </summary>
-        </member>
-        <member name="F:Gizmox.WebGUI.Forms.Charts.Chart.AnimationEnabledInitializedProperty">
-            <summary>
-            The AnimationTypes property registration.
-            </summary>
-        </member>
-        <member name="F:Gizmox.WebGUI.Forms.Charts.Chart.AnimationTypeProperty">
-            <summary>
-            The AnimationTypes property registration.
-            </summary>
-        </member>
-        <member name="F:Gizmox.WebGUI.Forms.Charts.Chart.mstrView3DProperty">
-            <summary>
-            The string property registration.
-            </summary>
-        </member>
-        <member name="F:Gizmox.WebGUI.Forms.Charts.Chart.menmThemeProperty">
-            <summary>
-            The ThemeTypes property registration.
-            </summary>
-        </member>
-        <member name="F:Gizmox.WebGUI.Forms.Charts.Chart.mstrColorSetProperty">
-            <summary>
-            The string property registration.
-            </summary>
-        </member>
-        <member name="F:Gizmox.WebGUI.Forms.Charts.Chart.mobjDataProperty">
-            <summary>
-            The Data property registration.
-            </summary>
-        </member>
         <member name="P:Gizmox.WebGUI.Forms.Charts.Chart.AnimationEnabled">
             <summary>
             Gets or sets a value indicating whether [animation enabled].
@@ -342,12 +292,6 @@
             Gets or sets a value indicating whether view3 D is on.
             </summary>
             <value><c>true</c> if [view3 D]; otherwise, <c>false</c>.</value>
-        </member>
-        <member name="P:Gizmox.WebGUI.Forms.Charts.Chart.AnimationEnabledInitialized">
-            <summary>
-            Gets or sets the type of the animation.
-            </summary>
-            <value>The type of the animation.</value>
         </member>
     </members>
 </doc>
