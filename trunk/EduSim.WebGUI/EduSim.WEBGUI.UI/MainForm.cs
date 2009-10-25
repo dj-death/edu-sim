@@ -306,9 +306,9 @@ namespace Gizmox.WebGUI.Forms.Catalog
                                                   catNode1.AddCategory("R&D", typeof(RnDDataGridView), typeof(RnDDataModel), "DayView.gif" );
                                                   catNode1.AddCategory("Marketing", typeof(MarketingDataGridView), "DayView.gif");
                                                   catNode1.AddCategory("Production", typeof(ProductionDataGridView), "DayView.gif");
-                                                  catNode1.AddCategory("Finance", typeof(FinanceDataGridView), "DayView.gif");
+                                                  catNode1.AddCategory("Finance", "DayView.gif");
                                                   CategoryNode catNode2 = catNode1.AddCategory("Reports", "Show.gif");
-                                                  catNode2.AddCategory("P&L", "DayView.gif");
+                                                  catNode2.AddCategory("P&L", typeof(PnLDataGridView), "DayView.gif");
                                                   catNode2.AddCategory("Balance Sheet", "DayView.gif");
                                                   catNode2.AddCategory("Cash Flow", "DayView.gif");
                                                   catNode2.AddCategory("Balance Scorecard", "DayView.gif");
