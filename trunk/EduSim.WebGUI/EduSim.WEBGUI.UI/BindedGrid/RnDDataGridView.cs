@@ -46,7 +46,7 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 
             rdm = Activator.CreateInstance(model) as RoundDataModel;
 
-            this.dataGridView1.DataSource = rdm.GetList();
+            rdm.GetList(this.dataGridView1);
 
             foreach (DataGridViewColumn d in this.dataGridView1.Columns)
             {

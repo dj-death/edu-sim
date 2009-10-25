@@ -54,7 +54,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
             {
                 if (strAction.StartsWith("Theme."))
                 {
-                    this.Context.CurrentTheme = strAction.Replace("Theme.", "");
+                    this.Context.CurrentTheme = new Theme( strAction.Replace("Theme.", ""));
                     return;
                 }
                 switch (strAction)
@@ -303,7 +303,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
              select r).ToList<Round>().ForEach(o =>
                                               {
                                                   CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id);
-                                                  catNode1.AddCategory("R&D", typeof(RnDDataGridView), typeof(RnDDataModel), "DayView.gif" );
+                                                  catNode1.AddCategory("R&D", typeof(PnLDataGridView), typeof(RnDDataModel), "DayView.gif" );
                                                   catNode1.AddCategory("Marketing", typeof(MarketingDataGridView), "DayView.gif");
                                                   catNode1.AddCategory("Production", typeof(ProductionDataGridView), "DayView.gif");
                                                   catNode1.AddCategory("Finance", "DayView.gif");

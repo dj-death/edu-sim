@@ -13,7 +13,7 @@ namespace EduSim.CoreFramework.Common
         protected UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
         protected Round round = HttpContext.Current.Session[SessionConstants.CurrentRound] as Round;
 
-        public abstract object GetList();
+        public abstract void GetList(DataGridView dataGridView1);
 
         public abstract int[] HiddenColumns();
 
