@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
 <BrixMainForm TableName="UserDetails" PrimaryKeyName="Id">
-  <BrixDataEntry BrixControl="TextBox" Name="UserName" Text="User Name" IsFirstColumn="true" IsPassword="false" />
+  <BrixDataEntry BrixControl="TextBox" Name="Email" Text="User Name" IsFirstColumn="true" IsPassword="false" />
   <BrixDataEntry BrixControl="TextBox" Name="Password" Text="Password" IsFirstColumn="true" IsPassword="false" />
   <BrixDataEntry BrixControl="TextBox" Name="FirstName" Text="First Name" IsFirstColumn="true" IsPassword="false" />
   <BrixDataEntry BrixControl="TextBox" Name="LastName" Text="Last Name" IsFirstColumn="false" IsPassword="false" />
