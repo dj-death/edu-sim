@@ -97,33 +97,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 
-            compute.Location = new Point(16, 0);
-            compute.Name = "backButton";
-            compute.Text = "Compute";
-            compute.Size = new Size(60, 20);
-            compute.Click += new EventHandler((sender, e) =>
-            {
-                rdm.ComputeAllCells(dataGridView1);
-            });
-
-            save.Location = new Point(70, 0);
-            save.Name = "saveButton";
-            save.Text = "Save";
-            save.Size = new Size(60, 20);
-            save.Click += new EventHandler((sender, e) =>
-            {
-                rdm.Save(dataGridView1);
-            });
-
-            addProduct.Location = new Point(120, 0);
-            addProduct.Name = "addProduct";
-            addProduct.Text = "Add Product";
-            addProduct.Size = new Size(100, 20);
-            addProduct.Click += new EventHandler((sender, e) =>
-            {
-                rdm.ComputeAllCells(dataGridView1);
-            });
-
             // 
             // dataGridView1
             // 

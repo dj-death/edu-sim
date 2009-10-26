@@ -21,6 +21,7 @@ using EduSim.WebGUI.UI.BindedGrid;
 namespace Gizmox.WebGUI.Forms.Catalog
 {
     //TODO: 1. Create a Game
+    //TODO: 1. When you create a game, always create 8 players, if you dont have 8 players, fill the remaining with Computers
     //TODO: 1. Create Team for the Game
     //TODO: 1. Assign users to the team
     //TODO: 1. When the user logs in identify which team he belongs and which stage of the game he is playing
@@ -264,7 +265,14 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
         void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            MessageBox.Show(e.Exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (e.Exception.InnerException == null)
+            {
+                MessageBox.Show("Exception: " + e.Exception.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show("Inner Exception: " + e.Exception.InnerException.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private Gizmox.WebGUI.Forms.TextBox txtMeaningOfLife = new TextBox();
