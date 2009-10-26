@@ -16,6 +16,7 @@ using EduSim.WebGUI.UI;
 using EduSim.CoreUtilities.Utility;
 using System.Collections.Generic;
 using EduSim.CoreFramework.Common;
+using EduSim.WebGUI.UI.BindedGrid;
 
 //Test
 namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
@@ -28,9 +29,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
     public class PnLDataGridView : UserControl, IHostedApplication
 	{
         private DataGridView dataGridView1;
-        private Button compute;
-        private Button save;
-        private Button addProduct;
         private RoundDataModel rdm;
 		/// <summary> 
 		/// Required designer variable.
@@ -39,12 +37,12 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
         private System.ComponentModel.Container components = null;
         private Dictionary<string, string> parameter = new Dictionary<string,string>();
 
-        public PnLDataGridView(Type model)
+        public PnLDataGridView()
         {
             // This call is required by the WebGUI Form Designer.
             InitializeComponent();
 
-            rdm = Activator.CreateInstance(model) as RoundDataModel;
+            rdm = Activator.CreateInstance<PnLDataModel>();
 
             rdm.GetList(this.dataGridView1);
 
@@ -96,9 +94,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 		private void InitializeComponent()
 		{
             this.dataGridView1 = new Gizmox.WebGUI.Forms.DataGridView();
-            compute = new Button();
-            save = new Button() ;
-            addProduct = new Button();
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 
@@ -149,9 +144,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 			// 
 			this.ClientSize = new System.Drawing.Size(640, 600);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.compute);
-            this.Controls.Add(this.save);
-            this.Controls.Add(this.addProduct);
             this.DockPadding.All = 0;
 			this.DockPadding.Bottom = 0;
 			this.DockPadding.Left = 0;
