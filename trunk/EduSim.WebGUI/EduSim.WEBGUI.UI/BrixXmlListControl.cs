@@ -93,6 +93,7 @@ namespace EduSim.WebGUI.UI
 		/// </summary>
 		private void InitializeComponent()
 		{
+            components = new Container();
             this.bindingNavigator1 = new Gizmox.WebGUI.Forms.BindingNavigator(this.components);
             this.bindingSource1 = new Gizmox.WebGUI.Forms.BindingSource(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.bindingNavigator1)).BeginInit();
