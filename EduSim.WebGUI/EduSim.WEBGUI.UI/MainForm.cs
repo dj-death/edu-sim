@@ -54,7 +54,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
             {
                 if (strAction.StartsWith("Theme."))
                 {
-                    this.Context.CurrentTheme = strAction.Replace("Theme.", "");
+                    this.Context.CurrentTheme = new Theme(strAction.Replace("Theme.", ""));
                     return;
                 }
                 switch (strAction)
