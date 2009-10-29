@@ -5,6 +5,8 @@ using System.Web;
 using EduSim.CoreFramework.Common;
 using EduSim.CoreFramework.DTO;
 using Gizmox.WebGUI.Forms;
+using EduSim.CoreUtilities.Utility;
+using System.Data;
 
 namespace EduSim.WebGUI.UI.BindedGrid
 {
@@ -34,13 +36,14 @@ namespace EduSim.WebGUI.UI.BindedGrid
                            ProjectedSales = 0.0
                        };
 
+            DataTable table = r.ToDataTable<MarketingDataView>(null).Transpose();
 
-            //return r;
+            dataGridView1.DataSource = table;
         }
 
         public override int[] HiddenColumns()
         {
-            return new int[]  { 0, 1, 2, 4, 6, 8, 10 };
+            return new int[]  { 0, 1, 3, 5, 7, 9 };
         }
 
         public override void HandleDataChange(DataGridViewRow row, DataGridViewCell c)
