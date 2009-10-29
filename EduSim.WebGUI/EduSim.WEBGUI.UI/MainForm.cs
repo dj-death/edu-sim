@@ -264,7 +264,14 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
         void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            MessageBox.Show(e.Exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            if (e.Exception.InnerException == null)
+            {
+                MessageBox.Show(e.Exception.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else
+            {
+                MessageBox.Show(e.Exception.InnerException.StackTrace, "Inner Exception", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private Gizmox.WebGUI.Forms.TextBox txtMeaningOfLife = new TextBox();
