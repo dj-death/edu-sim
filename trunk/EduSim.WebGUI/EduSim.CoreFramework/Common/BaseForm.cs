@@ -90,10 +90,10 @@ namespace Gizmox.WebGUI.Forms.Catalog
         {
             mobjThemesMenu = new MenuItem("Themes");
 
-            foreach (Theme strTheme in VWGContext.Current.Config.Themes)
+            foreach (string strTheme in VWGContext.Current.Config.Themes)
             {
-                MenuItem objThemeMenu = new MenuItem(strTheme.Name);
-                objThemeMenu.Tag = string.Format("Theme.{0}", strTheme.Name);
+                MenuItem objThemeMenu = new MenuItem(strTheme);
+                objThemeMenu.Tag = string.Format("Theme.{0}", strTheme);
                 mobjThemesMenu.MenuItems.Add(objThemeMenu);
             }
 
@@ -106,7 +106,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
         {
             foreach (MenuItem objMenuItem in mobjMenuActions.MenuItems)
             {
-                objMenuItem.RadioCheck = ((string)objMenuItem.Tag == VWGContext.Current.CurrentTheme.Name);
+                objMenuItem.RadioCheck = ((string)objMenuItem.Tag == VWGContext.Current.CurrentTheme);
             }
         }
 

@@ -10,7 +10,6 @@ namespace EduSim.WebGUI.UI.BindedGrid
 {
     public class ProductionDataModel : RoundDataModel
     {
-        private List<string> A = new List<string>();
         private List<double> C = new List<double>();
         private List<double> D = new List<double>();
         private List<double> E = new List<double>();
@@ -27,7 +26,6 @@ namespace EduSim.WebGUI.UI.BindedGrid
         private List<double> P = new List<double>();
         private List<double> Q = new List<double>();
         private List<double> R = new List<double>();
-        private List<double> S = new List<double>();
 
         public override void GetList(DataGridView dataGridView1)
         {
@@ -52,7 +50,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
                                                    ContributionMargin = p.Contribution.HasValue ? p.Contribution.Value : 0.0,
                                                    SecondShift = 0.0,
                                                    OldAutomation = p.CurrentAutomation,
-                                                   NewAutomation = p.AutomationForNextRound.HasValue ? p.AutomationForNextRound.Value : p.CurrentAutomation,
+                                                   NewAutomation = p.AutomationForNextRound.HasValue ? p.AutomationForNextRound.Value : 0.0,
                                                    AutomationCost = 0.0,
                                                    Capacity = p.OldCapacity,
                                                    NewCapacity = p.NewCapacity.HasValue ? p.NewCapacity.Value : 0.0,
@@ -63,32 +61,30 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
             rs.ToList<ProductionDataView>().ForEach(o =>
                 {
-                    A.Add(o.ProductName);
                     C.Add(o.Inventory);
                     D.Add(o.ForecastedQuantity);
                     E.Add(o.TotalQuantity);
                     F.Add(o.ManufacturedQuantity);
                     G.Add(o.MaterialCost);
-                    H.Add(o.LabourRate);
-                    I.Add(o.LabourCost);
-                    J.Add(o.ContributionMargin);
-                    K.Add(o.SecondShift);
-                    L.Add(o.OldAutomation);
-                    M.Add(o.NewAutomation);
-                    N.Add(o.AutomationCost );
-                    O.Add(o.Capacity);
-                    P.Add(o.NewCapacity);
-                    Q.Add(o.NewCapacityCost);
-                    R.Add(o.NumberOfLabour);
-                    S.Add(o.Utilization);
+                    H.Add(o.LabourCost);
+                    I.Add(o.ContributionMargin);
+                    J.Add(o.SecondShift);
+                    K.Add(o.OldAutomation);
+                    L.Add(o.NewAutomation);
+                    M.Add(o.AutomationCost );
+                    N.Add(o.Capacity);
+                    O.Add(o.NewCapacity);
+                    P.Add(o.NewCapacityCost);
+                    Q.Add(o.NumberOfLabour);
+                    R.Add(o.Utilization);
                 });
 
-            dataGridView1.DataSource = rs;
+            //return rs;
         }
 
         public override int[] HiddenColumns()
         {
-            return new int[] { 0, 1, 2, 3, 4, 6, 7, 8, 9, 10, 11, 13, 14, 16, 17, 18 };
+            return new int[] { 0, 1, 2, 4, 5, 6, 7, 8, 9, 10, 12, 14, 15, 16 };
         }
 
         public override void HandleDataChange(DataGridViewRow row, DataGridViewCell c)
@@ -127,51 +123,42 @@ namespace EduSim.WebGUI.UI.BindedGrid
             double workerRequired = 0;
             foreach (DataGridViewRow r in dataGridView1.Rows)
             {
-                F[i] = (double)r.Cells[5].Value; //ManufacturedQuantity
+                D[i] = (double)r.Cells[2].Value; //ManufacturedQuantity
 
                 //Number of Labour: =D5/K5*$B$3
-                R[i] = F[i] / L[i] * dic["LabourFactor"];
+                Q[i] = D[i] / K[i] * dic["LabourFactor"];
+                r.Cells[16].Value = Q[i].ToString("###0.00");
+                workerRequired += N[i];
+            }
+
+            foreach (DataGridViewRow r in dataGridView1.Rows)
+            {
+                L[i] = (double)r.Cells[8].Value; //NewAutomation
+                O[i] = (double)r.Cells[11].Value; //NewCapacity
+
+                //Utilization: =$Q$10/$S$5
+                R[i] = workerRequired / ld.NumberOfLabour;
                 r.Cells[17].Value = R[i].ToString("###0.00");
-                workerRequired += R[i];
+
+                //Automation Cost: J[i] =(L5-K5)*$B$1
+                M[i] = (I[i] - H[i]) * dic["AutomationCost"];
+                r.Cells[12].Value = M[i].ToString("###0.00");
+
+                //Capacity Cost=L5*$B$2
+                P[i] = O[i] * dic["CapacityCost"];
+                r.Cells[15].Value = P[i].ToString("###0.00");
+                
+                //=IF(R5<=100%,HR!$B$1/K5, (100%*HR!$B$1/K5+((R5-100%)*1.5*HR!$B$1/K5)))
+                H[i] = (R[i] <= 1) ? (ld.Rate / K[i]) : (ld.Rate / K[i] + ((R[i]-1)* 1.5 * ld.Rate/K[i]));
+                r.Cells[4].Value = H[i].ToString("###0.00");
 
                 i++;
             }
 
-            Dictionary<string, double> automationCost = GetSessionData("AutomationCost");
-
-            Dictionary<string, double> newCapacityCost = GetSessionData("NewCapacityCost");
-
-            Dictionary<string, double> labourCost = GetSessionData("LabourCost");
-
-            i = 0;
             foreach (DataGridViewRow r in dataGridView1.Rows)
             {
-                M[i] = (double)r.Cells[12].Value; //NewAutomation
-                P[i] = (double)r.Cells[15].Value; //NewCapacity
-
-                //Utilization: =$Q$10/$S$5
-                S[i] = workerRequired / ld.NumberOfLabour;
-                r.Cells[18].Value = S[i].ToString("###0.00");
-
-                //Automation Cost: J[i] =(L5-K5)*$B$1
-                N[i] = (M[i] - L[i]) * dic["AutomationCost"];
-                r.Cells[13].Value = N[i].ToString("###0.00");
-                automationCost[A[i]] = N[i];
-
-                //Capacity Cost=L5*$B$2
-                Q[i] = P[i] * dic["CapacityCost"];
-                r.Cells[16].Value = Q[i].ToString("###0.00");
-                newCapacityCost[A[i]] = Q[i];
-
-                //Labour Cost=IF(R5<=100%,HR!$B$1/K5, (100%*HR!$B$1/K5+((R5-100%)*1.5*HR!$B$1/K5)))
-                H[i] = (S[i] <= 1) ? (ld.Rate / L[i]) : (ld.Rate / L[i] + ((S[i]-1)* 1.5 * ld.Rate/L[i]));
-                r.Cells[7].Value = H[i].ToString("###0.00");
-
-                I[i] = F[i] * H[i];
-                r.Cells[8].Value = I[i].ToString("###0.00");
-                labourCost[A[i]] = I[i];
-
-                i++;
+                //==$N$10/$P$5
+                r.Cells[14].Value = workerRequired / ld.NumberOfLabour;
             }
         }
 

@@ -8,7 +8,7 @@ using Gizmox.WebGUI.Forms;
 
 namespace EduSim.WebGUI.UI.BindedGrid
 {
-    //Sales Revenue, Labor Cost, Material Cost, Automation Cost, Plant Cost, R&D Cost, S&M Cost, Depreciation, S&M, EBIT, Contribution Margin, Tax, Interest, Profit Sharing. Net Profit
+    // Sales Revenue, Labor Cost, Material Cost, Automation Cost, Plant Cost, R&D Cost, S&M Cost, Depreciation, S&M, EBIT, Contribution Margin, Tax, Interest, Profit Sharing. Net Profit
 
     public class PnLDataModel : RoundDataModel
     {
