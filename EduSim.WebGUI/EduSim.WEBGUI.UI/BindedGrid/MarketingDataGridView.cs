@@ -55,8 +55,8 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             {
                 foreach (int readOnlyColumn in rdm.HiddenColumns())
                 {
-                    this.dataGridView1.Columns[readOnlyColumn].ReadOnly = true;
-                    DataGridViewCellStyle s = this.dataGridView1.Columns[readOnlyColumn].DefaultCellStyle;
+                    this.dataGridView1.Rows[readOnlyColumn].ReadOnly = true;
+                    DataGridViewCellStyle s = this.dataGridView1.Rows[readOnlyColumn].DefaultCellStyle;
 
                     s.BackColor = Color.LightGray;
                 }

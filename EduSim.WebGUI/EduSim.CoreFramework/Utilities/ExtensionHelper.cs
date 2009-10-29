@@ -178,7 +178,8 @@ namespace EduSim.CoreUtilities.Utility
 
             for (int i = 0; i < dt.Rows.Count; i++)
             {      //For dateTime columns use like below
-                dtNew.Columns[i + 1].ColumnName = Convert.ToDateTime(dt.Rows[i].ItemArray[0].ToString()).ToString("MM/dd/yyyy");      //Else just assign the ItermArry[0] to the columnName prooperty
+                //dtNew.Columns[i + 1].ColumnName = Convert.ToDateTime(dt.Rows[i].ItemArray[0].ToString()).ToString("MM/dd/yyyy");      //Else just assign the ItermArry[0] to the columnName prooperty
+                dtNew.Columns[i + 1].ColumnName = dt.Rows[i].ItemArray[0].ToString();
             }
 
             //Adding Row Data
