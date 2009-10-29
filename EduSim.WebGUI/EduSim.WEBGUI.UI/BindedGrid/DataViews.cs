@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace EduSim.CoreFramework.DTO
+namespace EduSim.WebGUI.UI.BindedGrid
 {
     public class RnDDataView
     {
@@ -47,7 +47,6 @@ namespace EduSim.CoreFramework.DTO
         public double ManufacturedQuantity { get; set; }
         public double MaterialCost { get; set; }
         public double LabourCost { get; set; }
-        public double LabourRate { get; set; }
         public double ContributionMargin { get; set; }
         public double SecondShift { get; set; }
         public double OldAutomation { get; set; }

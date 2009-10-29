@@ -39,7 +39,7 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 
         public PnLDataGridView()
         {
-            // This call is required by the WebGUI Form Designer.
+            //  This call is required by the WebGUI Form Designer.
             InitializeComponent();
 
             rdm = Activator.CreateInstance<PnLDataModel>();

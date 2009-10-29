@@ -32,12 +32,5 @@ namespace EduSim.CoreFramework.Common
         {
             throw new NotImplementedException();
         }
-
-        protected static Dictionary<string, double> GetSessionData(string sessionId)
-        {
-            Dictionary<string, double> data = new Dictionary<string, double>();
-            HttpContext.Current.Session[sessionId] = data;
-            return data;
-        }
     }
 }

@@ -10,7 +10,6 @@ namespace EduSim.WebGUI.UI.BindedGrid
 {
     public class RnDDataModel : RoundDataModel
     {
-        private List<string> A = new List<string>();
         private List<DateTime> C = new List<DateTime>();
         private List<DateTime> D = new List<DateTime>();
         private List<double> E = new List<double>();
@@ -51,7 +50,6 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
             rs.ToList<RnDDataView>().ForEach(o =>
                 {
-                    A.Add(o.ProductName);
                     C.Add(o.PreviousRevisionDate);
                     D.Add(o.RevisionDate);
                     E.Add(o.PreviousAge);
@@ -65,7 +63,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
                     M.Add(o.RnDCost);
                 });
 
-            dataGridView1.DataSource = rs;
+            //return rs;
         }
 
         public override int[] HiddenColumns()
@@ -93,7 +91,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
             //TaxRate
             //LongTermInterestRate
             //ShortTermInterestRate
-            #endregion
+            #endregion 
 
             Edusim db = new Edusim();
             Dictionary<string, double> dic = new Dictionary<string, double>();
@@ -101,26 +99,19 @@ namespace EduSim.WebGUI.UI.BindedGrid
             (from c in db.ConfigurationData
              select c).ToList<ConfigurationData>().ForEach(o => dic[o.Name] = o.Value);
 
-            List<string> products = new List<string>();
-            HttpContext.Current.Session["Products"] = products;
-
-            Dictionary<string, double> rndCost = GetSessionData("RnDCost");
-
             int i = 0;
             foreach (DataGridViewRow r in dataGridView1.Rows)
             {
                 H[i] = (double)r.Cells[7].Value; //Reliability
                 J[i] = (double)r.Cells[9].Value; //Performance
                 L[i] = (double)r.Cells[11].Value; //Size
+                //M[i] = (double)r.Cells[12].Value;//RnDCost
 
                 //RnD Cost: (H2-G2)*$B$9+ (J2-I2)*$B$10 + (K2-L2)*$B$11
-                M[i] = (H[i] - G[i]) * dic["ReliabilityCost"] + (J[i] - I[i]) * dic["PerformanceCost"] +
+                M[i] = (H[i] - G[i]) * dic["ReliabilityCost"] + (J[i] - I[i]) * dic["PerformanceCost"] + 
                     (K[i] - L[i]) * dic["SizeCost"];
 
                 r.Cells[12].Value = M[i].ToString("###0.00");
-
-                products.Add(A[i]);
-                rndCost[A[i]] = M[i];
 
                 //Age: =IF(M2=0, E2, (E2+((H2-G2)*$B$14+(J2-I2)*$B$13+(K2-L2)*$B$12)/365)/2)
                 double val = (M[i] == 0.0) ? E[i] : (E[i] + ((H[i] - G[i]) * dic["ReliabilityFactor"] +

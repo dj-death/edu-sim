@@ -21,7 +21,6 @@ using EduSim.WebGUI.UI.BindedGrid;
 namespace Gizmox.WebGUI.Forms.Catalog
 {
     //TODO: 1. Create a Game
-    //TODO: 1. When you create a game, always create 8 players, if you dont have 8 players, fill the remaining with Computers
     //TODO: 1. Create Team for the Game
     //TODO: 1. Assign users to the team
     //TODO: 1. When the user logs in identify which team he belongs and which stage of the game he is playing
@@ -55,7 +54,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
             {
                 if (strAction.StartsWith("Theme."))
                 {
-                    this.Context.CurrentTheme = new Theme( strAction.Replace("Theme.", ""));
+                    this.Context.CurrentTheme = strAction.Replace("Theme.", "");
                     return;
                 }
                 switch (strAction)
@@ -265,14 +264,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
         void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            if (e.Exception.InnerException == null)
-            {
-                MessageBox.Show("Exception: " + e.Exception.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            else
-            {
-                MessageBox.Show("Inner Exception: " + e.Exception.InnerException.StackTrace, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            MessageBox.Show(e.Exception.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private Gizmox.WebGUI.Forms.TextBox txtMeaningOfLife = new TextBox();
@@ -314,9 +306,9 @@ namespace Gizmox.WebGUI.Forms.Catalog
                                                   catNode1.AddCategory("R&D", typeof(RnDDataGridView), typeof(RnDDataModel), "DayView.gif" );
                                                   catNode1.AddCategory("Marketing", typeof(MarketingDataGridView), "DayView.gif");
                                                   catNode1.AddCategory("Production", typeof(ProductionDataGridView), "DayView.gif");
-                                                  catNode1.AddCategory("Finance", "DayView.gif");
+                                                  catNode1.AddCategory("Finance", typeof(FinanceDataGridView), "DayView.gif");
                                                   CategoryNode catNode2 = catNode1.AddCategory("Reports", "Show.gif");
-                                                  catNode2.AddCategory("P&L", typeof(PnLDataGridView), "DayView.gif");
+                                                  catNode2.AddCategory("P&L", "DayView.gif");
                                                   catNode2.AddCategory("Balance Sheet", "DayView.gif");
                                                   catNode2.AddCategory("Cash Flow", "DayView.gif");
                                                   catNode2.AddCategory("Balance Scorecard", "DayView.gif");
