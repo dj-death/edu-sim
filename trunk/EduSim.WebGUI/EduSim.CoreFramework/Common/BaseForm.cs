@@ -92,8 +92,8 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
             foreach (Theme strTheme in VWGContext.Current.Config.Themes)
             {
-                MenuItem objThemeMenu = new MenuItem(strTheme.ToString());
-                objThemeMenu.Tag = string.Format("Theme.{0}", strTheme.ToString());
+                MenuItem objThemeMenu = new MenuItem(strTheme.Name);
+                objThemeMenu.Tag = string.Format("Theme.{0}", strTheme.Name);
                 mobjThemesMenu.MenuItems.Add(objThemeMenu);
             }
 
