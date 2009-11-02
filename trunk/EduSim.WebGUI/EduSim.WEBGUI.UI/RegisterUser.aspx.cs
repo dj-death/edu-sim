@@ -15,8 +15,8 @@ namespace EduSim.WebGUI.UI
     //TODO: Create computer Data
     //TODO: Analyse the player data to Computer data
     //TODO: Improve on the Homepage
-    //TODO: Capcha
-    //TODO: Email validation
+    //Capcha - Done
+    //Email validation - Done
     //Make the Web UI light weight
     public partial class RegisterUser : System.Web.UI.Page
     {
