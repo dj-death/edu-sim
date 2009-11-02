@@ -31,9 +31,14 @@ namespace EduSim.WebGUI.UI
             {
                 return;
             }
-            if (txtEmail.Text.Equals(string.Empty ) || IsEmail(txtEmail.Text))
+            if (txtEmail.Text.Equals(string.Empty ) )
             {
                 lblMessage.Text = "Email cannot be empty";
+                return;
+            }
+            if (!IsEmail(txtEmail.Text))
+            {
+                lblMessage.Text = "Invalid Email";
                 return;
             }
             if (txtPassword.Text.Equals(string.Empty))
