@@ -5,6 +5,8 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using EduSim.CoreFramework.DTO;
+using System.Net;
+using System.Net.Sockets;
 
 namespace EduSim.WebGUI.UI
 {
@@ -29,7 +31,7 @@ namespace EduSim.WebGUI.UI
             {
                 return;
             }
-            if (txtEmail.Text.Equals(string.Empty ))
+            if (txtEmail.Text.Equals(string.Empty ) || IsEmail(txtEmail.Text))
             {
                 lblMessage.Text = "Email cannot be empty";
                 return;
@@ -60,6 +62,26 @@ namespace EduSim.WebGUI.UI
 
             db.SubmitChanges();
             lblMessage.Text = string.Empty;
+        }
+
+        private bool IsEmail(string address)
+        {
+            try
+            {
+                string[] host = (address.Split('@'));
+                string hostname = host[1];
+
+                IPHostEntry IPhst = Dns.Resolve(hostname);
+                IPEndPoint endPt = new IPEndPoint(IPhst.AddressList[0], 25);
+                Socket s = new Socket(endPt.AddressFamily,
+                        SocketType.Stream, ProtocolType.Tcp);
+                s.Connect(endPt);
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }
