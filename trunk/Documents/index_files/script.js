@@ -213,7 +213,7 @@ var g_animMainSequence = null;
 var ENDSHOW_MESG="&#69;&#110;&#100;&#32;&#111;&#102;&#32;&#115;&#108;&#105;&#100;&#101;&#32;&#115;&#104;&#111;&#119;&#44;&#32;&#99;&#108;&#105;&#99;&#107;&#32;&#116;&#111;&#32;&#101;&#120;&#105;&#116;&#46;", SCREEN_MODE="Frames", gIsEndShow=0, NUM_VIS_SLDS=7, SCRIPT_HREF="script.js", FULLSCR_HREF="fullscreen.htm";
 var gCurSld = gPrevSld = 1, g_offset = 0, gNtsOpen = gHasNts = gOtlTxtExp = 0, gHasNarration = 0, gOtlOpen = true
 window.gPPTHTML=SupportsPPTHTML()
-var gMainDoc=new Array(new hrefList("slide0001.htm",1,-1,1),new hrefList("slide0002.htm",1,-1,1),new hrefList("slide0007.htm",1,-1,1),new hrefList("slide0010.htm",1,-1,1),new hrefList("slide0003.htm",1,-1,1),new hrefList("slide0016.htm",1,-1,1),new hrefList("slide0009.htm",1,-1,1));
+var gMainDoc=new Array(new hrefList("slide0002.htm",1,-1,1),new hrefList("slide0010.htm",1,-1,1),new hrefList("slide0003.htm",1,-1,1),new hrefList("slide0007.htm",1,-1,1),new hrefList("slide0009.htm",1,-1,1),new hrefList("slide0011.htm",1,-1,1),new hrefList("slide0012.htm",1,-1,1));
 function FullScrInit()
 {
 	g_allowAdvOnClick = GetCurSld().mAdvOnClk
