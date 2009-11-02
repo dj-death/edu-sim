@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduSim.Forms", "EduSim.Form
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduSim.WebGUI.UI", "EduSim.WEBGUI.UI\EduSim.WebGUI.UI.csproj", "{17A20AAD-21E5-44C1-A225-AD61F2E619EE}"
 EndProject
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "WebControlCaptcha", "WebControlCaptcha\WebControlCaptcha.vbproj", "{03D1C790-162A-4AC0-B33B-634B263C0A63}"
+EndProject
 Global
 	GlobalSection(TeamFoundationVersionControl) = preSolution
 		SccNumberOfProjects = 4
@@ -100,6 +102,22 @@ Global
 		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Nightly|Any CPU.Build.0 = Nightly|Any CPU
 		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{17A20AAD-21E5-44C1-A225-AD61F2E619EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Commercial Deployment|Any CPU.ActiveCfg = Release|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Commercial Deployment|Any CPU.Build.0 = Release|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Deployment|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Deployment|Any CPU.Build.0 = Debug|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Design|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Design|Any CPU.Build.0 = Debug|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Documentation|Any CPU.ActiveCfg = Debug|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Documentation|Any CPU.Build.0 = Debug|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Express|Any CPU.ActiveCfg = Release|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Express|Any CPU.Build.0 = Release|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Nightly|Any CPU.ActiveCfg = Release|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Nightly|Any CPU.Build.0 = Release|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03D1C790-162A-4AC0-B33B-634B263C0A63}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
