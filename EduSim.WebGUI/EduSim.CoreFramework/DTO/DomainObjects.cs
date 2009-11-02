@@ -36,6 +36,18 @@ namespace EduSim.CoreFramework.DTO
 
         #region Extensibility Method Definitions
         partial void OnCreated();
+        partial void InsertComputerMarketingData(ComputerMarketingData instance);
+        partial void UpdateComputerMarketingData(ComputerMarketingData instance);
+        partial void DeleteComputerMarketingData(ComputerMarketingData instance);
+        partial void InsertComputerProductionData(ComputerProductionData instance);
+        partial void UpdateComputerProductionData(ComputerProductionData instance);
+        partial void DeleteComputerProductionData(ComputerProductionData instance);
+        partial void InsertComputerRnDData(ComputerRnDData instance);
+        partial void UpdateComputerRnDData(ComputerRnDData instance);
+        partial void DeleteComputerRnDData(ComputerRnDData instance);
+        partial void InsertComputerRoundProduct(ComputerRoundProduct instance);
+        partial void UpdateComputerRoundProduct(ComputerRoundProduct instance);
+        partial void DeleteComputerRoundProduct(ComputerRoundProduct instance);
         partial void InsertFinanceData(FinanceData instance);
         partial void UpdateFinanceData(FinanceData instance);
         partial void DeleteFinanceData(FinanceData instance);
@@ -123,6 +135,38 @@ namespace EduSim.CoreFramework.DTO
             base(connection, mappingSource)
         {
             OnCreated();
+        }
+
+        public System.Data.Linq.Table<ComputerMarketingData> ComputerMarketingData
+        {
+            get
+            {
+                return this.GetTable<ComputerMarketingData>();
+            }
+        }
+
+        public System.Data.Linq.Table<ComputerProductionData> ComputerProductionData
+        {
+            get
+            {
+                return this.GetTable<ComputerProductionData>();
+            }
+        }
+
+        public System.Data.Linq.Table<ComputerRnDData> ComputerRnDData
+        {
+            get
+            {
+                return this.GetTable<ComputerRnDData>();
+            }
+        }
+
+        public System.Data.Linq.Table<ComputerRoundProduct> ComputerRoundProduct
+        {
+            get
+            {
+                return this.GetTable<ComputerRoundProduct>();
+            }
         }
 
         public System.Data.Linq.Table<ConfigurationData> ConfigurationData
@@ -314,6 +358,1289 @@ namespace EduSim.CoreFramework.DTO
             get
             {
                 return this.GetTable<UserRole>();
+            }
+        }
+    }
+
+    [Table(Name = "dbo.ComputerMarketingData")]
+    public partial class ComputerMarketingData : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _ComputerRoundProductId;
+
+        private double _PreviousSaleExpense;
+
+        private System.Nullable<double> _SalesExpense;
+
+        private double _PreviousMarketingExpense;
+
+        private System.Nullable<double> _MarketingExpense;
+
+        private double _PreviousPrice;
+
+        private System.Nullable<double> _Price;
+
+        private double _PreviousForecastingQuantity;
+
+        private System.Nullable<double> _ForecastingQuantity;
+
+        private System.Nullable<double> _PurchasedQuantity;
+
+        private System.Nullable<double> _Rating;
+
+        private bool _Purchased;
+
+        private EntityRef<ComputerRoundProduct> _ComputerRoundProduct;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnComputerRoundProductIdChanging(int value);
+        partial void OnComputerRoundProductIdChanged();
+        partial void OnPreviousSaleExpenseChanging(double value);
+        partial void OnPreviousSaleExpenseChanged();
+        partial void OnSalesExpenseChanging(System.Nullable<double> value);
+        partial void OnSalesExpenseChanged();
+        partial void OnPreviousMarketingExpenseChanging(double value);
+        partial void OnPreviousMarketingExpenseChanged();
+        partial void OnMarketingExpenseChanging(System.Nullable<double> value);
+        partial void OnMarketingExpenseChanged();
+        partial void OnPreviousPriceChanging(double value);
+        partial void OnPreviousPriceChanged();
+        partial void OnPriceChanging(System.Nullable<double> value);
+        partial void OnPriceChanged();
+        partial void OnPreviousForecastingQuantityChanging(double value);
+        partial void OnPreviousForecastingQuantityChanged();
+        partial void OnForecastingQuantityChanging(System.Nullable<double> value);
+        partial void OnForecastingQuantityChanged();
+        partial void OnPurchasedQuantityChanging(System.Nullable<double> value);
+        partial void OnPurchasedQuantityChanged();
+        partial void OnRatingChanging(System.Nullable<double> value);
+        partial void OnRatingChanged();
+        partial void OnPurchasedChanging(bool value);
+        partial void OnPurchasedChanged();
+        #endregion
+
+        public ComputerMarketingData()
+        {
+            this._ComputerRoundProduct = default(EntityRef<ComputerRoundProduct>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_ComputerRoundProductId", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int ComputerRoundProductId
+        {
+            get
+            {
+                return this._ComputerRoundProductId;
+            }
+            set
+            {
+                if ((this._ComputerRoundProductId != value))
+                {
+                    if (this._ComputerRoundProduct.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnComputerRoundProductIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ComputerRoundProductId = value;
+                    this.SendPropertyChanged("ComputerRoundProductId");
+                    this.OnComputerRoundProductIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousSaleExpense", DbType = "Float NOT NULL")]
+        public double PreviousSaleExpense
+        {
+            get
+            {
+                return this._PreviousSaleExpense;
+            }
+            set
+            {
+                if ((this._PreviousSaleExpense != value))
+                {
+                    this.OnPreviousSaleExpenseChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousSaleExpense = value;
+                    this.SendPropertyChanged("PreviousSaleExpense");
+                    this.OnPreviousSaleExpenseChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_SalesExpense", DbType = "Float")]
+        public System.Nullable<double> SalesExpense
+        {
+            get
+            {
+                return this._SalesExpense;
+            }
+            set
+            {
+                if ((this._SalesExpense != value))
+                {
+                    this.OnSalesExpenseChanging(value);
+                    this.SendPropertyChanging();
+                    this._SalesExpense = value;
+                    this.SendPropertyChanged("SalesExpense");
+                    this.OnSalesExpenseChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousMarketingExpense", DbType = "Float NOT NULL")]
+        public double PreviousMarketingExpense
+        {
+            get
+            {
+                return this._PreviousMarketingExpense;
+            }
+            set
+            {
+                if ((this._PreviousMarketingExpense != value))
+                {
+                    this.OnPreviousMarketingExpenseChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousMarketingExpense = value;
+                    this.SendPropertyChanged("PreviousMarketingExpense");
+                    this.OnPreviousMarketingExpenseChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_MarketingExpense", DbType = "Float")]
+        public System.Nullable<double> MarketingExpense
+        {
+            get
+            {
+                return this._MarketingExpense;
+            }
+            set
+            {
+                if ((this._MarketingExpense != value))
+                {
+                    this.OnMarketingExpenseChanging(value);
+                    this.SendPropertyChanging();
+                    this._MarketingExpense = value;
+                    this.SendPropertyChanged("MarketingExpense");
+                    this.OnMarketingExpenseChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousPrice", DbType = "Float NOT NULL")]
+        public double PreviousPrice
+        {
+            get
+            {
+                return this._PreviousPrice;
+            }
+            set
+            {
+                if ((this._PreviousPrice != value))
+                {
+                    this.OnPreviousPriceChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousPrice = value;
+                    this.SendPropertyChanged("PreviousPrice");
+                    this.OnPreviousPriceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Price", DbType = "Float")]
+        public System.Nullable<double> Price
+        {
+            get
+            {
+                return this._Price;
+            }
+            set
+            {
+                if ((this._Price != value))
+                {
+                    this.OnPriceChanging(value);
+                    this.SendPropertyChanging();
+                    this._Price = value;
+                    this.SendPropertyChanged("Price");
+                    this.OnPriceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousForecastingQuantity", DbType = "Float NOT NULL")]
+        public double PreviousForecastingQuantity
+        {
+            get
+            {
+                return this._PreviousForecastingQuantity;
+            }
+            set
+            {
+                if ((this._PreviousForecastingQuantity != value))
+                {
+                    this.OnPreviousForecastingQuantityChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousForecastingQuantity = value;
+                    this.SendPropertyChanged("PreviousForecastingQuantity");
+                    this.OnPreviousForecastingQuantityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ForecastingQuantity", DbType = "Float")]
+        public System.Nullable<double> ForecastingQuantity
+        {
+            get
+            {
+                return this._ForecastingQuantity;
+            }
+            set
+            {
+                if ((this._ForecastingQuantity != value))
+                {
+                    this.OnForecastingQuantityChanging(value);
+                    this.SendPropertyChanging();
+                    this._ForecastingQuantity = value;
+                    this.SendPropertyChanged("ForecastingQuantity");
+                    this.OnForecastingQuantityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PurchasedQuantity", DbType = "Float")]
+        public System.Nullable<double> PurchasedQuantity
+        {
+            get
+            {
+                return this._PurchasedQuantity;
+            }
+            set
+            {
+                if ((this._PurchasedQuantity != value))
+                {
+                    this.OnPurchasedQuantityChanging(value);
+                    this.SendPropertyChanging();
+                    this._PurchasedQuantity = value;
+                    this.SendPropertyChanged("PurchasedQuantity");
+                    this.OnPurchasedQuantityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Rating", DbType = "Float")]
+        public System.Nullable<double> Rating
+        {
+            get
+            {
+                return this._Rating;
+            }
+            set
+            {
+                if ((this._Rating != value))
+                {
+                    this.OnRatingChanging(value);
+                    this.SendPropertyChanging();
+                    this._Rating = value;
+                    this.SendPropertyChanged("Rating");
+                    this.OnRatingChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Purchased", DbType = "Bit NOT NULL")]
+        public bool Purchased
+        {
+            get
+            {
+                return this._Purchased;
+            }
+            set
+            {
+                if ((this._Purchased != value))
+                {
+                    this.OnPurchasedChanging(value);
+                    this.SendPropertyChanging();
+                    this._Purchased = value;
+                    this.SendPropertyChanged("Purchased");
+                    this.OnPurchasedChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_ComputerMarketingData_ComputerRoundProduct", Storage = "_ComputerRoundProduct", ThisKey = "ComputerRoundProductId", OtherKey = "Id", IsForeignKey = true)]
+        public ComputerRoundProduct ComputerRoundProduct
+        {
+            get
+            {
+                return this._ComputerRoundProduct.Entity;
+            }
+            set
+            {
+                ComputerRoundProduct previousValue = this._ComputerRoundProduct.Entity;
+                if (((previousValue != value)
+                            || (this._ComputerRoundProduct.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._ComputerRoundProduct.Entity = null;
+                        previousValue.ComputerMarketingData = null;
+                    }
+                    this._ComputerRoundProduct.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ComputerMarketingData = this;
+                        this._ComputerRoundProductId = value.Id;
+                    }
+                    else
+                    {
+                        this._ComputerRoundProductId = default(int);
+                    }
+                    this.SendPropertyChanged("ComputerRoundProduct");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.ComputerProductionData")]
+    public partial class ComputerProductionData : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _ComputerRoundProductId;
+
+        private double _Inventory;
+
+        private double _ManufacturedQuantity;
+
+        private System.Nullable<double> _Contribution;
+
+        private double _CurrentAutomation;
+
+        private System.Nullable<double> _AutomationForNextRound;
+
+        private double _OldCapacity;
+
+        private System.Nullable<double> _NewCapacity;
+
+        private System.Nullable<double> _PreviousNumberOfLabour;
+
+        private System.Nullable<double> _NumberOfLabour;
+
+        private EntityRef<ComputerRoundProduct> _ComputerRoundProduct;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnComputerRoundProductIdChanging(int value);
+        partial void OnComputerRoundProductIdChanged();
+        partial void OnInventoryChanging(double value);
+        partial void OnInventoryChanged();
+        partial void OnManufacturedQuantityChanging(double value);
+        partial void OnManufacturedQuantityChanged();
+        partial void OnContributionChanging(System.Nullable<double> value);
+        partial void OnContributionChanged();
+        partial void OnCurrentAutomationChanging(double value);
+        partial void OnCurrentAutomationChanged();
+        partial void OnAutomationForNextRoundChanging(System.Nullable<double> value);
+        partial void OnAutomationForNextRoundChanged();
+        partial void OnOldCapacityChanging(double value);
+        partial void OnOldCapacityChanged();
+        partial void OnNewCapacityChanging(System.Nullable<double> value);
+        partial void OnNewCapacityChanged();
+        partial void OnPreviousNumberOfLabourChanging(System.Nullable<double> value);
+        partial void OnPreviousNumberOfLabourChanged();
+        partial void OnNumberOfLabourChanging(System.Nullable<double> value);
+        partial void OnNumberOfLabourChanged();
+        #endregion
+
+        public ComputerProductionData()
+        {
+            this._ComputerRoundProduct = default(EntityRef<ComputerRoundProduct>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_ComputerRoundProductId", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int ComputerRoundProductId
+        {
+            get
+            {
+                return this._ComputerRoundProductId;
+            }
+            set
+            {
+                if ((this._ComputerRoundProductId != value))
+                {
+                    if (this._ComputerRoundProduct.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnComputerRoundProductIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ComputerRoundProductId = value;
+                    this.SendPropertyChanged("ComputerRoundProductId");
+                    this.OnComputerRoundProductIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Inventory", DbType = "Float NOT NULL")]
+        public double Inventory
+        {
+            get
+            {
+                return this._Inventory;
+            }
+            set
+            {
+                if ((this._Inventory != value))
+                {
+                    this.OnInventoryChanging(value);
+                    this.SendPropertyChanging();
+                    this._Inventory = value;
+                    this.SendPropertyChanged("Inventory");
+                    this.OnInventoryChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ManufacturedQuantity", DbType = "Float NOT NULL")]
+        public double ManufacturedQuantity
+        {
+            get
+            {
+                return this._ManufacturedQuantity;
+            }
+            set
+            {
+                if ((this._ManufacturedQuantity != value))
+                {
+                    this.OnManufacturedQuantityChanging(value);
+                    this.SendPropertyChanging();
+                    this._ManufacturedQuantity = value;
+                    this.SendPropertyChanged("ManufacturedQuantity");
+                    this.OnManufacturedQuantityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Contribution", DbType = "Float")]
+        public System.Nullable<double> Contribution
+        {
+            get
+            {
+                return this._Contribution;
+            }
+            set
+            {
+                if ((this._Contribution != value))
+                {
+                    this.OnContributionChanging(value);
+                    this.SendPropertyChanging();
+                    this._Contribution = value;
+                    this.SendPropertyChanged("Contribution");
+                    this.OnContributionChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_CurrentAutomation", DbType = "Float NOT NULL")]
+        public double CurrentAutomation
+        {
+            get
+            {
+                return this._CurrentAutomation;
+            }
+            set
+            {
+                if ((this._CurrentAutomation != value))
+                {
+                    this.OnCurrentAutomationChanging(value);
+                    this.SendPropertyChanging();
+                    this._CurrentAutomation = value;
+                    this.SendPropertyChanged("CurrentAutomation");
+                    this.OnCurrentAutomationChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_AutomationForNextRound", DbType = "Float")]
+        public System.Nullable<double> AutomationForNextRound
+        {
+            get
+            {
+                return this._AutomationForNextRound;
+            }
+            set
+            {
+                if ((this._AutomationForNextRound != value))
+                {
+                    this.OnAutomationForNextRoundChanging(value);
+                    this.SendPropertyChanging();
+                    this._AutomationForNextRound = value;
+                    this.SendPropertyChanged("AutomationForNextRound");
+                    this.OnAutomationForNextRoundChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_OldCapacity", DbType = "Float NOT NULL")]
+        public double OldCapacity
+        {
+            get
+            {
+                return this._OldCapacity;
+            }
+            set
+            {
+                if ((this._OldCapacity != value))
+                {
+                    this.OnOldCapacityChanging(value);
+                    this.SendPropertyChanging();
+                    this._OldCapacity = value;
+                    this.SendPropertyChanged("OldCapacity");
+                    this.OnOldCapacityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_NewCapacity", DbType = "Float")]
+        public System.Nullable<double> NewCapacity
+        {
+            get
+            {
+                return this._NewCapacity;
+            }
+            set
+            {
+                if ((this._NewCapacity != value))
+                {
+                    this.OnNewCapacityChanging(value);
+                    this.SendPropertyChanging();
+                    this._NewCapacity = value;
+                    this.SendPropertyChanged("NewCapacity");
+                    this.OnNewCapacityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousNumberOfLabour", DbType = "Float")]
+        public System.Nullable<double> PreviousNumberOfLabour
+        {
+            get
+            {
+                return this._PreviousNumberOfLabour;
+            }
+            set
+            {
+                if ((this._PreviousNumberOfLabour != value))
+                {
+                    this.OnPreviousNumberOfLabourChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousNumberOfLabour = value;
+                    this.SendPropertyChanged("PreviousNumberOfLabour");
+                    this.OnPreviousNumberOfLabourChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_NumberOfLabour", DbType = "Float")]
+        public System.Nullable<double> NumberOfLabour
+        {
+            get
+            {
+                return this._NumberOfLabour;
+            }
+            set
+            {
+                if ((this._NumberOfLabour != value))
+                {
+                    this.OnNumberOfLabourChanging(value);
+                    this.SendPropertyChanging();
+                    this._NumberOfLabour = value;
+                    this.SendPropertyChanged("NumberOfLabour");
+                    this.OnNumberOfLabourChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_ComputerProductionData_ComputerRoundProduct", Storage = "_ComputerRoundProduct", ThisKey = "ComputerRoundProductId", OtherKey = "Id", IsForeignKey = true)]
+        public ComputerRoundProduct ComputerRoundProduct
+        {
+            get
+            {
+                return this._ComputerRoundProduct.Entity;
+            }
+            set
+            {
+                ComputerRoundProduct previousValue = this._ComputerRoundProduct.Entity;
+                if (((previousValue != value)
+                            || (this._ComputerRoundProduct.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._ComputerRoundProduct.Entity = null;
+                        previousValue.ComputerProductionData = null;
+                    }
+                    this._ComputerRoundProduct.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ComputerProductionData = this;
+                        this._ComputerRoundProductId = value.Id;
+                    }
+                    else
+                    {
+                        this._ComputerRoundProductId = default(int);
+                    }
+                    this.SendPropertyChanged("ComputerRoundProduct");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.ComputerRnDData")]
+    public partial class ComputerRnDData : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _ComputerRoundProductId;
+
+        private System.DateTime _PreviousRevisionDate;
+
+        private System.Nullable<System.DateTime> _RevisionDate;
+
+        private double _PreviousAge;
+
+        private System.Nullable<double> _Age;
+
+        private double _PreviousReliability;
+
+        private System.Nullable<double> _Reliability;
+
+        private double _PreviousPerformance;
+
+        private System.Nullable<double> _Performance;
+
+        private double _PreviousSize;
+
+        private System.Nullable<double> _Size;
+
+        private System.Nullable<double> _RnDCost;
+
+        private EntityRef<ComputerRoundProduct> _ComputerRoundProduct;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnComputerRoundProductIdChanging(int value);
+        partial void OnComputerRoundProductIdChanged();
+        partial void OnPreviousRevisionDateChanging(System.DateTime value);
+        partial void OnPreviousRevisionDateChanged();
+        partial void OnRevisionDateChanging(System.Nullable<System.DateTime> value);
+        partial void OnRevisionDateChanged();
+        partial void OnPreviousAgeChanging(double value);
+        partial void OnPreviousAgeChanged();
+        partial void OnAgeChanging(System.Nullable<double> value);
+        partial void OnAgeChanged();
+        partial void OnPreviousReliabilityChanging(double value);
+        partial void OnPreviousReliabilityChanged();
+        partial void OnReliabilityChanging(System.Nullable<double> value);
+        partial void OnReliabilityChanged();
+        partial void OnPreviousPerformanceChanging(double value);
+        partial void OnPreviousPerformanceChanged();
+        partial void OnPerformanceChanging(System.Nullable<double> value);
+        partial void OnPerformanceChanged();
+        partial void OnPreviousSizeChanging(double value);
+        partial void OnPreviousSizeChanged();
+        partial void OnSizeChanging(System.Nullable<double> value);
+        partial void OnSizeChanged();
+        partial void OnRnDCostChanging(System.Nullable<double> value);
+        partial void OnRnDCostChanged();
+        #endregion
+
+        public ComputerRnDData()
+        {
+            this._ComputerRoundProduct = default(EntityRef<ComputerRoundProduct>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_ComputerRoundProductId", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int ComputerRoundProductId
+        {
+            get
+            {
+                return this._ComputerRoundProductId;
+            }
+            set
+            {
+                if ((this._ComputerRoundProductId != value))
+                {
+                    if (this._ComputerRoundProduct.HasLoadedOrAssignedValue)
+                    {
+                        throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+                    }
+                    this.OnComputerRoundProductIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._ComputerRoundProductId = value;
+                    this.SendPropertyChanged("ComputerRoundProductId");
+                    this.OnComputerRoundProductIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousRevisionDate", DbType = "DateTime NOT NULL")]
+        public System.DateTime PreviousRevisionDate
+        {
+            get
+            {
+                return this._PreviousRevisionDate;
+            }
+            set
+            {
+                if ((this._PreviousRevisionDate != value))
+                {
+                    this.OnPreviousRevisionDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousRevisionDate = value;
+                    this.SendPropertyChanged("PreviousRevisionDate");
+                    this.OnPreviousRevisionDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RevisionDate", DbType = "DateTime")]
+        public System.Nullable<System.DateTime> RevisionDate
+        {
+            get
+            {
+                return this._RevisionDate;
+            }
+            set
+            {
+                if ((this._RevisionDate != value))
+                {
+                    this.OnRevisionDateChanging(value);
+                    this.SendPropertyChanging();
+                    this._RevisionDate = value;
+                    this.SendPropertyChanged("RevisionDate");
+                    this.OnRevisionDateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousAge", DbType = "Float NOT NULL")]
+        public double PreviousAge
+        {
+            get
+            {
+                return this._PreviousAge;
+            }
+            set
+            {
+                if ((this._PreviousAge != value))
+                {
+                    this.OnPreviousAgeChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousAge = value;
+                    this.SendPropertyChanged("PreviousAge");
+                    this.OnPreviousAgeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Age", DbType = "Float")]
+        public System.Nullable<double> Age
+        {
+            get
+            {
+                return this._Age;
+            }
+            set
+            {
+                if ((this._Age != value))
+                {
+                    this.OnAgeChanging(value);
+                    this.SendPropertyChanging();
+                    this._Age = value;
+                    this.SendPropertyChanged("Age");
+                    this.OnAgeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousReliability", DbType = "Float NOT NULL")]
+        public double PreviousReliability
+        {
+            get
+            {
+                return this._PreviousReliability;
+            }
+            set
+            {
+                if ((this._PreviousReliability != value))
+                {
+                    this.OnPreviousReliabilityChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousReliability = value;
+                    this.SendPropertyChanged("PreviousReliability");
+                    this.OnPreviousReliabilityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Reliability", DbType = "Float")]
+        public System.Nullable<double> Reliability
+        {
+            get
+            {
+                return this._Reliability;
+            }
+            set
+            {
+                if ((this._Reliability != value))
+                {
+                    this.OnReliabilityChanging(value);
+                    this.SendPropertyChanging();
+                    this._Reliability = value;
+                    this.SendPropertyChanged("Reliability");
+                    this.OnReliabilityChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousPerformance", DbType = "Float NOT NULL")]
+        public double PreviousPerformance
+        {
+            get
+            {
+                return this._PreviousPerformance;
+            }
+            set
+            {
+                if ((this._PreviousPerformance != value))
+                {
+                    this.OnPreviousPerformanceChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousPerformance = value;
+                    this.SendPropertyChanged("PreviousPerformance");
+                    this.OnPreviousPerformanceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Performance", DbType = "Float")]
+        public System.Nullable<double> Performance
+        {
+            get
+            {
+                return this._Performance;
+            }
+            set
+            {
+                if ((this._Performance != value))
+                {
+                    this.OnPerformanceChanging(value);
+                    this.SendPropertyChanging();
+                    this._Performance = value;
+                    this.SendPropertyChanged("Performance");
+                    this.OnPerformanceChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousSize", DbType = "Float NOT NULL")]
+        public double PreviousSize
+        {
+            get
+            {
+                return this._PreviousSize;
+            }
+            set
+            {
+                if ((this._PreviousSize != value))
+                {
+                    this.OnPreviousSizeChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousSize = value;
+                    this.SendPropertyChanged("PreviousSize");
+                    this.OnPreviousSizeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Size", DbType = "Float")]
+        public System.Nullable<double> Size
+        {
+            get
+            {
+                return this._Size;
+            }
+            set
+            {
+                if ((this._Size != value))
+                {
+                    this.OnSizeChanging(value);
+                    this.SendPropertyChanging();
+                    this._Size = value;
+                    this.SendPropertyChanged("Size");
+                    this.OnSizeChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RnDCost", DbType = "Float")]
+        public System.Nullable<double> RnDCost
+        {
+            get
+            {
+                return this._RnDCost;
+            }
+            set
+            {
+                if ((this._RnDCost != value))
+                {
+                    this.OnRnDCostChanging(value);
+                    this.SendPropertyChanging();
+                    this._RnDCost = value;
+                    this.SendPropertyChanged("RnDCost");
+                    this.OnRnDCostChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_ComputerRnDData_ComputerRoundProduct", Storage = "_ComputerRoundProduct", ThisKey = "ComputerRoundProductId", OtherKey = "Id", IsForeignKey = true)]
+        public ComputerRoundProduct ComputerRoundProduct
+        {
+            get
+            {
+                return this._ComputerRoundProduct.Entity;
+            }
+            set
+            {
+                ComputerRoundProduct previousValue = this._ComputerRoundProduct.Entity;
+                if (((previousValue != value)
+                            || (this._ComputerRoundProduct.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._ComputerRoundProduct.Entity = null;
+                        previousValue.ComputerRnDData = null;
+                    }
+                    this._ComputerRoundProduct.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ComputerRnDData = this;
+                        this._ComputerRoundProductId = value.Id;
+                    }
+                    else
+                    {
+                        this._ComputerRoundProductId = default(int);
+                    }
+                    this.SendPropertyChanged("ComputerRoundProduct");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.ComputerRoundProduct")]
+    public partial class ComputerRoundProduct : INotifyPropertyChanging, INotifyPropertyChanged
+    {
+
+        private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+
+        private int _Id;
+
+        private int _RoundCaterogyId;
+
+        private string _ProductName;
+
+        private int _SegmentTypeId;
+
+        private EntityRef<ComputerMarketingData> _ComputerMarketingData;
+
+        private EntityRef<ComputerProductionData> _ComputerProductionData;
+
+        private EntityRef<ComputerRnDData> _ComputerRnDData;
+
+        #region Extensibility Method Definitions
+        partial void OnLoaded();
+        partial void OnValidate(System.Data.Linq.ChangeAction action);
+        partial void OnCreated();
+        partial void OnIdChanging(int value);
+        partial void OnIdChanged();
+        partial void OnRoundCaterogyIdChanging(int value);
+        partial void OnRoundCaterogyIdChanged();
+        partial void OnProductNameChanging(string value);
+        partial void OnProductNameChanged();
+        partial void OnSegmentTypeIdChanging(int value);
+        partial void OnSegmentTypeIdChanged();
+        #endregion
+
+        public ComputerRoundProduct()
+        {
+            this._ComputerMarketingData = default(EntityRef<ComputerMarketingData>);
+            this._ComputerProductionData = default(EntityRef<ComputerProductionData>);
+            this._ComputerRnDData = default(EntityRef<ComputerRnDData>);
+            OnCreated();
+        }
+
+        [Column(Storage = "_Id", DbType = "Int NOT NULL", IsPrimaryKey = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this.OnIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._Id = value;
+                    this.SendPropertyChanged("Id");
+                    this.OnIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_RoundCaterogyId", DbType = "Int NOT NULL")]
+        public int RoundCaterogyId
+        {
+            get
+            {
+                return this._RoundCaterogyId;
+            }
+            set
+            {
+                if ((this._RoundCaterogyId != value))
+                {
+                    this.OnRoundCaterogyIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._RoundCaterogyId = value;
+                    this.SendPropertyChanged("RoundCaterogyId");
+                    this.OnRoundCaterogyIdChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ProductName", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
+        public string ProductName
+        {
+            get
+            {
+                return this._ProductName;
+            }
+            set
+            {
+                if ((this._ProductName != value))
+                {
+                    this.OnProductNameChanging(value);
+                    this.SendPropertyChanging();
+                    this._ProductName = value;
+                    this.SendPropertyChanged("ProductName");
+                    this.OnProductNameChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_SegmentTypeId", DbType = "Int NOT NULL")]
+        public int SegmentTypeId
+        {
+            get
+            {
+                return this._SegmentTypeId;
+            }
+            set
+            {
+                if ((this._SegmentTypeId != value))
+                {
+                    this.OnSegmentTypeIdChanging(value);
+                    this.SendPropertyChanging();
+                    this._SegmentTypeId = value;
+                    this.SendPropertyChanged("SegmentTypeId");
+                    this.OnSegmentTypeIdChanged();
+                }
+            }
+        }
+
+        [Association(Name = "FK_ComputerMarketingData_ComputerRoundProduct", Storage = "_ComputerMarketingData", ThisKey = "Id", OtherKey = "ComputerRoundProductId", IsUnique = true, IsForeignKey = false, DeleteRule = "NO ACTION")]
+        public ComputerMarketingData ComputerMarketingData
+        {
+            get
+            {
+                return this._ComputerMarketingData.Entity;
+            }
+            set
+            {
+                ComputerMarketingData previousValue = this._ComputerMarketingData.Entity;
+                if (((previousValue != value)
+                            || (this._ComputerMarketingData.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._ComputerMarketingData.Entity = null;
+                        previousValue.ComputerRoundProduct = null;
+                    }
+                    this._ComputerMarketingData.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ComputerRoundProduct = this;
+                    }
+                    this.SendPropertyChanged("ComputerMarketingData");
+                }
+            }
+        }
+
+        [Association(Name = "FK_ComputerProductionData_ComputerRoundProduct", Storage = "_ComputerProductionData", ThisKey = "Id", OtherKey = "ComputerRoundProductId", IsUnique = true, IsForeignKey = false, DeleteRule = "NO ACTION")]
+        public ComputerProductionData ComputerProductionData
+        {
+            get
+            {
+                return this._ComputerProductionData.Entity;
+            }
+            set
+            {
+                ComputerProductionData previousValue = this._ComputerProductionData.Entity;
+                if (((previousValue != value)
+                            || (this._ComputerProductionData.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._ComputerProductionData.Entity = null;
+                        previousValue.ComputerRoundProduct = null;
+                    }
+                    this._ComputerProductionData.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ComputerRoundProduct = this;
+                    }
+                    this.SendPropertyChanged("ComputerProductionData");
+                }
+            }
+        }
+
+        [Association(Name = "FK_ComputerRnDData_ComputerRoundProduct", Storage = "_ComputerRnDData", ThisKey = "Id", OtherKey = "ComputerRoundProductId", IsUnique = true, IsForeignKey = false, DeleteRule = "NO ACTION")]
+        public ComputerRnDData ComputerRnDData
+        {
+            get
+            {
+                return this._ComputerRnDData.Entity;
+            }
+            set
+            {
+                ComputerRnDData previousValue = this._ComputerRnDData.Entity;
+                if (((previousValue != value)
+                            || (this._ComputerRnDData.HasLoadedOrAssignedValue == false)))
+                {
+                    this.SendPropertyChanging();
+                    if ((previousValue != null))
+                    {
+                        this._ComputerRnDData.Entity = null;
+                        previousValue.ComputerRoundProduct = null;
+                    }
+                    this._ComputerRnDData.Entity = value;
+                    if ((value != null))
+                    {
+                        value.ComputerRoundProduct = this;
+                    }
+                    this.SendPropertyChanged("ComputerRnDData");
+                }
+            }
+        }
+
+        public event PropertyChangingEventHandler PropertyChanging;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected virtual void SendPropertyChanging()
+        {
+            if ((this.PropertyChanging != null))
+            {
+                this.PropertyChanging(this, emptyChangingEventArgs);
+            }
+        }
+
+        protected virtual void SendPropertyChanged(String propertyName)
+        {
+            if ((this.PropertyChanged != null))
+            {
+                this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
             }
         }
     }
@@ -4743,6 +6070,8 @@ namespace EduSim.CoreFramework.DTO
 
         private bool _Active;
 
+        private bool _Players;
+
         private EntityRef<TeamCategory> _TeamCategory;
 
         private EntitySet<TeamGame> _TeamGame;
@@ -4761,6 +6090,8 @@ namespace EduSim.CoreFramework.DTO
         partial void OnCreatedDateChanged();
         partial void OnActiveChanging(bool value);
         partial void OnActiveChanged();
+        partial void OnPlayersChanging(bool value);
+        partial void OnPlayersChanged();
         #endregion
 
         public Team()
@@ -4851,6 +6182,26 @@ namespace EduSim.CoreFramework.DTO
                     this._Active = value;
                     this.SendPropertyChanged("Active");
                     this.OnActiveChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Players", DbType = "Bit NOT NULL")]
+        public bool Players
+        {
+            get
+            {
+                return this._Players;
+            }
+            set
+            {
+                if ((this._Players != value))
+                {
+                    this.OnPlayersChanging(value);
+                    this.SendPropertyChanging();
+                    this._Players = value;
+                    this.SendPropertyChanged("Players");
+                    this.OnPlayersChanged();
                 }
             }
         }
@@ -5532,6 +6883,10 @@ namespace EduSim.CoreFramework.DTO
 
         private string _Role;
 
+        private bool _Try;
+
+        private int _GameCount;
+
         private EntitySet<TeamUser> _TeamUser;
 
         private EntitySet<UserRole> _UserRole;
@@ -5552,6 +6907,10 @@ namespace EduSim.CoreFramework.DTO
         partial void OnLastNameChanged();
         partial void OnRoleChanging(string value);
         partial void OnRoleChanged();
+        partial void OnTryChanging(bool value);
+        partial void OnTryChanged();
+        partial void OnGameCountChanging(int value);
+        partial void OnGameCountChanged();
         #endregion
 
         public UserDetails()
@@ -5661,7 +7020,7 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_Role", DbType = "VarChar(50)")]
+        [Column(Storage = "_Role", DbType = "VarChar(50) NOT NULL", CanBeNull = false)]
         public string Role
         {
             get
@@ -5677,6 +7036,46 @@ namespace EduSim.CoreFramework.DTO
                     this._Role = value;
                     this.SendPropertyChanged("Role");
                     this.OnRoleChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Try", DbType = "Bit NOT NULL")]
+        public bool Try
+        {
+            get
+            {
+                return this._Try;
+            }
+            set
+            {
+                if ((this._Try != value))
+                {
+                    this.OnTryChanging(value);
+                    this.SendPropertyChanging();
+                    this._Try = value;
+                    this.SendPropertyChanged("Try");
+                    this.OnTryChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_GameCount", DbType = "Int NOT NULL")]
+        public int GameCount
+        {
+            get
+            {
+                return this._GameCount;
+            }
+            set
+            {
+                if ((this._GameCount != value))
+                {
+                    this.OnGameCountChanging(value);
+                    this.SendPropertyChanging();
+                    this._GameCount = value;
+                    this.SendPropertyChanged("GameCount");
+                    this.OnGameCountChanged();
                 }
             }
         }
