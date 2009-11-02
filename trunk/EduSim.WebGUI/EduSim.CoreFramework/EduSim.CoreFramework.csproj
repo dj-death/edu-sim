@@ -87,6 +87,26 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindedGrid\DataViews.cs" />
+    <Compile Include="BindedGrid\FinanceDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BindedGrid\MarketingDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BindedGrid\MarketingDataModel.cs" />
+    <Compile Include="BindedGrid\PnLDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BindedGrid\PnLDataModel.cs" />
+    <Compile Include="BindedGrid\ProductionDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BindedGrid\ProductionDataModel.cs" />
+    <Compile Include="BindedGrid\RnDDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BindedGrid\RndDataModel.cs" />
     <Compile Include="Business Layer\UserManager.cs" />
     <Compile Include="Common\BaseForm.cs">
       <SubType>Form</SubType>
@@ -94,32 +114,96 @@
     <Compile Include="Common\BaseUserControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="Common\BrixListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\BrixXmlEditControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\BrixXmlListControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\CatalogSettings.cs" />
     <Compile Include="Common\ContextAttribute.cs" />
     <Compile Include="Common\ControlFactory.cs" />
     <Compile Include="Common\IHostedApplication.cs" />
     <Compile Include="Common\ListModel.cs" />
+    <Compile Include="Common\LogicalCategory.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Common\LogonForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common\MainForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Common\RoundDataModel.cs" />
     <Compile Include="Common\XmlFormManagement.cs" />
+    <Compile Include="Controls\WinPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Data Access Helper\ComponentHelper.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data Access Helper\StoredProcedures.cs" />
     <Compile Include="DTO\DomainObjects.cs" />
     <Compile Include="DTO\Role.cs" />
+    <Compile Include="Forms\AboutVWGForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\ExtensionHelper.cs" />
     <Compile Include="Utilities\CoreDatabaseHelper.cs">
     </Compile>
+    <Compile Include="XmlForms\Administrator\Game Definition\GameManager.cs" />
+    <Compile Include="XmlForms\Administrator\Game Definition\TeamManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="BindedGrid\FinanceDataGridView.resx">
+      <DependentUpon>FinanceDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindedGrid\MarketingDataGridView.resx">
+      <DependentUpon>MarketingDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindedGrid\PnLDataGridView.resx">
+      <DependentUpon>PnLDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindedGrid\ProductionDataGridView.resx">
+      <DependentUpon>ProductionDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindedGrid\RnDDataGridView.resx">
+      <DependentUpon>RnDDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Common\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <EmbeddedResource Include="Common\BrixListControl.resx">
+      <DependentUpon>BrixListControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\BrixXmlEditControl.resx">
+      <DependentUpon>BrixXmlEditControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\BrixXmlListControl.resx">
+      <DependentUpon>BrixXmlListControl.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\LogonForm.resx">
+      <DependentUpon>LogonForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\AboutVWGForm.resx">
+      <DependentUpon>AboutVWGForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Controls\WinPanel.xslt" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

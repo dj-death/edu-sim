@@ -88,7 +88,7 @@ namespace EduSim.CoreFramework.Common
             count++;
         }
 
-        //TODO: We need to build a framework to create a control
+        //We need to build a framework to create a control
         public static void CreateTextBoxControl(List<Control > list, ref int count, BrixDataEntry dataEntry, DataTable table)
         {
             TextBox textBox = new TextBox();
