@@ -1,6 +1,9 @@
 USE [EduSim]
 GO
-/****** Object:  Table [dbo].[RoundCategory]    Script Date: 10/20/2009 07:47:20 ******/
+/****** Object:  User [praskrishna]    Script Date: 11/02/2009 07:46:47 ******/
+CREATE USER [praskrishna] FOR LOGIN [praskrishna] WITH DEFAULT_SCHEMA=[dbo]
+GO
+/****** Object:  Table [dbo].[RoundCategory]    Script Date: 11/02/2009 07:46:02 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -18,29 +21,7 @@ CREATE TABLE [dbo].[RoundCategory](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[UserDetails]    Script Date: 10/20/2009 07:47:58 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_PADDING ON
-GO
-CREATE TABLE [dbo].[UserDetails](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[Email] [varchar](50) NOT NULL,
-	[Password] [varchar](50) NOT NULL,
-	[FirstName] [varchar](50) NULL,
-	[LastName] [varchar](50) NULL,
-	[Role] [varchar](50) NULL,
- CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-SET ANSI_PADDING OFF
-GO
-/****** Object:  StoredProcedure [dbo].[USP_APPMGMTGenericDelete]    Script Date: 10/20/2009 07:45:49 ******/
+/****** Object:  StoredProcedure [dbo].[USP_APPMGMTGenericDelete]    Script Date: 11/02/2009 07:43:35 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -71,7 +52,7 @@ DECLARE @sqlStr NVARCHAR(4000)
 	EXEC  sp_executesql @sqlStr
 END
 GO
-/****** Object:  Table [dbo].[GameInitialData]    Script Date: 10/20/2009 07:46:28 ******/
+/****** Object:  Table [dbo].[GameInitialData]    Script Date: 11/02/2009 07:44:55 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -100,7 +81,7 @@ CREATE TABLE [dbo].[GameInitialData](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TeamCategory]    Script Date: 10/20/2009 07:47:45 ******/
+/****** Object:  Table [dbo].[TeamCategory]    Script Date: 11/02/2009 07:46:28 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -118,7 +99,7 @@ CREATE TABLE [dbo].[TeamCategory](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  StoredProcedure [dbo].[usp_ODS]    Script Date: 10/20/2009 07:45:52 ******/
+/****** Object:  StoredProcedure [dbo].[usp_ODS]    Script Date: 11/02/2009 07:43:38 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -221,7 +202,7 @@ SET @sqlStr = 'SELECT @CountParam = COUNT(*) FROM '+ @ObjectName +' WHERE Projec
 	END
 END
 GO
-/****** Object:  StoredProcedure [dbo].[usp_APPMGMTGenericInsert]    Script Date: 10/20/2009 07:45:49 ******/
+/****** Object:  StoredProcedure [dbo].[usp_APPMGMTGenericInsert]    Script Date: 11/02/2009 07:43:36 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -239,22 +220,7 @@ BEGIN
 	EXEC  sp_executesql @sqlStr
 END
 GO
-/****** Object:  Table [dbo].[Game]    Script Date: 10/20/2009 07:46:03 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[Game](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[CreatedDate] [datetime] NULL,
-	[Active] [bit] NULL,
- CONSTRAINT [PK_Game_1] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  StoredProcedure [dbo].[usp_APPMGMTGenericUpdate]    Script Date: 10/20/2009 07:45:50 ******/
+/****** Object:  StoredProcedure [dbo].[usp_APPMGMTGenericUpdate]    Script Date: 11/02/2009 07:43:36 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -278,7 +244,7 @@ BEGIN
 	SELECT @updatedRows AS rowsUpdated;
 END
 GO
-/****** Object:  Table [dbo].[RoleDetails]    Script Date: 10/20/2009 07:47:14 ******/
+/****** Object:  Table [dbo].[RoleDetails]    Script Date: 11/02/2009 07:45:54 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -297,7 +263,22 @@ CREATE TABLE [dbo].[RoleDetails](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[ConfigurationData]    Script Date: 10/20/2009 07:45:54 ******/
+/****** Object:  Table [dbo].[Game]    Script Date: 11/02/2009 07:44:28 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Game](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[CreatedDate] [datetime] NULL,
+	[Active] [bit] NULL,
+ CONSTRAINT [PK_Game_1] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ConfigurationData]    Script Date: 11/02/2009 07:44:18 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -311,7 +292,51 @@ CREATE TABLE [dbo].[ConfigurationData](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  StoredProcedure [dbo].[InsertGenerator]    Script Date: 10/20/2009 07:45:48 ******/
+/****** Object:  Table [dbo].[ComputerRoundProduct]    Script Date: 11/02/2009 07:44:16 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[ComputerRoundProduct](
+	[Id] [int] NOT NULL,
+	[RoundCaterogyId] [int] NOT NULL,
+	[ProductName] [varchar](50) NOT NULL,
+	[SegmentTypeId] [int] NOT NULL,
+ CONSTRAINT [PK_ComputerRoundProduct] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[UserDetails]    Script Date: 11/02/2009 07:46:43 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[UserDetails](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Email] [varchar](50) NOT NULL,
+	[Password] [varchar](50) NOT NULL,
+	[FirstName] [varchar](50) NULL,
+	[LastName] [varchar](50) NULL,
+	[Role] [varchar](50) NOT NULL,
+	[Try] [bit] NOT NULL,
+	[GameCount] [int] NOT NULL,
+ CONSTRAINT [PK_User] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  StoredProcedure [dbo].[InsertGenerator]    Script Date: 11/02/2009 07:43:34 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER OFF
@@ -392,23 +417,7 @@ exec sp_executesql @query
 CLOSE cursCol
 DEALLOCATE cursCol
 GO
-/****** Object:  Table [dbo].[LabourData]    Script Date: 10/20/2009 07:46:31 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[LabourData](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[TeamId] [int] NOT NULL,
-	[Rate] [float] NOT NULL,
-	[NumberOfLabour] [float] NOT NULL,
- CONSTRAINT [PK_LabourData] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[RoundCriteria]    Script Date: 10/20/2009 07:47:26 ******/
+/****** Object:  Table [dbo].[RoundCriteria]    Script Date: 11/02/2009 07:46:07 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -425,7 +434,7 @@ CREATE TABLE [dbo].[RoundCriteria](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SegmentMarketDemand]    Script Date: 10/20/2009 07:47:35 ******/
+/****** Object:  Table [dbo].[SegmentMarketDemand]    Script Date: 11/02/2009 07:46:17 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -437,7 +446,7 @@ CREATE TABLE [dbo].[SegmentMarketDemand](
 	[Quantity] [float] NOT NULL
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[Round]    Script Date: 10/20/2009 07:47:17 ******/
+/****** Object:  Table [dbo].[Round]    Script Date: 11/02/2009 07:45:59 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -453,57 +462,7 @@ CREATE TABLE [dbo].[Round](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TeamUser]    Script Date: 10/20/2009 07:47:51 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[TeamUser](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[TeamId] [int] NOT NULL,
-	[UserId] [int] NOT NULL,
- CONSTRAINT [PK_TeamUser] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[UserRole]    Script Date: 10/20/2009 07:48:01 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[UserRole](
-	[UserId] [int] NOT NULL,
-	[RoleId] [int] NOT NULL,
- CONSTRAINT [PK_UserRole] PRIMARY KEY CLUSTERED 
-(
-	[UserId] ASC,
-	[RoleId] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[ProductCategory]    Script Date: 10/20/2009 07:46:46 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-SET ANSI_PADDING ON
-GO
-CREATE TABLE [dbo].[ProductCategory](
-	[Id] [int] NOT NULL,
-	[TeamCategoryId] [int] NOT NULL,
-	[SegmentTypeId] [int] NOT NULL,
-	[ProductName] [varchar](50) NOT NULL,
- CONSTRAINT [PK_ProductCategory] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-SET ANSI_PADDING OFF
-GO
-/****** Object:  Table [dbo].[RoundProduct]    Script Date: 10/20/2009 07:47:31 ******/
+/****** Object:  Table [dbo].[RoundProduct]    Script Date: 11/02/2009 07:46:13 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -523,7 +482,7 @@ CREATE TABLE [dbo].[RoundProduct](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[GameCriteria]    Script Date: 10/20/2009 07:46:13 ******/
+/****** Object:  Table [dbo].[GameCriteria]    Script Date: 11/02/2009 07:44:39 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -547,7 +506,27 @@ CREATE TABLE [dbo].[GameCriteria](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[TeamGame]    Script Date: 10/20/2009 07:47:48 ******/
+/****** Object:  Table [dbo].[ProductCategory]    Script Date: 11/02/2009 07:45:21 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [dbo].[ProductCategory](
+	[Id] [int] NOT NULL,
+	[TeamCategoryId] [int] NOT NULL,
+	[SegmentTypeId] [int] NOT NULL,
+	[ProductName] [varchar](50) NOT NULL,
+ CONSTRAINT [PK_ProductCategory] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+SET ANSI_PADDING OFF
+GO
+/****** Object:  Table [dbo].[TeamGame]    Script Date: 11/02/2009 07:46:31 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -562,7 +541,7 @@ CREATE TABLE [dbo].[TeamGame](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[SegmentType]    Script Date: 10/20/2009 07:47:38 ******/
+/****** Object:  Table [dbo].[SegmentType]    Script Date: 11/02/2009 07:46:20 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -580,7 +559,7 @@ CREATE TABLE [dbo].[SegmentType](
 GO
 SET ANSI_PADDING OFF
 GO
-/****** Object:  Table [dbo].[Team]    Script Date: 10/20/2009 07:47:42 ******/
+/****** Object:  Table [dbo].[Team]    Script Date: 11/02/2009 07:46:26 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -590,61 +569,50 @@ CREATE TABLE [dbo].[Team](
 	[TeamCategoryId] [int] NULL,
 	[CreatedDate] [datetime] NOT NULL,
 	[Active] [bit] NOT NULL,
+	[Players] [bit] NOT NULL,
  CONSTRAINT [PK_Team] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[FinanceData]    Script Date: 10/20/2009 07:45:59 ******/
+/****** Object:  Table [dbo].[UserRole]    Script Date: 11/02/2009 07:46:46 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[FinanceData](
+CREATE TABLE [dbo].[UserRole](
+	[UserId] [int] NOT NULL,
+	[RoleId] [int] NOT NULL,
+ CONSTRAINT [PK_UserRole] PRIMARY KEY CLUSTERED 
+(
+	[UserId] ASC,
+	[RoleId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[TeamUser]    Script Date: 11/02/2009 07:46:35 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[TeamUser](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[RoundId] [int] NOT NULL,
 	[TeamId] [int] NOT NULL,
-	[Cash] [float] NOT NULL,
-	[LongTermLoad] [float] NOT NULL,
-	[ShortTermLoad] [float] NOT NULL,
- CONSTRAINT [PK_FinanceData] PRIMARY KEY CLUSTERED 
+	[UserId] [int] NOT NULL,
+ CONSTRAINT [PK_TeamUser] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProductionData]    Script Date: 10/20/2009 07:46:56 ******/
+/****** Object:  Table [dbo].[ComputerRnDData]    Script Date: 11/02/2009 07:44:11 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[ProductionData](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[RoundProductId] [int] NOT NULL,
-	[Inventory] [float] NOT NULL,
-	[ManufacturedQuantity] [float] NOT NULL,
-	[Contribution] [float] NULL,
-	[CurrentAutomation] [float] NOT NULL,
-	[AutomationForNextRound] [float] NULL,
-	[OldCapacity] [float] NOT NULL,
-	[NewCapacity] [float] NULL,
-	[PreviousNumberOfLabour] [float] NULL,
-	[NumberOfLabour] [float] NULL,
- CONSTRAINT [PK_ProductionData] PRIMARY KEY CLUSTERED 
-(
-	[Id] ASC
-)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
-) ON [PRIMARY]
-GO
-/****** Object:  Table [dbo].[RnDData]    Script Date: 10/20/2009 07:47:10 ******/
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-CREATE TABLE [dbo].[RnDData](
-	[Id] [int] IDENTITY(1,1) NOT NULL,
-	[RoundProductId] [int] NOT NULL,
+CREATE TABLE [dbo].[ComputerRnDData](
+	[ComputerRoundProductId] [int] NOT NULL,
 	[PreviousRevisionDate] [datetime] NOT NULL,
 	[RevisionDate] [datetime] NULL,
 	[PreviousAge] [float] NOT NULL,
@@ -656,13 +624,107 @@ CREATE TABLE [dbo].[RnDData](
 	[PreviousSize] [float] NOT NULL,
 	[Size] [float] NULL,
 	[RnDCost] [float] NULL,
- CONSTRAINT [PK_RnDData] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_ComputerRnDData_1] PRIMARY KEY CLUSTERED 
+(
+	[ComputerRoundProductId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ComputerMarketingData]    Script Date: 11/02/2009 07:43:51 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ComputerMarketingData](
+	[ComputerRoundProductId] [int] NOT NULL,
+	[PreviousSaleExpense] [float] NOT NULL,
+	[SalesExpense] [float] NULL,
+	[PreviousMarketingExpense] [float] NOT NULL,
+	[MarketingExpense] [float] NULL,
+	[PreviousPrice] [float] NOT NULL,
+	[Price] [float] NULL,
+	[PreviousForecastingQuantity] [float] NOT NULL,
+	[ForecastingQuantity] [float] NULL,
+	[PurchasedQuantity] [float] NULL,
+	[Rating] [float] NULL,
+	[Purchased] [bit] NOT NULL,
+ CONSTRAINT [PK_ComputerMarketingData] PRIMARY KEY CLUSTERED 
+(
+	[ComputerRoundProductId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ComputerProductionData]    Script Date: 11/02/2009 07:44:00 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ComputerProductionData](
+	[ComputerRoundProductId] [int] NOT NULL,
+	[Inventory] [float] NOT NULL,
+	[ManufacturedQuantity] [float] NOT NULL,
+	[Contribution] [float] NULL,
+	[CurrentAutomation] [float] NOT NULL,
+	[AutomationForNextRound] [float] NULL,
+	[OldCapacity] [float] NOT NULL,
+	[NewCapacity] [float] NULL,
+	[PreviousNumberOfLabour] [float] NULL,
+	[NumberOfLabour] [float] NULL,
+ CONSTRAINT [PK_ComputerProductionData] PRIMARY KEY CLUSTERED 
+(
+	[ComputerRoundProductId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[FinanceData]    Script Date: 11/02/2009 07:44:24 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[FinanceData](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoundId] [int] NOT NULL,
+	[Cash] [float] NOT NULL,
+	[PreviousLongTermLoan] [float] NULL,
+	[LongTermLoan] [float] NOT NULL,
+	[PreviousShortTermLoan] [float] NULL,
+	[ShortTermLoan] [float] NOT NULL,
+ CONSTRAINT [PK_FinanceData] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[MarketingData]    Script Date: 10/20/2009 07:46:42 ******/
+/****** Object:  Table [dbo].[LabourData]    Script Date: 11/02/2009 07:45:04 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[LabourData](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoundId] [int] NOT NULL,
+	[PreviousRate] [float] NULL,
+	[Rate] [float] NOT NULL,
+	[PreviousNumberOfLabour] [float] NULL,
+	[NumberOfLabour] [float] NOT NULL,
+ CONSTRAINT [PK_LabourData] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[ProductsAvailablePerRound]    Script Date: 11/02/2009 07:45:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ProductsAvailablePerRound](
+	[Id] [int] NOT NULL,
+	[RoundProductId] [int] NOT NULL,
+	[Quantity] [float] NOT NULL
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[MarketingData]    Script Date: 11/02/2009 07:45:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -687,162 +749,223 @@ CREATE TABLE [dbo].[MarketingData](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  Table [dbo].[ProductsAvailablePerRound]    Script Date: 10/20/2009 07:46:59 ******/
+/****** Object:  Table [dbo].[ProductionData]    Script Date: 11/02/2009 07:45:33 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-CREATE TABLE [dbo].[ProductsAvailablePerRound](
-	[Id] [int] NOT NULL,
+CREATE TABLE [dbo].[ProductionData](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[RoundProductId] [int] NOT NULL,
-	[Quantity] [float] NOT NULL
+	[Inventory] [float] NOT NULL,
+	[ManufacturedQuantity] [float] NOT NULL,
+	[Contribution] [float] NULL,
+	[CurrentAutomation] [float] NOT NULL,
+	[AutomationForNextRound] [float] NULL,
+	[OldCapacity] [float] NOT NULL,
+	[NewCapacity] [float] NULL,
+	[PreviousNumberOfLabour] [float] NULL,
+	[NumberOfLabour] [float] NULL,
+ CONSTRAINT [PK_ProductionData] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
-/****** Object:  ForeignKey [FK_FinanceData_Round]    Script Date: 10/20/2009 07:46:00 ******/
+/****** Object:  Table [dbo].[RnDData]    Script Date: 11/02/2009 07:45:50 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[RnDData](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[RoundProductId] [int] NOT NULL,
+	[PreviousRevisionDate] [datetime] NOT NULL,
+	[RevisionDate] [datetime] NULL,
+	[PreviousAge] [float] NOT NULL,
+	[Age] [float] NULL,
+	[PreviousReliability] [float] NOT NULL,
+	[Reliability] [float] NULL,
+	[PreviousPerformance] [float] NOT NULL,
+	[Performance] [float] NULL,
+	[PreviousSize] [float] NOT NULL,
+	[Size] [float] NULL,
+	[RnDCost] [float] NULL,
+ CONSTRAINT [PK_RnDData] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  ForeignKey [FK_ComputerMarketingData_ComputerRoundProduct]    Script Date: 11/02/2009 07:43:51 ******/
+ALTER TABLE [dbo].[ComputerMarketingData]  WITH CHECK ADD  CONSTRAINT [FK_ComputerMarketingData_ComputerRoundProduct] FOREIGN KEY([ComputerRoundProductId])
+REFERENCES [dbo].[ComputerRoundProduct] ([Id])
+GO
+ALTER TABLE [dbo].[ComputerMarketingData] CHECK CONSTRAINT [FK_ComputerMarketingData_ComputerRoundProduct]
+GO
+/****** Object:  ForeignKey [FK_ComputerProductionData_ComputerRoundProduct]    Script Date: 11/02/2009 07:44:01 ******/
+ALTER TABLE [dbo].[ComputerProductionData]  WITH CHECK ADD  CONSTRAINT [FK_ComputerProductionData_ComputerRoundProduct] FOREIGN KEY([ComputerRoundProductId])
+REFERENCES [dbo].[ComputerRoundProduct] ([Id])
+GO
+ALTER TABLE [dbo].[ComputerProductionData] CHECK CONSTRAINT [FK_ComputerProductionData_ComputerRoundProduct]
+GO
+/****** Object:  ForeignKey [FK_ComputerRnDData_ComputerRoundProduct]    Script Date: 11/02/2009 07:44:12 ******/
+ALTER TABLE [dbo].[ComputerRnDData]  WITH CHECK ADD  CONSTRAINT [FK_ComputerRnDData_ComputerRoundProduct] FOREIGN KEY([ComputerRoundProductId])
+REFERENCES [dbo].[ComputerRoundProduct] ([Id])
+GO
+ALTER TABLE [dbo].[ComputerRnDData] CHECK CONSTRAINT [FK_ComputerRnDData_ComputerRoundProduct]
+GO
+/****** Object:  ForeignKey [FK_FinanceData_Round]    Script Date: 11/02/2009 07:44:25 ******/
 ALTER TABLE [dbo].[FinanceData]  WITH CHECK ADD  CONSTRAINT [FK_FinanceData_Round] FOREIGN KEY([RoundId])
 REFERENCES [dbo].[Round] ([Id])
 GO
 ALTER TABLE [dbo].[FinanceData] CHECK CONSTRAINT [FK_FinanceData_Round]
 GO
-/****** Object:  ForeignKey [FK_GameCriteria_SegmentType]    Script Date: 10/20/2009 07:46:14 ******/
+/****** Object:  ForeignKey [FK_GameCriteria_SegmentType]    Script Date: 11/02/2009 07:44:39 ******/
 ALTER TABLE [dbo].[GameCriteria]  WITH CHECK ADD  CONSTRAINT [FK_GameCriteria_SegmentType] FOREIGN KEY([SegmentTypeId])
 REFERENCES [dbo].[SegmentType] ([Id])
 GO
 ALTER TABLE [dbo].[GameCriteria] CHECK CONSTRAINT [FK_GameCriteria_SegmentType]
 GO
-/****** Object:  ForeignKey [FK_MarketingData_RoundProduct]    Script Date: 10/20/2009 07:46:42 ******/
+/****** Object:  ForeignKey [FK_LabourData_Round]    Script Date: 11/02/2009 07:45:04 ******/
+ALTER TABLE [dbo].[LabourData]  WITH CHECK ADD  CONSTRAINT [FK_LabourData_Round] FOREIGN KEY([RoundId])
+REFERENCES [dbo].[Round] ([Id])
+GO
+ALTER TABLE [dbo].[LabourData] CHECK CONSTRAINT [FK_LabourData_Round]
+GO
+/****** Object:  ForeignKey [FK_MarketingData_RoundProduct]    Script Date: 11/02/2009 07:45:17 ******/
 ALTER TABLE [dbo].[MarketingData]  WITH CHECK ADD  CONSTRAINT [FK_MarketingData_RoundProduct] FOREIGN KEY([RoundProductId])
 REFERENCES [dbo].[RoundProduct] ([Id])
 GO
 ALTER TABLE [dbo].[MarketingData] CHECK CONSTRAINT [FK_MarketingData_RoundProduct]
 GO
-/****** Object:  ForeignKey [FK_ProductCategory_SegmentType]    Script Date: 10/20/2009 07:46:47 ******/
+/****** Object:  ForeignKey [FK_ProductCategory_SegmentType]    Script Date: 11/02/2009 07:45:22 ******/
 ALTER TABLE [dbo].[ProductCategory]  WITH CHECK ADD  CONSTRAINT [FK_ProductCategory_SegmentType] FOREIGN KEY([SegmentTypeId])
 REFERENCES [dbo].[SegmentType] ([Id])
 GO
 ALTER TABLE [dbo].[ProductCategory] CHECK CONSTRAINT [FK_ProductCategory_SegmentType]
 GO
-/****** Object:  ForeignKey [FK_ProductCategory_TeamCategory]    Script Date: 10/20/2009 07:46:47 ******/
+/****** Object:  ForeignKey [FK_ProductCategory_TeamCategory]    Script Date: 11/02/2009 07:45:22 ******/
 ALTER TABLE [dbo].[ProductCategory]  WITH CHECK ADD  CONSTRAINT [FK_ProductCategory_TeamCategory] FOREIGN KEY([TeamCategoryId])
 REFERENCES [dbo].[TeamCategory] ([Id])
 GO
 ALTER TABLE [dbo].[ProductCategory] CHECK CONSTRAINT [FK_ProductCategory_TeamCategory]
 GO
-/****** Object:  ForeignKey [FK_ProductionData_RoundProduct]    Script Date: 10/20/2009 07:46:57 ******/
+/****** Object:  ForeignKey [FK_ProductionData_RoundProduct]    Script Date: 11/02/2009 07:45:34 ******/
 ALTER TABLE [dbo].[ProductionData]  WITH CHECK ADD  CONSTRAINT [FK_ProductionData_RoundProduct] FOREIGN KEY([RoundProductId])
 REFERENCES [dbo].[RoundProduct] ([Id])
 GO
 ALTER TABLE [dbo].[ProductionData] CHECK CONSTRAINT [FK_ProductionData_RoundProduct]
 GO
-/****** Object:  ForeignKey [FK_ProductsAvailablePerRound_RoundProduct]    Script Date: 10/20/2009 07:47:00 ******/
+/****** Object:  ForeignKey [FK_ProductsAvailablePerRound_RoundProduct]    Script Date: 11/02/2009 07:45:37 ******/
 ALTER TABLE [dbo].[ProductsAvailablePerRound]  WITH CHECK ADD  CONSTRAINT [FK_ProductsAvailablePerRound_RoundProduct] FOREIGN KEY([RoundProductId])
 REFERENCES [dbo].[RoundProduct] ([Id])
 GO
 ALTER TABLE [dbo].[ProductsAvailablePerRound] CHECK CONSTRAINT [FK_ProductsAvailablePerRound_RoundProduct]
 GO
-/****** Object:  ForeignKey [FK_RnDData_RoundProduct]    Script Date: 10/20/2009 07:47:11 ******/
+/****** Object:  ForeignKey [FK_RnDData_RoundProduct]    Script Date: 11/02/2009 07:45:50 ******/
 ALTER TABLE [dbo].[RnDData]  WITH CHECK ADD  CONSTRAINT [FK_RnDData_RoundProduct] FOREIGN KEY([RoundProductId])
 REFERENCES [dbo].[RoundProduct] ([Id])
 GO
 ALTER TABLE [dbo].[RnDData] CHECK CONSTRAINT [FK_RnDData_RoundProduct]
 GO
-/****** Object:  ForeignKey [FK_Round_RoundCategory]    Script Date: 10/20/2009 07:47:18 ******/
+/****** Object:  ForeignKey [FK_Round_RoundCategory]    Script Date: 11/02/2009 07:45:59 ******/
 ALTER TABLE [dbo].[Round]  WITH CHECK ADD  CONSTRAINT [FK_Round_RoundCategory] FOREIGN KEY([RoundCategoryId])
 REFERENCES [dbo].[RoundCategory] ([Id])
 GO
 ALTER TABLE [dbo].[Round] CHECK CONSTRAINT [FK_Round_RoundCategory]
 GO
-/****** Object:  ForeignKey [FK_Round_TeamGame]    Script Date: 10/20/2009 07:47:18 ******/
+/****** Object:  ForeignKey [FK_Round_TeamGame]    Script Date: 11/02/2009 07:46:00 ******/
 ALTER TABLE [dbo].[Round]  WITH CHECK ADD  CONSTRAINT [FK_Round_TeamGame] FOREIGN KEY([TeamGameId])
 REFERENCES [dbo].[TeamGame] ([Id])
 GO
 ALTER TABLE [dbo].[Round] CHECK CONSTRAINT [FK_Round_TeamGame]
 GO
-/****** Object:  ForeignKey [FK_RoundCriteria_RoundCategory]    Script Date: 10/20/2009 07:47:26 ******/
+/****** Object:  ForeignKey [FK_RoundCriteria_RoundCategory]    Script Date: 11/02/2009 07:46:08 ******/
 ALTER TABLE [dbo].[RoundCriteria]  WITH CHECK ADD  CONSTRAINT [FK_RoundCriteria_RoundCategory] FOREIGN KEY([RoundCategoryId])
 REFERENCES [dbo].[RoundCategory] ([Id])
 GO
 ALTER TABLE [dbo].[RoundCriteria] CHECK CONSTRAINT [FK_RoundCriteria_RoundCategory]
 GO
-/****** Object:  ForeignKey [FK_RoundCriteria_SegmentType]    Script Date: 10/20/2009 07:47:27 ******/
+/****** Object:  ForeignKey [FK_RoundCriteria_SegmentType]    Script Date: 11/02/2009 07:46:08 ******/
 ALTER TABLE [dbo].[RoundCriteria]  WITH CHECK ADD  CONSTRAINT [FK_RoundCriteria_SegmentType] FOREIGN KEY([SegmentTypeId])
 REFERENCES [dbo].[SegmentType] ([Id])
 GO
 ALTER TABLE [dbo].[RoundCriteria] CHECK CONSTRAINT [FK_RoundCriteria_SegmentType]
 GO
-/****** Object:  ForeignKey [FK_RoundCriteria_SegmentType1]    Script Date: 10/20/2009 07:47:27 ******/
+/****** Object:  ForeignKey [FK_RoundCriteria_SegmentType1]    Script Date: 11/02/2009 07:46:09 ******/
 ALTER TABLE [dbo].[RoundCriteria]  WITH CHECK ADD  CONSTRAINT [FK_RoundCriteria_SegmentType1] FOREIGN KEY([SegmentTypeId])
 REFERENCES [dbo].[SegmentType] ([Id])
 GO
 ALTER TABLE [dbo].[RoundCriteria] CHECK CONSTRAINT [FK_RoundCriteria_SegmentType1]
 GO
-/****** Object:  ForeignKey [FK_RoundProduct_Round]    Script Date: 10/20/2009 07:47:31 ******/
+/****** Object:  ForeignKey [FK_RoundProduct_Round]    Script Date: 11/02/2009 07:46:13 ******/
 ALTER TABLE [dbo].[RoundProduct]  WITH CHECK ADD  CONSTRAINT [FK_RoundProduct_Round] FOREIGN KEY([RoundId])
 REFERENCES [dbo].[Round] ([Id])
 GO
 ALTER TABLE [dbo].[RoundProduct] CHECK CONSTRAINT [FK_RoundProduct_Round]
 GO
-/****** Object:  ForeignKey [FK_RoundProduct_SegmentType]    Script Date: 10/20/2009 07:47:31 ******/
+/****** Object:  ForeignKey [FK_RoundProduct_SegmentType]    Script Date: 11/02/2009 07:46:14 ******/
 ALTER TABLE [dbo].[RoundProduct]  WITH CHECK ADD  CONSTRAINT [FK_RoundProduct_SegmentType] FOREIGN KEY([SegmentTypeId])
 REFERENCES [dbo].[SegmentType] ([Id])
 GO
 ALTER TABLE [dbo].[RoundProduct] CHECK CONSTRAINT [FK_RoundProduct_SegmentType]
 GO
-/****** Object:  ForeignKey [FK_MarketDemand_RoundCategory]    Script Date: 10/20/2009 07:47:35 ******/
+/****** Object:  ForeignKey [FK_MarketDemand_RoundCategory]    Script Date: 11/02/2009 07:46:17 ******/
 ALTER TABLE [dbo].[SegmentMarketDemand]  WITH CHECK ADD  CONSTRAINT [FK_MarketDemand_RoundCategory] FOREIGN KEY([RoundCategoryId])
 REFERENCES [dbo].[RoundCategory] ([Id])
 GO
 ALTER TABLE [dbo].[SegmentMarketDemand] CHECK CONSTRAINT [FK_MarketDemand_RoundCategory]
 GO
-/****** Object:  ForeignKey [FK_MarketDemand_SegmentType]    Script Date: 10/20/2009 07:47:35 ******/
+/****** Object:  ForeignKey [FK_MarketDemand_SegmentType]    Script Date: 11/02/2009 07:46:18 ******/
 ALTER TABLE [dbo].[SegmentMarketDemand]  WITH CHECK ADD  CONSTRAINT [FK_MarketDemand_SegmentType] FOREIGN KEY([SegmentTypeId])
 REFERENCES [dbo].[SegmentType] ([Id])
 GO
 ALTER TABLE [dbo].[SegmentMarketDemand] CHECK CONSTRAINT [FK_MarketDemand_SegmentType]
 GO
-/****** Object:  ForeignKey [FK_SegmentType_GameInitialData]    Script Date: 10/20/2009 07:47:38 ******/
+/****** Object:  ForeignKey [FK_SegmentType_GameInitialData]    Script Date: 11/02/2009 07:46:20 ******/
 ALTER TABLE [dbo].[SegmentType]  WITH CHECK ADD  CONSTRAINT [FK_SegmentType_GameInitialData] FOREIGN KEY([Id])
 REFERENCES [dbo].[GameInitialData] ([SegmentTypeId])
 GO
 ALTER TABLE [dbo].[SegmentType] CHECK CONSTRAINT [FK_SegmentType_GameInitialData]
 GO
-/****** Object:  ForeignKey [FK_Team_TeamCategory]    Script Date: 10/20/2009 07:47:42 ******/
+/****** Object:  ForeignKey [FK_Team_TeamCategory]    Script Date: 11/02/2009 07:46:26 ******/
 ALTER TABLE [dbo].[Team]  WITH CHECK ADD  CONSTRAINT [FK_Team_TeamCategory] FOREIGN KEY([TeamCategoryId])
 REFERENCES [dbo].[TeamCategory] ([Id])
 GO
 ALTER TABLE [dbo].[Team] CHECK CONSTRAINT [FK_Team_TeamCategory]
 GO
-/****** Object:  ForeignKey [FK_TeamGame_Game]    Script Date: 10/20/2009 07:47:48 ******/
+/****** Object:  ForeignKey [FK_TeamGame_Game]    Script Date: 11/02/2009 07:46:32 ******/
 ALTER TABLE [dbo].[TeamGame]  WITH CHECK ADD  CONSTRAINT [FK_TeamGame_Game] FOREIGN KEY([GameId])
 REFERENCES [dbo].[Game] ([Id])
 GO
 ALTER TABLE [dbo].[TeamGame] CHECK CONSTRAINT [FK_TeamGame_Game]
 GO
-/****** Object:  ForeignKey [FK_TeamGame_Team]    Script Date: 10/20/2009 07:47:49 ******/
+/****** Object:  ForeignKey [FK_TeamGame_Team]    Script Date: 11/02/2009 07:46:32 ******/
 ALTER TABLE [dbo].[TeamGame]  WITH CHECK ADD  CONSTRAINT [FK_TeamGame_Team] FOREIGN KEY([TeamId])
 REFERENCES [dbo].[Team] ([Id])
 GO
 ALTER TABLE [dbo].[TeamGame] CHECK CONSTRAINT [FK_TeamGame_Team]
 GO
-/****** Object:  ForeignKey [FK_TeamUser_Team]    Script Date: 10/20/2009 07:47:52 ******/
+/****** Object:  ForeignKey [FK_TeamUser_Team]    Script Date: 11/02/2009 07:46:36 ******/
 ALTER TABLE [dbo].[TeamUser]  WITH CHECK ADD  CONSTRAINT [FK_TeamUser_Team] FOREIGN KEY([TeamId])
 REFERENCES [dbo].[Team] ([Id])
 GO
 ALTER TABLE [dbo].[TeamUser] CHECK CONSTRAINT [FK_TeamUser_Team]
 GO
-/****** Object:  ForeignKey [FK_TeamUser_User]    Script Date: 10/20/2009 07:47:52 ******/
+/****** Object:  ForeignKey [FK_TeamUser_User]    Script Date: 11/02/2009 07:46:36 ******/
 ALTER TABLE [dbo].[TeamUser]  WITH CHECK ADD  CONSTRAINT [FK_TeamUser_User] FOREIGN KEY([UserId])
 REFERENCES [dbo].[UserDetails] ([Id])
 GO
 ALTER TABLE [dbo].[TeamUser] CHECK CONSTRAINT [FK_TeamUser_User]
 GO
-/****** Object:  ForeignKey [FK_UserRole_Role]    Script Date: 10/20/2009 07:48:01 ******/
+/****** Object:  ForeignKey [FK_UserRole_Role]    Script Date: 11/02/2009 07:46:46 ******/
 ALTER TABLE [dbo].[UserRole]  WITH CHECK ADD  CONSTRAINT [FK_UserRole_Role] FOREIGN KEY([RoleId])
 REFERENCES [dbo].[RoleDetails] ([Id])
 GO
 ALTER TABLE [dbo].[UserRole] CHECK CONSTRAINT [FK_UserRole_Role]
 GO
-/****** Object:  ForeignKey [FK_UserRole_User]    Script Date: 10/20/2009 07:48:01 ******/
+/****** Object:  ForeignKey [FK_UserRole_User]    Script Date: 11/02/2009 07:46:47 ******/
 ALTER TABLE [dbo].[UserRole]  WITH CHECK ADD  CONSTRAINT [FK_UserRole_User] FOREIGN KEY([UserId])
 REFERENCES [dbo].[UserDetails] ([Id])
 GO
