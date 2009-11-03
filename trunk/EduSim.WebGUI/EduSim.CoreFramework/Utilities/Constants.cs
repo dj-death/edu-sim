@@ -9,6 +9,9 @@ namespace EduSim.CoreFramework.Common
     {
         public static string CurrentUser = "CurrentUser";
         public static string CurrentRound = "CurrentRound";
+        public static string RnDData = "RnDData";
+        public static string MarketingData = "MarketingData";
+        public static string ProductionData = "ProductionData";
     }
 
     public class TabConstants

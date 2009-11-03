@@ -12,6 +12,15 @@ namespace EduSim.CoreFramework.Common
     {
         protected UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
         protected Round round = HttpContext.Current.Session[SessionConstants.CurrentRound] as Round;
+        protected static Dictionary<string, double> configurationInfo = new Dictionary<string, double>();
+
+        static RoundDataModel()
+        {
+            Edusim db = new Edusim();
+
+            (from c in db.ConfigurationData
+             select c).ToList<ConfigurationData>().ForEach(o => configurationInfo[o.Name] = o.Value);
+        }
 
         public abstract void GetList(DataGridView dataGridView1);
 
@@ -22,7 +31,7 @@ namespace EduSim.CoreFramework.Common
             get { return round.TeamGame.Game.Active.HasValue ? round.TeamGame.Game.Active.Value : false; }
         }
 
-        public abstract void HandleDataChange(DataGridViewRow row, DataGridViewCell c);
+        public abstract void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c);
 
         public abstract void ComputeAllCells(DataGridView dataGridView1);
 
@@ -31,6 +40,18 @@ namespace EduSim.CoreFramework.Common
         public virtual void AddProduct(DataGridView dataGridView1)
         {
             throw new NotImplementedException();
+        }
+
+        public static Dictionary<string, T> GetData<T>(string name)
+        {
+            Dictionary<string, T> dic = (Dictionary<string, T>)HttpContext.Current.Session[name];
+
+            if (dic == null)
+            {
+                dic = new Dictionary<string, T>();
+                HttpContext.Current.Session[name] = dic;
+            }
+            return dic;
         }
     }
 }

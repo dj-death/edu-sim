@@ -89,7 +89,7 @@ namespace EduSim.WebGUI.UI
             db.SubmitChanges();
         }
 
-        private static void AddGameInformatoin(Edusim db, TeamGame tg)
+        public static void AddGameInformatoin(Edusim db, TeamGame tg)
         {
             //Create Round
             Round round = new Round() { RoundCategoryId = 1, TeamGame = tg, Current = true };
