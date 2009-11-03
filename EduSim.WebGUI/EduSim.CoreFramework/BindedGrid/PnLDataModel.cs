@@ -5,6 +5,7 @@ using System.Web;
 using EduSim.CoreFramework.Common;
 using EduSim.CoreFramework.DTO;
 using Gizmox.WebGUI.Forms;
+using System.Reflection;
 
 namespace EduSim.WebGUI.UI.BindedGrid
 {
@@ -14,23 +15,26 @@ namespace EduSim.WebGUI.UI.BindedGrid
     {
         public override void GetList(DataGridView dataGridView1)
         {
-            List<string> products = (List<string>)HttpContext.Current.Session["Products"];
+            Dictionary<string, RnDDataView> rndData = GetData<RnDDataView>(SessionConstants.RnDData);
+            Dictionary<string, MarketingDataView> marketingData = GetData<MarketingDataView>(SessionConstants.MarketingData);
+            Dictionary<string, ProductionDataView> productionData = GetData<ProductionDataView>(SessionConstants.ProductionData);
 
             dataGridView1.Columns.Add("Description", "Description");
-            foreach(string col in products)
+            foreach (string col in rndData.Keys)
             {
                 dataGridView1.Columns.Add(col, col);
             }
 
-            AddRow((Dictionary<string, double>)HttpContext.Current.Session["Revenue"], products, dataGridView1, "Sales Revenue");
-            AddRow((Dictionary<string, double>)HttpContext.Current.Session["LabourCost"], products, dataGridView1, "Labour Cost");
-            AddRow((Dictionary<string, double>)HttpContext.Current.Session["AutomationCost"], products, dataGridView1, "Automation Cost");
-            AddRow((Dictionary<string, double>)HttpContext.Current.Session["NewCapacityCost"], products, dataGridView1, "Plant Cost");
-            AddRow((Dictionary<string, double>)HttpContext.Current.Session["RnDCost"], products, dataGridView1, "R&D Cost");
-            AddRow((Dictionary<string, double>)HttpContext.Current.Session["SalesAndMarketingExpense"], products, dataGridView1, "S&M Cost");
+            AddRow<MarketingDataView>(marketingData, rndData.Keys, dataGridView1, "ProjectedSales");
+            AddRow<ProductionDataView>(productionData, rndData.Keys, dataGridView1, "LabourCost");
+            AddRow<ProductionDataView>(productionData, rndData.Keys, dataGridView1, "AutomationCost");
+            AddRow<ProductionDataView>(productionData, rndData.Keys, dataGridView1, "NewCapacityCost");
+            AddRow<RnDDataView>(rndData, rndData.Keys, dataGridView1, "RnDCost");
+            AddRow<MarketingDataView>(marketingData, rndData.Keys, dataGridView1, "SalesExpense");
+            AddRow<MarketingDataView>(marketingData, rndData.Keys, dataGridView1, "MarketingExpense");
         }
 
-        private void AddRow(Dictionary<string, double> rndData, List<string> products, DataGridView dataGridView1, string p)
+        private void AddRow<T>(Dictionary<string, T> data, IEnumerable<string> products, DataGridView dataGridView1, string p)
         {
             DataGridViewRow r = new DataGridViewRow();
 
@@ -41,7 +45,17 @@ namespace EduSim.WebGUI.UI.BindedGrid
             foreach(string str in products)
             {
                 DataGridViewCell t1 = new DataGridViewTextBoxCell();
-                t1.Value = rndData[str];
+                if (data != null && data.Count > 0)
+                {
+                    T dat = data[str];
+                    PropertyInfo prop = dat.GetType().GetProperty(p);
+
+                    t1.Value = prop.GetValue(dat, null);
+                }
+                else
+                {
+                    t1.Value = 0.0;
+                }
                 r.Cells.Add(t1);
             }
             dataGridView1.Rows.Add(r);
@@ -52,7 +66,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
             return new int[]  { 0, 1, 2, 3, 4, 5 };
         }
 
-        public override void HandleDataChange(DataGridViewRow row, DataGridViewCell c)
+        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c)
         {
             throw new NotImplementedException();
         }

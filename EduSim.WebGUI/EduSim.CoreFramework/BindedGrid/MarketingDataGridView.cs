@@ -26,7 +26,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
     public class MarketingDataGridView : UserControl, IHostedApplication
 	{
         private DataGridView dataGridView1;
-        private Button compute;
         private Button save;
         private MarketingDataModel rdm;
 
@@ -93,20 +92,10 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 		private void InitializeComponent()
 		{
             this.dataGridView1 = new Gizmox.WebGUI.Forms.DataGridView();
-            compute = new Button();
             save = new Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
-            compute.Location = new Point(16, 0);
-            compute.Name = "backButton";
-            compute.Text = "Compute";
-            compute.Size = new Size(50, 16);
-            compute.Click += new EventHandler((sender, e) =>
-            {
-                rdm.ComputeAllCells(dataGridView1);
-            });
-
-            save.Location = new Point(70, 0);
+            save.Location = new Point(16, 0);
             save.Name = "saveButton";
             save.Text = "Save";
             save.Size = new Size(50, 16);
@@ -127,14 +116,19 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             this.dataGridView1.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Red;
-            this.dataGridView1.CellLeave += new DataGridViewCellEventHandler(dataGridView1_CellLeave);
+            this.dataGridView1.CellEndEdit += new DataGridViewCellEventHandler((sender, e) =>
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                DataGridViewCell c = row.Cells[e.ColumnIndex];
+
+                rdm.HandleDataChange(dataGridView1, row, c);
+            });
 			// 
 			// DataGridViewControl
 			// 
 			this.ClientSize = new System.Drawing.Size(640, 600);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.save);
-            this.Controls.Add(this.compute);
             this.DockPadding.All = 0;
 			this.DockPadding.Bottom = 0;
 			this.DockPadding.Left = 0;
@@ -145,11 +139,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 			this.ResumeLayout(false);
 
 		}
-
-        void dataGridView1_CellLeave(object sender, DataGridViewCellEventArgs e)
-        {
-            //MessageBox.Show("hi there");
-        }
 
 		#endregion
 

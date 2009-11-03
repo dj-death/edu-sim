@@ -107,6 +107,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="BindedGrid\RndDataModel.cs" />
+    <Compile Include="Business Layer\RegistrationManager.cs" />
     <Compile Include="Business Layer\UserManager.cs" />
     <Compile Include="Common\BaseForm.cs">
       <SubType>Form</SubType>

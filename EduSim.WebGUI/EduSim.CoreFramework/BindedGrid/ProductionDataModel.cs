@@ -31,57 +31,62 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
         public override void GetList(DataGridView dataGridView1)
         {
-            Edusim db = new Edusim();
-            IQueryable<ProductionDataView> rs = from p in db.ProductionData
-                                                join rp in db.RoundProduct on p.RoundProduct equals rp
-                                                join rd in db.Round on rp.Round equals rd
-                                                join t in db.TeamGame on rd.TeamGame equals t
-                                                join tu in db.TeamUser on t.TeamId equals tu.Id
-                                                join m in db.MarketingData on p.RoundProduct equals m.RoundProduct
-                                                where rd.Id == round.Id && tu.UserDetails == user
-                                                select new ProductionDataView()
-                                               {
-                                                   ProductName = rp.ProductName,
-                                                   ProductCategory = rp.SegmentType.Description,
-                                                   Inventory = p.Inventory,
-                                                   ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0,
-                                                   TotalQuantity = p.Inventory + (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0),
-                                                   ManufacturedQuantity = p.ManufacturedQuantity,
-                                                   MaterialCost = 0,
-                                                   LabourCost = 0,
-                                                   ContributionMargin = p.Contribution.HasValue ? p.Contribution.Value : 0.0,
-                                                   SecondShift = 0.0,
-                                                   OldAutomation = p.CurrentAutomation,
-                                                   NewAutomation = p.AutomationForNextRound.HasValue ? p.AutomationForNextRound.Value : 0.0,
-                                                   AutomationCost = 0.0,
-                                                   Capacity = p.OldCapacity,
-                                                   NewCapacity = p.NewCapacity.HasValue ? p.NewCapacity.Value : 0.0,
-                                                   NewCapacityCost = 0,
-                                                   NumberOfLabour = 0,
-                                                   Utilization = 0,
-                                               };
+            Dictionary<string, ProductionDataView> dic = GetData<ProductionDataView>(SessionConstants.ProductionData);
 
-            rs.ToList<ProductionDataView>().ForEach(o =>
-                {
-                    C.Add(o.Inventory);
-                    D.Add(o.ForecastedQuantity);
-                    E.Add(o.TotalQuantity);
-                    F.Add(o.ManufacturedQuantity);
-                    G.Add(o.MaterialCost);
-                    H.Add(o.LabourCost);
-                    I.Add(o.ContributionMargin);
-                    J.Add(o.SecondShift);
-                    K.Add(o.OldAutomation);
-                    L.Add(o.NewAutomation);
-                    M.Add(o.AutomationCost );
-                    N.Add(o.Capacity);
-                    O.Add(o.NewCapacity);
-                    P.Add(o.NewCapacityCost);
-                    Q.Add(o.NumberOfLabour);
-                    R.Add(o.Utilization);
-                });
+            if (dic.Count == 0)
+            {
+                Edusim db = new Edusim();
+                IQueryable<ProductionDataView> rs = from p in db.ProductionData
+                                                    join rp in db.RoundProduct on p.RoundProduct equals rp
+                                                    join rd in db.Round on rp.Round equals rd
+                                                    join t in db.TeamGame on rd.TeamGame equals t
+                                                    join tu in db.TeamUser on t.TeamId equals tu.Id
+                                                    join m in db.MarketingData on p.RoundProduct equals m.RoundProduct
+                                                    where rd.Id == round.Id && tu.UserDetails == user
+                                                    select new ProductionDataView()
+                                                   {
+                                                       ProductName = rp.ProductName,
+                                                       ProductCategory = rp.SegmentType.Description,
+                                                       Inventory = p.Inventory,
+                                                       ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0,
+                                                       TotalQuantity = p.Inventory + (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0),
+                                                       ManufacturedQuantity = p.ManufacturedQuantity,
+                                                       MaterialCost = 0,
+                                                       LabourCost = 0,
+                                                       ContributionMargin = p.Contribution.HasValue ? p.Contribution.Value : 0.0,
+                                                       SecondShift = 0.0,
+                                                       OldAutomation = p.CurrentAutomation,
+                                                       NewAutomation = p.AutomationForNextRound.HasValue ? p.AutomationForNextRound.Value : 0.0,
+                                                       AutomationCost = 0.0,
+                                                       Capacity = p.OldCapacity,
+                                                       NewCapacity = p.NewCapacity.HasValue ? p.NewCapacity.Value : 0.0,
+                                                       NewCapacityCost = 0,
+                                                       NumberOfLabour = 0,
+                                                       Utilization = 0,
+                                                   };
 
-            DataTable table = rs.ToDataTable<ProductionDataView>(null).Transpose();
+                rs.ToList<ProductionDataView>().ForEach(o =>
+                    {
+                        dic[o.ProductName] = o;
+                        C.Add(o.Inventory);
+                        D.Add(o.ForecastedQuantity);
+                        E.Add(o.TotalQuantity);
+                        F.Add(o.ManufacturedQuantity);
+                        G.Add(o.MaterialCost);
+                        H.Add(o.LabourCost);
+                        I.Add(o.ContributionMargin);
+                        J.Add(o.SecondShift);
+                        K.Add(o.OldAutomation);
+                        L.Add(o.NewAutomation);
+                        M.Add(o.AutomationCost);
+                        N.Add(o.Capacity);
+                        O.Add(o.NewCapacity);
+                        P.Add(o.NewCapacityCost);
+                        Q.Add(o.NumberOfLabour);
+                        R.Add(o.Utilization);
+                    });
+            }
+            DataTable table = dic.Values.ToDataTable<ProductionDataView>(null).Transpose();
 
             dataGridView1.DataSource = table;
         }
@@ -91,9 +96,53 @@ namespace EduSim.WebGUI.UI.BindedGrid
             return new int[] { 0, 1, 2, 3, 5, 6, 7, 8, 9, 11, 12, 14, 15, 16 };
         }
 
-        public override void HandleDataChange(DataGridViewRow row, DataGridViewCell c)
+        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c)
         {
-            throw new NotImplementedException();
+            Edusim db = new Edusim();
+
+            LabourData ld = (from l in db.LabourData
+                             where l.Round == round
+                             select l).FirstOrDefault<LabourData>();
+
+            double workerRequired = 0;
+            int i = c.ColumnIndex - 1;
+
+            D[i] = dataGridView1.Rows[1].Cells[i].Value.ToDouble2(); //ManufacturedQuantity
+
+            //Number of Labour: =D5/K5*$B$3
+            Q[i] = D[i] / K[i] * configurationInfo["LabourFactor"];
+            dataGridView1.Rows[15].Cells[i].Value = Q[i].ToString("###0.00");
+            workerRequired += N[i];
+
+            L[i] = dataGridView1.Rows[7].Cells[i].Value.ToDouble2(); //NewAutomation
+            O[i] = dataGridView1.Rows[10].Cells[i].Value.ToDouble2(); //NewCapacity
+
+            //Utilization: =$Q$10/$S$5
+            //TODO: We need to get the labour list
+            R[i] = workerRequired / ld.NumberOfLabour;
+            dataGridView1.Rows[16].Cells[i].Value = R[i].ToString("###0.00");
+
+            //Automation Cost: J[i] =(L5-K5)*$B$1
+            M[i] = (I[i] - H[i]) * configurationInfo["AutomationCost"];
+            dataGridView1.Rows[11].Cells[i].Value = M[i].ToString("###0.00");
+
+            //Capacity Cost=L5*$B$2
+            P[i] = O[i] * configurationInfo["CapacityCost"];
+            dataGridView1.Rows[14].Cells[i].Value = P[i].ToString("###0.00");
+
+            //=IF(R5<=100%,HR!$B$1/K5, (100%*HR!$B$1/K5+((R5-100%)*1.5*HR!$B$1/K5)))
+            H[i] = (R[i] <= 1) ? (ld.Rate / K[i]) : (ld.Rate / K[i] + ((R[i] - 1) * 1.5 * ld.Rate / K[i]));
+            dataGridView1.Rows[3].Cells[i].Value = H[i].ToString("###0.00");
+
+            Dictionary<string, ProductionDataView> dic = GetData<ProductionDataView>(SessionConstants.RnDData);
+
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].ManufacturedQuantity = D[i];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].NewAutomation = L[i];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].NewCapacity = O[i];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Utilization = R[i];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].AutomationCost = M[i];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].NewCapacityCost = P[i];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].LabourCost = H[i];
         }
 
         public override void ComputeAllCells(DataGridView dataGridView1)
@@ -113,57 +162,6 @@ namespace EduSim.WebGUI.UI.BindedGrid
             //ShortTermInterestRate
             #endregion 
 
-            Edusim db = new Edusim();
-            Dictionary<string, double> dic = new Dictionary<string, double>();
-
-            LabourData ld = (from l in db.LabourData
-                           where l.Round == round
-                           select l).FirstOrDefault<LabourData>();
-
-            (from c in db.ConfigurationData
-             select c).ToList<ConfigurationData>().ForEach(o => dic[o.Name] = o.Value);
-
-            int i = 0;
-            double workerRequired = 0;
-            foreach (DataGridViewRow r in dataGridView1.Rows)
-            {
-                D[i] = (double)r.Cells[2].Value; //ManufacturedQuantity
-
-                //Number of Labour: =D5/K5*$B$3
-                Q[i] = D[i] / K[i] * dic["LabourFactor"];
-                r.Cells[16].Value = Q[i].ToString("###0.00");
-                workerRequired += N[i];
-            }
-
-            foreach (DataGridViewRow r in dataGridView1.Rows)
-            {
-                L[i] = (double)r.Cells[8].Value; //NewAutomation
-                O[i] = (double)r.Cells[11].Value; //NewCapacity
-
-                //Utilization: =$Q$10/$S$5
-                R[i] = workerRequired / ld.NumberOfLabour;
-                r.Cells[17].Value = R[i].ToString("###0.00");
-
-                //Automation Cost: J[i] =(L5-K5)*$B$1
-                M[i] = (I[i] - H[i]) * dic["AutomationCost"];
-                r.Cells[12].Value = M[i].ToString("###0.00");
-
-                //Capacity Cost=L5*$B$2
-                P[i] = O[i] * dic["CapacityCost"];
-                r.Cells[15].Value = P[i].ToString("###0.00");
-                
-                //=IF(R5<=100%,HR!$B$1/K5, (100%*HR!$B$1/K5+((R5-100%)*1.5*HR!$B$1/K5)))
-                H[i] = (R[i] <= 1) ? (ld.Rate / K[i]) : (ld.Rate / K[i] + ((R[i]-1)* 1.5 * ld.Rate/K[i]));
-                r.Cells[4].Value = H[i].ToString("###0.00");
-
-                i++;
-            }
-
-            foreach (DataGridViewRow r in dataGridView1.Rows)
-            {
-                //==$N$10/$P$5
-                r.Cells[14].Value = workerRequired / ld.NumberOfLabour;
-            }
         }
 
         public override void Save(DataGridView dataGridView1)

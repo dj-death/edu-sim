@@ -23,49 +23,55 @@ namespace EduSim.WebGUI.UI.BindedGrid
         private List<double> K = new List<double>();
         private List<double> L = new List<double>();
         private List<double> M = new List<double>();
-
+        
         public override void GetList(DataGridView dataGridView1)
         {
-            Edusim db = new Edusim();
-            IQueryable<RnDDataView> rs = from r in db.RnDData
-                   join rp in db.RoundProduct on r.RoundProduct equals rp
-                   join rd in db.Round on rp.Round equals rd
-                   join t in db.TeamGame on rd.TeamGame equals t
-                   join tu in db.TeamUser on t.TeamId equals tu.Id
-                   where rd.Id == round.Id && tu.UserDetails == user
-                   select new RnDDataView()
+            Dictionary<string, RnDDataView> dic = GetData<RnDDataView>(SessionConstants.RnDData);
+
+            if (dic.Count == 0)
+            {
+                Edusim db = new Edusim();
+                IQueryable<RnDDataView> rs = from r in db.RnDData
+                                             join rp in db.RoundProduct on r.RoundProduct equals rp
+                                             join rd in db.Round on rp.Round equals rd
+                                             join t in db.TeamGame on rd.TeamGame equals t
+                                             join tu in db.TeamUser on t.TeamId equals tu.Id
+                                             where rd.Id == round.Id && tu.UserDetails == user
+                                             select new RnDDataView()
+                                              {
+                                                  ProductName = rp.ProductName,
+                                                  ProductCategory = rp.SegmentType.Description,
+                                                  PreviousRevisionDate = r.PreviousRevisionDate,
+                                                  RevisionDate = r.PreviousRevisionDate,
+                                                  PreviousAge = r.PreviousAge,
+                                                  Age = r.PreviousAge,
+                                                  PreviousReliability = r.PreviousReliability,
+                                                  Reliability = r.PreviousReliability,
+                                                  PreviousPerformance = r.PreviousPerformance,
+                                                  Performance = r.PreviousPerformance,
+                                                  PreviousSize = r.PreviousSize,
+                                                  Size = r.PreviousSize,
+                                                  RnDCost = 0.0
+                                              };
+
+                rs.ToList<RnDDataView>().ForEach(o =>
                     {
-                        ProductName = rp.ProductName,
-                        ProductCategory = rp.SegmentType.Description,
-                        PreviousRevisionDate = r.PreviousRevisionDate,
-                        RevisionDate = r.PreviousRevisionDate,
-                        PreviousAge = r.PreviousAge,
-                        Age = r.PreviousAge,
-                        PreviousReliability = r.PreviousReliability,
-                        Reliability = r.PreviousReliability,
-                        PreviousPerformance = r.PreviousPerformance,
-                        Performance = r.PreviousPerformance,
-                        PreviousSize = r.PreviousSize,
-                        Size = r.PreviousSize,
-                        RnDCost = 0.0
-                    };
+                        dic[o.ProductName] = o;
+                        C.Add(o.PreviousRevisionDate);
+                        D.Add(o.RevisionDate);
+                        E.Add(o.PreviousAge);
+                        F.Add(o.Age);
+                        G.Add(o.PreviousReliability);
+                        H.Add(o.Reliability);
+                        I.Add(o.PreviousPerformance);
+                        J.Add(o.Performance);
+                        K.Add(o.PreviousSize);
+                        L.Add(o.Size);
+                        M.Add(o.RnDCost);
+                    });
+            }
 
-            rs.ToList<RnDDataView>().ForEach(o =>
-                {
-                    C.Add(o.PreviousRevisionDate);
-                    D.Add(o.RevisionDate);
-                    E.Add(o.PreviousAge);
-                    F.Add(o.Age);
-                    G.Add(o.PreviousReliability);
-                    H.Add(o.Reliability);
-                    I.Add(o.PreviousPerformance);
-                    J.Add(o.Performance);
-                    K.Add(o.PreviousSize);
-                    L.Add(o.Size);
-                    M.Add(o.RnDCost);
-                });
-
-            DataTable table = rs.ToDataTable<RnDDataView>(null).Transpose();
+            DataTable table = dic.Values.ToDataTable<RnDDataView>(null).Transpose();
 
             dataGridView1.DataSource = table;
         }
@@ -75,9 +81,38 @@ namespace EduSim.WebGUI.UI.BindedGrid
             return new int[]  { 0, 1, 2, 3, 4, 5, 7, 9, 11 };
         }
 
-        public override void HandleDataChange(DataGridViewRow row, DataGridViewCell c)
+        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c)
         {
-            throw new NotImplementedException();
+            int colIndex = c.ColumnIndex - 1;
+            H[colIndex] = dataGridView1.Rows[6].Cells[c.ColumnIndex].Value.ToDouble2(); //Reliability
+            J[colIndex] = dataGridView1.Rows[8].Cells[c.ColumnIndex].Value.ToDouble2(); //Performance
+            L[colIndex] = dataGridView1.Rows[10].Cells[c.ColumnIndex].Value.ToDouble2(); //Size
+            //M[i] = (double)r.Cells[12].Value;//RnDCost
+
+            //RnD Cost: (H2-G2)*$B$9+ (J2-I2)*$B$10 + (K2-L2)*$B$11
+            M[colIndex] = (H[colIndex] - G[colIndex]) * configurationInfo["ReliabilityCost"] + (J[colIndex] - I[colIndex]) * configurationInfo["PerformanceCost"] +
+                (K[colIndex] - L[colIndex]) * configurationInfo["SizeCost"];
+            
+            dataGridView1.Rows[11].Cells[c.ColumnIndex].Value = M[colIndex].ToString("###0.00");
+
+            //Age: =IF(M2=0, E2, (E2+((H2-G2)*$B$14+(J2-I2)*$B$13+(K2-L2)*$B$12)/365)/2)
+            double val = (M[colIndex] == 0.0) ? E[colIndex] : (E[colIndex] + ((H[colIndex] - G[colIndex]) * configurationInfo["ReliabilityFactor"] +
+                (J[colIndex] - I[colIndex]) * configurationInfo["PerformanceFactor"] + (K[colIndex] - L[colIndex]) * configurationInfo["SizeFactor"]) / 365) / 2;
+
+            dataGridView1.Rows[4].Cells[c.ColumnIndex].Value = val.ToString("###0.0");
+
+            //RevisionDate: =C2+(H2-G2)*$B$14+(J2-I2)*$B$13+(K2-L2)*$B$12
+            DateTime dt = C[colIndex].AddDays((H[colIndex] - G[colIndex]) * configurationInfo["ReliabilityFactor"] +
+                (J[colIndex] - I[colIndex]) * configurationInfo["PerformanceFactor"] + (K[colIndex] - L[colIndex]) * configurationInfo["SizeFactor"]);
+            dataGridView1.Rows[2].Cells[c.ColumnIndex].Value = dt;
+
+            Dictionary<string, RnDDataView> dic = GetData<RnDDataView>(SessionConstants.RnDData);
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Reliability = H[colIndex];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Performance = J[colIndex];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Size = L[colIndex];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].RnDCost = M[colIndex];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Age = val;
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].RevisionDate = dt;
         }
 
         public override void ComputeAllCells(DataGridView dataGridView1)
@@ -97,38 +132,6 @@ namespace EduSim.WebGUI.UI.BindedGrid
             //ShortTermInterestRate
             #endregion 
 
-            Edusim db = new Edusim();
-            Dictionary<string, double> dic = new Dictionary<string, double>();
-
-            (from c in db.ConfigurationData
-             select c).ToList<ConfigurationData>().ForEach(o => dic[o.Name] = o.Value);
-
-            int i = 0;
-            foreach (DataGridViewRow r in dataGridView1.Rows)
-            {
-                H[i] = (double)r.Cells[7].Value; //Reliability
-                J[i] = (double)r.Cells[9].Value; //Performance
-                L[i] = (double)r.Cells[11].Value; //Size
-                //M[i] = (double)r.Cells[12].Value;//RnDCost
-
-                //RnD Cost: (H2-G2)*$B$9+ (J2-I2)*$B$10 + (K2-L2)*$B$11
-                M[i] = (H[i] - G[i]) * dic["ReliabilityCost"] + (J[i] - I[i]) * dic["PerformanceCost"] + 
-                    (K[i] - L[i]) * dic["SizeCost"];
-
-                r.Cells[12].Value = M[i].ToString("###0.00");
-
-                //Age: =IF(M2=0, E2, (E2+((H2-G2)*$B$14+(J2-I2)*$B$13+(K2-L2)*$B$12)/365)/2)
-                double val = (M[i] == 0.0) ? E[i] : (E[i] + ((H[i] - G[i]) * dic["ReliabilityFactor"] +
-                    (J[i] - I[i]) * dic["PerformanceFactor"] + (K[i] - L[i]) * dic["SizeFactor"]) / 365) / 2;
-
-                r.Cells[5].Value = val.ToString("###0.0");
-
-                //RevisionDate: =C2+(H2-G2)*$B$14+(J2-I2)*$B$13+(K2-L2)*$B$12
-                r.Cells[3].Value = C[i].AddDays((H[i] - G[i]) * dic["ReliabilityFactor"] +
-                    (J[i] - I[i]) * dic["PerformanceFactor"] + (K[i] - L[i]) * dic["SizeFactor"]);
-
-                i++;
-            }
         }
 
         public override void Save(DataGridView dataGridView1)
