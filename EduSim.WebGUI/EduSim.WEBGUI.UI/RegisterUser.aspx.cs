@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using EduSim.CoreFramework.DTO;
 using System.Net;
 using System.Net.Sockets;
+using EduSim.CoreFramework.BusinessLayer;
 
 namespace EduSim.WebGUI.UI
 {
@@ -27,46 +28,50 @@ namespace EduSim.WebGUI.UI
 
         protected void Button1_Click(object sender, EventArgs e)
         {
+            if (ValidateFormData())
+            {
+                UserDetails user = new UserDetails()
+                {
+                    Email = txtEmail.Text,
+                    Password = txtPassword.Text,
+                    Role = Role.Player.ToString(),
+                    Try = true,
+                    GameCount = 0
+                };
+
+                RegistrationManager.ProcessRegistration(user);
+                lblMessage.Text = string.Empty;
+            }
+        }
+
+        private bool ValidateFormData()
+        {
             if (!CaptchaControl1.UserValidated)
             {
-                return;
+                return false;
             }
-            if (txtEmail.Text.Equals(string.Empty ) )
+            if (txtEmail.Text.Equals(string.Empty))
             {
                 lblMessage.Text = "Email cannot be empty";
-                return;
+                return false;
             }
             if (!IsEmail(txtEmail.Text))
             {
                 lblMessage.Text = "Invalid Email";
-                return;
+                return false;
             }
             if (txtPassword.Text.Equals(string.Empty))
             {
                 lblMessage.Text = "Password cannot be empty";
-                return;
+                return false;
             }
             if (!txtPassword.Text.Equals(txtConfirm.Text))
             {
                 lblMessage.Text = "Password should match";
-                return;
+                return false;
             }
 
-            UserDetails user = new UserDetails()
-            {
-                Email = txtEmail.Text,
-                Password = txtPassword.Text,
-                Role = Role.Player.ToString(),
-                Try = true,
-                GameCount = 0
-            };
-
-            Edusim db = new Edusim();
-
-            db.UserDetails.InsertOnSubmit(user);
-
-            db.SubmitChanges();
-            lblMessage.Text = string.Empty;
+            return true;
         }
 
         private bool IsEmail(string address)
