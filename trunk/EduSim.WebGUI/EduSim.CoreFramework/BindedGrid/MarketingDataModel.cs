@@ -53,7 +53,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
         public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c)
         {
-            int colIndex = c.ColumnIndex - 1;
+            int colIndex = c.ColumnIndex;
             double unitCost = dataGridView1.Rows[2].Cells[colIndex].Value.ToDouble2();
             double salesExpense = dataGridView1.Rows[4].Cells[colIndex].Value.ToDouble2();
             double marketingExpense = dataGridView1.Rows[6].Cells[colIndex].Value.ToDouble2();

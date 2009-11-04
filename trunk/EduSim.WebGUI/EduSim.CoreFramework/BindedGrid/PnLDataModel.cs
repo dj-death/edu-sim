@@ -19,19 +19,23 @@ namespace EduSim.WebGUI.UI.BindedGrid
             Dictionary<string, MarketingDataView> marketingData = GetData<MarketingDataView>(SessionConstants.MarketingData);
             Dictionary<string, ProductionDataView> productionData = GetData<ProductionDataView>(SessionConstants.ProductionData);
 
-            dataGridView1.Columns.Add("Description", "Description");
-            foreach (string col in rndData.Keys)
-            {
-                dataGridView1.Columns.Add(col, col);
-            }
 
-            AddRow<MarketingDataView>(marketingData, rndData.Keys, dataGridView1, "ProjectedSales");
-            AddRow<ProductionDataView>(productionData, rndData.Keys, dataGridView1, "LabourCost");
-            AddRow<ProductionDataView>(productionData, rndData.Keys, dataGridView1, "AutomationCost");
-            AddRow<ProductionDataView>(productionData, rndData.Keys, dataGridView1, "NewCapacityCost");
-            AddRow<RnDDataView>(rndData, rndData.Keys, dataGridView1, "RnDCost");
-            AddRow<MarketingDataView>(marketingData, rndData.Keys, dataGridView1, "SalesExpense");
-            AddRow<MarketingDataView>(marketingData, rndData.Keys, dataGridView1, "MarketingExpense");
+            dataGridView1.Columns.Add("Description", "Description");
+            Edusim db = new Edusim();
+
+            List<string> products = (from rp in db.RoundProduct
+                                     where rp.Round == round
+                                     select rp.ProductName).ToList<string>();
+            
+            products.ForEach(o => dataGridView1.Columns.Add(o, o) );
+
+            AddRow<MarketingDataView>(marketingData, products, dataGridView1, "ProjectedSales");
+            AddRow<ProductionDataView>(productionData, products, dataGridView1, "LabourCost");
+            AddRow<ProductionDataView>(productionData, products, dataGridView1, "AutomationCost");
+            AddRow<ProductionDataView>(productionData, products, dataGridView1, "NewCapacityCost");
+            AddRow<RnDDataView>(rndData, products, dataGridView1, "RnDCost");
+            AddRow<MarketingDataView>(marketingData, products, dataGridView1, "SalesExpense");
+            AddRow<MarketingDataView>(marketingData, products, dataGridView1, "MarketingExpense");
         }
 
         private void AddRow<T>(Dictionary<string, T> data, IEnumerable<string> products, DataGridView dataGridView1, string p)

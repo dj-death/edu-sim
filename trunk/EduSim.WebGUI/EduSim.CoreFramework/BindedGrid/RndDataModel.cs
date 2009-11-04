@@ -57,6 +57,11 @@ namespace EduSim.WebGUI.UI.BindedGrid
                 rs.ToList<RnDDataView>().ForEach(o =>
                     {
                         dic[o.ProductName] = o;
+                    });
+            }
+
+            dic.Values.ToList<RnDDataView>().ForEach(o => 
+            {
                         C.Add(o.PreviousRevisionDate);
                         D.Add(o.RevisionDate);
                         E.Add(o.PreviousAge);
@@ -69,7 +74,6 @@ namespace EduSim.WebGUI.UI.BindedGrid
                         L.Add(o.Size);
                         M.Add(o.RnDCost);
                     });
-            }
 
             DataTable table = dic.Values.ToDataTable<RnDDataView>(null).Transpose();
 
