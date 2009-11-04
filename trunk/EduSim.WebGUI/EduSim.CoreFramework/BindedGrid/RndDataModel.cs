@@ -33,10 +33,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
                 Edusim db = new Edusim();
                 IQueryable<RnDDataView> rs = from r in db.RnDData
                                              join rp in db.RoundProduct on r.RoundProduct equals rp
-                                             join rd in db.Round on rp.Round equals rd
-                                             join t in db.TeamGame on rd.TeamGame equals t
-                                             join tu in db.TeamUser on t.TeamId equals tu.Id
-                                             where rd.Id == round.Id && tu.UserDetails == user
+                                             where rp.Round == round
                                              select new RnDDataView()
                                               {
                                                   ProductName = rp.ProductName,

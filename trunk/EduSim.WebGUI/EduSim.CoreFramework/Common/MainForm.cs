@@ -289,11 +289,12 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
             Edusim db = new Edusim();
 
-            (from g in db.Game
-             join tg in db.TeamGame on g.Id equals tg.GameId
-             join tu in db.TeamUser on tg.TeamId equals tu.UserId
-             where tu.UserDetails == user
-             select g).ToList<Game>().ForEach(o =>
+            IQueryable<Game> gm = from g in db.Game
+                                  join tg in db.TeamGame on g.Id equals tg.GameId
+                                  join tu in db.TeamUser on tg.TeamId equals tu.TeamId
+                                  where tu.UserDetails == user
+                                  select g;
+            gm.ToList<Game>().ForEach(o =>
             {
                 CategoryNode catNode = simulationHandle.AddCategory(o.Id.ToString());
 
