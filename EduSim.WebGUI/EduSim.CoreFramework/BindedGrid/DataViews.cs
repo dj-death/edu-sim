@@ -46,6 +46,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
         public double TotalQuantity { get; set; }
         public double ManufacturedQuantity { get; set; }
         public double MaterialCost { get; set; }
+        public double LabourRate { get; set; }
         public double LabourCost { get; set; }
         public double ContributionMargin { get; set; }
         public double SecondShift { get; set; }
