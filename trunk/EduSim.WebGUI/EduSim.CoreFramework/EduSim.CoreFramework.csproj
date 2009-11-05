@@ -87,6 +87,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindedGrid\FinanceDataModel.cs" />
     <Compile Include="BindedGrid\DataViews.cs" />
     <Compile Include="BindedGrid\FinanceDataGridView.cs">
       <SubType>UserControl</SubType>
