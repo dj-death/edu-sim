@@ -8,6 +8,7 @@ using EduSim.CoreFramework.DTO;
 using System.Net;
 using System.Net.Sockets;
 using EduSim.CoreFramework.BusinessLayer;
+using System.Text.RegularExpressions;
 
 namespace EduSim.WebGUI.UI
 {
@@ -60,6 +61,16 @@ namespace EduSim.WebGUI.UI
                 lblMessage.Text = "Invalid Email";
                 return false;
             }
+            Edusim db = new Edusim();
+            int count = (from u in db.UserDetails
+                         where u.Email.Equals(txtEmail.Text)
+                         select u).Count<UserDetails>();
+            if (count > 0)
+            {
+                lblMessage.Text = "User already exists";
+                return false;
+            }
+
             if (txtPassword.Text.Equals(string.Empty))
             {
                 lblMessage.Text = "Password cannot be empty";
@@ -74,24 +85,22 @@ namespace EduSim.WebGUI.UI
             return true;
         }
 
-        private bool IsEmail(string address)
+        private bool IsEmail(string inputEmail)
         {
-            try
-            {
-                string[] host = (address.Split('@'));
-                string hostname = host[1];
+            inputEmail = NulltoString(inputEmail);
+            string strRegex = @"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}" +
+                  @"\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\" +
+                  @".)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$";
+            Regex re = new Regex(strRegex);
+            if (re.IsMatch(inputEmail))
+                return (true);
+            else
+                return (false);
+        }
 
-                IPHostEntry IPhst = Dns.Resolve(hostname);
-                IPEndPoint endPt = new IPEndPoint(IPhst.AddressList[0], 25);
-                Socket s = new Socket(endPt.AddressFamily,
-                        SocketType.Stream, ProtocolType.Tcp);
-                s.Connect(endPt);
-                return true;
-            }
-            catch (Exception)
-            {
-                return false;
-            }
+        private string NulltoString(string inputEmail)
+        {
+            return inputEmail == null ? string.Empty : inputEmail;
         }
     }
 }
