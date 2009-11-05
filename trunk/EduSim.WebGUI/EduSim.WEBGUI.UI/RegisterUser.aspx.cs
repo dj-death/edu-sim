@@ -12,9 +12,9 @@ using System.Text.RegularExpressions;
 
 namespace EduSim.WebGUI.UI
 {
-    //TODO: When the user is registered, automatically create a Try Game
-    //TODO: Disable all reports except P&L
-    //TODO: Create computer Data
+    //When the user is registered, automatically create a Try Game
+    //Disable all reports except P&L
+    //Create computer Data
     //TODO: Analyse the player data to Computer data
     //TODO: Improve on the Homepage
     //Create a contact mail 
