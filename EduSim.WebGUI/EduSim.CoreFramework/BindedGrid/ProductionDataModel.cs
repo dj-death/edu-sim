@@ -129,7 +129,6 @@ namespace EduSim.WebGUI.UI.BindedGrid
             O[i] = dataGridView1.Rows[14].Cells[c.ColumnIndex].Value.ToDouble2(); 
 
             //Utilization: =$Q$10/$S$5
-            //TODO: We need to get the labour list
             R[i] = workerRequired / ld.NumberOfLabour;
             dataGridView1.Rows[17].Cells[c.ColumnIndex].Value = R[i].ToString("###0.00");
 

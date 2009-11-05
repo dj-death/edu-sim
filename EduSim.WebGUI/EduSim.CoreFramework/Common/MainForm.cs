@@ -26,6 +26,14 @@ namespace Gizmox.WebGUI.Forms.Catalog
     //When the user logs in identify which team he belongs and which stage of the game he is playing
     //First round of the game you start with 5 products
     //During of the span of 8 games, you can create a maximum of 8 products
+    //TODO: Fix the following bug like
+    //      with negative value like Capacity sold is at depreciated value
+    //      reduce of performance, reliability, size also cost money
+    //TODO: Change the name of the products, dont make it look like the Competators products
+    //TODO: Implement the Financials Data,
+    //TODO: Allow the user to save the RnD, Production, Marketing and Financials Data and also Add new product and Save
+    //TODO: Format the PnL reports with Dollars
+    //TODO: Implement Balance Sheet, Cash Flow and Balance Scorecard
     [Serializable()]
 	public class MainForm : BaseForm
     {
