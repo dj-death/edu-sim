@@ -147,6 +147,21 @@ namespace EduSim.WebGUI.UI
                                                     db.ProductionData.InsertOnSubmit(pd);
                                                 }
                                                 );
+
+            (from g in db.GameInitialFinanceData
+             select g).ToList<GameInitialFinanceData>().ForEach(o1 =>
+                 {
+                     FinanceData fd = new FinanceData()
+                     {
+                         Round = round,
+                         Cash = o1.Cash,
+                         PreviousLongTermLoan = o1.PreviousLongTermLoan,
+                         LongTermLoan = o1.LongTermLoan,
+                         PreviousShortTermLoan = o1.PreviousShortTermLoan,
+                         ShortTermLoan = o1.ShortTermLoan
+                     };
+                     db.FinanceData.InsertOnSubmit(fd);
+                 });
         }
 
         public static void FillGameDetails(CheckedListBox control, BrixDataEntry dataEntry, DataTable table)

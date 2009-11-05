@@ -12,6 +12,7 @@ namespace EduSim.CoreFramework.Common
         public static string RnDData = "RnDData";
         public static string MarketingData = "MarketingData";
         public static string ProductionData = "ProductionData";
+        public static string FinanceData = "FinanceData";
     }
 
     public class TabConstants

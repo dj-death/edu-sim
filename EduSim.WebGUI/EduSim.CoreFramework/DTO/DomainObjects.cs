@@ -209,6 +209,14 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
+        public System.Data.Linq.Table<GameInitialFinanceData> GameInitialFinanceData
+        {
+            get
+            {
+                return this.GetTable<GameInitialFinanceData>();
+            }
+        }
+
         public System.Data.Linq.Table<LabourData> LabourData
         {
             get
@@ -390,8 +398,6 @@ namespace EduSim.CoreFramework.DTO
 
         private System.Nullable<double> _Rating;
 
-        private bool _Purchased;
-
         private EntityRef<ComputerRoundProduct> _ComputerRoundProduct;
 
         #region Extensibility Method Definitions
@@ -420,8 +426,6 @@ namespace EduSim.CoreFramework.DTO
         partial void OnPurchasedQuantityChanged();
         partial void OnRatingChanging(System.Nullable<double> value);
         partial void OnRatingChanged();
-        partial void OnPurchasedChanging(bool value);
-        partial void OnPurchasedChanged();
         #endregion
 
         public ComputerMarketingData()
@@ -654,26 +658,6 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_Purchased", DbType = "Bit NOT NULL")]
-        public bool Purchased
-        {
-            get
-            {
-                return this._Purchased;
-            }
-            set
-            {
-                if ((this._Purchased != value))
-                {
-                    this.OnPurchasedChanging(value);
-                    this.SendPropertyChanging();
-                    this._Purchased = value;
-                    this.SendPropertyChanged("Purchased");
-                    this.OnPurchasedChanged();
-                }
-            }
-        }
-
         [Association(Name = "FK_ComputerMarketingData_ComputerRoundProduct", Storage = "_ComputerRoundProduct", ThisKey = "ComputerRoundProductId", OtherKey = "Id", IsForeignKey = true)]
         public ComputerRoundProduct ComputerRoundProduct
         {
@@ -741,19 +725,31 @@ namespace EduSim.CoreFramework.DTO
 
         private double _ManufacturedQuantity;
 
+        private System.Nullable<double> _MaterialCost;
+
+        private System.Nullable<double> _LabourRate;
+
+        private System.Nullable<double> _LabourCost;
+
         private System.Nullable<double> _Contribution;
+
+        private System.Nullable<double> _SecondShift;
 
         private double _CurrentAutomation;
 
         private System.Nullable<double> _AutomationForNextRound;
 
+        private System.Nullable<double> _AutomationCost;
+
         private double _OldCapacity;
 
         private System.Nullable<double> _NewCapacity;
 
-        private System.Nullable<double> _PreviousNumberOfLabour;
+        private System.Nullable<double> _CapacityCost;
 
         private System.Nullable<double> _NumberOfLabour;
+
+        private System.Nullable<double> _Utilization;
 
         private EntityRef<ComputerRoundProduct> _ComputerRoundProduct;
 
@@ -767,20 +763,32 @@ namespace EduSim.CoreFramework.DTO
         partial void OnInventoryChanged();
         partial void OnManufacturedQuantityChanging(double value);
         partial void OnManufacturedQuantityChanged();
+        partial void OnMaterialCostChanging(System.Nullable<double> value);
+        partial void OnMaterialCostChanged();
+        partial void OnLabourRateChanging(System.Nullable<double> value);
+        partial void OnLabourRateChanged();
+        partial void OnLabourCostChanging(System.Nullable<double> value);
+        partial void OnLabourCostChanged();
         partial void OnContributionChanging(System.Nullable<double> value);
         partial void OnContributionChanged();
+        partial void OnSecondShiftChanging(System.Nullable<double> value);
+        partial void OnSecondShiftChanged();
         partial void OnCurrentAutomationChanging(double value);
         partial void OnCurrentAutomationChanged();
         partial void OnAutomationForNextRoundChanging(System.Nullable<double> value);
         partial void OnAutomationForNextRoundChanged();
+        partial void OnAutomationCostChanging(System.Nullable<double> value);
+        partial void OnAutomationCostChanged();
         partial void OnOldCapacityChanging(double value);
         partial void OnOldCapacityChanged();
         partial void OnNewCapacityChanging(System.Nullable<double> value);
         partial void OnNewCapacityChanged();
-        partial void OnPreviousNumberOfLabourChanging(System.Nullable<double> value);
-        partial void OnPreviousNumberOfLabourChanged();
+        partial void OnCapacityCostChanging(System.Nullable<double> value);
+        partial void OnCapacityCostChanged();
         partial void OnNumberOfLabourChanging(System.Nullable<double> value);
         partial void OnNumberOfLabourChanged();
+        partial void OnUtilizationChanging(System.Nullable<double> value);
+        partial void OnUtilizationChanged();
         #endregion
 
         public ComputerProductionData()
@@ -853,6 +861,66 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
+        [Column(Storage = "_MaterialCost", DbType = "Float")]
+        public System.Nullable<double> MaterialCost
+        {
+            get
+            {
+                return this._MaterialCost;
+            }
+            set
+            {
+                if ((this._MaterialCost != value))
+                {
+                    this.OnMaterialCostChanging(value);
+                    this.SendPropertyChanging();
+                    this._MaterialCost = value;
+                    this.SendPropertyChanged("MaterialCost");
+                    this.OnMaterialCostChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_LabourRate", DbType = "Float")]
+        public System.Nullable<double> LabourRate
+        {
+            get
+            {
+                return this._LabourRate;
+            }
+            set
+            {
+                if ((this._LabourRate != value))
+                {
+                    this.OnLabourRateChanging(value);
+                    this.SendPropertyChanging();
+                    this._LabourRate = value;
+                    this.SendPropertyChanged("LabourRate");
+                    this.OnLabourRateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_LabourCost", DbType = "Float")]
+        public System.Nullable<double> LabourCost
+        {
+            get
+            {
+                return this._LabourCost;
+            }
+            set
+            {
+                if ((this._LabourCost != value))
+                {
+                    this.OnLabourCostChanging(value);
+                    this.SendPropertyChanging();
+                    this._LabourCost = value;
+                    this.SendPropertyChanged("LabourCost");
+                    this.OnLabourCostChanged();
+                }
+            }
+        }
+
         [Column(Storage = "_Contribution", DbType = "Float")]
         public System.Nullable<double> Contribution
         {
@@ -869,6 +937,26 @@ namespace EduSim.CoreFramework.DTO
                     this._Contribution = value;
                     this.SendPropertyChanged("Contribution");
                     this.OnContributionChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_SecondShift", DbType = "Float")]
+        public System.Nullable<double> SecondShift
+        {
+            get
+            {
+                return this._SecondShift;
+            }
+            set
+            {
+                if ((this._SecondShift != value))
+                {
+                    this.OnSecondShiftChanging(value);
+                    this.SendPropertyChanging();
+                    this._SecondShift = value;
+                    this.SendPropertyChanged("SecondShift");
+                    this.OnSecondShiftChanged();
                 }
             }
         }
@@ -913,6 +1001,26 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
+        [Column(Storage = "_AutomationCost", DbType = "Float")]
+        public System.Nullable<double> AutomationCost
+        {
+            get
+            {
+                return this._AutomationCost;
+            }
+            set
+            {
+                if ((this._AutomationCost != value))
+                {
+                    this.OnAutomationCostChanging(value);
+                    this.SendPropertyChanging();
+                    this._AutomationCost = value;
+                    this.SendPropertyChanged("AutomationCost");
+                    this.OnAutomationCostChanged();
+                }
+            }
+        }
+
         [Column(Storage = "_OldCapacity", DbType = "Float NOT NULL")]
         public double OldCapacity
         {
@@ -953,22 +1061,22 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_PreviousNumberOfLabour", DbType = "Float")]
-        public System.Nullable<double> PreviousNumberOfLabour
+        [Column(Storage = "_CapacityCost", DbType = "Float")]
+        public System.Nullable<double> CapacityCost
         {
             get
             {
-                return this._PreviousNumberOfLabour;
+                return this._CapacityCost;
             }
             set
             {
-                if ((this._PreviousNumberOfLabour != value))
+                if ((this._CapacityCost != value))
                 {
-                    this.OnPreviousNumberOfLabourChanging(value);
+                    this.OnCapacityCostChanging(value);
                     this.SendPropertyChanging();
-                    this._PreviousNumberOfLabour = value;
-                    this.SendPropertyChanged("PreviousNumberOfLabour");
-                    this.OnPreviousNumberOfLabourChanged();
+                    this._CapacityCost = value;
+                    this.SendPropertyChanged("CapacityCost");
+                    this.OnCapacityCostChanged();
                 }
             }
         }
@@ -989,6 +1097,26 @@ namespace EduSim.CoreFramework.DTO
                     this._NumberOfLabour = value;
                     this.SendPropertyChanged("NumberOfLabour");
                     this.OnNumberOfLabourChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Utilization", DbType = "Float")]
+        public System.Nullable<double> Utilization
+        {
+            get
+            {
+                return this._Utilization;
+            }
+            set
+            {
+                if ((this._Utilization != value))
+                {
+                    this.OnUtilizationChanging(value);
+                    this.SendPropertyChanging();
+                    this._Utilization = value;
+                    this.SendPropertyChanged("Utilization");
+                    this.OnUtilizationChanged();
                 }
             }
         }
@@ -2916,6 +3044,123 @@ namespace EduSim.CoreFramework.DTO
             if ((this.PropertyChanged != null))
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.GameInitialFinanceData")]
+    public partial class GameInitialFinanceData
+    {
+
+        private int _Id;
+
+        private double _Cash;
+
+        private System.Nullable<double> _PreviousLongTermLoan;
+
+        private double _LongTermLoan;
+
+        private System.Nullable<double> _PreviousShortTermLoan;
+
+        private double _ShortTermLoan;
+
+        public GameInitialFinanceData()
+        {
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.Always, DbType = "Int NOT NULL IDENTITY", IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this._Id = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_Cash", DbType = "Float NOT NULL")]
+        public double Cash
+        {
+            get
+            {
+                return this._Cash;
+            }
+            set
+            {
+                if ((this._Cash != value))
+                {
+                    this._Cash = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousLongTermLoan", DbType = "Float")]
+        public System.Nullable<double> PreviousLongTermLoan
+        {
+            get
+            {
+                return this._PreviousLongTermLoan;
+            }
+            set
+            {
+                if ((this._PreviousLongTermLoan != value))
+                {
+                    this._PreviousLongTermLoan = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_LongTermLoan", DbType = "Float NOT NULL")]
+        public double LongTermLoan
+        {
+            get
+            {
+                return this._LongTermLoan;
+            }
+            set
+            {
+                if ((this._LongTermLoan != value))
+                {
+                    this._LongTermLoan = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousShortTermLoan", DbType = "Float")]
+        public System.Nullable<double> PreviousShortTermLoan
+        {
+            get
+            {
+                return this._PreviousShortTermLoan;
+            }
+            set
+            {
+                if ((this._PreviousShortTermLoan != value))
+                {
+                    this._PreviousShortTermLoan = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_ShortTermLoan", DbType = "Float NOT NULL")]
+        public double ShortTermLoan
+        {
+            get
+            {
+                return this._ShortTermLoan;
+            }
+            set
+            {
+                if ((this._ShortTermLoan != value))
+                {
+                    this._ShortTermLoan = value;
+                }
             }
         }
     }

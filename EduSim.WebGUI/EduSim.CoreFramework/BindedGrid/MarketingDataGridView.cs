@@ -40,7 +40,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             // This call is required by the WebGUI Form Designer.
             InitializeComponent();
 
-
             rdm = Activator.CreateInstance<MarketingDataModel>() ;
 
             rdm.GetList(this.dataGridView1);
