@@ -162,6 +162,20 @@ namespace EduSim.WebGUI.UI
                      };
                      db.FinanceData.InsertOnSubmit(fd);
                  });
+
+            (from g in db.LabourGameInitialData
+             select g).ToList<LabourGameInitialData>().ForEach(o1 =>
+                 {
+                     LabourData ld = new LabourData()
+                     {
+                         Round = round,
+                         PreviousRate = o1.PreviousRate,
+                         PreviousNumberOfLabour = o1.PreviousNumberOfLabour,
+                         Rate = o1.PreviousRate,
+                         NumberOfLabour = o1.PreviousNumberOfLabour
+                     };
+                     db.LabourData.InsertOnSubmit(ld);
+                 });
         }
 
         public static void FillGameDetails(CheckedListBox control, BrixDataEntry dataEntry, DataTable table)
