@@ -16,6 +16,7 @@ using EduSim.CoreFramework.DTO;
 using EduSim.CoreUtilities.Utility;
 using Gizmox.WebGUI.Forms.Catalog.Categories.DataControls;
 using EduSim.WebGUI.UI.BindedGrid;
+using EduSim.CoreFramework.Utilities;
 
 
 namespace Gizmox.WebGUI.Forms.Catalog
@@ -30,10 +31,10 @@ namespace Gizmox.WebGUI.Forms.Catalog
     //      with negative value like Capacity sold is at depreciated value
     //      reduce of performance, reliability, size also cost money
     //TODO: Change the name of the products, dont make it look like the Competators products
-    //TODO: Implement the Financials Data,
+    //Implement the Financials Data,
     //TODO: Allow the user to save the RnD, Production, Marketing and Financials Data and also Add new product and Save
     //TODO: Format the PnL reports with Dollars
-    //TODO: Implement Balance Sheet, Cash Flow and Balance Scorecard
+    //TODO: Implement Balance Sheet, Cash Flow and Balance Scorecarda
     [Serializable()]
 	public class MainForm : BaseForm
     {
@@ -318,6 +319,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
              where tu.UserId == user.Id && r.TeamGame.GameId == gameId
              select r).ToList<Round>().ForEach(o =>
                                               {
+                                                  SetSessionData(o);
                                                   CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id);
                                                   catNode1.AddCategory("R&D", typeof(RnDDataGridView), typeof(RnDDataModel), "ListView.gif" );
                                                   catNode1.AddCategory("Marketing", typeof(MarketingDataGridView), "ListView.gif");
@@ -330,6 +332,14 @@ namespace Gizmox.WebGUI.Forms.Catalog
                                                   catNode2.AddCategory("Balance Scorecard", "Disable.gif");
                                               }
                                               );
+        }
+
+        private void SetSessionData(Round o)
+        {
+            SessionManager.SetRnDDataToSession(SessionConstants.RnDData, o);
+            SessionManager.SetMarketingDataToSession(SessionConstants.MarketingData, o);
+            SessionManager.SetProductionDataToSession(SessionConstants.ProductionData, o);
+            SessionManager.SetFinanceDataToSession(SessionConstants.FinanceData, o);
         }
 
         private string GetMeaningOfLifeFromSecureDatabase()

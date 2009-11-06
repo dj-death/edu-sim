@@ -26,36 +26,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
         
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, RnDDataView> dic = GetData<RnDDataView>(SessionConstants.RnDData);
-
-            if (dic.Count == 0)
-            {
-                Edusim db = new Edusim();
-                IQueryable<RnDDataView> rs = from r in db.RnDData
-                                             join rp in db.RoundProduct on r.RoundProduct equals rp
-                                             where rp.Round == round
-                                             select new RnDDataView()
-                                              {
-                                                  ProductName = rp.ProductName,
-                                                  ProductCategory = rp.SegmentType.Description,
-                                                  PreviousRevisionDate = r.PreviousRevisionDate,
-                                                  RevisionDate = r.PreviousRevisionDate,
-                                                  PreviousAge = r.PreviousAge,
-                                                  Age = r.PreviousAge,
-                                                  PreviousReliability = r.PreviousReliability,
-                                                  Reliability = r.PreviousReliability,
-                                                  PreviousPerformance = r.PreviousPerformance,
-                                                  Performance = r.PreviousPerformance,
-                                                  PreviousSize = r.PreviousSize,
-                                                  Size = r.PreviousSize,
-                                                  RnDCost = 0.0
-                                              };
-
-                rs.ToList<RnDDataView>().ForEach(o =>
-                    {
-                        dic[o.ProductName] = o;
-                    });
-            }
+            Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(SessionConstants.RnDData);
 
             dic.Values.ToList<RnDDataView>().ForEach(o => 
             {
