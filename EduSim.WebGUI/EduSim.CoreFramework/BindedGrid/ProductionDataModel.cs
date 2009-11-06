@@ -32,43 +32,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, ProductionDataView> dic = GetData<ProductionDataView>(SessionConstants.ProductionData);
-
-            if (dic.Count == 0)
-            {
-                Edusim db = new Edusim();
-                IQueryable<ProductionDataView> rs = from p in db.ProductionData
-                                                    join rp in db.RoundProduct on p.RoundProduct equals rp
-                                                    join m in db.MarketingData on p.RoundProduct equals m.RoundProduct
-                                                    where rp.Round == round
-                                                    select new ProductionDataView()
-                                                   {
-                                                       ProductName = rp.ProductName,
-                                                       ProductCategory = rp.SegmentType.Description,
-                                                       Inventory = p.Inventory,
-                                                       ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0,
-                                                       TotalQuantity = p.Inventory + (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0),
-                                                       ManufacturedQuantity = p.ManufacturedQuantity,
-                                                       MaterialCost = 0,
-                                                       LabourRate = 0,
-                                                       ContributionMargin = p.Contribution.HasValue ? p.Contribution.Value : 0.0,
-                                                       SecondShift = 0.0,
-                                                       OldAutomation = p.CurrentAutomation,
-                                                       NewAutomation = p.AutomationForNextRound.HasValue ? p.AutomationForNextRound.Value : p.CurrentAutomation,
-                                                       AutomationCost = 0.0,
-                                                       Capacity = p.OldCapacity,
-                                                       NewCapacity = p.NewCapacity.HasValue ? p.NewCapacity.Value : 0.0,
-                                                       NewCapacityCost = 0,
-                                                       NumberOfLabour = 0,
-                                                       Utilization = 0,
-                                                       LabourCost = 0,
-                                                   };
-
-                rs.ToList<ProductionDataView>().ForEach(o =>
-                    {
-                        dic[o.ProductName] = o;
-                    });
-            }
+            Dictionary<string, ProductionDataView> dic = RoundDataModel.GetData<ProductionDataView>(SessionConstants.ProductionData);
 
             dic.Values.ToList<ProductionDataView>().ForEach(o =>
             {

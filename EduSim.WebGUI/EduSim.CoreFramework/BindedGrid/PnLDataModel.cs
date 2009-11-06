@@ -6,6 +6,7 @@ using EduSim.CoreFramework.Common;
 using EduSim.CoreFramework.DTO;
 using Gizmox.WebGUI.Forms;
 using System.Reflection;
+using EduSim.CoreUtilities.Utility;
 
 namespace EduSim.WebGUI.UI.BindedGrid
 {
@@ -18,6 +19,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
             Dictionary<string, RnDDataView> rndData = GetData<RnDDataView>(SessionConstants.RnDData);
             Dictionary<string, MarketingDataView> marketingData = GetData<MarketingDataView>(SessionConstants.MarketingData);
             Dictionary<string, ProductionDataView> productionData = GetData<ProductionDataView>(SessionConstants.ProductionData);
+            Dictionary<string, FinanceDataView> financeData = GetData<FinanceDataView>(SessionConstants.FinanceData);
 
 
             dataGridView1.Columns.Add("Description", "Description");
@@ -31,11 +33,63 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
             AddRow<MarketingDataView>(marketingData, products, dataGridView1, "ProjectedSales");
             AddRow<ProductionDataView>(productionData, products, dataGridView1, "LabourCost");
+            AddRow<ProductionDataView>(productionData, products, dataGridView1, "MaterialCost");
             AddRow<ProductionDataView>(productionData, products, dataGridView1, "AutomationCost");
             AddRow<ProductionDataView>(productionData, products, dataGridView1, "NewCapacityCost");
             AddRow<RnDDataView>(rndData, products, dataGridView1, "RnDCost");
             AddRow<MarketingDataView>(marketingData, products, dataGridView1, "SalesExpense");
             AddRow<MarketingDataView>(marketingData, products, dataGridView1, "MarketingExpense");
+            AddRowForDepreciation(productionData, products, dataGridView1);
+            AddRowForGeneralAndAdministration(financeData, products, dataGridView1);
+            AddRowForEbit(products, dataGridView1);
+            AddRowForContributionMargin(productionData, products, dataGridView1);
+            AddRowForInterestAndTax(financeData, products, dataGridView1);
+            AddRowForProfitSharing(products, dataGridView1);
+            AddRowForNetProfit(products, dataGridView1);
+        }
+
+        private void AddRowForNetProfit(List<string> products, DataGridView dataGridView1)
+        {
+        }
+
+        private void AddRowForProfitSharing(List<string> products, DataGridView dataGridView1)
+        {
+        }
+
+        private void AddRowForContributionMargin(Dictionary<string, ProductionDataView> productionData, List<string> products, DataGridView dataGridView1)
+        {
+        }
+
+        private void AddRowForEbit(List<string> products, DataGridView dataGridView1)
+        {
+        }
+
+        private void AddRowForGeneralAndAdministration(Dictionary<string, FinanceDataView> financeData, List<string> products, DataGridView dataGridView1)
+        {
+        }
+
+        private void AddRowForInterestAndTax(Dictionary<string, FinanceDataView> financeData, List<string> products, DataGridView dataGridView1)
+        {
+        }
+
+        private void AddRowForDepreciation(Dictionary<string, ProductionDataView> productionData, List<string> products, DataGridView dataGridView1)
+        {
+            //Get the Plant capacity and Cost per Plant
+            //Calculate the total cost
+            //Depreciate it by 10%
+            DataGridViewRow r = new DataGridViewRow();
+
+            DataGridViewCell t = new DataGridViewTextBoxCell();
+            t.Value = "Depreciation";
+            r.Cells.Add(t);
+
+            foreach (string str in products)
+            {
+                DataGridViewCell t1 = new DataGridViewTextBoxCell();
+
+                t1.Value = (productionData[str].Capacity * configurationInfo["CapacityCost"] * 0.1).ToString("$###0.00");
+            }
+            dataGridView1.Rows.Add(r);
         }
 
         private void AddRow<T>(Dictionary<string, T> data, IEnumerable<string> products, DataGridView dataGridView1, string p)
@@ -54,11 +108,11 @@ namespace EduSim.WebGUI.UI.BindedGrid
                     T dat = data[str];
                     PropertyInfo prop = dat.GetType().GetProperty(p);
 
-                    t1.Value = prop.GetValue(dat, null);
+                    t1.Value = prop.GetValue(dat, null).ToDouble2().ToString("$###0.00");
                 }
                 else
                 {
-                    t1.Value = 0.0;
+                    t1.Value = (0.0).ToString("$###0.00");
                 }
                 r.Cells.Add(t1);
             }

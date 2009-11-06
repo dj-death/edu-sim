@@ -14,30 +14,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
     {
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, MarketingDataView> dic = GetData<MarketingDataView>("MarketingData");
-
-            if (dic.Count == 0)
-            {
-                Edusim db = new Edusim();
-                (from m in db.MarketingData
-                 join rp in db.RoundProduct on m.RoundProduct equals rp
-                 where rp.Round == round
-                 select new MarketingDataView()
-                 {
-                     ProductName = rp.ProductName,
-                     ProductCategory = rp.SegmentType.Description,
-                     PreviousUnitPrice = m.PreviousPrice,
-                     UnitPrice = m.Price.HasValue ? m.Price.Value : 0.0,
-                     PreviousSalesExpense = m.PreviousSaleExpense,
-                     SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : 0.0,
-                     PreviousMarketingExpense = m.PreviousMarketingExpense,
-                     MarketingExpense = m.MarketingExpense.HasValue ? m.MarketingExpense.Value : 0.0,
-                     PreviousForecastingQuantity = m.PreviousForecastingQuantity,
-                     ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0,
-                     ProjectedSales = 0.0
-                 }).ToList<MarketingDataView>().ForEach(o => dic[o.ProductName] = o);
-            }
-
+            Dictionary<string, MarketingDataView> dic = GetData<MarketingDataView>(SessionConstants.MarketingData);
             DataTable table = dic.Values.ToDataTable<MarketingDataView>(null).Transpose();
 
             dataGridView1.DataSource = table;

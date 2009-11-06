@@ -1830,11 +1830,11 @@ namespace EduSim.CoreFramework.DTO
 
         private double _Cash;
 
-        private System.Nullable<double> _PreviousLongTermLoan;
+        private double _PreviousLongTermLoan;
 
         private double _LongTermLoan;
 
-        private System.Nullable<double> _PreviousShortTermLoan;
+        private double _PreviousShortTermLoan;
 
         private double _ShortTermLoan;
 
@@ -1850,11 +1850,11 @@ namespace EduSim.CoreFramework.DTO
         partial void OnRoundIdChanged();
         partial void OnCashChanging(double value);
         partial void OnCashChanged();
-        partial void OnPreviousLongTermLoanChanging(System.Nullable<double> value);
+        partial void OnPreviousLongTermLoanChanging(double value);
         partial void OnPreviousLongTermLoanChanged();
         partial void OnLongTermLoanChanging(double value);
         partial void OnLongTermLoanChanged();
-        partial void OnPreviousShortTermLoanChanging(System.Nullable<double> value);
+        partial void OnPreviousShortTermLoanChanging(double value);
         partial void OnPreviousShortTermLoanChanged();
         partial void OnShortTermLoanChanging(double value);
         partial void OnShortTermLoanChanged();
@@ -1930,8 +1930,8 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_PreviousLongTermLoan", DbType = "Float")]
-        public System.Nullable<double> PreviousLongTermLoan
+        [Column(Storage = "_PreviousLongTermLoan", DbType = "Float NOT NULL")]
+        public double PreviousLongTermLoan
         {
             get
             {
@@ -1970,8 +1970,8 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_PreviousShortTermLoan", DbType = "Float")]
-        public System.Nullable<double> PreviousShortTermLoan
+        [Column(Storage = "_PreviousShortTermLoan", DbType = "Float NOT NULL")]
+        public double PreviousShortTermLoan
         {
             get
             {
@@ -3056,11 +3056,11 @@ namespace EduSim.CoreFramework.DTO
 
         private double _Cash;
 
-        private System.Nullable<double> _PreviousLongTermLoan;
+        private double _PreviousLongTermLoan;
 
         private double _LongTermLoan;
 
-        private System.Nullable<double> _PreviousShortTermLoan;
+        private double _PreviousShortTermLoan;
 
         private double _ShortTermLoan;
 
@@ -3100,8 +3100,8 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_PreviousLongTermLoan", DbType = "Float")]
-        public System.Nullable<double> PreviousLongTermLoan
+        [Column(Storage = "_PreviousLongTermLoan", DbType = "Float NOT NULL")]
+        public double PreviousLongTermLoan
         {
             get
             {
@@ -3132,8 +3132,8 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_PreviousShortTermLoan", DbType = "Float")]
-        public System.Nullable<double> PreviousShortTermLoan
+        [Column(Storage = "_PreviousShortTermLoan", DbType = "Float NOT NULL")]
+        public double PreviousShortTermLoan
         {
             get
             {

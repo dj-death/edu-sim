@@ -158,6 +158,7 @@
     <Compile Include="Utilities\ExtensionHelper.cs" />
     <Compile Include="Utilities\CoreDatabaseHelper.cs">
     </Compile>
+    <Compile Include="Utilities\SessionManager.cs" />
     <Compile Include="XmlForms\Administrator\Game Definition\GameManager.cs" />
     <Compile Include="XmlForms\Administrator\Game Definition\TeamManager.cs" />
   </ItemGroup>
