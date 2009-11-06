@@ -225,6 +225,14 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
+        public System.Data.Linq.Table<LabourGameInitialData> LabourGameInitialData
+        {
+            get
+            {
+                return this.GetTable<LabourGameInitialData>();
+            }
+        }
+
         public System.Data.Linq.Table<MarketingData> MarketingData
         {
             get
@@ -3175,11 +3183,11 @@ namespace EduSim.CoreFramework.DTO
 
         private int _RoundId;
 
-        private System.Nullable<double> _PreviousRate;
+        private double _PreviousRate;
 
         private double _Rate;
 
-        private System.Nullable<double> _PreviousNumberOfLabour;
+        private double _PreviousNumberOfLabour;
 
         private double _NumberOfLabour;
 
@@ -3193,11 +3201,11 @@ namespace EduSim.CoreFramework.DTO
         partial void OnIdChanged();
         partial void OnRoundIdChanging(int value);
         partial void OnRoundIdChanged();
-        partial void OnPreviousRateChanging(System.Nullable<double> value);
+        partial void OnPreviousRateChanging(double value);
         partial void OnPreviousRateChanged();
         partial void OnRateChanging(double value);
         partial void OnRateChanged();
-        partial void OnPreviousNumberOfLabourChanging(System.Nullable<double> value);
+        partial void OnPreviousNumberOfLabourChanging(double value);
         partial void OnPreviousNumberOfLabourChanged();
         partial void OnNumberOfLabourChanging(double value);
         partial void OnNumberOfLabourChanged();
@@ -3253,8 +3261,8 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_PreviousRate", DbType = "Float")]
-        public System.Nullable<double> PreviousRate
+        [Column(Storage = "_PreviousRate", DbType = "Float NOT NULL")]
+        public double PreviousRate
         {
             get
             {
@@ -3293,8 +3301,8 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
-        [Column(Storage = "_PreviousNumberOfLabour", DbType = "Float")]
-        public System.Nullable<double> PreviousNumberOfLabour
+        [Column(Storage = "_PreviousNumberOfLabour", DbType = "Float NOT NULL")]
+        public double PreviousNumberOfLabour
         {
             get
             {
@@ -3384,6 +3392,69 @@ namespace EduSim.CoreFramework.DTO
             if ((this.PropertyChanged != null))
             {
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+
+    [Table(Name = "dbo.LabourGameInitialData")]
+    public partial class LabourGameInitialData
+    {
+
+        private int _Id;
+
+        private double _PreviousRate;
+
+        private double _PreviousNumberOfLabour;
+
+        public LabourGameInitialData()
+        {
+        }
+
+        [Column(Storage = "_Id", AutoSync = AutoSync.Always, DbType = "Int NOT NULL IDENTITY", IsDbGenerated = true)]
+        public int Id
+        {
+            get
+            {
+                return this._Id;
+            }
+            set
+            {
+                if ((this._Id != value))
+                {
+                    this._Id = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousRate", DbType = "Float NOT NULL")]
+        public double PreviousRate
+        {
+            get
+            {
+                return this._PreviousRate;
+            }
+            set
+            {
+                if ((this._PreviousRate != value))
+                {
+                    this._PreviousRate = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousNumberOfLabour", DbType = "Float NOT NULL")]
+        public double PreviousNumberOfLabour
+        {
+            get
+            {
+                return this._PreviousNumberOfLabour;
+            }
+            set
+            {
+                if ((this._PreviousNumberOfLabour != value))
+                {
+                    this._PreviousNumberOfLabour = value;
+                }
             }
         }
     }
