@@ -87,25 +87,6 @@ namespace EduSim.WebGUI.UI.BindedGrid
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].RevisionDate = dt;
         }
 
-        public override void ComputeAllCells(DataGridView dataGridView1)
-        {
-            #region Configuration Info
-            //ReliabilityCost
-            //PerformanceCost
-            //SizeCost
-            //ReliabilityFactor
-            //PerformanceFactor
-            //SizeFactor
-            //AutomationCost
-            //CapacityCost
-            //LabourFactor
-            //TaxRate
-            //LongTermInterestRate
-            //ShortTermInterestRate
-            #endregion 
-
-        }
-
         public override void Save(DataGridView dataGridView1)
         {
             throw new NotImplementedException();

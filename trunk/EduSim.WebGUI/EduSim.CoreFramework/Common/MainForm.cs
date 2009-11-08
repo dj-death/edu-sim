@@ -68,12 +68,6 @@ namespace Gizmox.WebGUI.Forms.Catalog
                 }
                 switch (strAction)
                 {
-                    case "Exit":
-                        this.Close();
-                        break;
-                    case "Print":
-                        MessageBox.Show(((Gizmox.WebGUI.Common.Interfaces.ISessionRegistry)this.Context.Session).Count.ToString());
-                        break;
                     case "AboutVWG":
                         Forms.AboutVWGForm objAboutVWGForm = new Gizmox.WebGUI.Forms.Catalog.Forms.AboutVWGForm();
                         objAboutVWGForm.ShowDialog();

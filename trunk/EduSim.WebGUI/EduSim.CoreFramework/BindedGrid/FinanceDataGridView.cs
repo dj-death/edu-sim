@@ -26,7 +26,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
     public class FinanceDataGridView : UserControl, IHostedApplication
 	{
         private DataGridView dataGridView1;
-        private Button save;
         private FinanceDataModel rdm;
 
 		/// <summary> 
@@ -95,17 +94,8 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 		private void InitializeComponent()
 		{
             this.dataGridView1 = new Gizmox.WebGUI.Forms.DataGridView();
-            save = new Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
-            save.Location = new Point(16, 0);
-            save.Name = "saveButton";
-            save.Text = "Save";
-            save.Size = new Size(50, 16);
-            save.Click += new EventHandler((sender, e) =>
-            {
-                rdm.Save(dataGridView1);
-            });
             // 
             // dataGridView1
             // 
@@ -131,7 +121,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 			// 
 			this.ClientSize = new System.Drawing.Size(640, 600);
             this.Controls.Add(this.dataGridView1);
-            this.Controls.Add(this.save);
             this.DockPadding.All = 0;
 			this.DockPadding.Bottom = 0;
 			this.DockPadding.Left = 0;
