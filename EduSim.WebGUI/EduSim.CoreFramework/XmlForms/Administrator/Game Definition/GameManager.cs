@@ -170,8 +170,14 @@ namespace EduSim.WebGUI.UI
                      {
                          Round = round,
                          PreviousRate = o1.PreviousRate,
+                         PreviousBenefits = o1.Benefits,
+                         PreviousProfitSharing = o1.ProfitSharing,
+                         PreviousAnnualRaise = o1.AnnualRaise,
                          PreviousNumberOfLabour = o1.PreviousNumberOfLabour,
                          Rate = o1.PreviousRate,
+                         Benefits = o1.Benefits,
+                         ProfitSharing = o1.ProfitSharing,
+                         AnnualRaise = o1.AnnualRaise,
                          NumberOfLabour = o1.PreviousNumberOfLabour
                      };
                      db.LabourData.InsertOnSubmit(ld);

@@ -26,7 +26,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
     public class ProductionDataGridView : UserControl, IHostedApplication
 	{
         private DataGridView dataGridView1;
-        private Button save;
         private Label labourCountLabel;
         private TextBox labourCountTextBox;
 
@@ -100,21 +99,12 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 		private void InitializeComponent()
 		{
             this.dataGridView1 = new Gizmox.WebGUI.Forms.DataGridView();
-            save = new Button();
             labourCountLabel = new Label();
             labourCountTextBox = new TextBox();
 
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
 
-            save.Location = new Point(16, 0);
-            save.Name = "saveButton";
-            save.Text = "Save";
-            save.Size = new Size(50, 16);
-            save.Click += new EventHandler((sender, e) =>
-            {
-                rdm.Save(dataGridView1);
-            });
             // 
             // dataGridView1
             // 
@@ -151,7 +141,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(labourCountLabel);
             this.Controls.Add(labourCountTextBox);
-            this.Controls.Add(this.save);
 
             this.DockPadding.All = 0;
 			this.DockPadding.Bottom = 0;

@@ -3185,7 +3185,19 @@ namespace EduSim.CoreFramework.DTO
 
         private double _PreviousRate;
 
+        private System.Nullable<double> _PreviousBenefits;
+
+        private System.Nullable<double> _PreviousProfitSharing;
+
+        private System.Nullable<double> _PreviousAnnualRaise;
+
         private double _Rate;
+
+        private System.Nullable<double> _Benefits;
+
+        private System.Nullable<double> _ProfitSharing;
+
+        private System.Nullable<double> _AnnualRaise;
 
         private double _PreviousNumberOfLabour;
 
@@ -3203,8 +3215,20 @@ namespace EduSim.CoreFramework.DTO
         partial void OnRoundIdChanged();
         partial void OnPreviousRateChanging(double value);
         partial void OnPreviousRateChanged();
+        partial void OnPreviousBenefitsChanging(System.Nullable<double> value);
+        partial void OnPreviousBenefitsChanged();
+        partial void OnPreviousProfitSharingChanging(System.Nullable<double> value);
+        partial void OnPreviousProfitSharingChanged();
+        partial void OnPreviousAnnualRaiseChanging(System.Nullable<double> value);
+        partial void OnPreviousAnnualRaiseChanged();
         partial void OnRateChanging(double value);
         partial void OnRateChanged();
+        partial void OnBenefitsChanging(System.Nullable<double> value);
+        partial void OnBenefitsChanged();
+        partial void OnProfitSharingChanging(System.Nullable<double> value);
+        partial void OnProfitSharingChanged();
+        partial void OnAnnualRaiseChanging(System.Nullable<double> value);
+        partial void OnAnnualRaiseChanged();
         partial void OnPreviousNumberOfLabourChanging(double value);
         partial void OnPreviousNumberOfLabourChanged();
         partial void OnNumberOfLabourChanging(double value);
@@ -3281,6 +3305,66 @@ namespace EduSim.CoreFramework.DTO
             }
         }
 
+        [Column(Storage = "_PreviousBenefits", DbType = "Float")]
+        public System.Nullable<double> PreviousBenefits
+        {
+            get
+            {
+                return this._PreviousBenefits;
+            }
+            set
+            {
+                if ((this._PreviousBenefits != value))
+                {
+                    this.OnPreviousBenefitsChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousBenefits = value;
+                    this.SendPropertyChanged("PreviousBenefits");
+                    this.OnPreviousBenefitsChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousProfitSharing", DbType = "Float")]
+        public System.Nullable<double> PreviousProfitSharing
+        {
+            get
+            {
+                return this._PreviousProfitSharing;
+            }
+            set
+            {
+                if ((this._PreviousProfitSharing != value))
+                {
+                    this.OnPreviousProfitSharingChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousProfitSharing = value;
+                    this.SendPropertyChanged("PreviousProfitSharing");
+                    this.OnPreviousProfitSharingChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_PreviousAnnualRaise", DbType = "Float")]
+        public System.Nullable<double> PreviousAnnualRaise
+        {
+            get
+            {
+                return this._PreviousAnnualRaise;
+            }
+            set
+            {
+                if ((this._PreviousAnnualRaise != value))
+                {
+                    this.OnPreviousAnnualRaiseChanging(value);
+                    this.SendPropertyChanging();
+                    this._PreviousAnnualRaise = value;
+                    this.SendPropertyChanged("PreviousAnnualRaise");
+                    this.OnPreviousAnnualRaiseChanged();
+                }
+            }
+        }
+
         [Column(Storage = "_Rate", DbType = "Float NOT NULL")]
         public double Rate
         {
@@ -3297,6 +3381,66 @@ namespace EduSim.CoreFramework.DTO
                     this._Rate = value;
                     this.SendPropertyChanged("Rate");
                     this.OnRateChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_Benefits", DbType = "Float")]
+        public System.Nullable<double> Benefits
+        {
+            get
+            {
+                return this._Benefits;
+            }
+            set
+            {
+                if ((this._Benefits != value))
+                {
+                    this.OnBenefitsChanging(value);
+                    this.SendPropertyChanging();
+                    this._Benefits = value;
+                    this.SendPropertyChanged("Benefits");
+                    this.OnBenefitsChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_ProfitSharing", DbType = "Float")]
+        public System.Nullable<double> ProfitSharing
+        {
+            get
+            {
+                return this._ProfitSharing;
+            }
+            set
+            {
+                if ((this._ProfitSharing != value))
+                {
+                    this.OnProfitSharingChanging(value);
+                    this.SendPropertyChanging();
+                    this._ProfitSharing = value;
+                    this.SendPropertyChanged("ProfitSharing");
+                    this.OnProfitSharingChanged();
+                }
+            }
+        }
+
+        [Column(Storage = "_AnnualRaise", DbType = "Float")]
+        public System.Nullable<double> AnnualRaise
+        {
+            get
+            {
+                return this._AnnualRaise;
+            }
+            set
+            {
+                if ((this._AnnualRaise != value))
+                {
+                    this.OnAnnualRaiseChanging(value);
+                    this.SendPropertyChanging();
+                    this._AnnualRaise = value;
+                    this.SendPropertyChanged("AnnualRaise");
+                    this.OnAnnualRaiseChanged();
                 }
             }
         }
@@ -3404,6 +3548,12 @@ namespace EduSim.CoreFramework.DTO
 
         private double _PreviousRate;
 
+        private System.Nullable<double> _Benefits;
+
+        private System.Nullable<double> _ProfitSharing;
+
+        private System.Nullable<double> _AnnualRaise;
+
         private double _PreviousNumberOfLabour;
 
         public LabourGameInitialData()
@@ -3438,6 +3588,54 @@ namespace EduSim.CoreFramework.DTO
                 if ((this._PreviousRate != value))
                 {
                     this._PreviousRate = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_Benefits", DbType = "Float")]
+        public System.Nullable<double> Benefits
+        {
+            get
+            {
+                return this._Benefits;
+            }
+            set
+            {
+                if ((this._Benefits != value))
+                {
+                    this._Benefits = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_ProfitSharing", DbType = "Float")]
+        public System.Nullable<double> ProfitSharing
+        {
+            get
+            {
+                return this._ProfitSharing;
+            }
+            set
+            {
+                if ((this._ProfitSharing != value))
+                {
+                    this._ProfitSharing = value;
+                }
+            }
+        }
+
+        [Column(Storage = "_AnnualRaise", DbType = "Float")]
+        public System.Nullable<double> AnnualRaise
+        {
+            get
+            {
+                return this._AnnualRaise;
+            }
+            set
+            {
+                if ((this._AnnualRaise != value))
+                {
+                    this._AnnualRaise = value;
                 }
             }
         }

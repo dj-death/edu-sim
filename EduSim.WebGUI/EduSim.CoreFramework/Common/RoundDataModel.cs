@@ -31,11 +31,15 @@ namespace EduSim.CoreFramework.Common
             get { return round.TeamGame.Game.Active.HasValue ? round.TeamGame.Game.Active.Value : false; }
         }
 
-        public abstract void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c);
+        public virtual void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c)
+        {
+            throw new NotImplementedException();
+        }
 
-        public abstract void ComputeAllCells(DataGridView dataGridView1);
-
-        public abstract void Save(DataGridView dataGridView1);
+        public virtual void Save(DataGridView dataGridView1)
+        {
+            throw new NotImplementedException();
+        }
 
         public virtual void AddProduct(DataGridView dataGridView1)
         {
