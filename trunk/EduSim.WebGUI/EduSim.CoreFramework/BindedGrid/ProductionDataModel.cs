@@ -65,8 +65,10 @@ namespace EduSim.WebGUI.UI.BindedGrid
             return new int[] { 0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 15, 16, 17 };
         }
 
-        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c)
+        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
+            base.HandleDataChange(dataGridView1, row, c, oldValue);
+
             Edusim db = new Edusim();
 
             LabourData ld = (from l in db.LabourData
@@ -97,11 +99,12 @@ namespace EduSim.WebGUI.UI.BindedGrid
             dataGridView1.Rows[17].Cells[c.ColumnIndex].Value = R[i].ToString("###0.00");
 
             //Automation Cost: J[i] =(L5-K5)*$B$1
-            M[i] = (L[i] - K[i]) * configurationInfo["AutomationCost"];
+            M[i] = GetCost(L[i], K[i], configurationInfo["AutomationCost"]);
             dataGridView1.Rows[12].Cells[c.ColumnIndex].Value = M[i].ToString("###0.00");
 
+            //TODO: with negative value like Capacity sold is at depreciated value
             //Capacity Cost=L5*$B$2
-            P[i] = O[i] * configurationInfo["CapacityCost"];
+            P[i] = O[i] > 0 ? O[i] * configurationInfo["CapacityCost"] : O[i] * configurationInfo["CapacityCost"] / 2;
             dataGridView1.Rows[15].Cells[c.ColumnIndex].Value = P[i].ToString("###0.00");
 
             //Labour Cost =IF(R5<=100%,HR!$B$1/K5, (100%*HR!$B$1/K5+((R5-100%)*1.5*HR!$B$1/K5)))

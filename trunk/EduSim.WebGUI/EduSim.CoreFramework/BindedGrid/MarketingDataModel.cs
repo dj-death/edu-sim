@@ -25,8 +25,10 @@ namespace EduSim.WebGUI.UI.BindedGrid
             return new int[]  { 0, 1, 3, 5, 7, 9 };
         }
 
-        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c)
+        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
+            base.HandleDataChange(dataGridView1, row, c, oldValue);
+
             int colIndex = c.ColumnIndex;
             double unitCost = dataGridView1.Rows[2].Cells[colIndex].Value.ToDouble2();
             double salesExpense = dataGridView1.Rows[4].Cells[colIndex].Value.ToDouble2();

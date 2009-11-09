@@ -140,5 +140,71 @@ namespace EduSim.CoreFramework.Utilities
             }
             return dic;
         }
+
+        internal static void SaveSessionData(Round round)
+        {
+            Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(SessionConstants.RnDData);
+
+            Edusim db = new Edusim();
+
+            (from r in db.RnDData
+             join rp in db.RoundProduct on r.RoundProduct equals rp
+             where rp.Round == round
+             select r).ToList<RnDData>().ForEach(o =>
+             {
+                 o.RevisionDate = dic[o.RoundProduct.ProductName].RevisionDate;
+                 o.Age = dic[o.RoundProduct.ProductName].Age;
+                 o.Performance = dic[o.RoundProduct.ProductName].Performance;
+                 o.Size = dic[o.RoundProduct.ProductName].Size;
+                 o.RnDCost = dic[o.RoundProduct.ProductName].RnDCost;
+             });
+
+            Dictionary<string, MarketingDataView> dic1 = RoundDataModel.GetData<MarketingDataView>(SessionConstants.MarketingData);
+
+            (from r in db.MarketingData
+             join rp in db.RoundProduct on r.RoundProduct equals rp
+             where rp.Round == round
+             select r).ToList<MarketingData>().ForEach(o =>
+             {
+                 o.Price = dic1[o.RoundProduct.ProductName].UnitPrice;
+                 o.SalesExpense = dic1[o.RoundProduct.ProductName].SalesExpense;
+                 o.MarketingExpense = dic1[o.RoundProduct.ProductName].MarketingExpense;
+                 o.ForecastingQuantity = dic1[o.RoundProduct.ProductName].ForecastedQuantity;
+             });
+
+            Dictionary<string, ProductionDataView> dic2 = RoundDataModel.GetData<ProductionDataView>(SessionConstants.ProductionData);
+
+            (from r in db.ProductionData
+             join rp in db.RoundProduct on r.RoundProduct equals rp
+             where rp.Round == round
+             select r).ToList<ProductionData>().ForEach(o =>
+             {
+                 o.AutomationForNextRound = dic2[o.RoundProduct.ProductName].NewAutomation;
+                 o.AutomationCost = dic2[o.RoundProduct.ProductName].AutomationCost;
+                 o.NewCapacity = dic2[o.RoundProduct.ProductName].NewCapacity;
+                 o.NewCapacityCost = dic2[o.RoundProduct.ProductName].NewCapacityCost;
+                 o.LabourRate = dic2[o.RoundProduct.ProductName].LabourRate;
+                 o.LabourCost = dic2[o.RoundProduct.ProductName].LabourCost;
+                 o.MaterialCost = dic2[o.RoundProduct.ProductName].MaterialCost;
+                 o.ManufacturedQuantity = dic2[o.RoundProduct.ProductName].ManufacturedQuantity;
+                 o.SecondShift = dic2[o.RoundProduct.ProductName].SecondShift;
+                 o.Utilization = dic2[o.RoundProduct.ProductName].Utilization;
+                 o.NumberOfLabour = dic2[o.RoundProduct.ProductName].NumberOfLabour;
+                 o.Contribution = dic2[o.RoundProduct.ProductName].ContributionMargin;
+             });
+
+            Dictionary<string, FinanceDataView> dic3 = RoundDataModel.GetData<FinanceDataView>(SessionConstants.FinanceData);
+
+            (from f in db.FinanceData
+             where f.Round == round
+             select f).ToList<FinanceData>().ForEach(o =>
+             {
+                 o.LongTermLoan = dic3[o.Round.RoundCategory.RoundName].LongTermLoan;
+                 o.Cash = dic3[o.Round.RoundCategory.RoundName].Cash;
+                 o.ShortTermLoan = dic3[o.Round.RoundCategory.RoundName].ShortTermLoan;
+             });
+
+            db.SubmitChanges();
+        }
     }
 }

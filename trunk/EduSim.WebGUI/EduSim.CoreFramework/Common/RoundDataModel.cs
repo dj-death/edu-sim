@@ -31,9 +31,17 @@ namespace EduSim.CoreFramework.Common
             get { return round.TeamGame.Game.Active.HasValue ? round.TeamGame.Game.Active.Value : false; }
         }
 
-        public virtual void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c)
+        public virtual void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
-            throw new NotImplementedException();
+            try
+            {
+                double.Parse(c.Value.ToString());
+            }
+            catch (Exception e)
+            {
+                c.Value = oldValue;
+                throw e;
+            }
         }
 
         public virtual void Save(DataGridView dataGridView1)
@@ -56,6 +64,28 @@ namespace EduSim.CoreFramework.Common
                 HttpContext.Current.Session[name] = dic;
             }
             return dic;
+        }
+
+        public static double GetCost(double currentValue, double previousValue, double coeffecient)
+        {
+            return GetCost(currentValue, previousValue, coeffecient, true);
+        }
+
+        public static double GetCost(double currentValue, double previousValue, double coeffecient, bool positive)
+        {
+            double val = 0;
+            double diff = currentValue - previousValue;
+            if (positive)
+            {
+                val = (currentValue > previousValue) ? (diff) * coeffecient
+                    : (diff) * -1 * coeffecient / 2;
+            }
+            else
+            {
+                val = (previousValue > currentValue) ? (diff) * -1 * coeffecient
+                    : (diff) * coeffecient / 2;
+            }
+            return val;
         }
     }
 }

@@ -23,25 +23,25 @@ namespace EduSim.WebGUI.UI.BindedGrid
         private List<double> K = new List<double>();
         private List<double> L = new List<double>();
         private List<double> M = new List<double>();
-        
+
         public override void GetList(DataGridView dataGridView1)
         {
             Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(SessionConstants.RnDData);
 
-            dic.Values.ToList<RnDDataView>().ForEach(o => 
+            dic.Values.ToList<RnDDataView>().ForEach(o =>
             {
-                        C.Add(o.PreviousRevisionDate);
-                        D.Add(o.RevisionDate);
-                        E.Add(o.PreviousAge);
-                        F.Add(o.Age);
-                        G.Add(o.PreviousReliability);
-                        H.Add(o.Reliability);
-                        I.Add(o.PreviousPerformance);
-                        J.Add(o.Performance);
-                        K.Add(o.PreviousSize);
-                        L.Add(o.Size);
-                        M.Add(o.RnDCost);
-                    });
+                C.Add(o.PreviousRevisionDate);
+                D.Add(o.RevisionDate);
+                E.Add(o.PreviousAge);
+                F.Add(o.Age);
+                G.Add(o.PreviousReliability);
+                H.Add(o.Reliability);
+                I.Add(o.PreviousPerformance);
+                J.Add(o.Performance);
+                K.Add(o.PreviousSize);
+                L.Add(o.Size);
+                M.Add(o.RnDCost);
+            });
 
             DataTable table = dic.Values.ToDataTable<RnDDataView>(null).Transpose();
 
@@ -53,17 +53,23 @@ namespace EduSim.WebGUI.UI.BindedGrid
             return new int[]  { 0, 1, 2, 3, 4, 5, 7, 9, 11 };
         }
 
-        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c)
+        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
+            base.HandleDataChange(dataGridView1, row, c, oldValue);
+
             int colIndex = c.ColumnIndex - 1;
             H[colIndex] = dataGridView1.Rows[6].Cells[c.ColumnIndex].Value.ToDouble2(); //Reliability
             J[colIndex] = dataGridView1.Rows[8].Cells[c.ColumnIndex].Value.ToDouble2(); //Performance
             L[colIndex] = dataGridView1.Rows[10].Cells[c.ColumnIndex].Value.ToDouble2(); //Size
             //M[i] = (double)r.Cells[12].Value;//RnDCost
 
+            //Fix the following bug like
+            //with negative value like Capacity sold is at depreciated value
+            //reduce of performance, reliability, size also cost money
             //RnD Cost: (H2-G2)*$B$9+ (J2-I2)*$B$10 + (K2-L2)*$B$11
-            M[colIndex] = (H[colIndex] - G[colIndex]) * configurationInfo["ReliabilityCost"] + (J[colIndex] - I[colIndex]) * configurationInfo["PerformanceCost"] +
-                (K[colIndex] - L[colIndex]) * configurationInfo["SizeCost"];
+            M[colIndex] = GetCost(H[colIndex], G[colIndex], configurationInfo["ReliabilityCost"]) + 
+                GetCost(J[colIndex], I[colIndex], configurationInfo["PerformanceCost"]) +
+                GetCost(L[colIndex], K[colIndex], configurationInfo["SizeCost"], false);
             
             dataGridView1.Rows[11].Cells[c.ColumnIndex].Value = M[colIndex].ToString("###0.00");
 
