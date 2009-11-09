@@ -65,10 +65,8 @@ namespace EduSim.WebGUI.UI.BindedGrid
             return new int[] { 0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 15, 16, 17 };
         }
 
-        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
+        protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
-            base.HandleDataChange(dataGridView1, row, c, oldValue);
-
             Edusim db = new Edusim();
 
             LabourData ld = (from l in db.LabourData

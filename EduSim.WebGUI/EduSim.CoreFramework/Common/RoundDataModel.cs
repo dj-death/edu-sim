@@ -31,7 +31,9 @@ namespace EduSim.CoreFramework.Common
             get { return round.TeamGame.Game.Active.HasValue ? round.TeamGame.Game.Active.Value : false; }
         }
 
-        public virtual void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
+        protected abstract void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue);
+
+        public virtual void HandleDataChangeBase(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
             try
             {
@@ -42,6 +44,8 @@ namespace EduSim.CoreFramework.Common
                 c.Value = oldValue;
                 throw e;
             }
+
+            HandleDataChange(dataGridView1, row, c, oldValue);
         }
 
         public virtual void Save(DataGridView dataGridView1)
