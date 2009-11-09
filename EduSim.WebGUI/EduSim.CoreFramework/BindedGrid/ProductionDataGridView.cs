@@ -15,6 +15,8 @@ using System.Web;
 using EduSim.WebGUI.UI;
 using EduSim.CoreFramework.Common;
 using EduSim.WebGUI.UI.BindedGrid;
+using EduSim.CoreUtilities.Utility;
+
 //Test
 namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 {
@@ -28,8 +30,8 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
         private DataGridView dataGridView1;
         private Label labourCountLabel;
         private TextBox labourCountTextBox;
-
         private ProductionDataModel rdm;
+        private double oldValue;
 
 		/// <summary> 
 		/// Required designer variable.
@@ -127,12 +129,20 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             this.dataGridView1.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Red;
+
+            this.dataGridView1.CellBeginEdit += new DataGridViewCellCancelEventHandler((sender, e) =>
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                DataGridViewCell c = row.Cells[e.ColumnIndex];
+                oldValue = c.Value.ToDouble2();
+            });
+
             this.dataGridView1.CellEndEdit += new DataGridViewCellEventHandler((sender, e) =>
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                 DataGridViewCell c = row.Cells[e.ColumnIndex];
 
-                rdm.HandleDataChange(dataGridView1, row, c);
+                rdm.HandleDataChange(dataGridView1, row, c, oldValue);
             });
 			// 
 			// DataGridViewControl

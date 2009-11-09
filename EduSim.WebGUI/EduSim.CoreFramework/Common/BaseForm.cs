@@ -11,6 +11,8 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Web;
 using EduSim.CoreFramework.Common;
+using EduSim.CoreFramework.Utilities;
+using EduSim.CoreFramework.DTO;
 
 namespace Gizmox.WebGUI.Forms.Catalog
 {
@@ -259,9 +261,10 @@ namespace Gizmox.WebGUI.Forms.Catalog
             //                                                                            );
             this.mobjMenuSession.Text = "Logout";
             this.mobjMenuSession.Click += new EventHandler((sender, e) =>
-                {
-                    HttpContext.Current.Session.Abandon();
-                });
+            {
+                HttpContext.Current.Session.Abandon();
+            });
+
             //this.mobjMenuExit.Index = 0;
             //this.mobjMenuExit.Tag = "Exit";
             //this.mobjMenuExit.Text = "Exit";
@@ -349,7 +352,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
             this.mobjMenuSave.Click += new EventHandler((sender, e) =>
             {
-                MessageBox.Show("Saving...");
+                SessionManager.SaveSessionData(HttpContext.Current.Session[SessionConstants.CurrentRound] as Round);
             });
 
             this.mobjMenuSubmit.Click += new EventHandler((sender, e) =>
