@@ -26,10 +26,8 @@ namespace EduSim.WebGUI.UI.BindedGrid
             return new int[]  { 0, 2, 4, 5 };
         }
 
-        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
+        protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
-            base.HandleDataChange(dataGridView1, row, c, oldValue);
-
             Dictionary<string, FinanceDataView> dic = GetData<FinanceDataView>(SessionConstants.FinanceData);
             double longTermLoan = dataGridView1.Rows[1].Cells[c.ColumnIndex].Value.ToDouble2();
             double shortTermLoan = dataGridView1.Rows[3].Cells[c.ColumnIndex].Value.ToDouble2();

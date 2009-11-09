@@ -53,10 +53,8 @@ namespace EduSim.WebGUI.UI.BindedGrid
             return new int[]  { 0, 1, 2, 3, 4, 5, 7, 9, 11 };
         }
 
-        public override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
+        protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
-            base.HandleDataChange(dataGridView1, row, c, oldValue);
-
             int colIndex = c.ColumnIndex - 1;
             H[colIndex] = dataGridView1.Rows[6].Cells[c.ColumnIndex].Value.ToDouble2(); //Reliability
             J[colIndex] = dataGridView1.Rows[8].Cells[c.ColumnIndex].Value.ToDouble2(); //Performance

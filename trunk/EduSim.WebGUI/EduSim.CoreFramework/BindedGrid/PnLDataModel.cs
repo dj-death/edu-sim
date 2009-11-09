@@ -167,5 +167,10 @@ namespace EduSim.WebGUI.UI.BindedGrid
         {
             return new int[]  { 0, 1, 2, 3, 4, 5 };
         }
+
+        protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

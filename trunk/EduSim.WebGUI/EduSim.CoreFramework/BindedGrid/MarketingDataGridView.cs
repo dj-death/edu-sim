@@ -125,7 +125,7 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
                 DataGridViewCell c = row.Cells[e.ColumnIndex];
 
-                rdm.HandleDataChange(dataGridView1, row, c, oldValue);
+                rdm.HandleDataChangeBase(dataGridView1, row, c, oldValue);
             });
 			// 
 			// DataGridViewControl
