@@ -79,7 +79,6 @@ namespace Gizmox.WebGUI.Forms.Catalog
                         MessageBox.Show("Paste");
                         break;
                     default:
-                        MessageBox.Show(strAction);
                         break;
                 }
             }

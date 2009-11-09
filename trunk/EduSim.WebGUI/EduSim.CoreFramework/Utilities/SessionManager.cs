@@ -25,16 +25,16 @@ namespace EduSim.CoreFramework.Utilities
                                                  ProductName = rp.ProductName,
                                                  ProductCategory = rp.SegmentType.Description,
                                                  PreviousRevisionDate = r.PreviousRevisionDate,
-                                                 RevisionDate = r.PreviousRevisionDate,
+                                                 RevisionDate = r.RevisionDate.HasValue ? r.RevisionDate.Value : r.PreviousRevisionDate,
                                                  PreviousAge = r.PreviousAge,
-                                                 Age = r.PreviousAge,
+                                                 Age = r.Age.HasValue ? r.Age.Value : r.PreviousAge,
                                                  PreviousReliability = r.PreviousReliability,
-                                                 Reliability = r.PreviousReliability,
+                                                 Reliability = r.Reliability.HasValue ? r.Reliability.Value : r.PreviousReliability,
                                                  PreviousPerformance = r.PreviousPerformance,
-                                                 Performance = r.PreviousPerformance,
+                                                 Performance = r.Performance.HasValue ? r.Performance.Value : r.PreviousPerformance,
                                                  PreviousSize = r.PreviousSize,
-                                                 Size = r.PreviousSize,
-                                                 RnDCost = 0.0
+                                                 Size = r.Size.HasValue ? r.Size.Value : r.PreviousSize,
+                                                 RnDCost = r.RnDCost.HasValue ? r.RnDCost.Value : 0.0
                                              };
 
                 rs.ToList<RnDDataView>().ForEach(o =>
@@ -61,14 +61,15 @@ namespace EduSim.CoreFramework.Utilities
                      ProductName = rp.ProductName,
                      ProductCategory = rp.SegmentType.Description,
                      PreviousUnitPrice = m.PreviousPrice,
-                     UnitPrice = m.Price.HasValue ? m.Price.Value : 0.0,
+                     UnitPrice = m.Price.HasValue ? m.Price.Value : m.PreviousPrice,
                      PreviousSalesExpense = m.PreviousSaleExpense,
-                     SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : 0.0,
+                     SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : m.PreviousSaleExpense,
                      PreviousMarketingExpense = m.PreviousMarketingExpense,
-                     MarketingExpense = m.MarketingExpense.HasValue ? m.MarketingExpense.Value : 0.0,
+                     MarketingExpense = m.MarketingExpense.HasValue ? m.MarketingExpense.Value : m.PreviousMarketingExpense,
                      PreviousForecastingQuantity = m.PreviousForecastingQuantity,
-                     ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0,
-                     ProjectedSales = 0.0
+                     ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : m.PreviousForecastingQuantity,
+                     ProjectedSales = (m.Price.HasValue ? m.Price.Value : m.PreviousPrice) * 
+                                        (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : m.PreviousForecastingQuantity)
                  }).ToList<MarketingDataView>().ForEach(o => dic[o.ProductName] = o);
             }
 
@@ -94,19 +95,19 @@ namespace EduSim.CoreFramework.Utilities
                                                         ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0,
                                                         TotalQuantity = p.Inventory + (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0),
                                                         ManufacturedQuantity = p.ManufacturedQuantity,
-                                                        MaterialCost = 0,
-                                                        LabourRate = 0,
+                                                        MaterialCost = p.MaterialCost.HasValue ? p.MaterialCost.Value : 0.0,
+                                                        LabourRate = p.LabourRate.HasValue ? p.LabourRate.Value : 0.0,
                                                         ContributionMargin = p.Contribution.HasValue ? p.Contribution.Value : 0.0,
-                                                        SecondShift = 0.0,
+                                                        SecondShift = p.SecondShift.HasValue ? p.SecondShift.Value : 0.0,
                                                         OldAutomation = p.CurrentAutomation,
                                                         NewAutomation = p.AutomationForNextRound.HasValue ? p.AutomationForNextRound.Value : p.CurrentAutomation,
-                                                        AutomationCost = 0.0,
+                                                        AutomationCost = p.AutomationCost.HasValue ? p.AutomationCost.Value : 0.0,
                                                         Capacity = p.OldCapacity,
                                                         NewCapacity = p.NewCapacity.HasValue ? p.NewCapacity.Value : 0.0,
-                                                        NewCapacityCost = 0,
-                                                        NumberOfLabour = 0,
-                                                        Utilization = 0,
-                                                        LabourCost = 0,
+                                                        NewCapacityCost = p.NewCapacityCost.HasValue ? p.NewCapacityCost.Value : 0.0,
+                                                        NumberOfLabour = p.NumberOfLabour.HasValue ? p.NumberOfLabour.Value : 0.0,
+                                                        Utilization = p.Utilization.HasValue ? p.Utilization.Value : 0.0,
+                                                        LabourCost = p.LabourCost.HasValue ? p.LabourCost.Value : 0.0
                                                     };
 
                 rs.ToList<ProductionDataView>().ForEach(o =>
@@ -154,6 +155,7 @@ namespace EduSim.CoreFramework.Utilities
              {
                  o.RevisionDate = dic[o.RoundProduct.ProductName].RevisionDate;
                  o.Age = dic[o.RoundProduct.ProductName].Age;
+                 o.Reliability = dic[o.RoundProduct.ProductName].Reliability;
                  o.Performance = dic[o.RoundProduct.ProductName].Performance;
                  o.Size = dic[o.RoundProduct.ProductName].Size;
                  o.RnDCost = dic[o.RoundProduct.ProductName].RnDCost;
