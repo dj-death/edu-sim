@@ -100,7 +100,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
             M[i] = GetCost(L[i], K[i], configurationInfo["AutomationCost"]);
             dataGridView1.Rows[12].Cells[c.ColumnIndex].Value = M[i].ToString("###0.00");
 
-            //TODO: with negative value like Capacity sold is at depreciated value
+            //with negative value like Capacity sold is at depreciated value
             //Capacity Cost=L5*$B$2
             P[i] = O[i] > 0 ? O[i] * configurationInfo["CapacityCost"] : O[i] * configurationInfo["CapacityCost"] / 2;
             dataGridView1.Rows[15].Cells[c.ColumnIndex].Value = P[i].ToString("###0.00");
