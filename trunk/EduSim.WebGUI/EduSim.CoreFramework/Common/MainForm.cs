@@ -147,9 +147,9 @@ namespace Gizmox.WebGUI.Forms.Catalog
                 }
                 else if (objSubCategoryDefinition.HasAttribute("EsimModule"))
                 {
-                    string objBrixModule = objSubCategoryDefinition.GetAttribute("EsimModule");
+                    string objEsimModule = objSubCategoryDefinition.GetAttribute("EsimModule");
 
-                    objSubCategoryNode = objCategoryNode.AddCategoryForEsimModule(objSubCategoryDefinition.GetAttribute("Label"), objBrixModule, objSubCategoryDefinition.GetAttribute("Icon"));
+                    objSubCategoryNode = objCategoryNode.AddCategoryForEsimModule(objSubCategoryDefinition.GetAttribute("Label"), objEsimModule, objSubCategoryDefinition.GetAttribute("Icon"));
                 }
                 else
                 {
