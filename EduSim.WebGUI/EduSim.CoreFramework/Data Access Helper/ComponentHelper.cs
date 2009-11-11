@@ -306,38 +306,38 @@ namespace EduSim.CoreFramework.DataAccess
     }
 
     [Serializable]
-    public class BrixDataSet : DataSet, ISerializable
+    public class EsimDataSet : DataSet, ISerializable
     {
-        public BrixDataSet()
+        public EsimDataSet()
             : base()
         {
             base.Locale = CultureInfo.InvariantCulture;
         }
 
-        public BrixDataSet(string tableName)
+        public EsimDataSet(string tableName)
             : base(tableName)
         {
             base.Locale = CultureInfo.InvariantCulture;
         }
 
-        protected BrixDataSet(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected EsimDataSet(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 
     [Serializable]
-    public class BrixDataTable : DataTable, ISerializable
+    public class EsimDataTable : DataTable, ISerializable
     {
-        public BrixDataTable()
+        public EsimDataTable()
             : base()
         {
             base.Locale = CultureInfo.InvariantCulture;
         }
 
-        public BrixDataTable(string tableName)
+        public EsimDataTable(string tableName)
             : base(tableName)
         {
             base.Locale = CultureInfo.InvariantCulture;
         }
 
-        protected BrixDataTable(SerializationInfo info, StreamingContext context) : base(info, context) { }
+        protected EsimDataTable(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

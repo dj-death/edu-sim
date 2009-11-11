@@ -19,7 +19,7 @@ namespace EduSim.WebGUI.UI
 	/// </summary>
 
     [Serializable()]
-    public class BrixListControl : BaseUserControl, IHostedApplication
+    public class EsimListControl : BaseUserControl, IHostedApplication
 	{
 		private Gizmox.WebGUI.Forms.ListView mobjListView;
 
@@ -34,11 +34,11 @@ namespace EduSim.WebGUI.UI
         [NonSerialized]
         private System.ComponentModel.Container components = null;
 
-        public BrixListControl(string brixContext)
+        public EsimListControl(string esimContext)
 		{
 			// This call is required by the WebGUI Form Designer.
 
-            listModel = ListModel.GetInstance(brixContext);
+            listModel = ListModel.GetInstance(esimContext);
 
 			InitializeComponent();
 
@@ -66,9 +66,6 @@ namespace EduSim.WebGUI.UI
         private void mobjListView_DoubleClick(object sender, EventArgs e)
         {
             DataRow row = ((((Gizmox.WebGUI.Forms.Component)((sender as ListView).SelectedItem)).Tag) as DataRowView).Row;
-
-            //Need to associate the back button
-            //MainForm.SelectCategory(typeof(BrixEditControl), new object [] {BrixMainForm, row} ) ;
         }
 
 		/// <summary> 
@@ -160,9 +157,9 @@ namespace EduSim.WebGUI.UI
             List<ColumnHeader> columnHeaders = new List<ColumnHeader>();
             foreach(DataColumn column in table.Columns)
             {
-                if (BrixMainForm != null)
+                if (EsimMainForm != null)
                 {
-                    foreach (BrixDataEntry dataEntry in BrixMainForm.BrixDataEntries)
+                    foreach (EsimDataEntry dataEntry in EsimMainForm.EsimDataEntries)
                     {
                         if (dataEntry.Name.Equals(column.Caption))
                         {

@@ -12,7 +12,7 @@ using EduSim.CoreFramework.DTO;
 namespace EduSim.CoreFramework.Common
 {
     [Serializable]
-    public enum BrixControl
+    public enum EsimControl
     {
         TextBox,
         CheckedListBox,
@@ -24,23 +24,23 @@ namespace EduSim.CoreFramework.Common
     public class ControlFactory
     {
         public static void CreateControl(List<Control> list, ref int count, 
-            BrixMainForm brixMainForm, 
-            BrixDataEntry dataEntry, 
+            EsimMainForm esimMainForm, 
+            EsimDataEntry dataEntry, 
             DataTable table)
         {
-            switch (dataEntry.BrixControl)
+            switch (dataEntry.EsimControl)
             {
-                case BrixControl.TextBox:
+                case EsimControl.TextBox:
                     CreateTextBoxControl(list, ref count, dataEntry, table);
                     break;
-                case BrixControl.CheckedListBox:
-                    CreateCheckedListBoxControl(list, ref count, brixMainForm, dataEntry, table);
+                case EsimControl.CheckedListBox:
+                    CreateCheckedListBoxControl(list, ref count, esimMainForm, dataEntry, table);
                     break;
-                case BrixControl.CheckBox:
+                case EsimControl.CheckBox:
                     CreateCheckBoxControl(list, ref count, dataEntry, table);
                     break;
-                case BrixControl.ComboBox:
-                    CreateListBoxControl(list, ref count, brixMainForm, dataEntry, table);
+                case EsimControl.ComboBox:
+                    CreateListBoxControl(list, ref count, esimMainForm, dataEntry, table);
                     break;
                 default:
                     break;
@@ -49,8 +49,8 @@ namespace EduSim.CoreFramework.Common
 
         private static void CreateListBoxControl(List<Control> list, 
             ref int count, 
-            BrixMainForm brixMainForm, 
-            BrixDataEntry dataEntry, 
+            EsimMainForm brixMainForm, 
+            EsimDataEntry dataEntry, 
             DataTable table)
         {
             ComboBox comboBox = new ComboBox();
@@ -70,7 +70,7 @@ namespace EduSim.CoreFramework.Common
             count++;
         }
 
-        private static void CreateCheckBoxControl(List<Control> list, ref int count, BrixDataEntry dataEntry, DataTable table)
+        private static void CreateCheckBoxControl(List<Control> list, ref int count, EsimDataEntry dataEntry, DataTable table)
         {
             CheckBox checkBox = new CheckBox();
 
@@ -89,7 +89,7 @@ namespace EduSim.CoreFramework.Common
         }
 
         //We need to build a framework to create a control
-        public static void CreateTextBoxControl(List<Control > list, ref int count, BrixDataEntry dataEntry, DataTable table)
+        public static void CreateTextBoxControl(List<Control > list, ref int count, EsimDataEntry dataEntry, DataTable table)
         {
             TextBox textBox = new TextBox();
 
@@ -112,8 +112,8 @@ namespace EduSim.CoreFramework.Common
 
         internal static void CreateCheckedListBoxControl(List<Control> list,
             ref int count,
-            BrixMainForm brixMainForm,
-            BrixDataEntry dataEntry,
+            EsimMainForm brixMainForm,
+            EsimDataEntry dataEntry,
             DataTable table)
         {
             CheckedListBox checkedListBox = new CheckedListBox();
@@ -134,44 +134,44 @@ namespace EduSim.CoreFramework.Common
             count += 6;
         }
 
-        public static void UpdateData(List<Control> list, BrixMainForm brixMainForm, string filter)
+        public static void UpdateData(List<Control> list, EsimMainForm esimMainForm, string filter)
         {
             int count = 0;
             string updateData = string.Empty;
 
-            brixMainForm.BrixDataEntries.ForEach(o =>
+            esimMainForm.EsimDataEntries.ForEach(o =>
                 updateData += o.Name + "='" + list[count++].Text + "',"
             );
 
             updateData = updateData.Remove(updateData.Length - 1, 1);
-            CoreDatabaseHelper.GenericLibraryUpdate(updateData, filter, brixMainForm.TableName);
+            CoreDatabaseHelper.GenericLibraryUpdate(updateData, filter, esimMainForm.TableName);
         }
 
-        public static void FireSaveEvent(List<Control> list, BrixMainForm brixMainForm, string filter)
+        public static void FireSaveEvent(List<Control> list, EsimMainForm esimMainForm, string filter)
         {
-            Type type = Type.GetType(brixMainForm.HandlerClass);
-            MethodInfo miHandler = type.GetMethod(brixMainForm.SaveEvent, BindingFlags.Public | BindingFlags.Static);
+            Type type = Type.GetType(esimMainForm.HandlerClass);
+            MethodInfo miHandler = type.GetMethod(esimMainForm.SaveEvent, BindingFlags.Public | BindingFlags.Static);
             
-            miHandler.Invoke(null, new object[] { list, brixMainForm, filter});
+            miHandler.Invoke(null, new object[] { list, esimMainForm, filter});
         }
 
-        public static void InsertData(List<Control> list, BrixMainForm brixMainForm)
+        public static void InsertData(List<Control> list, EsimMainForm esimMainForm)
         {
             string columnNames = string.Empty;
             string values = string.Empty;
 
-            brixMainForm.BrixDataEntries.ForEach(o =>
+            esimMainForm.EsimDataEntries.ForEach(o =>
                 columnNames += o.Name + ",");
 
             int count = 0;
-            brixMainForm.BrixDataEntries.ForEach(o =>
+            esimMainForm.EsimDataEntries.ForEach(o =>
             {
                 values += "'" + list[count++].Text + "',";
             });
 
             columnNames = columnNames.Remove(columnNames.Length - 1, 1);
             values = values.Remove(values.Length - 1, 1);
-            CoreDatabaseHelper.GenericLibraryInsert(columnNames, values, brixMainForm.TableName);
+            CoreDatabaseHelper.GenericLibraryInsert(columnNames, values, esimMainForm.TableName);
         }
     }
 

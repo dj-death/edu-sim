@@ -13,7 +13,7 @@ namespace EduSim.WebGUI.UI
 {
     public static class TeamManager
     {
-        public static void SaveTeam(List<Control> list, BrixMainForm brixMainForm, string filter)
+        public static void SaveTeam(List<Control> list, EsimMainForm esimMainForm, string filter)
         {
             Edusim db = new Edusim(Constants.ConnectionString);
             Team team;
@@ -98,7 +98,7 @@ namespace EduSim.WebGUI.UI
             db.SubmitChanges();
         }
 
-        public static void FillUserDetails(CheckedListBox control, BrixDataEntry dataEntry, DataTable table)
+        public static void FillUserDetails(CheckedListBox control, EsimDataEntry dataEntry, DataTable table)
         {
             Edusim db = new Edusim(Constants.ConnectionString);
             
@@ -129,7 +129,7 @@ namespace EduSim.WebGUI.UI
             }
         }
 
-        public static void FillTeamNamesDetails(ComboBox control, BrixDataEntry dataEntry, DataTable table)
+        public static void FillTeamNamesDetails(ComboBox control, EsimDataEntry dataEntry, DataTable table)
         {
             Edusim db = new Edusim(Constants.ConnectionString);
 
@@ -146,7 +146,7 @@ namespace EduSim.WebGUI.UI
             }
         }
 
-        public static void DeleteTeam(BrixMainForm brixMainForm, string filter)
+        public static void DeleteTeam(EsimMainForm esimMainForm, string filter)
         {
             Edusim db = new Edusim(Constants.ConnectionString);
 

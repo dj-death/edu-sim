@@ -13,7 +13,7 @@ namespace EduSim.WebGUI.UI
 {
     public static class GameManager
     {
-        public static void SaveGame(List<Control> list, BrixMainForm brixMainForm, string filter)
+        public static void SaveGame(List<Control> list, EsimMainForm esimMainForm, string filter)
         {
             Edusim db = new Edusim(Constants.ConnectionString);
             Game game;
@@ -184,7 +184,7 @@ namespace EduSim.WebGUI.UI
                  });
         }
 
-        public static void FillGameDetails(CheckedListBox control, BrixDataEntry dataEntry, DataTable table)
+        public static void FillGameDetails(CheckedListBox control, EsimDataEntry dataEntry, DataTable table)
         {
             Edusim db = new Edusim(Constants.ConnectionString);
 
@@ -217,7 +217,7 @@ namespace EduSim.WebGUI.UI
             }
         }
 
-        public static void DeleteGame(BrixMainForm brixMainForm, string filter)
+        public static void DeleteGame(EsimMainForm esimMainForm, string filter)
         {
             Edusim db = new Edusim(Constants.ConnectionString);
             (from tu in db.TeamGame

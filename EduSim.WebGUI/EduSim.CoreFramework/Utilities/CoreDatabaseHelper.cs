@@ -14,14 +14,12 @@ using System.Web;
 using System.Web.Configuration;
 using System.Xml;
 using System.Reflection;
-using Microsoft.Practices.EnterpriseLibrary.Data;
-using Microsoft.Practices.EnterpriseLibrary.Data.Sql;
 using System.Web.UI.HtmlControls;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Globalization;
-using EduSim.CoreFramework.DataAccess;
 using Gizmox.WebGUI.Forms;
+using EduSim.CoreFramework.DataAccess;
 
 namespace EduSim.CoreFramework.Common
 {

@@ -10,11 +10,11 @@ namespace EduSim.CoreFramework.Common
     public class BaseUserControl : UserControl
     {
         public BaseForm MainForm = null;
-        public BrixMainForm BrixMainForm = null;
+        public EsimMainForm EsimMainForm = null;
 
-        public BaseUserControl(BrixMainForm BrixMainForm)
+        public BaseUserControl(EsimMainForm EsimMainForm)
         {
-            this.BrixMainForm = BrixMainForm;
+            this.EsimMainForm = EsimMainForm;
         }
 
         public BaseUserControl()
