@@ -5,6 +5,7 @@ using System.Text;
 using System.Collections;
 using EduSim.CoreFramework.DTO;
 using EduSim.Analyse.DTO;
+using EduSim.CoreFramework.Common;
 
 namespace EduSim.Analyse.BusinessLayer
 {
@@ -19,7 +20,7 @@ namespace EduSim.Analyse.BusinessLayer
         public void Init(org.drools.dotnet.WorkingMemory workingMemory)
         {
 
-            Edusim edusim = new Edusim();
+            Edusim edusim = new Edusim(Constants.ConnectionString);
 
             round = (from r in edusim.Round
                      where r.Current == true
