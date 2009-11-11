@@ -7,8 +7,8 @@ using System.Xml.Serialization;
 namespace EduSim.CoreFramework.Common
 {
     [Serializable]
-    [XmlRoot("BrixMainForm", IsNullable = false)]
-    public class BrixMainForm
+    [XmlRoot("EsimMainForm", IsNullable = false)]
+    public class EsimMainForm
     {
         [XmlAttribute("TableName")]
         public string TableName = string.Empty;
@@ -20,15 +20,15 @@ namespace EduSim.CoreFramework.Common
         public string SaveEvent = string.Empty;
         [XmlAttribute("DeleteEvent")]
         public string DeleteEvent = string.Empty;
-        [XmlElement("BrixDataEntry")]
-        public List<BrixDataEntry> BrixDataEntries = new List<BrixDataEntry>();
+        [XmlElement("EsimDataEntry")]
+        public List<EsimDataEntry> EsimDataEntries = new List<EsimDataEntry>();
     }
 
     [Serializable]
-    public class BrixDataEntry
+    public class EsimDataEntry
     {
-        [XmlAttribute("BrixControl")]
-        public BrixControl BrixControl = BrixControl.TextBox;
+        [XmlAttribute("EsimControl")]
+        public EsimControl EsimControl = EsimControl.TextBox;
         [XmlAttribute("Name")]
         public string Name;
         [XmlAttribute("Text")]

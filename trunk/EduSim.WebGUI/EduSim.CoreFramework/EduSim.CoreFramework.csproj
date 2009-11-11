@@ -147,7 +147,9 @@
     <Compile Include="Data Access Helper\ComponentHelper.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Data Access Helper\StoredProcedures.cs" />
+    <Compile Include="Data Access Helper\StoredProcedures.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DTO\DomainObjects.cs" />
     <Compile Include="DTO\Role.cs" />
     <Compile Include="Forms\AboutVWGForm.cs">
@@ -155,9 +157,10 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Constants.cs" />
-    <Compile Include="Utilities\ExtensionHelper.cs" />
     <Compile Include="Utilities\CoreDatabaseHelper.cs">
+      <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Utilities\ExtensionHelper.cs" />
     <Compile Include="Utilities\SessionManager.cs" />
     <Compile Include="XmlForms\Administrator\Game Definition\GameManager.cs" />
     <Compile Include="XmlForms\Administrator\Game Definition\TeamManager.cs" />

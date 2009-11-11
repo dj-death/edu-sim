@@ -145,11 +145,11 @@ namespace Gizmox.WebGUI.Forms.Catalog
                         objSubCategoryNode = objCategoryNode.AddCategory(objSubCategoryDefinition.GetAttribute("Label"), objSubCatalogModuleMappedType);
                     }
                 }
-                else if (objSubCategoryDefinition.HasAttribute("BrixModule"))
+                else if (objSubCategoryDefinition.HasAttribute("EsimModule"))
                 {
-                    string objBrixModule = objSubCategoryDefinition.GetAttribute("BrixModule");
+                    string objBrixModule = objSubCategoryDefinition.GetAttribute("EsimModule");
 
-                    objSubCategoryNode = objCategoryNode.AddCategoryForBrixModule(objSubCategoryDefinition.GetAttribute("Label"), objBrixModule, objSubCategoryDefinition.GetAttribute("Icon"));
+                    objSubCategoryNode = objCategoryNode.AddCategoryForEsimModule(objSubCategoryDefinition.GetAttribute("Label"), objBrixModule, objSubCategoryDefinition.GetAttribute("Icon"));
                 }
                 else
                 {
@@ -479,9 +479,9 @@ namespace Gizmox.WebGUI.Forms.Catalog
             return new TypeCategoryNode(this, this.Nodes, strLabel, xmlForm, string.Empty, strIcon);
         }
 
-        public virtual CategoryNode AddCategoryForBrixModule(string strLabel, string brixForm, string strIcon)
+        public virtual CategoryNode AddCategoryForEsimModule(string strLabel, string esimForm, string strIcon)
         {
-            return new TypeCategoryNode(this, this.Nodes, strLabel, string.Empty, brixForm, strIcon);
+            return new TypeCategoryNode(this, this.Nodes, strLabel, string.Empty, esimForm, strIcon);
         }
 
         public virtual CategoryNode AddCategory(string strLabel)
@@ -638,7 +638,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
         protected Type objParameters = null;
         private TreeNode mobjNode = null;
         protected string xmlForm = string.Empty;
-        protected string brixModule = string.Empty;
+        protected string esimModule = string.Empty;
 
         public TypeCategoryNode(CategoryNode objParent, TreeNodeCollection objParebtNodes, string strLabel, Type objType, Type typeParam, string strIcon)
             : this(objParent, objParebtNodes, strLabel, objType, strIcon)
@@ -651,7 +651,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
         {
         }
 
-        public TypeCategoryNode(CategoryNode objParent, TreeNodeCollection objParentNodes, string strLabel, string xmlForm, string brixModule, string strIcon)
+        public TypeCategoryNode(CategoryNode objParent, TreeNodeCollection objParentNodes, string strLabel, string xmlForm, string esimModule, string strIcon)
             : base(objParent, strLabel)
         {
             mobjNode = new TreeNode(strLabel);
@@ -662,7 +662,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
             objParentNodes.Add(mobjNode);
             mobjNodes = mobjNode.Nodes;
             this.xmlForm = xmlForm;
-            this.brixModule = brixModule;
+            this.esimModule = esimModule;
         }
 
         public TypeCategoryNode(CategoryNode objParent, TreeNodeCollection objParebtNodes, string strLabel, Type objType, string strIcon)
@@ -690,19 +690,19 @@ namespace Gizmox.WebGUI.Forms.Catalog
         {
             if (!xmlForm.Equals(string.Empty))
             {
-                BrixMainForm brixMainForm = null;
-                XmlSerializer serializer = new XmlSerializer(typeof(BrixMainForm));
+                EsimMainForm esimMainForm = null;
+                XmlSerializer serializer = new XmlSerializer(typeof(EsimMainForm));
                 string xmlPath = HttpContext.Current.Server.MapPath(xmlForm);
                 using (FileStream fs = new FileStream(xmlPath, FileMode.Open, FileAccess.Read))
                 {
-                    brixMainForm = ((BrixMainForm)serializer.Deserialize(fs));
+                    esimMainForm = ((EsimMainForm)serializer.Deserialize(fs));
                 }
 
-                return new BrixXmlListControl(brixMainForm);
+                return new EsimXmlListControl(esimMainForm);
             }
-            if (!brixModule.Equals(string.Empty))
+            if (!esimModule.Equals(string.Empty))
             {
-                return new BrixListControl(brixModule);
+                return new EsimListControl(esimModule);
             }
             else
             {

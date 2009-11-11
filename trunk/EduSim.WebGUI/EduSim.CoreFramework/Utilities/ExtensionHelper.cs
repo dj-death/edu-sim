@@ -6,8 +6,8 @@ using System.Globalization;
 using System.Data;
 using System.Reflection;
 using System.Xml;
-using EduSim.CoreFramework.DataAccess;
 using EduSim.CoreFramework.DTO;
+using EduSim.CoreFramework.DataAccess;
 
 namespace EduSim.CoreUtilities.Utility
 {
@@ -138,7 +138,7 @@ namespace EduSim.CoreUtilities.Utility
             try { count = varlist.Count<T>(); }
             catch (Exception ex) { throw new Exception("The supplied IEnumerable object is empty and can not be converted to a DataTable; Error : \"" + ex.Message + "\"", ex); }
 
-            DataTable dtReturn = new BrixDataTable();
+            DataTable dtReturn = new EsimDataTable();
             if (count > 0)
             {
                 T TopDTO = varlist.ElementAt(0);

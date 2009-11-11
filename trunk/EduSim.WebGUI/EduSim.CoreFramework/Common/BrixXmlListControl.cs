@@ -11,7 +11,6 @@ using Gizmox.WebGUI.Forms.Catalog;
 using System.Collections.Generic;
 using System.Reflection;
 using EduSim.CoreFramework.Common;
-using EduSim.CoreFramework.DataAccess;
 
 namespace EduSim.WebGUI.UI
 {
@@ -20,7 +19,7 @@ namespace EduSim.WebGUI.UI
 	/// </summary>
 
     [Serializable()]
-    public class BrixXmlListControl : BaseUserControl, IHostedApplication
+    public class EsimXmlListControl : BaseUserControl, IHostedApplication
 	{
 		private Gizmox.WebGUI.Forms.ListView mobjListView;
 
@@ -34,7 +33,8 @@ namespace EduSim.WebGUI.UI
         [NonSerialized]
         private System.ComponentModel.Container components = null;
 
-        public BrixXmlListControl(BrixMainForm BrixMainForm) : base (BrixMainForm)
+        public EsimXmlListControl(EsimMainForm esimMainForm)
+            : base(esimMainForm)
 		{
 			// This call is required by the WebGUI Form Designer.
 			InitializeComponent();
@@ -63,7 +63,7 @@ namespace EduSim.WebGUI.UI
         private void mobjListView_DoubleClick(object sender, EventArgs e)
         {
             DataRow row = ((((Gizmox.WebGUI.Forms.Component)((sender as ListView).SelectedItem)).Tag) as DataRowView).Row;
-            MainForm.SelectCategory(typeof(BrixXmlEditControl), new object [] {BrixMainForm, row} ) ;
+            MainForm.SelectCategory(typeof(EsimXmlEditControl), new object [] {EsimMainForm, row} ) ;
         }
 
 		/// <summary> 
@@ -116,7 +116,7 @@ namespace EduSim.WebGUI.UI
 
             int CurrentPage = 0, count;
 
-            listDataSet = CoreDatabaseHelper.GetODSData(BrixMainForm.TableName, 100, BrixMainForm.PrimaryKeyName, null, false, 
+            listDataSet = CoreDatabaseHelper.GetODSData(EsimMainForm.TableName, 100, EsimMainForm.PrimaryKeyName, null, false, 
                 ref CurrentPage, out count, null);
 
             ColumnHeader[] columnHeader = AddColumns();
@@ -157,7 +157,7 @@ namespace EduSim.WebGUI.UI
             List<ColumnHeader> columnHeaders = new List<ColumnHeader>();
             foreach(DataColumn column in table.Columns)
             {
-                foreach (BrixDataEntry dataEntry in BrixMainForm.BrixDataEntries)
+                foreach (EsimDataEntry dataEntry in EsimMainForm.EsimDataEntries)
                 {
                     if (dataEntry.Name.Equals(column.Caption))
                     {
@@ -205,14 +205,14 @@ namespace EduSim.WebGUI.UI
         {
             if (bindingNavigator1.AddNewItem == objEvent.Button)
             {
-                MainForm.SelectCategory(typeof(BrixXmlEditControl), new object[] { BrixMainForm, null });
+                MainForm.SelectCategory(typeof(EsimXmlEditControl), new object[] { EsimMainForm, null });
             }
             if (bindingNavigator1.DeleteItem == objEvent.Button)
             {
-                Type type = Type.GetType(BrixMainForm.HandlerClass);
-                MethodInfo miHandler = type.GetMethod(BrixMainForm.DeleteEvent, BindingFlags.Public | BindingFlags.Static);
+                Type type = Type.GetType(EsimMainForm.HandlerClass);
+                MethodInfo miHandler = type.GetMethod(EsimMainForm.DeleteEvent, BindingFlags.Public | BindingFlags.Static);
 
-                miHandler.Invoke(null, new object[] { BrixMainForm, mobjListView.SelectedItem.SubItems[0].Text });
+                miHandler.Invoke(null, new object[] { EsimMainForm, mobjListView.SelectedItem.SubItems[0].Text });
             }
         }
 
