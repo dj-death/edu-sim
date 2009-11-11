@@ -15,7 +15,7 @@ namespace EduSim.WebGUI.UI
     {
         public static void SaveTeam(List<Control> list, BrixMainForm brixMainForm, string filter)
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
             Team team;
             //Insert
             if (filter.Equals(string.Empty))
@@ -100,7 +100,7 @@ namespace EduSim.WebGUI.UI
 
         public static void FillUserDetails(CheckedListBox control, BrixDataEntry dataEntry, DataTable table)
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
             
             (from u in db.UserDetails
              select u.Email).ToList<string>().ForEach(o => control.Items.Add(o));
@@ -131,7 +131,7 @@ namespace EduSim.WebGUI.UI
 
         public static void FillTeamNamesDetails(ComboBox control, BrixDataEntry dataEntry, DataTable table)
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
 
             (from tc in db.TeamCategory
              select tc.Name).ToList<string>().ForEach(o => control.Items.Add(o));
@@ -148,7 +148,7 @@ namespace EduSim.WebGUI.UI
 
         public static void DeleteTeam(BrixMainForm brixMainForm, string filter)
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
 
             (from tu in db.TeamUser
              where tu.TeamId == int.Parse(filter)

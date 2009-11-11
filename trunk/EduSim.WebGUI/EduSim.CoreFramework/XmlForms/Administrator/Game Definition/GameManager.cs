@@ -15,7 +15,7 @@ namespace EduSim.WebGUI.UI
     {
         public static void SaveGame(List<Control> list, BrixMainForm brixMainForm, string filter)
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
             Game game;
             //Insert
             if (filter.Equals(string.Empty))
@@ -186,7 +186,7 @@ namespace EduSim.WebGUI.UI
 
         public static void FillGameDetails(CheckedListBox control, BrixDataEntry dataEntry, DataTable table)
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
 
             (from t in db.Team
              join tc in db.TeamCategory on t.TeamCategory equals tc
@@ -219,7 +219,7 @@ namespace EduSim.WebGUI.UI
 
         public static void DeleteGame(BrixMainForm brixMainForm, string filter)
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
             (from tu in db.TeamGame
              where tu.GameId == int.Parse(filter)
              select tu).ToList<TeamGame>().ForEach(o => db.TeamGame.DeleteOnSubmit(o));

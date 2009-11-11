@@ -286,7 +286,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
         {
             UserDetails user = HttpContext.Current.Session[SessionConstants.CurrentUser] as UserDetails;
 
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
 
             IQueryable<Game> gm = from g in db.Game
                                   join tg in db.TeamGame on g.Id equals tg.GameId
@@ -316,7 +316,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
                                                   catNode1.AddCategory("Production", typeof(ProductionDataGridView), "ListView.gif");
                                                   catNode1.AddCategory("Finance", typeof(FinanceDataGridView), "ListView.gif");
                                                   CategoryNode catNode2 = catNode1.AddCategory("Reports", "Show.gif");
-                                                  catNode2.AddCategory("P&L", typeof(PnLDataGridView), "ListView.gif");
+                                                  catNode2.AddCategory("Income Statement", typeof(PnLDataGridView), "ListView.gif");
                                                   catNode2.AddCategory("Balance Sheet", "Disable.gif");
                                                   catNode2.AddCategory("Cash Flow", "Disable.gif");
                                                   catNode2.AddCategory("Balance Scorecard", "Disable.gif");
@@ -610,7 +610,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
                 if (split.Length > 1)
                 {
                     string[] split1 = split[1].Split("|".ToCharArray());
-                    Edusim db = new Edusim();
+                    Edusim db = new Edusim(Constants.ConnectionString);
 
                     Round round = (from r in db.Round
                                    where r.Id == int.Parse(split1[1])

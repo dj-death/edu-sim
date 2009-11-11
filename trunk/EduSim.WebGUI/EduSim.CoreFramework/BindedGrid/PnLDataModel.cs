@@ -7,6 +7,7 @@ using EduSim.CoreFramework.DTO;
 using Gizmox.WebGUI.Forms;
 using System.Reflection;
 using EduSim.CoreUtilities.Utility;
+using System.Drawing;
 
 namespace EduSim.WebGUI.UI.BindedGrid
 {
@@ -24,7 +25,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
 
             dataGridView1.Columns.Add("Description", "Description");
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
 
             List<string> products = (from rp in db.RoundProduct
                                      where rp.Round == round
@@ -37,74 +38,155 @@ namespace EduSim.WebGUI.UI.BindedGrid
             });
 
             AddRow<MarketingDataView>(marketingData, products, dataGridView1, "ProjectedSales", data);
+
+            AddRowForHeader(dataGridView1, "VariableCost");
             AddRow<ProductionDataView>(productionData, products, dataGridView1, "LabourCost", data);
             AddRow<ProductionDataView>(productionData, products, dataGridView1, "MaterialCost", data);
-            AddRow<ProductionDataView>(productionData, products, dataGridView1, "AutomationCost", data);
-            AddRow<ProductionDataView>(productionData, products, dataGridView1, "NewCapacityCost", data);
+            AddRowForInventoryCarryCost(productionData, products, dataGridView1, data);
+            AddRowForTotalVariableCost(products, dataGridView1, data);
+            AddRowForContributionMargin(products, dataGridView1, data);
+
+            AddRowForHeader(dataGridView1, "PeriodCost");
+            AddRowForDepreciation(productionData, products, dataGridView1, data);
             AddRow<RnDDataView>(rndData, products, dataGridView1, "RnDCost", data);
             AddRow<MarketingDataView>(marketingData, products, dataGridView1, "SalesExpense", data);
             AddRow<MarketingDataView>(marketingData, products, dataGridView1, "MarketingExpense", data);
-            AddRowForDepreciation(productionData, products, dataGridView1, data);
             AddRowForGeneralAndAdministration(financeData, products, dataGridView1, data);
-            AddRowForEbit(products, dataGridView1, data);
-            AddRowForContributionMargin(productionData, products, dataGridView1, data);
-            AddRowForInterestAndTax(financeData, products, dataGridView1, data);
-            AddRowForProfitSharing(products, dataGridView1, data);
-            AddRowForNetProfit(products, dataGridView1, data);
+            AddRowForNetMargin(products, dataGridView1, data);
+
+            AddRowForEbit(dataGridView1, data);
+            AddRowForShortTermInterest(financeData, dataGridView1, data);
+            AddRowForLongTermInterest(financeData, dataGridView1, data);
+            AddRowForTax(dataGridView1, data);
+            AddRowForProfitSharing(dataGridView1, data);
+            AddRowForNetProfit(dataGridView1, data);
         }
 
-        private void AddRowForNetProfit(List<string> products, DataGridView dataGridView1, 
-            Dictionary<string, List<double>> gridData)
+        private void AddRowForTax(DataGridView dataGridView1, Dictionary<string, List<double>> data)
         {
             DataGridViewRow r = new DataGridViewRow();
 
-            DataGridViewCell t = new DataGridViewTextBoxCell();
-            t.Value = "NetProfit";
-            r.Cells.Add(t);
+            AddHeader(r, "Tax");
 
+            dataGridView1.Rows.Add(r);
+        }
+
+        private void AddRowForLongTermInterest(Dictionary<string, FinanceDataView> financeData, DataGridView dataGridView1, Dictionary<string, List<double>> data)
+        {
+            DataGridViewRow r = new DataGridViewRow();
+            AddHeader(r, "LongTermInterest");
+            dataGridView1.Rows.Add(r);
+        }
+
+        private void AddRowForShortTermInterest(Dictionary<string, FinanceDataView> financeData, DataGridView dataGridView1, Dictionary<string, List<double>> data)
+        {
+            DataGridViewRow r = new DataGridViewRow();
+            AddHeader(r, "ShortTermInterest");
+            dataGridView1.Rows.Add(r);
+        }
+
+        private void AddRowForNetMargin(List<string> products, DataGridView dataGridView1, Dictionary<string, List<double>> data)
+        {
+            DataGridViewRow r = new DataGridViewRow();
+            AddHeader(r, "NetMargins");
+            dataGridView1.Rows.Add(r);
+        }
+
+        private void AddRowForTotalVariableCost(List<string> products, DataGridView dataGridView1, Dictionary<string, List<double>> data)
+        {
+            DataGridViewRow r = new DataGridViewRow();
+            AddHeader(r, "TotalVariableCost");
             foreach (string str in products)
             {
                 DataGridViewCell t1 = new DataGridViewTextBoxCell();
-                double sum = 0;
-                bool skipFirstRow = true;
-                foreach (double val in gridData[str])
-                {
-                    if (!skipFirstRow)
-                    {
-                        sum += val;
-                    }
-                    skipFirstRow = false;
-                }
 
-                t1.Value = (gridData[str][0] - sum).ToString("$###0.00");
+                double totalVariableCost = data[str][1] + data[str][2] + data[str][3];
+                t1.Value = totalVariableCost;
+
+                data[str].Add(totalVariableCost);
                 r.Cells.Add(t1);
             }
             dataGridView1.Rows.Add(r);
         }
 
-        private void AddRowForProfitSharing(List<string> products, DataGridView dataGridView1
-            , Dictionary<string, List<double>> gridData)
+        private void AddRowForHeader(DataGridView dataGridView1, string header)
         {
+            DataGridViewRow r = new DataGridViewRow();
+
+            DataGridViewCell t = new DataGridViewTextBoxCell();
+            t.Value = header;
+            t.Style = new DataGridViewCellStyle();
+            t.Style.BackColor = Color.Gray;
+            r.Cells.Add(t);
+
+            dataGridView1.Rows.Add(r);
         }
 
-        private void AddRowForContributionMargin(Dictionary<string, ProductionDataView> productionData,
-            List<string> products, DataGridView dataGridView1, Dictionary<string, List<double>> gridData)
+        private void AddRowForInventoryCarryCost(Dictionary<string, ProductionDataView> productionData, List<string> products, DataGridView dataGridView1, Dictionary<string, List<double>> data)
         {
+            DataGridViewRow r = new DataGridViewRow();
+
+            AddHeader(r, "Inventory");
+
+            foreach (string str in products)
+            {
+                DataGridViewCell t1 = new DataGridViewTextBoxCell();
+
+                double depreciation = productionData[str].Inventory * configurationInfo["InventoryCarryCost"];
+                t1.Value = depreciation.ToString("$###0.00");
+
+                data[str].Add(depreciation);
+                r.Cells.Add(t1);
+            }
+            dataGridView1.Rows.Add(r);
         }
 
-        private void AddRowForEbit(List<string> products, DataGridView dataGridView1, 
+        private static void AddHeader(DataGridViewRow r, string header)
+        {
+            DataGridViewCell t = new DataGridViewTextBoxCell();
+            t.Value = header;
+            r.Cells.Add(t);
+        }
+
+        private void AddRowForNetProfit(DataGridView dataGridView1, 
             Dictionary<string, List<double>> gridData)
         {
+            DataGridViewRow r = new DataGridViewRow();
+
+            AddHeader(r, "NetProfit");
+
+            dataGridView1.Rows.Add(r);
+        }
+
+        private void AddRowForProfitSharing(DataGridView dataGridView1
+            , Dictionary<string, List<double>> gridData)
+        {
+            DataGridViewRow r = new DataGridViewRow();
+            AddHeader(r, "ProfitSharing");
+            dataGridView1.Rows.Add(r);
+        }
+
+        private void AddRowForContributionMargin( List<string> products, DataGridView dataGridView1, Dictionary<string, List<double>> gridData)
+        {
+            DataGridViewRow r = new DataGridViewRow();
+            AddHeader(r, "ContributionMargin");
+            dataGridView1.Rows.Add(r);
+        }
+
+        private void AddRowForEbit(DataGridView dataGridView1, 
+            Dictionary<string, List<double>> gridData)
+        {
+            DataGridViewRow r = new DataGridViewRow();
+            AddHeader(r, "EBIT");
+            dataGridView1.Rows.Add(r);
         }
 
         private void AddRowForGeneralAndAdministration(Dictionary<string, FinanceDataView> financeData,
             List<string> products, DataGridView dataGridView1, Dictionary<string, List<double>> gridData)
         {
-        }
-
-        private void AddRowForInterestAndTax(Dictionary<string, FinanceDataView> financeData,
-            List<string> products, DataGridView dataGridView1, Dictionary<string, List<double>> gridData)
-        {
+            DataGridViewRow r = new DataGridViewRow();
+            AddHeader(r, "GeneralAndAdministration");
+            dataGridView1.Rows.Add(r);
         }
 
         private void AddRowForDepreciation(Dictionary<string, ProductionDataView> productionData,
@@ -115,15 +197,13 @@ namespace EduSim.WebGUI.UI.BindedGrid
             //Depreciate it by 10%
             DataGridViewRow r = new DataGridViewRow();
 
-            DataGridViewCell t = new DataGridViewTextBoxCell();
-            t.Value = "Depreciation";
-            r.Cells.Add(t);
+            AddHeader(r, "Depreciation");
 
             foreach (string str in products)
             {
                 DataGridViewCell t1 = new DataGridViewTextBoxCell();
 
-                double depreciation = productionData[str].Capacity * configurationInfo["CapacityCost"] * 0.1;
+                double depreciation = productionData[str].Capacity * configurationInfo["DepreciationFactor"];
                 t1.Value = depreciation.ToString("$###0.00");
 
                 gridData[str].Add(depreciation);
@@ -137,9 +217,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
         {
             DataGridViewRow r = new DataGridViewRow();
 
-            DataGridViewCell t = new DataGridViewTextBoxCell();
-            t.Value = p;
-            r.Cells.Add(t);
+            AddHeader(r, p);
 
             foreach(string str in products)
             {
