@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Configuration;
 
 namespace EduSim.CoreFramework.Common
 {
@@ -20,4 +21,10 @@ namespace EduSim.CoreFramework.Common
         public static string Administrator = "Administrator";
         public static string Simulation = "Simulation";
     }
+
+    public class Constants
+    {
+        public static string ConnectionString = ConfigurationManager.ConnectionStrings["ESimConnectionString"].ConnectionString;
+    }
+
 }

@@ -16,7 +16,7 @@ namespace EduSim.CoreFramework.Utilities
 
             if (dic.Count == 0)
             {
-                Edusim db = new Edusim();
+                Edusim db = new Edusim(Constants.ConnectionString);
                 IQueryable<RnDDataView> rs = from r in db.RnDData
                                              join rp in db.RoundProduct on r.RoundProduct equals rp
                                              where rp.Round == round
@@ -52,7 +52,7 @@ namespace EduSim.CoreFramework.Utilities
 
             if (dic.Count == 0)
             {
-                Edusim db = new Edusim();
+                Edusim db = new Edusim(Constants.ConnectionString);
                 (from m in db.MarketingData
                  join rp in db.RoundProduct on m.RoundProduct equals rp
                  where rp.Round == round
@@ -82,7 +82,7 @@ namespace EduSim.CoreFramework.Utilities
 
             if (dic.Count == 0)
             {
-                Edusim db = new Edusim();
+                Edusim db = new Edusim(Constants.ConnectionString);
                 IQueryable<ProductionDataView> rs = from p in db.ProductionData
                                                     join rp in db.RoundProduct on p.RoundProduct equals rp
                                                     join m in db.MarketingData on p.RoundProduct equals m.RoundProduct
@@ -124,7 +124,7 @@ namespace EduSim.CoreFramework.Utilities
 
             if (dic.Count == 0)
             {
-                Edusim db = new Edusim();
+                Edusim db = new Edusim(Constants.ConnectionString);
 
                 (from f in db.FinanceData
                  where f.Round == round
@@ -146,7 +146,7 @@ namespace EduSim.CoreFramework.Utilities
         {
             Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(SessionConstants.RnDData);
 
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
 
             (from r in db.RnDData
              join rp in db.RoundProduct on r.RoundProduct equals rp

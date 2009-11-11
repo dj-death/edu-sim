@@ -16,7 +16,7 @@ namespace EduSim.CoreFramework.Common
 
         static RoundDataModel()
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
 
             (from c in db.ConfigurationData
              select c).ToList<ConfigurationData>().ForEach(o => configurationInfo[o.Name] = o.Value);

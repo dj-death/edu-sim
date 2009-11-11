@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using EduSim.CoreFramework.DTO;
 using EduSim.WebGUI.UI;
+using EduSim.CoreFramework.Common;
 
 namespace EduSim.CoreFramework.BusinessLayer
 {
@@ -18,7 +19,7 @@ namespace EduSim.CoreFramework.BusinessLayer
 
         public static void ProcessRegistration(UserDetails user)
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
 
             db.UserDetails.InsertOnSubmit(user);
 

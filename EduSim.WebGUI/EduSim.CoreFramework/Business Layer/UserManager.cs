@@ -8,6 +8,7 @@ using System.Text;
 using System.Web.Caching;
 using System.IO;
 using EduSim.CoreFramework.DTO;
+using EduSim.CoreFramework.Common;
 
 namespace EduSim.UserManagementBL
 {
@@ -21,7 +22,7 @@ namespace EduSim.UserManagementBL
 
         public UserDetails ValidateUser(string email, string password)
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
             UserDetails user = null;
 
             try

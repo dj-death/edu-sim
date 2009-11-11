@@ -34,6 +34,8 @@ namespace EduSim.WebGUI.UI.BindedGrid
         {
             Dictionary<string, ProductionDataView> dic = RoundDataModel.GetData<ProductionDataView>(SessionConstants.ProductionData);
 
+            SetMaterialCost(dic);
+
             dic.Values.ToList<ProductionDataView>().ForEach(o =>
             {
                 C.Add(o.Inventory);
@@ -60,6 +62,17 @@ namespace EduSim.WebGUI.UI.BindedGrid
             dataGridView1.DataSource = table;
         }
 
+        private void SetMaterialCost(Dictionary<string, ProductionDataView> dic)
+        {
+            Dictionary<string, RnDDataView> dic1 = RoundDataModel.GetData<RnDDataView>(SessionConstants.RnDData);
+
+            foreach (string key in dic.Keys)
+            {
+                dic[key].MaterialCost = dic1[key].Reliability * configurationInfo["ReliabilityMaterialCostFactor"]
+                    + (dic1[key].Performance + (17-dic1[key].Size))  *  configurationInfo["AgeMaterialCostFactor"];
+            }
+        }
+
         public override int[] HiddenColumns()
         {
             return new int[] { 0, 1, 2, 3, 5, 6, 7, 8, 9, 10, 12, 13, 15, 16, 17 };
@@ -67,7 +80,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
         protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
 
             LabourData ld = (from l in db.LabourData
                              where l.Round == round
