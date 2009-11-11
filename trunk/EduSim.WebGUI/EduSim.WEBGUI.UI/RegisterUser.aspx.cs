@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Sockets;
 using EduSim.CoreFramework.BusinessLayer;
 using System.Text.RegularExpressions;
+using EduSim.CoreFramework.Common;
 
 namespace EduSim.WebGUI.UI
 {
@@ -63,7 +64,7 @@ namespace EduSim.WebGUI.UI
                 lblMessage.Text = "Invalid Email";
                 return false;
             }
-            Edusim db = new Edusim();
+            Edusim db = new Edusim(Constants.ConnectionString);
             int count = (from u in db.UserDetails
                          where u.Email.Equals(txtEmail.Text)
                          select u).Count<UserDetails>();
