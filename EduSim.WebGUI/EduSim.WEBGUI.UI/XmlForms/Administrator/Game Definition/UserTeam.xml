@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 
-<BrixMainForm TableName="Team" PrimaryKeyName="Id" HandlerClass="EduSim.WebGUI.UI.TeamManager,EduSim.WebGUI.UI" SaveEvent="SaveTeam" DeleteEvent="DeleteTeam">
-  <BrixDataEntry BrixControl="ComboBox" Name="TeamCategoryId" Text="Name" IsFirstColumn="true" DataSource="FillTeamNamesDetails"/>
-  <BrixDataEntry BrixControl="CheckedListBox" Name="Players" Text="Players" IsFirstColumn="true" DataSource="FillUserDetails"/>
-  <BrixDataEntry BrixControl="CheckBox" Name="Active" Text="Active" IsFirstColumn="true" />
+<EsimMainForm TableName="Team" PrimaryKeyName="Id" HandlerClass="EduSim.WebGUI.UI.TeamManager,EduSim.WebGUI.UI" SaveEvent="SaveTeam" DeleteEvent="DeleteTeam">
+  <EsimDataEntry EsimControl="ComboBox" Name="TeamCategoryId" Text="Name" IsFirstColumn="true" DataSource="FillTeamNamesDetails"/>
+  <EsimDataEntry EsimControl="CheckedListBox" Name="Players" Text="Players" IsFirstColumn="true" DataSource="FillUserDetails"/>
+  <EsimDataEntry EsimControl="CheckBox" Name="Active" Text="Active" IsFirstColumn="true" />
 
-</BrixMainForm>
+</EsimMainForm>
