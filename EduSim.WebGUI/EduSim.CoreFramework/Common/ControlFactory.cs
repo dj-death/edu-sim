@@ -48,8 +48,8 @@ namespace EduSim.CoreFramework.Common
         }
 
         private static void CreateListBoxControl(List<Control> list, 
-            ref int count, 
-            EsimMainForm brixMainForm, 
+            ref int count,
+            EsimMainForm esimMainForm, 
             EsimDataEntry dataEntry, 
             DataTable table)
         {
@@ -61,7 +61,7 @@ namespace EduSim.CoreFramework.Common
             comboBox.Size = new System.Drawing.Size(100, 20);
             comboBox.TabIndex = count;
 
-            Type type = Type.GetType(brixMainForm.HandlerClass);
+            Type type = Type.GetType(esimMainForm.HandlerClass);
             MethodInfo miHandler = type.GetMethod(dataEntry.DataSource, BindingFlags.Public | BindingFlags.Static);
 
             miHandler.Invoke(null, new object[] { comboBox, dataEntry, table });
@@ -112,7 +112,7 @@ namespace EduSim.CoreFramework.Common
 
         internal static void CreateCheckedListBoxControl(List<Control> list,
             ref int count,
-            EsimMainForm brixMainForm,
+            EsimMainForm esimMainForm,
             EsimDataEntry dataEntry,
             DataTable table)
         {
@@ -124,7 +124,7 @@ namespace EduSim.CoreFramework.Common
             checkedListBox.Size = new System.Drawing.Size(160, 100);
             checkedListBox.TabIndex = count;
 
-            Type type = Type.GetType(brixMainForm.HandlerClass);
+            Type type = Type.GetType(esimMainForm.HandlerClass);
             MethodInfo miHandler = type.GetMethod(dataEntry.DataSource, BindingFlags.Public | BindingFlags.Static);
 
             miHandler.Invoke(null, new object[] { checkedListBox, dataEntry, table });
