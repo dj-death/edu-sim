@@ -29,15 +29,24 @@ namespace EduSim.WebGUI.UI.BindedGrid
         private List<double> Q = new List<double>();
         private List<double> R = new List<double>();
         private List<double> S = new List<double>();
+        private List<double> T = new List<double>();
 
         public override void GetList(DataGridView dataGridView1)
         {
             Dictionary<string, ProductionDataView> dic = RoundDataModel.GetData<ProductionDataView>(SessionConstants.ProductionData);
-
-            SetMaterialCost(dic);
+            Dictionary<string, MarketingDataView> dic1 = RoundDataModel.GetData<MarketingDataView>(SessionConstants.MarketingData);
 
             dic.Values.ToList<ProductionDataView>().ForEach(o =>
             {
+                o.ForecastedQuantity = dic1[o.ProductName].ForecastedQuantity;
+                T.Add(dic1[o.ProductName].UnitPrice);
+            });
+            SetMaterialCost(dic);
+
+
+            dic.Values.ToList<ProductionDataView>().ForEach(o =>
+            {
+                
                 C.Add(o.Inventory);
                 D.Add(o.ForecastedQuantity);
                 E.Add(o.TotalQuantity);
@@ -68,8 +77,8 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
             foreach (string key in dic.Keys)
             {
-                dic[key].MaterialCost = dic1[key].Reliability * configurationInfo["ReliabilityMaterialCostFactor"]
-                    + (dic1[key].Performance + (17-dic1[key].Size))  *  configurationInfo["AgeMaterialCostFactor"];
+                dic[key].MaterialCost = dic[key].ForecastedQuantity * (dic1[key].Reliability * configurationInfo["ReliabilityMaterialCostFactor"]
+                    + (dic1[key].Performance + (17-dic1[key].Size))  *  configurationInfo["AgeMaterialCostFactor"]);
             }
         }
 
@@ -124,6 +133,9 @@ namespace EduSim.WebGUI.UI.BindedGrid
             S[i] = H[i] * F[i];
             dataGridView1.Rows[7].Cells[c.ColumnIndex].Value = S[i].ToString("###0.00");
 
+            double contributionMargin = (G[i] + S[i])/ (T[i] * F[i]);
+            dataGridView1.Rows[8].Cells[c.ColumnIndex].Value = (contributionMargin).ToString("###0.00");
+
             Dictionary<string, ProductionDataView> dic = GetData<ProductionDataView>(SessionConstants.ProductionData);
 
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].ManufacturedQuantity = F[i];
@@ -132,12 +144,10 @@ namespace EduSim.WebGUI.UI.BindedGrid
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Utilization = R[i];
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].AutomationCost = M[i];
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].NewCapacityCost = P[i];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].LabourRate = H[i];
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].LabourCost = S[i];
-        }
-
-        public override void Save(DataGridView dataGridView1)
-        {
-            throw new NotImplementedException();
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].NumberOfLabour = Q[i];
+            dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].ContributionMargin = contributionMargin;
         }
 
         public override void AddProduct(DataGridView dataGridView1)

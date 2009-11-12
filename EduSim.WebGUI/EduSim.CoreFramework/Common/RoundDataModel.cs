@@ -48,11 +48,6 @@ namespace EduSim.CoreFramework.Common
             HandleDataChange(dataGridView1, row, c, oldValue);
         }
 
-        public virtual void Save(DataGridView dataGridView1)
-        {
-            throw new NotImplementedException();
-        }
-
         public virtual void AddProduct(DataGridView dataGridView1)
         {
             throw new NotImplementedException();
