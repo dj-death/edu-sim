@@ -91,11 +91,6 @@ namespace EduSim.WebGUI.UI.BindedGrid
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].RevisionDate = dt;
         }
 
-        public override void Save(DataGridView dataGridView1)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void AddProduct(DataGridView dataGridView1)
         {
             base.AddProduct(dataGridView1);

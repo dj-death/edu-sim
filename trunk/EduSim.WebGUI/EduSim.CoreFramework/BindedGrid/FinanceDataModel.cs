@@ -38,10 +38,5 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
             dataGridView1.Rows[5].Cells[c.ColumnIndex].Value = dic[round.RoundCategory.RoundName].Cash;
         }
-
-        public override void Save(DataGridView dataGridView1)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

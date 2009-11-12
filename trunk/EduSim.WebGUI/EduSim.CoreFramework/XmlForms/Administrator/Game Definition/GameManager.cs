@@ -141,7 +141,7 @@ namespace EduSim.WebGUI.UI
                                                         RoundProduct = rp,
                                                         PreviousNumberOfLabour = 0,
                                                         OldCapacity = o1.CapacityForNextRound,
-                                                        Inventory = o1.UnitSold,
+                                                        Inventory = o1.UnitInventory,
                                                         CurrentAutomation = o1.AutomationForNextRound,
                                                     };
                                                     db.ProductionData.InsertOnSubmit(pd);

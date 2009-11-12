@@ -44,10 +44,5 @@ namespace EduSim.WebGUI.UI.BindedGrid
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].SalesExpense = salesExpense;
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].MarketingExpense = marketingExpense;
         }
-
-        public override void Save(DataGridView dataGridView1)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

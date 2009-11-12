@@ -157,7 +157,17 @@ namespace EduSim.CoreUtilities.Utility
                     {
                         DataRow dr = dtReturn.NewRow();
                         foreach (PropertyInfo pi in dTOProps)
-                            dr[pi.Name] = pi.GetValue(dTO, null) == null ? DBNull.Value : pi.GetValue(dTO, null);
+                        {
+                            object dat = pi.GetValue(dTO, null);
+                            if (dat is double)
+                            {
+                                dr[pi.Name] = ((double)dat).ToString("###0.00");
+                            }
+                            else
+                            {
+                                dr[pi.Name] = pi.GetValue(dTO, null) == null ? DBNull.Value : pi.GetValue(dTO, null);
+                            }
+                        }
                         dtReturn.Rows.Add(dr);
                     }
                 }
