@@ -104,14 +104,13 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             this.dataGridView1.Dock = Gizmox.WebGUI.Forms.DockStyle.Fill;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
             this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.Size = new System.Drawing.Size(575, 452);
+            this.dataGridView1.Size = new System.Drawing.Size(575, 575);
             this.dataGridView1.TabIndex = 0;
             this.dataGridView1.AllowUserToAddRows = false;
             this.dataGridView1.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Red;
 
-            //this.dataGridView1.CellEndEdit += new DataGridViewCellEventHandler(dataGridView1_CellValueChanged);
 			// 
 			// DataGridViewControl
 			// 
@@ -127,15 +126,6 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
 			this.ResumeLayout(false);
 
 		}
-
-        void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
-        {
-            DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-            DataGridViewCell c = row.Cells[e.ColumnIndex];
-
-            rdm.HandleDataChangeBase(dataGridView1, row, c, 0);
-            //MessageBox.Show("hi there the value is " + c.Value);
-        }
 
 		#endregion
 
