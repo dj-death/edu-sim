@@ -1077,6 +1077,8 @@ INSERT ConfigurationData(Id,Name,Value) VALUES('13','AgeMaterialCostFactor','0.7
 INSERT ConfigurationData(Id,Name,Value) VALUES('14','ReliabilityMaterialCostFactor','0.0003')
 INSERT ConfigurationData(Id,Name,Value) VALUES('15','GAndAFactor','0.0107')
 INSERT ConfigurationData(Id,Name,Value) VALUES('16','InventoryCarryCost','2.57')
+INSERT ConfigurationData(Id,Name,Value) VALUES('17','DepreciationFactor','1.36')
+INSERT ConfigurationData(Id,Name,Value) VALUES('18','ProfitSharingRate','0.007')
 
 /***********Create Init Script for RoundCategory******************/
 INSERT RoundCategory(Id,RoundName) VALUES('1','Round1')
