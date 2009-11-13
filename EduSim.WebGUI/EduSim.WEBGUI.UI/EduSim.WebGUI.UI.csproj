@@ -242,6 +242,7 @@
     <Content Include="XmlForms\Administrator\User Management\User.xml" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="EduSimRules.drl" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
