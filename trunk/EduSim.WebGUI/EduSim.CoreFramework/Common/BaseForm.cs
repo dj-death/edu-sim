@@ -3,16 +3,16 @@ using System.Collections;
 using System.ComponentModel;
 using System.Drawing;
 using System.Data;
+using System.Xml.Serialization;
+using System.Web;
 
 using Gizmox.WebGUI.Forms;
 using Gizmox.WebGUI.Common.Resources;
 using Gizmox.WebGUI.Common.Interfaces;
-using System.Xml.Serialization;
-using System.IO;
-using System.Web;
 using EduSim.CoreFramework.Common;
 using EduSim.CoreFramework.Utilities;
 using EduSim.CoreFramework.DTO;
+using EduSim.Analyse.BusinessLayer;
 
 namespace Gizmox.WebGUI.Forms.Catalog
 {
@@ -357,7 +357,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
             this.mobjMenuSubmit.Click += new EventHandler((sender, e) =>
             {
-                MessageBox.Show("Submiting...");
+                ResultsManager.Run();
             });
             // 
             // mobjMenuHelp
