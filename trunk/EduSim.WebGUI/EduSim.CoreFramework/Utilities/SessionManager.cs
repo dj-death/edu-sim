@@ -243,6 +243,19 @@ namespace EduSim.CoreFramework.Utilities
                  o.ShortTermLoan = dic3[o.Round.RoundCategory.RoundName].ShortTermLoan;
              });
 
+            Dictionary<string, LabourDataView> dic4 = RoundDataModel.GetData<LabourDataView>(SessionConstant.LabourData);
+
+            (from f in db.LabourData
+             where f.Round == round
+             select f).ToList<LabourData>().ForEach(o =>
+             {
+                 o.NumberOfLabour = dic4[o.Round.RoundCategory.RoundName].NumberOfLabour;
+                 o.AnnualRaise = dic4[o.Round.RoundCategory.RoundName].AnnualRaise;
+                 o.Rate = dic4[o.Round.RoundCategory.RoundName].Rate;
+                 o.ProfitSharing = dic4[o.Round.RoundCategory.RoundName].ProfitSharing;
+                 o.Benefits= dic4[o.Round.RoundCategory.RoundName].Benefits;
+             });
+
             db.SubmitChanges();
         }
     }
