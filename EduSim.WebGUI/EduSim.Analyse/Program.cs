@@ -6,7 +6,6 @@ using System.Reflection;
 using System.IO;
 using org.drools.dotnet.compiler;
 using org.drools.dotnet.rule;
-using EduSim.Analyse.DTO;
 using EduSim.Analyse.BusinessLayer;
 using System.Collections;
 
