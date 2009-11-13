@@ -249,4 +249,9 @@
     </None>
   </ItemGroup>
   <Import Condition="" Project="$(MSBuildExtensionsPath)\Gizmox\v9.0\Gizmox.VWGApplication.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>md rules/
+copy "$(ProjectDir)EduSimRules.drl" "$(TargetDir)rules\"</PostBuildEvent>
+    <PreBuildEvent>del "$(TargetDir)*.dll"</PreBuildEvent>
+  </PropertyGroup>
 </Project>
