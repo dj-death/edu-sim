@@ -170,9 +170,9 @@ namespace EduSim.WebGUI.UI
                      {
                          Round = round,
                          PreviousRate = o1.PreviousRate,
-                         PreviousBenefits = o1.Benefits,
-                         PreviousProfitSharing = o1.ProfitSharing,
-                         PreviousAnnualRaise = o1.AnnualRaise,
+                         PreviousBenefits = o1.Benefits.HasValue ? o1.Benefits.Value : 0.0,
+                         PreviousProfitSharing = o1.ProfitSharing.HasValue ? o1.ProfitSharing.Value : 0.0,
+                         PreviousAnnualRaise = o1.AnnualRaise.HasValue ? o1.AnnualRaise.Value : 0.0,
                          PreviousNumberOfLabour = o1.PreviousNumberOfLabour,
                          Rate = o1.PreviousRate,
                          Benefits = o1.Benefits,

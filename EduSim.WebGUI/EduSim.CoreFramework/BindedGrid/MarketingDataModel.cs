@@ -14,7 +14,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
     {
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, MarketingDataView> dic = GetData<MarketingDataView>(SessionConstants.MarketingData);
+            Dictionary<string, MarketingDataView> dic = GetData<MarketingDataView>(SessionConstant.MarketingData);
             DataTable table = dic.Values.ToDataTable<MarketingDataView>(null).Transpose();
 
             dataGridView1.DataSource = table;
@@ -37,7 +37,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
             //(H2-G2)*$B$9+ (J2-I2)*$B$10 + (K2-L2)*$B$11
             dataGridView1.Rows[9].Cells[colIndex].Value = unitCost * forcastQty;
 
-            Dictionary<string, MarketingDataView> dic = GetData<MarketingDataView>(SessionConstants.MarketingData);
+            Dictionary<string, MarketingDataView> dic = GetData<MarketingDataView>(SessionConstant.MarketingData);
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].UnitPrice = unitCost;
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].ForecastedQuantity = forcastQty;
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].ProjectedSales = unitCost * forcastQty;

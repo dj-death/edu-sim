@@ -22,10 +22,10 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, RnDDataView> rndData = GetData<RnDDataView>(SessionConstants.RnDData);
-            Dictionary<string, MarketingDataView> marketingData = GetData<MarketingDataView>(SessionConstants.MarketingData);
-            Dictionary<string, ProductionDataView> productionData = GetData<ProductionDataView>(SessionConstants.ProductionData);
-            Dictionary<string, FinanceDataView> financeData = GetData<FinanceDataView>(SessionConstants.FinanceData);
+            Dictionary<string, RnDDataView> rndData = GetData<RnDDataView>(SessionConstant.RnDData);
+            Dictionary<string, MarketingDataView> marketingData = GetData<MarketingDataView>(SessionConstant.MarketingData);
+            Dictionary<string, ProductionDataView> productionData = GetData<ProductionDataView>(SessionConstant.ProductionData);
+            Dictionary<string, FinanceDataView> financeData = GetData<FinanceDataView>(SessionConstant.FinanceData);
             Dictionary<string, List<double>> gridData = new Dictionary<string, List<double>>();
             List<double> data = new List<double>();
 

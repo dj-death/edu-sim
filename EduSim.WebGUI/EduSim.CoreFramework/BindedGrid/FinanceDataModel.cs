@@ -14,7 +14,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
     {
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, FinanceDataView> dic = GetData <FinanceDataView>(SessionConstants.FinanceData);
+            Dictionary<string, FinanceDataView> dic = GetData <FinanceDataView>(SessionConstant.FinanceData);
 
             DataTable table = dic.Values.ToDataTable<FinanceDataView>(null).Transpose();
 
@@ -28,7 +28,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
         protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
-            Dictionary<string, FinanceDataView> dic = GetData<FinanceDataView>(SessionConstants.FinanceData);
+            Dictionary<string, FinanceDataView> dic = GetData<FinanceDataView>(SessionConstant.FinanceData);
             double longTermLoan = dataGridView1.Rows[1].Cells[c.ColumnIndex].Value.ToDouble2();
             double shortTermLoan = dataGridView1.Rows[3].Cells[c.ColumnIndex].Value.ToDouble2();
             dic[round.RoundCategory.RoundName].LongTermLoan = longTermLoan;

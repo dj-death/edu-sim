@@ -33,8 +33,8 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, ProductionDataView> dic = RoundDataModel.GetData<ProductionDataView>(SessionConstants.ProductionData);
-            Dictionary<string, MarketingDataView> dic1 = RoundDataModel.GetData<MarketingDataView>(SessionConstants.MarketingData);
+            Dictionary<string, ProductionDataView> dic = RoundDataModel.GetData<ProductionDataView>(SessionConstant.ProductionData);
+            Dictionary<string, MarketingDataView> dic1 = RoundDataModel.GetData<MarketingDataView>(SessionConstant.MarketingData);
 
             dic.Values.ToList<ProductionDataView>().ForEach(o =>
             {
@@ -73,7 +73,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
 
         private void SetMaterialCost(Dictionary<string, ProductionDataView> dic)
         {
-            Dictionary<string, RnDDataView> dic1 = RoundDataModel.GetData<RnDDataView>(SessionConstants.RnDData);
+            Dictionary<string, RnDDataView> dic1 = RoundDataModel.GetData<RnDDataView>(SessionConstant.RnDData);
 
             foreach (string key in dic.Keys)
             {
@@ -91,20 +91,19 @@ namespace EduSim.WebGUI.UI.BindedGrid
         {
             Edusim db = new Edusim(Constants.ConnectionString);
 
-            LabourData ld = (from l in db.LabourData
-                             where l.Round == round
-                             select l).FirstOrDefault<LabourData>();
+            Dictionary<string, LabourDataView> dic1 = GetData<LabourDataView>(SessionConstant.LabourData);
+            LabourDataView ld = dic1.Values.FirstOrDefault<LabourDataView>();
 
             double workerRequired = 0;
             int i = c.ColumnIndex - 1;
 
             //ManufacturedQuantity
-            F[i] = dataGridView1.Rows[4].Cells[c.ColumnIndex].Value.ToDouble2(); 
+            F[i] = dataGridView1.Rows[4].Cells[c.ColumnIndex].Value.ToDouble2();
 
             //Number of Labour: =D5/K5*$B$3
             Q[i] = F[i] / K[i] * configurationInfo["LabourFactor"];
             dataGridView1.Rows[16].Cells[c.ColumnIndex].Value = Q[i].ToString("###0.00");
-            for (int j = 0; j < row.Cells.Count-1; j++)
+            for (int j = 0; j < row.Cells.Count - 1; j++)
             {
                 workerRequired += Q[j];
             }
@@ -112,10 +111,11 @@ namespace EduSim.WebGUI.UI.BindedGrid
             //NewAutomation
             L[i] = dataGridView1.Rows[11].Cells[c.ColumnIndex].Value.ToDouble2();
             //NewCapacity
-            O[i] = dataGridView1.Rows[14].Cells[c.ColumnIndex].Value.ToDouble2(); 
+            O[i] = dataGridView1.Rows[14].Cells[c.ColumnIndex].Value.ToDouble2();
 
             //Utilization: =$Q$10/$S$5
-            R[i] = workerRequired / ld.NumberOfLabour;
+            double numberOfLabour = ld.NumberOfLabour;
+            R[i] = workerRequired / numberOfLabour;
             dataGridView1.Rows[17].Cells[c.ColumnIndex].Value = R[i].ToString("###0.00");
 
             //Automation Cost: J[i] =(L5-K5)*$B$1
@@ -127,16 +127,17 @@ namespace EduSim.WebGUI.UI.BindedGrid
             P[i] = O[i] > 0 ? O[i] * configurationInfo["CapacityCost"] : O[i] * configurationInfo["CapacityCost"] / 2;
             dataGridView1.Rows[15].Cells[c.ColumnIndex].Value = P[i].ToString("###0.00");
 
+            double rate = ld.Rate;
             //Labour Cost =IF(R5<=100%,HR!$B$1/K5, (100%*HR!$B$1/K5+((R5-100%)*1.5*HR!$B$1/K5)))
-            H[i] = (R[i] <= 1) ? (ld.Rate / K[i]) : (ld.Rate / K[i] + ((R[i] - 1) * 1.5 * ld.Rate / K[i]));
+            H[i] = (R[i] <= 1) ? (rate / K[i]) : (rate / K[i] + ((R[i] - 1) * 1.5 * rate / K[i]));
             dataGridView1.Rows[6].Cells[c.ColumnIndex].Value = H[i].ToString("###0.00");
             S[i] = H[i] * F[i];
             dataGridView1.Rows[7].Cells[c.ColumnIndex].Value = S[i].ToString("###0.00");
 
-            double contributionMargin = (G[i] + S[i])/ (T[i] * F[i]);
+            double contributionMargin = (G[i] + S[i]) / (T[i] * F[i]);
             dataGridView1.Rows[8].Cells[c.ColumnIndex].Value = (contributionMargin).ToString("###0.00");
 
-            Dictionary<string, ProductionDataView> dic = GetData<ProductionDataView>(SessionConstants.ProductionData);
+            Dictionary<string, ProductionDataView> dic = GetData<ProductionDataView>(SessionConstant.ProductionData);
 
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].ManufacturedQuantity = F[i];
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].NewAutomation = L[i];
