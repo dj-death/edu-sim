@@ -70,4 +70,19 @@ namespace EduSim.WebGUI.UI.BindedGrid
         public double OriganalCash { get; set; }
         public double Cash { get; set; }
     }
+
+    public class LabourDataView
+    {
+        public string RoundName { get; set; }
+        public double PreviousNumberOfLabour { get; set; }
+        public double NumberOfLabour { get; set; }
+        public double PreviousAnnualRaise { get; set; }
+        public double AnnualRaise { get; set; }
+        public double PreviousRate { get; set; }
+        public double Rate { get; set; }
+        public double PreviousProfitSharing { get; set; }
+        public double ProfitSharing { get; set; }
+        public double PreviousBenefits { get; set; }
+        public double Benefits { get; set; }
+    }
 }

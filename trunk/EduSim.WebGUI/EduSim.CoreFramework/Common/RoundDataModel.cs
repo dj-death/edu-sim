@@ -53,14 +53,14 @@ namespace EduSim.CoreFramework.Common
             throw new NotImplementedException();
         }
 
-        public static Dictionary<string, T> GetData<T>(string name)
+        public static Dictionary<string, T> GetData<T>(SessionConstant name)
         {
-            Dictionary<string, T> dic = (Dictionary<string, T>)HttpContext.Current.Session[name];
+            Dictionary<string, T> dic = (Dictionary<string, T>)HttpContext.Current.Session[name.ToString()];
 
             if (dic == null)
             {
                 dic = new Dictionary<string, T>();
-                HttpContext.Current.Session[name] = dic;
+                HttpContext.Current.Session[name.ToString()] = dic;
             }
             return dic;
         }

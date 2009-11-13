@@ -92,6 +92,10 @@
     <Compile Include="BindedGrid\FinanceDataGridView.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="BindedGrid\LabourDataGridView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BindedGrid\LabourDataModel.cs" />
     <Compile Include="BindedGrid\MarketingDataGridView.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -171,6 +175,9 @@
   <ItemGroup>
     <EmbeddedResource Include="BindedGrid\FinanceDataGridView.resx">
       <DependentUpon>FinanceDataGridView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BindedGrid\LabourDataGridView.resx">
+      <DependentUpon>LabourDataGridView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="BindedGrid\MarketingDataGridView.resx">
       <DependentUpon>MarketingDataGridView.cs</DependentUpon>

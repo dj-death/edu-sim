@@ -10,10 +10,15 @@ namespace EduSim.CoreFramework.Common
     {
         public static string CurrentUser = "CurrentUser";
         public static string CurrentRound = "CurrentRound";
-        public static string RnDData = "RnDData";
-        public static string MarketingData = "MarketingData";
-        public static string ProductionData = "ProductionData";
-        public static string FinanceData = "FinanceData";
+    }
+
+    public enum SessionConstant
+    {
+        RnDData,
+        MarketingData,
+        ProductionData,
+        FinanceData,
+        LabourData
     }
 
     public class TabConstants

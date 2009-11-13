@@ -3196,13 +3196,13 @@ namespace EduSim.CoreFramework.DTO
 		
 		private double _PreviousRate;
 		
-		private System.Nullable<double> _PreviousBenefits;
+		private double _PreviousBenefits;
 		
-		private System.Nullable<double> _PreviousProfitSharing;
+		private double _PreviousProfitSharing;
 		
-		private System.Nullable<double> _PreviousAnnualRaise;
+		private double _PreviousAnnualRaise;
 		
-		private double _Rate;
+		private System.Nullable<double> _Rate;
 		
 		private System.Nullable<double> _Benefits;
 		
@@ -3212,7 +3212,7 @@ namespace EduSim.CoreFramework.DTO
 		
 		private double _PreviousNumberOfLabour;
 		
-		private double _NumberOfLabour;
+		private System.Nullable<double> _NumberOfLabour;
 		
 		private EntityRef<Round> _Round;
 		
@@ -3226,13 +3226,13 @@ namespace EduSim.CoreFramework.DTO
     partial void OnRoundIdChanged();
     partial void OnPreviousRateChanging(double value);
     partial void OnPreviousRateChanged();
-    partial void OnPreviousBenefitsChanging(System.Nullable<double> value);
+    partial void OnPreviousBenefitsChanging(double value);
     partial void OnPreviousBenefitsChanged();
-    partial void OnPreviousProfitSharingChanging(System.Nullable<double> value);
+    partial void OnPreviousProfitSharingChanging(double value);
     partial void OnPreviousProfitSharingChanged();
-    partial void OnPreviousAnnualRaiseChanging(System.Nullable<double> value);
+    partial void OnPreviousAnnualRaiseChanging(double value);
     partial void OnPreviousAnnualRaiseChanged();
-    partial void OnRateChanging(double value);
+    partial void OnRateChanging(System.Nullable<double> value);
     partial void OnRateChanged();
     partial void OnBenefitsChanging(System.Nullable<double> value);
     partial void OnBenefitsChanged();
@@ -3242,7 +3242,7 @@ namespace EduSim.CoreFramework.DTO
     partial void OnAnnualRaiseChanged();
     partial void OnPreviousNumberOfLabourChanging(double value);
     partial void OnPreviousNumberOfLabourChanged();
-    partial void OnNumberOfLabourChanging(double value);
+    partial void OnNumberOfLabourChanging(System.Nullable<double> value);
     partial void OnNumberOfLabourChanged();
     #endregion
 		
@@ -3316,8 +3316,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousBenefits", DbType="Float")]
-		public System.Nullable<double> PreviousBenefits
+		[Column(Storage="_PreviousBenefits", DbType="Float NOT NULL")]
+		public double PreviousBenefits
 		{
 			get
 			{
@@ -3336,8 +3336,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousProfitSharing", DbType="Float")]
-		public System.Nullable<double> PreviousProfitSharing
+		[Column(Storage="_PreviousProfitSharing", DbType="Float NOT NULL")]
+		public double PreviousProfitSharing
 		{
 			get
 			{
@@ -3356,8 +3356,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousAnnualRaise", DbType="Float")]
-		public System.Nullable<double> PreviousAnnualRaise
+		[Column(Storage="_PreviousAnnualRaise", DbType="Float NOT NULL")]
+		public double PreviousAnnualRaise
 		{
 			get
 			{
@@ -3376,8 +3376,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_Rate", DbType="Float NOT NULL")]
-		public double Rate
+		[Column(Storage="_Rate", DbType="Float")]
+		public System.Nullable<double> Rate
 		{
 			get
 			{
@@ -3476,8 +3476,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_NumberOfLabour", DbType="Float NOT NULL")]
-		public double NumberOfLabour
+		[Column(Storage="_NumberOfLabour", DbType="Float")]
+		public System.Nullable<double> NumberOfLabour
 		{
 			get
 			{

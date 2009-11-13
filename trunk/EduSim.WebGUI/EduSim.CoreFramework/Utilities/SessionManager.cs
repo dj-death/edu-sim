@@ -10,7 +10,16 @@ namespace EduSim.CoreFramework.Utilities
 {
     internal static class SessionManager
     {
-        internal static Dictionary<string, RnDDataView> SetRnDDataToSession(string sessionStr, Round round)
+        internal static void SetSessionData(Round o)
+        {
+            SessionManager.SetRnDDataToSession(SessionConstant.RnDData, o);
+            SessionManager.SetMarketingDataToSession(SessionConstant.MarketingData, o);
+            SessionManager.SetLabourDataToSession(SessionConstant.LabourData, o);
+            SessionManager.SetProductionDataToSession(SessionConstant.ProductionData, o);
+            SessionManager.SetFinanceDataToSession(SessionConstant.FinanceData, o);
+        }
+
+        internal static Dictionary<string, RnDDataView> SetRnDDataToSession(SessionConstant sessionStr, Round round)
         {
             Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(sessionStr);
 
@@ -46,7 +55,7 @@ namespace EduSim.CoreFramework.Utilities
             return dic;
         }
 
-        internal static Dictionary<string, MarketingDataView> SetMarketingDataToSession(string sessionData, Round round)
+        internal static Dictionary<string, MarketingDataView> SetMarketingDataToSession(SessionConstant sessionData, Round round)
         {
             Dictionary<string, MarketingDataView> dic = RoundDataModel.GetData<MarketingDataView>(sessionData);
 
@@ -76,7 +85,7 @@ namespace EduSim.CoreFramework.Utilities
             return dic;
         }
 
-        internal static Dictionary<string, ProductionDataView> SetProductionDataToSession(string sessionData, Round round)
+        internal static Dictionary<string, ProductionDataView> SetProductionDataToSession(SessionConstant sessionData, Round round)
         {
             Dictionary<string, ProductionDataView> dic = RoundDataModel.GetData<ProductionDataView>(sessionData);
 
@@ -118,7 +127,7 @@ namespace EduSim.CoreFramework.Utilities
             return dic;
         }
 
-        internal static Dictionary<string, FinanceDataView> SetFinanceDataToSession(string sessionData, Round round)
+        internal static Dictionary<string, FinanceDataView> SetFinanceDataToSession(SessionConstant sessionData, Round round)
         {
             Dictionary<string, FinanceDataView> dic = RoundDataModel.GetData<FinanceDataView>(sessionData);
 
@@ -142,9 +151,37 @@ namespace EduSim.CoreFramework.Utilities
             return dic;
         }
 
+        internal static Dictionary<string, LabourDataView> SetLabourDataToSession(SessionConstant sessionData, Round round)
+        {
+            Dictionary<string, LabourDataView> dic = RoundDataModel.GetData<LabourDataView>(sessionData);
+
+            if (dic.Count == 0)
+            {
+                Edusim db = new Edusim(Constants.ConnectionString);
+
+                (from f in db.LabourData
+                 where f.Round == round
+                 select new LabourDataView
+                 {
+                     RoundName = f.Round.RoundCategory.RoundName,
+                     PreviousNumberOfLabour = f.PreviousNumberOfLabour, 
+                     NumberOfLabour = f.NumberOfLabour.HasValue ? f.NumberOfLabour.Value : 0.0,
+                     PreviousAnnualRaise = f.PreviousAnnualRaise,
+                     AnnualRaise = f.AnnualRaise.HasValue ? f.AnnualRaise.Value : 0.0,
+                     PreviousRate = f.PreviousRate,
+                     Rate = f.Rate.HasValue ? f.Rate.Value : 0.0,
+                     PreviousProfitSharing = f.PreviousProfitSharing,
+                     ProfitSharing = f.ProfitSharing.HasValue ? f.ProfitSharing.Value : 0.0,
+                     PreviousBenefits = f.PreviousBenefits,
+                     Benefits = f.Benefits.HasValue ? f.Benefits.Value : 0.0
+                 }).ToList<LabourDataView>().ForEach(o => dic[round.RoundCategory.RoundName] = o);
+            }
+            return dic;
+        }
+
         internal static void SaveSessionData(Round round)
         {
-            Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(SessionConstants.RnDData);
+            Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(SessionConstant.RnDData);
 
             Edusim db = new Edusim(Constants.ConnectionString);
 
@@ -161,7 +198,7 @@ namespace EduSim.CoreFramework.Utilities
                  o.RnDCost = dic[o.RoundProduct.ProductName].RnDCost;
              });
 
-            Dictionary<string, MarketingDataView> dic1 = RoundDataModel.GetData<MarketingDataView>(SessionConstants.MarketingData);
+            Dictionary<string, MarketingDataView> dic1 = RoundDataModel.GetData<MarketingDataView>(SessionConstant.MarketingData);
 
             (from r in db.MarketingData
              join rp in db.RoundProduct on r.RoundProduct equals rp
@@ -174,7 +211,7 @@ namespace EduSim.CoreFramework.Utilities
                  o.ForecastingQuantity = dic1[o.RoundProduct.ProductName].ForecastedQuantity;
              });
 
-            Dictionary<string, ProductionDataView> dic2 = RoundDataModel.GetData<ProductionDataView>(SessionConstants.ProductionData);
+            Dictionary<string, ProductionDataView> dic2 = RoundDataModel.GetData<ProductionDataView>(SessionConstant.ProductionData);
 
             (from r in db.ProductionData
              join rp in db.RoundProduct on r.RoundProduct equals rp
@@ -195,7 +232,7 @@ namespace EduSim.CoreFramework.Utilities
                  o.Contribution = dic2[o.RoundProduct.ProductName].ContributionMargin;
              });
 
-            Dictionary<string, FinanceDataView> dic3 = RoundDataModel.GetData<FinanceDataView>(SessionConstants.FinanceData);
+            Dictionary<string, FinanceDataView> dic3 = RoundDataModel.GetData<FinanceDataView>(SessionConstant.FinanceData);
 
             (from f in db.FinanceData
              where f.Round == round

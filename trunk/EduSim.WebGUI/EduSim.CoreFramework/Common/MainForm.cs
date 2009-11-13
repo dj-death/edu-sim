@@ -309,10 +309,11 @@ namespace Gizmox.WebGUI.Forms.Catalog
              where tu.UserId == user.Id && r.TeamGame.GameId == gameId
              select r).ToList<Round>().ForEach(o =>
                                               {
-                                                  SetSessionData(o);
+                                                  SessionManager.SetSessionData(o);
                                                   CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id);
                                                   catNode1.AddCategory("R&D", typeof(RnDDataGridView), typeof(RnDDataModel), "ListView.gif" );
                                                   catNode1.AddCategory("Marketing", typeof(MarketingDataGridView), "ListView.gif");
+                                                  catNode1.AddCategory("Labour", typeof(LabourDataGridView), "ListView.gif");
                                                   catNode1.AddCategory("Production", typeof(ProductionDataGridView), "ListView.gif");
                                                   catNode1.AddCategory("Finance", typeof(FinanceDataGridView), "ListView.gif");
                                                   CategoryNode catNode2 = catNode1.AddCategory("Reports", "Show.gif");
@@ -322,14 +323,6 @@ namespace Gizmox.WebGUI.Forms.Catalog
                                                   catNode2.AddCategory("Balance Scorecard", "Disable.gif");
                                               }
                                               );
-        }
-
-        private void SetSessionData(Round o)
-        {
-            SessionManager.SetRnDDataToSession(SessionConstants.RnDData, o);
-            SessionManager.SetMarketingDataToSession(SessionConstants.MarketingData, o);
-            SessionManager.SetProductionDataToSession(SessionConstants.ProductionData, o);
-            SessionManager.SetFinanceDataToSession(SessionConstants.FinanceData, o);
         }
 
         private string GetMeaningOfLifeFromSecureDatabase()
