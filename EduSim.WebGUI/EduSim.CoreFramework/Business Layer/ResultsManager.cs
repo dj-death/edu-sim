@@ -14,20 +14,14 @@ namespace EduSim.Analyse.BusinessLayer
 {
     public class ResultsManager
     {
-        private Round round;
-        private IQueryable<CurrentRoundDemand> roundData;
-        private IQueryable<CurrentRoundForecast> forecastData;
-        private IQueryable<MarketingData> marketingData;
-        private IQueryable<RnDData> rndData;
+        private List<CurrentRoundDemand> roundData;
+        private List<CurrentRoundForecast> forecastData;
+        private List<MarketingData> marketingData;
+        private List<RnDData> rndData;
 
-        public void Init(org.drools.dotnet.WorkingMemory workingMemory)
+        public void Init(org.drools.dotnet.WorkingMemory workingMemory, Round round)
         {
-
             Edusim edusim = new Edusim(Constants.ConnectionString);
-
-            round = (from r in edusim.Round
-                     where r.Current == true
-                     select r).FirstOrDefault();
 
             workingMemory.assertObject(round);
 
@@ -38,22 +32,22 @@ namespace EduSim.Analyse.BusinessLayer
 
             Console.WriteLine();
 
-            roundData = from smd in edusim.SegmentMarketDemand
-                        join rc in edusim.RoundCriteria on smd.RoundCategoryId equals rc.RoundCategoryId
-                        where smd.RoundCategoryId == round.RoundCategoryId && smd.SegmentTypeId == rc.SegmentTypeId
-                        select new CurrentRoundDemand
-                        {
-                            SegmentTypeId = rc.SegmentTypeId,
-                            Quantity = smd.Quantity,
-                            Performance = rc.Performance,
-                            Size = rc.Size
-                        };
+            roundData = (from smd in edusim.SegmentMarketDemand
+                         join rc in edusim.RoundCriteria on smd.RoundCategoryId equals rc.RoundCategoryId
+                         where smd.RoundCategoryId == round.RoundCategoryId && smd.SegmentTypeId == rc.SegmentTypeId
+                         select new CurrentRoundDemand
+                         {
+                             SegmentTypeId = rc.SegmentTypeId,
+                             Quantity = smd.Quantity,
+                             Performance = rc.Performance,
+                             Size = rc.Size
+                         }).ToList<CurrentRoundDemand>();
 
-            foreach (var roundDataVal in roundData)
+            roundData.ForEach(o =>
             {
-                Console.WriteLine(roundDataVal.SegmentTypeId + "," + roundDataVal.Performance + "," + roundDataVal.Size + "," + roundDataVal.Quantity);
-                workingMemory.assertObject(roundDataVal);
-            }
+                Console.WriteLine(o.SegmentTypeId + "," + o.Performance + "," + o.Size + "," + o.Quantity);
+                workingMemory.assertObject(o);
+            });
 
             Console.WriteLine();
 
@@ -76,37 +70,37 @@ namespace EduSim.Analyse.BusinessLayer
                            ForecastingQuantity = m.ForecastingQuantity
                        };
 
-            forecastData = from d in data
+            forecastData = (from d in data
                            group d by new { SegmentTypeId = d.SegmentTypeId } into grp
                            select new CurrentRoundForecast
                            {
                                SegmentTypeId = grp.Key.SegmentTypeId,
                                Quantity = grp.Sum(o => o.ForecastingQuantity.HasValue ? o.ForecastingQuantity.Value : 0)
-                           };
+                           }).ToList<CurrentRoundForecast>();
 
-            foreach (CurrentRoundForecast forecastDataVal in forecastData)
+            forecastData.ForEach(o =>
             {
-                Console.WriteLine(forecastDataVal.SegmentTypeId + "," + forecastDataVal.Quantity);
-                workingMemory.assertObject(forecastDataVal);
-            }
+                Console.WriteLine(o.SegmentTypeId + "," + o.Quantity);
+                workingMemory.assertObject(o);
+            });
 
-            marketingData = from m in edusim.MarketingData
+            marketingData = (from m in edusim.MarketingData
                             join roundLoc in edusim.Round on round.Id equals roundLoc.Id
                             where roundLoc.RoundCategoryId == round.RoundCategoryId
-                            select m;
+                            select m).ToList<MarketingData>();
 
-            marketingData.ToList<MarketingData>().ForEach(o =>
+            marketingData.ForEach(o =>
             {
                  Console.WriteLine(o.RoundProduct.SegmentTypeId + "," + o.PurchasedQuantity + " " + o.ForecastingQuantity);
                  workingMemory.assertObject(o);
             });
 
-            rndData = from r in edusim.RnDData
+            rndData = (from r in edusim.RnDData
                       join roundLoc in edusim.Round on round.Id equals roundLoc.Id
                       where roundLoc.RoundCategoryId == round.RoundCategoryId
-                      select r;
+                      select r).ToList<RnDData>();
 
-            rndData.ToList<RnDData>().ForEach(o =>
+            rndData.ForEach(o =>
             {
                  workingMemory.assertObject(o);
             });
@@ -129,7 +123,7 @@ namespace EduSim.Analyse.BusinessLayer
 
         public int GetPriceRank(int segmentTypeId, MarketingData mktData)
         {
-            IQueryable<MarketingData> data =  from m in marketingData
+            IOrderedEnumerable<MarketingData> data =  from m in marketingData
                                               where m.RoundProduct.SegmentTypeId == segmentTypeId
                                               orderby m.Price ascending
                                               select m;
@@ -138,7 +132,7 @@ namespace EduSim.Analyse.BusinessLayer
 
         public int GetCustomerAccessRank(int segmentTypeId, MarketingData mktData)
         {
-            IQueryable<MarketingData> data = from m in marketingData
+            IOrderedEnumerable<MarketingData> data = from m in marketingData
                                              where m.RoundProduct.SegmentTypeId == segmentTypeId
                                              orderby m.SalesExpense descending
                                              orderby m.MarketingExpense descending
@@ -146,7 +140,7 @@ namespace EduSim.Analyse.BusinessLayer
             return MarketingRanking(mktData, data);
         }
 
-        private static int MarketingRanking(MarketingData mktData, IQueryable<MarketingData> data)
+        private static int MarketingRanking(MarketingData mktData, IOrderedEnumerable<MarketingData> data)
         {
             int count = 1;
             foreach (MarketingData mData in data)
@@ -163,7 +157,7 @@ namespace EduSim.Analyse.BusinessLayer
 
         public int GetPerformanceRank(int segmentTypeId, RnDData rnDData)
         {
-            IQueryable<RnDData> data = from r in rndData
+            IOrderedEnumerable<RnDData> data = from r in rndData
                                        where r.RoundProduct.SegmentTypeId == segmentTypeId
                                        orderby r.Performance descending 
                                              select r;
@@ -172,7 +166,7 @@ namespace EduSim.Analyse.BusinessLayer
 
         public int GetSizeRank(int segmentTypeId, RnDData rnDData)
         {
-            IQueryable<RnDData> data = from r in rndData
+            IOrderedEnumerable<RnDData> data = from r in rndData
                                        where r.RoundProduct.SegmentTypeId == segmentTypeId
                                        orderby r.Size ascending
                                        select r;
@@ -181,7 +175,7 @@ namespace EduSim.Analyse.BusinessLayer
 
         public int GetReliabilityRank(int segmentTypeId, RnDData rnDData)
         {
-            IQueryable<RnDData> data = from r in rndData
+            IOrderedEnumerable<RnDData> data = from r in rndData
                                        where r.RoundProduct.SegmentTypeId == segmentTypeId
                                        orderby r.Reliability descending 
                                        select r;
@@ -190,14 +184,14 @@ namespace EduSim.Analyse.BusinessLayer
 
         public int GetAgeRank(int segmentTypeId, RnDData rnDData)
         {
-            IQueryable<RnDData> data = from r in rndData
+            IOrderedEnumerable<RnDData> data = from r in rndData
                                        where r.RoundProduct.SegmentTypeId == segmentTypeId
                                        orderby r.Performance descending 
                                        select r;
             return RndRanking(rnDData, data);
         }
 
-        private static int RndRanking(RnDData rnDData, IQueryable<RnDData> data)
+        private static int RndRanking(RnDData rnDData, IOrderedEnumerable<RnDData> data)
         {
             int count = 1;
 
@@ -221,7 +215,7 @@ namespace EduSim.Analyse.BusinessLayer
                 crds[o.SegmentTypeId] = o.Quantity
             );
 
-            IQueryable<MarketingData> mds = (from m in marketingData
+            IOrderedEnumerable<MarketingData> mds = (from m in marketingData
                                              where m.Purchased == false
                                              orderby m.Rating descending 
                                              select m);
@@ -244,7 +238,7 @@ namespace EduSim.Analyse.BusinessLayer
             }
         }
 
-        public static void Run()
+        public static void Run(Round round)
         {
             Stream stream = new FileStream("./rules/EduSimRules.drl", FileMode.Open);
             PackageBuilder builder = new PackageBuilder();
@@ -256,7 +250,7 @@ namespace EduSim.Analyse.BusinessLayer
 
             ResultsManager rm = new ResultsManager();
 
-            rm.Init(workingMemory);
+            rm.Init(workingMemory, round);
 
             workingMemory.assertObject(rm);
             ArrayList resultList = new ArrayList();

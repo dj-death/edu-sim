@@ -155,9 +155,9 @@ namespace EduSim.WebGUI.UI
                      {
                          Round = round,
                          Cash = o1.Cash,
-                         PreviousLongTermLoan = o1.PreviousLongTermLoan,
+                         TotalLongTermLoan = o1.PreviousLongTermLoan,
                          LongTermLoan = o1.LongTermLoan,
-                         PreviousShortTermLoan = o1.PreviousShortTermLoan,
+                         TotalShortTermLoan = o1.PreviousShortTermLoan,
                          ShortTermLoan = o1.ShortTermLoan
                      };
                      db.FinanceData.InsertOnSubmit(fd);

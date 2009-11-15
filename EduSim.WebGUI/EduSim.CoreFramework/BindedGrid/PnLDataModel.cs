@@ -233,7 +233,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
             double shortTermLoan = 0;
             foreach (FinanceDataView d in financeData.Values)
             {
-                shortTermLoan += d.ShortTermLoan;
+                shortTermLoan += d.CurrentTotalShortTermLoan;
             }
 
             AddSingleColumnData(dataGridView1, data, r, shortTermLoan * configurationInfo["ShortTermInterestRate"]);
@@ -248,7 +248,7 @@ namespace EduSim.WebGUI.UI.BindedGrid
             double longTermLoan = 0;
             foreach (FinanceDataView d in financeData.Values)
             {
-                longTermLoan += d.LongTermLoan;
+                longTermLoan += d.CurrentTotalLongTermLoan;
             }
 
             AddSingleColumnData(dataGridView1, data, r, longTermLoan * configurationInfo["LongTermInterestRate"]);

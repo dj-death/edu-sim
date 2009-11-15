@@ -140,12 +140,14 @@ namespace EduSim.CoreFramework.Utilities
                  select new FinanceDataView
                  {
                      RoundName = f.Round.RoundCategory.RoundName,
-                     PreviousLongTermLoan = f.PreviousLongTermLoan,
+                     TotalLongTermLoan = f.TotalLongTermLoan,
+                     CurrentTotalLongTermLoan = f.TotalLongTermLoan + f.LongTermLoan,
                      LongTermLoan = f.LongTermLoan,
-                     PreviousShortTermLoan = f.PreviousShortTermLoan,
+                     TotalShortTermLoan = f.TotalShortTermLoan,
+                     CurrentTotalShortTermLoan = f.TotalShortTermLoan + f.ShortTermLoan,
                      ShortTermLoan = f.ShortTermLoan,
-                     OriganalCash = f.Cash,
-                     Cash = f.Cash + f.LongTermLoan + f.ShortTermLoan
+                     PreviousCash = f.PreviousCash,
+                     Cash = f.Cash
                  }).ToList<FinanceDataView>().ForEach(o => dic[round.RoundCategory.RoundName] = o);
             }
             return dic;

@@ -63,11 +63,13 @@ namespace EduSim.WebGUI.UI.BindedGrid
     public class FinanceDataView
     {
         public string RoundName { get; set; }
-        public double PreviousLongTermLoan { get; set; }
+        public double TotalLongTermLoan { get; set; }
+        public double CurrentTotalLongTermLoan { get; set; }
         public double LongTermLoan { get; set; }
-        public double PreviousShortTermLoan{ get; set;}
-        public double ShortTermLoan{ get; set;}
-        public double OriganalCash { get; set; }
+        public double TotalShortTermLoan { get; set; }
+        public double CurrentTotalShortTermLoan { get; set; }
+        public double ShortTermLoan { get; set; }
+        public double PreviousCash { get; set; }
         public double Cash { get; set; }
     }
 
