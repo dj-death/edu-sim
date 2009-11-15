@@ -9,6 +9,7 @@ using EduSim.CoreFramework.Common;
 using EduSim.WebGUI.UI.BindedGrid;
 using org.drools.dotnet.compiler;
 using org.drools.dotnet.rule;
+using Gizmox.WebGUI.Forms;
 
 namespace EduSim.Analyse.BusinessLayer
 {
@@ -240,25 +241,32 @@ namespace EduSim.Analyse.BusinessLayer
 
         public static void Run(Round round)
         {
-            Stream stream = new FileStream("./rules/EduSimRules.drl", FileMode.Open);
-            PackageBuilder builder = new PackageBuilder();
-            builder.AddPackageFromDrl(stream);
-            Package pkg = builder.GetPackage();
-            org.drools.dotnet.RuleBase ruleBase = org.drools.dotnet.RuleBaseFactory.NewRuleBase();
-            ruleBase.AddPackage(pkg);
-            org.drools.dotnet.WorkingMemory workingMemory = ruleBase.NewWorkingMemory();
+            if (round != null)
+            {
+                Stream stream = new FileStream("./rules/EduSimRules.drl", FileMode.Open);
+                PackageBuilder builder = new PackageBuilder();
+                builder.AddPackageFromDrl(stream);
+                Package pkg = builder.GetPackage();
+                org.drools.dotnet.RuleBase ruleBase = org.drools.dotnet.RuleBaseFactory.NewRuleBase();
+                ruleBase.AddPackage(pkg);
+                org.drools.dotnet.WorkingMemory workingMemory = ruleBase.NewWorkingMemory();
 
-            ResultsManager rm = new ResultsManager();
+                ResultsManager rm = new ResultsManager();
 
-            rm.Init(workingMemory, round);
+                rm.Init(workingMemory, round);
 
-            workingMemory.assertObject(rm);
-            ArrayList resultList = new ArrayList();
-            workingMemory.assertObject(resultList);
+                workingMemory.assertObject(rm);
+                ArrayList resultList = new ArrayList();
+                workingMemory.assertObject(resultList);
 
-            workingMemory.fireAllRules();
+                workingMemory.fireAllRules();
 
-            rm.QuantityPurchased();
+                rm.QuantityPurchased();
+            }
+            else
+            {
+                MessageBox.Show("Please select a valid Round");
+            }
         }
     }
 }
