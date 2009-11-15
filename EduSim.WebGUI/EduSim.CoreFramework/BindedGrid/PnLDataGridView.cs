@@ -110,7 +110,7 @@ namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
             this.dataGridView1.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Red;
-
+            this.dataGridView1.ItemsPerPage = 30;
 			// 
 			// DataGridViewControl
 			// 
