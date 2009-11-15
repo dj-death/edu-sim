@@ -1847,13 +1847,15 @@ namespace EduSim.CoreFramework.DTO
 		
 		private int _RoundId;
 		
+		private double _PreviousCash;
+		
 		private double _Cash;
 		
-		private double _PreviousLongTermLoan;
+		private double _TotalLongTermLoan;
 		
 		private double _LongTermLoan;
 		
-		private double _PreviousShortTermLoan;
+		private double _TotalShortTermLoan;
 		
 		private double _ShortTermLoan;
 		
@@ -1867,14 +1869,16 @@ namespace EduSim.CoreFramework.DTO
     partial void OnIdChanged();
     partial void OnRoundIdChanging(int value);
     partial void OnRoundIdChanged();
+    partial void OnPreviousCashChanging(double value);
+    partial void OnPreviousCashChanged();
     partial void OnCashChanging(double value);
     partial void OnCashChanged();
-    partial void OnPreviousLongTermLoanChanging(double value);
-    partial void OnPreviousLongTermLoanChanged();
+    partial void OnTotalLongTermLoanChanging(double value);
+    partial void OnTotalLongTermLoanChanged();
     partial void OnLongTermLoanChanging(double value);
     partial void OnLongTermLoanChanged();
-    partial void OnPreviousShortTermLoanChanging(double value);
-    partial void OnPreviousShortTermLoanChanged();
+    partial void OnTotalShortTermLoanChanging(double value);
+    partial void OnTotalShortTermLoanChanged();
     partial void OnShortTermLoanChanging(double value);
     partial void OnShortTermLoanChanged();
     #endregion
@@ -1929,6 +1933,26 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
+		[Column(Storage="_PreviousCash", DbType="Float NOT NULL")]
+		public double PreviousCash
+		{
+			get
+			{
+				return this._PreviousCash;
+			}
+			set
+			{
+				if ((this._PreviousCash != value))
+				{
+					this.OnPreviousCashChanging(value);
+					this.SendPropertyChanging();
+					this._PreviousCash = value;
+					this.SendPropertyChanged("PreviousCash");
+					this.OnPreviousCashChanged();
+				}
+			}
+		}
+		
 		[Column(Storage="_Cash", DbType="Float NOT NULL")]
 		public double Cash
 		{
@@ -1949,22 +1973,22 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousLongTermLoan", DbType="Float NOT NULL")]
-		public double PreviousLongTermLoan
+		[Column(Storage="_TotalLongTermLoan", DbType="Float NOT NULL")]
+		public double TotalLongTermLoan
 		{
 			get
 			{
-				return this._PreviousLongTermLoan;
+				return this._TotalLongTermLoan;
 			}
 			set
 			{
-				if ((this._PreviousLongTermLoan != value))
+				if ((this._TotalLongTermLoan != value))
 				{
-					this.OnPreviousLongTermLoanChanging(value);
+					this.OnTotalLongTermLoanChanging(value);
 					this.SendPropertyChanging();
-					this._PreviousLongTermLoan = value;
-					this.SendPropertyChanged("PreviousLongTermLoan");
-					this.OnPreviousLongTermLoanChanged();
+					this._TotalLongTermLoan = value;
+					this.SendPropertyChanged("TotalLongTermLoan");
+					this.OnTotalLongTermLoanChanged();
 				}
 			}
 		}
@@ -1989,22 +2013,22 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousShortTermLoan", DbType="Float NOT NULL")]
-		public double PreviousShortTermLoan
+		[Column(Storage="_TotalShortTermLoan", DbType="Float NOT NULL")]
+		public double TotalShortTermLoan
 		{
 			get
 			{
-				return this._PreviousShortTermLoan;
+				return this._TotalShortTermLoan;
 			}
 			set
 			{
-				if ((this._PreviousShortTermLoan != value))
+				if ((this._TotalShortTermLoan != value))
 				{
-					this.OnPreviousShortTermLoanChanging(value);
+					this.OnTotalShortTermLoanChanging(value);
 					this.SendPropertyChanging();
-					this._PreviousShortTermLoan = value;
-					this.SendPropertyChanged("PreviousShortTermLoan");
-					this.OnPreviousShortTermLoanChanged();
+					this._TotalShortTermLoan = value;
+					this.SendPropertyChanged("TotalShortTermLoan");
+					this.OnTotalShortTermLoanChanged();
 				}
 			}
 		}

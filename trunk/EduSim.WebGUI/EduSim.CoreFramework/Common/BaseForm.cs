@@ -357,7 +357,8 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
             this.mobjMenuSubmit.Click += new EventHandler((sender, e) =>
             {
-                ResultsManager.Run();
+                Round round = HttpContext.Current.Session[SessionConstants.CurrentRound] as Round;
+                ResultsManager.Run(round);
             });
             // 
             // mobjMenuHelp
