@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Reflection;
 using System.IO;
-using org.drools.dotnet.compiler;
-using org.drools.dotnet.rule;
 using EduSim.Analyse.BusinessLayer;
 using System.Collections;
+using EduSim.CoreFramework.DTO;
+using EduSim.CoreFramework.Common;
 
 namespace EduSim.Analyse
 {
@@ -43,25 +43,12 @@ namespace EduSim.Analyse
          * */
         static void Main(string[] args)
         {
-            Stream stream = new FileStream("./rules/EduSimRules.drl", FileMode.Open);
-            PackageBuilder builder = new PackageBuilder();
-            builder.AddPackageFromDrl(stream);
-            Package pkg = builder.GetPackage();
-            org.drools.dotnet.RuleBase ruleBase = org.drools.dotnet.RuleBaseFactory.NewRuleBase();
-            ruleBase.AddPackage(pkg);
-            org.drools.dotnet.WorkingMemory workingMemory = ruleBase.NewWorkingMemory();
+            Edusim db = new Edusim(Constants.ConnectionString);
+            Round round = (from r in db.Round
+                          where r.Id == 37
+                          select r).FirstOrDefault();
 
-            ResultsManager rm = new ResultsManager();
-
-            rm.Init(workingMemory);
-
-            workingMemory.assertObject(rm);
-            ArrayList resultList = new ArrayList();
-            workingMemory.assertObject(resultList );
-
-            workingMemory.fireAllRules();
-
-            rm.QuantityPurchased();
+            ResultsManager.Run(round);
         }
     }
 }
