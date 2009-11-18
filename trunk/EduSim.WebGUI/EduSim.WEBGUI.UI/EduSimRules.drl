@@ -1,9 +1,8 @@
-package BizSim_Analyse.Rules;
+package EduSim.Analyse.Rules;
 
-import System.Collections;
-import EduSim.Analyse;
-import EduSim.Analyse.DTO;
-import EduSim.Analyse.BusinessLayer;
+/*import EduSim.WebGUI.UI.BindedGrid;
+import EduSim.Analyse.BusinessLayer;*/
+import EduSim.CoreFramework.DTO;
 
 /*
 1. rule to fire is if Supply less then demand
@@ -15,6 +14,15 @@ import EduSim.Analyse.BusinessLayer;
 */
 
 rule "Supply less then demand"
+	salience 10
+	no-loop
+	when
+		Round (roundId : Id)
+	then
+		System.Console.Out.WriteLine( "hello world" );
+end		
+	
+/*rule "Supply less then demand"
 	salience 10
 	no-loop
 	when
@@ -65,3 +73,4 @@ function double getRating( ResultsManager resultsManager, GameCriteria gameCrite
 	return overallRating ;
 }
 
+*/
