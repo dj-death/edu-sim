@@ -86,5 +86,10 @@ namespace EduSim.CoreFramework.Common
             }
             return val;
         }
+
+        public virtual bool EnableAddProduct
+        {
+            get { return false; }
+        }
     }
 }

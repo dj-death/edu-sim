@@ -109,26 +109,11 @@
   <ItemGroup>
     <Compile Include="BindedGrid\FinanceDataModel.cs" />
     <Compile Include="DTO\DataViews.cs" />
-    <Compile Include="BindedGrid\FinanceDataGridView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
-    <Compile Include="BindedGrid\LabourDataGridView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="BindedGrid\LabourDataModel.cs" />
-    <Compile Include="BindedGrid\MarketingDataGridView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="BindedGrid\MarketingDataModel.cs" />
-    <Compile Include="BindedGrid\PnLDataGridView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="BindedGrid\PnLDataModel.cs" />
-    <Compile Include="BindedGrid\ProductionDataGridView.cs">
-      <SubType>UserControl</SubType>
-    </Compile>
     <Compile Include="BindedGrid\ProductionDataModel.cs" />
-    <Compile Include="BindedGrid\RnDDataGridView.cs">
+    <Compile Include="Common\ESimDataGridView.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="BindedGrid\RndDataModel.cs" />
@@ -194,23 +179,8 @@
     <None Include="ClassDiagram1.cd" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="BindedGrid\FinanceDataGridView.resx">
-      <DependentUpon>FinanceDataGridView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BindedGrid\LabourDataGridView.resx">
-      <DependentUpon>LabourDataGridView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BindedGrid\MarketingDataGridView.resx">
-      <DependentUpon>MarketingDataGridView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BindedGrid\PnLDataGridView.resx">
-      <DependentUpon>PnLDataGridView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BindedGrid\ProductionDataGridView.resx">
-      <DependentUpon>ProductionDataGridView.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="BindedGrid\RnDDataGridView.resx">
-      <DependentUpon>RnDDataGridView.cs</DependentUpon>
+    <EmbeddedResource Include="Common\ESimDataGridView.resx">
+      <DependentUpon>ESimDataGridView.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Common\BaseForm.resx">
       <DependentUpon>BaseForm.cs</DependentUpon>

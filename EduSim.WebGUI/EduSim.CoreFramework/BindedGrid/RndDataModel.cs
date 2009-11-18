@@ -95,5 +95,13 @@ namespace EduSim.CoreFramework.DataControls
         {
             base.AddProduct(dataGridView1);
         }
+
+        public override bool EnableAddProduct
+        {
+            get
+            {
+                return true;
+            }
+        }
     }
 }

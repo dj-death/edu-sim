@@ -18,14 +18,14 @@ using System.Collections.Generic;
 using EduSim.CoreFramework.Common;
 
 //Test
-namespace EduSim.CoreFramework.DataControls
+namespace EduSim.CoreFramework.Common
 {
 	/// <summary>
 	/// Summary description for DataGridViewControl.
 	/// </summary>
 
     [Serializable()]
-    public class RnDDataGridView : UserControl, IHostedApplication
+    public class ESimDataGridView : UserControl, IHostedApplication
 	{
         private DataGridView dataGridView1;
         private Button addProduct;
@@ -38,7 +38,7 @@ namespace EduSim.CoreFramework.DataControls
         private System.ComponentModel.Container components = null;
         private Dictionary<string, string> parameter = new Dictionary<string,string>();
 
-        public RnDDataGridView(Type model)
+        public ESimDataGridView(Type model)
         {
             // This call is required by the WebGUI Form Designer.
             InitializeComponent();
@@ -99,8 +99,11 @@ namespace EduSim.CoreFramework.DataControls
 		private void InitializeComponent()
 		{
             this.dataGridView1 = new Gizmox.WebGUI.Forms.DataGridView();
-            //compute = new Button();
-            addProduct = new Button();
+
+            if (rdm.EnableAddProduct)
+            {
+                addProduct = new Button();
+            }
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 
