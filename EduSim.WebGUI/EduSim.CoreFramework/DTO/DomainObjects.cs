@@ -1552,11 +1552,13 @@ namespace EduSim.CoreFramework.DTO
 		
 		private int _Id;
 		
-		private int _RoundCaterogyId;
+		private int _RoundCategoryId;
 		
 		private string _ProductName;
 		
 		private int _SegmentTypeId;
+		
+		private int _TeamCategoryId;
 		
 		private EntityRef<ComputerMarketingData> _ComputerMarketingData;
 		
@@ -1564,18 +1566,26 @@ namespace EduSim.CoreFramework.DTO
 		
 		private EntityRef<ComputerRnDData> _ComputerRnDData;
 		
+		private EntityRef<RoundCategory> _RoundCategory;
+		
+		private EntityRef<SegmentType> _SegmentType;
+		
+		private EntityRef<TeamCategory> _TeamCategory;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
     partial void OnIdChanging(int value);
     partial void OnIdChanged();
-    partial void OnRoundCaterogyIdChanging(int value);
-    partial void OnRoundCaterogyIdChanged();
+    partial void OnRoundCategoryIdChanging(int value);
+    partial void OnRoundCategoryIdChanged();
     partial void OnProductNameChanging(string value);
     partial void OnProductNameChanged();
     partial void OnSegmentTypeIdChanging(int value);
     partial void OnSegmentTypeIdChanged();
+    partial void OnTeamCategoryIdChanging(int value);
+    partial void OnTeamCategoryIdChanged();
     #endregion
 		
 		public ComputerRoundProduct()
@@ -1583,6 +1593,9 @@ namespace EduSim.CoreFramework.DTO
 			this._ComputerMarketingData = default(EntityRef<ComputerMarketingData>);
 			this._ComputerProductionData = default(EntityRef<ComputerProductionData>);
 			this._ComputerRnDData = default(EntityRef<ComputerRnDData>);
+			this._RoundCategory = default(EntityRef<RoundCategory>);
+			this._SegmentType = default(EntityRef<SegmentType>);
+			this._TeamCategory = default(EntityRef<TeamCategory>);
 			OnCreated();
 		}
 		
@@ -1606,22 +1619,26 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_RoundCaterogyId", DbType="Int NOT NULL")]
-		public int RoundCaterogyId
+		[Column(Storage="_RoundCategoryId", DbType="Int NOT NULL")]
+		public int RoundCategoryId
 		{
 			get
 			{
-				return this._RoundCaterogyId;
+				return this._RoundCategoryId;
 			}
 			set
 			{
-				if ((this._RoundCaterogyId != value))
+				if ((this._RoundCategoryId != value))
 				{
-					this.OnRoundCaterogyIdChanging(value);
+					if (this._RoundCategory.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRoundCategoryIdChanging(value);
 					this.SendPropertyChanging();
-					this._RoundCaterogyId = value;
-					this.SendPropertyChanged("RoundCaterogyId");
-					this.OnRoundCaterogyIdChanged();
+					this._RoundCategoryId = value;
+					this.SendPropertyChanged("RoundCategoryId");
+					this.OnRoundCategoryIdChanged();
 				}
 			}
 		}
@@ -1657,11 +1674,39 @@ namespace EduSim.CoreFramework.DTO
 			{
 				if ((this._SegmentTypeId != value))
 				{
+					if (this._SegmentType.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnSegmentTypeIdChanging(value);
 					this.SendPropertyChanging();
 					this._SegmentTypeId = value;
 					this.SendPropertyChanged("SegmentTypeId");
 					this.OnSegmentTypeIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_TeamCategoryId", DbType="Int NOT NULL")]
+		public int TeamCategoryId
+		{
+			get
+			{
+				return this._TeamCategoryId;
+			}
+			set
+			{
+				if ((this._TeamCategoryId != value))
+				{
+					if (this._TeamCategory.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTeamCategoryIdChanging(value);
+					this.SendPropertyChanging();
+					this._TeamCategoryId = value;
+					this.SendPropertyChanged("TeamCategoryId");
+					this.OnTeamCategoryIdChanged();
 				}
 			}
 		}
@@ -1749,6 +1794,108 @@ namespace EduSim.CoreFramework.DTO
 						value.ComputerRoundProduct = this;
 					}
 					this.SendPropertyChanged("ComputerRnDData");
+				}
+			}
+		}
+		
+		[Association(Name="FK_ComputerRoundProduct_RoundCategory", Storage="_RoundCategory", ThisKey="RoundCategoryId", OtherKey="Id", IsForeignKey=true)]
+		public RoundCategory RoundCategory
+		{
+			get
+			{
+				return this._RoundCategory.Entity;
+			}
+			set
+			{
+				RoundCategory previousValue = this._RoundCategory.Entity;
+				if (((previousValue != value) 
+							|| (this._RoundCategory.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._RoundCategory.Entity = null;
+						previousValue.ComputerRoundProduct.Remove(this);
+					}
+					this._RoundCategory.Entity = value;
+					if ((value != null))
+					{
+						value.ComputerRoundProduct.Add(this);
+						this._RoundCategoryId = value.Id;
+					}
+					else
+					{
+						this._RoundCategoryId = default(int);
+					}
+					this.SendPropertyChanged("RoundCategory");
+				}
+			}
+		}
+		
+		[Association(Name="FK_ComputerRoundProduct_SegmentType", Storage="_SegmentType", ThisKey="SegmentTypeId", OtherKey="Id", IsForeignKey=true)]
+		public SegmentType SegmentType
+		{
+			get
+			{
+				return this._SegmentType.Entity;
+			}
+			set
+			{
+				SegmentType previousValue = this._SegmentType.Entity;
+				if (((previousValue != value) 
+							|| (this._SegmentType.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._SegmentType.Entity = null;
+						previousValue.ComputerRoundProduct.Remove(this);
+					}
+					this._SegmentType.Entity = value;
+					if ((value != null))
+					{
+						value.ComputerRoundProduct.Add(this);
+						this._SegmentTypeId = value.Id;
+					}
+					else
+					{
+						this._SegmentTypeId = default(int);
+					}
+					this.SendPropertyChanged("SegmentType");
+				}
+			}
+		}
+		
+		[Association(Name="FK_ComputerRoundProduct_TeamCategory", Storage="_TeamCategory", ThisKey="TeamCategoryId", OtherKey="Id", IsForeignKey=true)]
+		public TeamCategory TeamCategory
+		{
+			get
+			{
+				return this._TeamCategory.Entity;
+			}
+			set
+			{
+				TeamCategory previousValue = this._TeamCategory.Entity;
+				if (((previousValue != value) 
+							|| (this._TeamCategory.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TeamCategory.Entity = null;
+						previousValue.ComputerRoundProduct.Remove(this);
+					}
+					this._TeamCategory.Entity = value;
+					if ((value != null))
+					{
+						value.ComputerRoundProduct.Add(this);
+						this._TeamCategoryId = value.Id;
+					}
+					else
+					{
+						this._TeamCategoryId = default(int);
+					}
+					this.SendPropertyChanged("TeamCategory");
 				}
 			}
 		}
@@ -5712,6 +5859,8 @@ namespace EduSim.CoreFramework.DTO
 		
 		private string _RoundName;
 		
+		private EntitySet<ComputerRoundProduct> _ComputerRoundProduct;
+		
 		private EntitySet<Round> _Round;
 		
 		private EntitySet<RoundCriteria> _RoundCriteria;
@@ -5728,6 +5877,7 @@ namespace EduSim.CoreFramework.DTO
 		
 		public RoundCategory()
 		{
+			this._ComputerRoundProduct = new EntitySet<ComputerRoundProduct>(new Action<ComputerRoundProduct>(this.attach_ComputerRoundProduct), new Action<ComputerRoundProduct>(this.detach_ComputerRoundProduct));
 			this._Round = new EntitySet<Round>(new Action<Round>(this.attach_Round), new Action<Round>(this.detach_Round));
 			this._RoundCriteria = new EntitySet<RoundCriteria>(new Action<RoundCriteria>(this.attach_RoundCriteria), new Action<RoundCriteria>(this.detach_RoundCriteria));
 			OnCreated();
@@ -5770,6 +5920,19 @@ namespace EduSim.CoreFramework.DTO
 					this.SendPropertyChanged("RoundName");
 					this.OnRoundNameChanged();
 				}
+			}
+		}
+		
+		[Association(Name="FK_ComputerRoundProduct_RoundCategory", Storage="_ComputerRoundProduct", ThisKey="Id", OtherKey="RoundCategoryId", DeleteRule="NO ACTION")]
+		public EntitySet<ComputerRoundProduct> ComputerRoundProduct
+		{
+			get
+			{
+				return this._ComputerRoundProduct;
+			}
+			set
+			{
+				this._ComputerRoundProduct.Assign(value);
 			}
 		}
 		
@@ -5817,6 +5980,18 @@ namespace EduSim.CoreFramework.DTO
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ComputerRoundProduct(ComputerRoundProduct entity)
+		{
+			this.SendPropertyChanging();
+			entity.RoundCategory = this;
+		}
+		
+		private void detach_ComputerRoundProduct(ComputerRoundProduct entity)
+		{
+			this.SendPropertyChanging();
+			entity.RoundCategory = null;
 		}
 		
 		private void attach_Round(Round entity)
@@ -6512,6 +6687,8 @@ namespace EduSim.CoreFramework.DTO
 		
 		private string _Description;
 		
+		private EntitySet<ComputerRoundProduct> _ComputerRoundProduct;
+		
 		private EntityRef<GameCriteria> _GameCriteria;
 		
 		private EntitySet<ProductCategory> _ProductCategory;
@@ -6536,6 +6713,7 @@ namespace EduSim.CoreFramework.DTO
 		
 		public SegmentType()
 		{
+			this._ComputerRoundProduct = new EntitySet<ComputerRoundProduct>(new Action<ComputerRoundProduct>(this.attach_ComputerRoundProduct), new Action<ComputerRoundProduct>(this.detach_ComputerRoundProduct));
 			this._GameCriteria = default(EntityRef<GameCriteria>);
 			this._ProductCategory = new EntitySet<ProductCategory>(new Action<ProductCategory>(this.attach_ProductCategory), new Action<ProductCategory>(this.detach_ProductCategory));
 			this._RoundCriteria = new EntitySet<RoundCriteria>(new Action<RoundCriteria>(this.attach_RoundCriteria), new Action<RoundCriteria>(this.detach_RoundCriteria));
@@ -6586,6 +6764,19 @@ namespace EduSim.CoreFramework.DTO
 					this.SendPropertyChanged("Description");
 					this.OnDescriptionChanged();
 				}
+			}
+		}
+		
+		[Association(Name="FK_ComputerRoundProduct_SegmentType", Storage="_ComputerRoundProduct", ThisKey="Id", OtherKey="SegmentTypeId", DeleteRule="NO ACTION")]
+		public EntitySet<ComputerRoundProduct> ComputerRoundProduct
+		{
+			get
+			{
+				return this._ComputerRoundProduct;
+			}
+			set
+			{
+				this._ComputerRoundProduct.Assign(value);
 			}
 		}
 		
@@ -6722,6 +6913,18 @@ namespace EduSim.CoreFramework.DTO
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ComputerRoundProduct(ComputerRoundProduct entity)
+		{
+			this.SendPropertyChanging();
+			entity.SegmentType = this;
+		}
+		
+		private void detach_ComputerRoundProduct(ComputerRoundProduct entity)
+		{
+			this.SendPropertyChanging();
+			entity.SegmentType = null;
 		}
 		
 		private void attach_ProductCategory(ProductCategory entity)
@@ -7038,6 +7241,8 @@ namespace EduSim.CoreFramework.DTO
 		
 		private string _Name;
 		
+		private EntitySet<ComputerRoundProduct> _ComputerRoundProduct;
+		
 		private EntitySet<ProductCategory> _ProductCategory;
 		
 		private EntitySet<Team> _Team;
@@ -7054,6 +7259,7 @@ namespace EduSim.CoreFramework.DTO
 		
 		public TeamCategory()
 		{
+			this._ComputerRoundProduct = new EntitySet<ComputerRoundProduct>(new Action<ComputerRoundProduct>(this.attach_ComputerRoundProduct), new Action<ComputerRoundProduct>(this.detach_ComputerRoundProduct));
 			this._ProductCategory = new EntitySet<ProductCategory>(new Action<ProductCategory>(this.attach_ProductCategory), new Action<ProductCategory>(this.detach_ProductCategory));
 			this._Team = new EntitySet<Team>(new Action<Team>(this.attach_Team), new Action<Team>(this.detach_Team));
 			OnCreated();
@@ -7096,6 +7302,19 @@ namespace EduSim.CoreFramework.DTO
 					this.SendPropertyChanged("Name");
 					this.OnNameChanged();
 				}
+			}
+		}
+		
+		[Association(Name="FK_ComputerRoundProduct_TeamCategory", Storage="_ComputerRoundProduct", ThisKey="Id", OtherKey="TeamCategoryId", DeleteRule="NO ACTION")]
+		public EntitySet<ComputerRoundProduct> ComputerRoundProduct
+		{
+			get
+			{
+				return this._ComputerRoundProduct;
+			}
+			set
+			{
+				this._ComputerRoundProduct.Assign(value);
 			}
 		}
 		
@@ -7143,6 +7362,18 @@ namespace EduSim.CoreFramework.DTO
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ComputerRoundProduct(ComputerRoundProduct entity)
+		{
+			this.SendPropertyChanging();
+			entity.TeamCategory = this;
+		}
+		
+		private void detach_ComputerRoundProduct(ComputerRoundProduct entity)
+		{
+			this.SendPropertyChanging();
+			entity.TeamCategory = null;
 		}
 		
 		private void attach_ProductCategory(ProductCategory entity)

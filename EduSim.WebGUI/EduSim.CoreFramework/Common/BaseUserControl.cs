@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using Gizmox.WebGUI.Forms;
-using Gizmox.WebGUI.Forms.Catalog;
 
 namespace EduSim.CoreFramework.Common
 {

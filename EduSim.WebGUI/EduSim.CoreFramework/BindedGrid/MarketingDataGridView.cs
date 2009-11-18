@@ -14,11 +14,10 @@ using EduSim.CoreFramework.DTO;
 using System.Web;
 using EduSim.WebGUI.UI;
 using EduSim.CoreFramework.Common;
-using EduSim.WebGUI.UI.BindedGrid;
 using EduSim.CoreUtilities.Utility;
 
 //Test
-namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
+namespace EduSim.CoreFramework.DataControls
 {
 	/// <summary>
 	/// Summary description for DataGridViewControl.

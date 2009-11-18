@@ -7,29 +7,10 @@ namespace EduSim.CoreFramework.DataAccess
 {
     public class StoredProcedure
     {
-        public string Name
-        {
-            get;
-            protected set;
-        }
-
-        public string Input
-        {
-            get;
-            protected set;
-        }
-
-        public string Out
-        {
-            get;
-            protected set;
-        }
-
-        public string InOut
-        {
-            get;
-            protected set;
-        }
+        public string Name { get; protected set; }
+        public string Input { get; protected set; }
+        public string Out { get; protected set; }
+        public string InOut { get; protected set; }
 
         protected StoredProcedure() { }
 

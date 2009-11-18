@@ -14,12 +14,11 @@ using EduSim.CoreFramework.Common;
 using EduSim.WebGUI.UI;
 using EduSim.CoreFramework.DTO;
 using EduSim.CoreUtilities.Utility;
-using Gizmox.WebGUI.Forms.Catalog.Categories.DataControls;
-using EduSim.WebGUI.UI.BindedGrid;
 using EduSim.CoreFramework.Utilities;
+using EduSim.CoreFramework.DataControls;
 
 
-namespace Gizmox.WebGUI.Forms.Catalog
+namespace EduSim.CoreFramework.Common
 {
     //Create a Game
     //Create Team for the Game
@@ -66,7 +65,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
                 switch (strAction)
                 {
                     case "AboutVWG":
-                        Forms.AboutVWGForm objAboutVWGForm = new Gizmox.WebGUI.Forms.Catalog.Forms.AboutVWGForm();
+                        Forms.AboutVWGForm objAboutVWGForm = new Forms.AboutVWGForm();
                         objAboutVWGForm.ShowDialog();
                         break;
                     case "Cut":
@@ -760,7 +759,7 @@ namespace Gizmox.WebGUI.Forms.Catalog
 
         public override Control GetCategoryInstance()
         {
-            return new Categories.LogicalCategory(this);
+            return new LogicalCategory(this);
         }
 
         public override string Text

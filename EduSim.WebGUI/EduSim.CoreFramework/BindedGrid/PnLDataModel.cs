@@ -9,7 +9,7 @@ using System.Reflection;
 using EduSim.CoreUtilities.Utility;
 using System.Drawing;
 
-namespace EduSim.WebGUI.UI.BindedGrid
+namespace EduSim.CoreFramework.DataControls
 {
     // Sales Revenue, Labor Cost, Material Cost, Automation Cost, Plant Cost, R&D Cost, S&M Cost, Depreciation, S&M, EBIT, Contribution Margin, Tax, Interest, Profit Sharing. Net Profit
 

@@ -18,7 +18,7 @@ using System.Collections.Generic;
 using EduSim.CoreFramework.Common;
 
 //Test
-namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
+namespace EduSim.CoreFramework.DataControls
 {
 	/// <summary>
 	/// Summary description for DataGridViewControl.

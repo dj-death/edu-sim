@@ -8,7 +8,7 @@ using Gizmox.WebGUI.Forms;
 using EduSim.CoreUtilities.Utility;
 using System.Data;
 
-namespace EduSim.WebGUI.UI.BindedGrid
+namespace EduSim.CoreFramework.DataControls
 {
     public class MarketingDataModel : RoundDataModel
     {

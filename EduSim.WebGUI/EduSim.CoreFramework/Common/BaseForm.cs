@@ -14,7 +14,7 @@ using EduSim.CoreFramework.Utilities;
 using EduSim.CoreFramework.DTO;
 using EduSim.Analyse.BusinessLayer;
 
-namespace Gizmox.WebGUI.Forms.Catalog
+namespace EduSim.CoreFramework.Common
 {
 
 

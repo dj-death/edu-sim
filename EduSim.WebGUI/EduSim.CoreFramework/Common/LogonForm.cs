@@ -16,7 +16,7 @@ using EduSim.CoreFramework.Common;
 
 #endregion
 
-namespace Gizmox.WebGUI.Forms.Catalog
+namespace EduSim.CoreFramework.Common
 {
 	#region Logon Class
 	

@@ -16,10 +16,9 @@ using EduSim.WebGUI.UI;
 using EduSim.CoreUtilities.Utility;
 using System.Collections.Generic;
 using EduSim.CoreFramework.Common;
-using EduSim.WebGUI.UI.BindedGrid;
 
 //Test
-namespace Gizmox.WebGUI.Forms.Catalog.Categories.DataControls
+namespace EduSim.CoreFramework.DataControls
 {
 	/// <summary>
 	/// Summary description for DataGridViewControl.

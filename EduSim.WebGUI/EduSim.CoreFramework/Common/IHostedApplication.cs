@@ -2,7 +2,7 @@ using System;
 
 using Gizmox.WebGUI.Common.Resources;
 
-namespace Gizmox.WebGUI.Forms.Catalog
+namespace EduSim.CoreFramework.Common
 {
 	/// <summary>
 	/// Summary description for IHostedApplication.
