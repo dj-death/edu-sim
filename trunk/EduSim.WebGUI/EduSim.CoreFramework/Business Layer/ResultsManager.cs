@@ -103,14 +103,12 @@ namespace EduSim.Analyse.BusinessLayer
                 Console.WriteLine(o.SegmentTypeId + "," + o.Quantity);
             });
 
-            GetMarketingData(round, edusim);
+            GetPlayersData(round, edusim);
 
             marketingData.ForEach(o =>
             {
                 Console.WriteLine(o.RoundProduct.SegmentTypeId + "," + o.PurchasedQuantity + " " + o.ForecastingQuantity);
             });
-
-            GetRnDData(round, edusim);
         }
 
         private void GetForecastedData(Round round, Edusim edusim)
@@ -176,7 +174,7 @@ namespace EduSim.Analyse.BusinessLayer
                          }).ToList<CurrentRoundDemand>();
         }
 
-        private void GetMarketingData(Round round, Edusim edusim)
+        private void GetPlayersData(Round round, Edusim edusim)
         {
             marketingData = (from m in edusim.MarketingData
                              where m.RoundProduct.Round == round
@@ -196,10 +194,7 @@ namespace EduSim.Analyse.BusinessLayer
                  Price = r.Price,
                  PurchasedQuantity = r.PurchasedQuantity
              }).Take(30 - marketingData.Count()).ToList().ForEach(o => marketingData.Add(o));
-        }
 
-        private void GetRnDData(Round round, Edusim edusim)
-        {
             rndData = (from r in edusim.RnDData
                        where r.RoundProduct.Round == round
                        select r).ToList<RnDData>();
