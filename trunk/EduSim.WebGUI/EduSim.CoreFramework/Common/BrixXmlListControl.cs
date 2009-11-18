@@ -7,7 +7,6 @@ using System.Data;
 using Gizmox.WebGUI.Forms;
 using Gizmox.WebGUI.Forms.Dialogs;
 using Gizmox.WebGUI.Common.Resources;
-using Gizmox.WebGUI.Forms.Catalog;
 using System.Collections.Generic;
 using System.Reflection;
 using EduSim.CoreFramework.Common;

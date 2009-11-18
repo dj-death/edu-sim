@@ -6,8 +6,9 @@ using System.Data;
 
 using Gizmox.WebGUI.Forms;
 using Gizmox.WebGUI.Common.Resources;
+using EduSim.CoreFramework.Common;
 
-namespace Gizmox.WebGUI.Forms.Catalog.Categories
+namespace EduSim.CoreFramework.Common
 {
 	/// <summary>
 	/// Summary description for LogicalCategory.

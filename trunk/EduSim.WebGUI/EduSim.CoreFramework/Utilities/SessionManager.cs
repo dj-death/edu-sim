@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using EduSim.WebGUI.UI.BindedGrid;
 using EduSim.CoreFramework.DTO;
 using EduSim.CoreFramework.Common;
 

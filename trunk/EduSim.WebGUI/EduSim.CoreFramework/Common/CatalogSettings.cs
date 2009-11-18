@@ -7,8 +7,9 @@ using System.Xml;
 using Gizmox.WebGUI.Common.Interfaces;
 using System.Collections.Generic;
 using System.Web;
+using Gizmox.WebGUI.Forms;
 
-namespace Gizmox.WebGUI.Forms.Catalog
+namespace EduSim.CoreFramework.Common
 {
     /// <summary>
     /// 
