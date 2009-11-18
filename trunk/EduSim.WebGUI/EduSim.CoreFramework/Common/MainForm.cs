@@ -310,13 +310,13 @@ namespace EduSim.CoreFramework.Common
                                               {
                                                   SessionManager.SetSessionData(o);
                                                   CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id);
-                                                  catNode1.AddCategory("R&D", typeof(RnDDataGridView), typeof(RnDDataModel), "ListView.gif" );
-                                                  catNode1.AddCategory("Marketing", typeof(MarketingDataGridView), "ListView.gif");
-                                                  catNode1.AddCategory("Labour", typeof(LabourDataGridView), "ListView.gif");
-                                                  catNode1.AddCategory("Production", typeof(ProductionDataGridView), "ListView.gif");
-                                                  catNode1.AddCategory("Finance", typeof(FinanceDataGridView), "ListView.gif");
+                                                  catNode1.AddCategory("R&D", typeof(ESimDataGridView), typeof(RnDDataModel), "ListView.gif" );
+                                                  catNode1.AddCategory("Marketing", typeof(ESimDataGridView), typeof(MarketingDataModel), "ListView.gif");
+                                                  catNode1.AddCategory("Labour", typeof(ESimDataGridView), typeof(LabourDataModel), "ListView.gif");
+                                                  catNode1.AddCategory("Production", typeof(ESimDataGridView), typeof(ProductionDataModel), "ListView.gif");
+                                                  catNode1.AddCategory("Finance", typeof(ESimDataGridView), typeof(FinanceDataModel), "ListView.gif");
                                                   CategoryNode catNode2 = catNode1.AddCategory("Reports", "Show.gif");
-                                                  catNode2.AddCategory("Income Statement", typeof(PnLDataGridView), "ListView.gif");
+                                                  catNode2.AddCategory("Income Statement", typeof(ESimDataGridView), typeof(PnLDataModel), "ListView.gif");
                                                   catNode2.AddCategory("Balance Sheet", "Disable.gif");
                                                   catNode2.AddCategory("Cash Flow", "Disable.gif");
                                                   catNode2.AddCategory("Balance Scorecard", "Disable.gif");

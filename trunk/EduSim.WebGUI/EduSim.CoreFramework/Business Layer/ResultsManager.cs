@@ -35,7 +35,10 @@ namespace EduSim.Analyse.BusinessLayer
 
                 double rank = 0;
 
-                rm.rndData.ForEach(o =>
+                (from r in rm.rndData
+                 join m in rm.marketingData on r.RoundProductId equals m.RoundProductId
+                 where m.Purchased == false
+                 select r).ToList().ForEach(o =>
                 {
                     GameCriteria gameCriterian = rm.GetGameCriteria(o.RoundProduct.SegmentTypeId);
 
@@ -46,7 +49,7 @@ namespace EduSim.Analyse.BusinessLayer
                     rank += ageRating + sizeRating + performanceRating + reliabilityRating;
                 });
 
-                rm.marketingData.ForEach(o =>
+                rm.marketingData.Where(o => o.Purchased == false).ToList().ForEach(o =>
                 {
                     GameCriteria gameCriterian = rm.GetGameCriteria(o.RoundProduct.SegmentTypeId);
 
@@ -173,6 +176,28 @@ namespace EduSim.Analyse.BusinessLayer
                          }).ToList<CurrentRoundDemand>();
         }
 
+        private void GetMarketingData(Round round, Edusim edusim)
+        {
+            marketingData = (from m in edusim.MarketingData
+                             where m.RoundProduct.Round == round
+                             select m).ToList<MarketingData>();
+
+            (from r in edusim.ComputerMarketingData
+             where r.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
+             orderby r.ComputerRoundProduct.TeamCategoryId descending
+             select new MarketingData
+             {
+                 ForecastingQuantity = r.ForecastingQuantity,
+                 MarketingExpense = r.MarketingExpense,
+                 PreviousForecastingQuantity = r.PreviousForecastingQuantity,
+                 PreviousMarketingExpense = r.PreviousMarketingExpense,
+                 PreviousPrice = r.PreviousPrice,
+                 PreviousSaleExpense = r.PreviousSaleExpense,
+                 Price = r.Price,
+                 PurchasedQuantity = r.PurchasedQuantity
+             }).Take(30 - marketingData.Count()).ToList().ForEach(o => marketingData.Add(o));
+        }
+
         private void GetRnDData(Round round, Edusim edusim)
         {
             rndData = (from r in edusim.RnDData
@@ -198,26 +223,12 @@ namespace EduSim.Analyse.BusinessLayer
              }).Take(30 - rndData.Count()).ToList().ForEach(o => rndData.Add(o));
         }
 
-        private void GetMarketingData(Round round, Edusim edusim)
+        private GameCriteria GetGameCriteria(int segId)
         {
-            marketingData = (from m in edusim.MarketingData
-                             where m.RoundProduct.Round == round
-                             select m).ToList<MarketingData>();
-
-            (from r in edusim.ComputerMarketingData
-             where r.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
-             orderby r.ComputerRoundProduct.TeamCategoryId descending
-             select new MarketingData
-             {
-                 ForecastingQuantity = r.ForecastingQuantity,
-                 MarketingExpense = r.MarketingExpense,
-                 PreviousForecastingQuantity = r.PreviousForecastingQuantity,
-                 PreviousMarketingExpense = r.PreviousMarketingExpense,
-                 PreviousPrice = r.PreviousPrice,
-                 PreviousSaleExpense = r.PreviousSaleExpense,
-                 Price = r.Price,
-                 PurchasedQuantity = r.PurchasedQuantity
-             }).Take(30 - marketingData.Count()).ToList().ForEach(o => marketingData.Add(o));
+            GameCriteria gameCriterian = (from gc in gameCriteria
+                                          where gc.SegmentTypeId == segId
+                                          select gc).FirstOrDefault();
+            return gameCriterian;
         }
 
         public int GetPriceRank(int segmentTypeId, MarketingData mktData)
@@ -335,14 +346,6 @@ namespace EduSim.Analyse.BusinessLayer
 
                 Console.WriteLine("Remaining Quantity After " + crds[m.RoundProduct.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastingQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
             }
-        }
-
-        private GameCriteria GetGameCriteria(int segId)
-        {
-            GameCriteria gameCriterian = (from gc in gameCriteria
-                                          where gc.SegmentTypeId == segId
-                                          select gc).FirstOrDefault();
-            return gameCriterian;
         }
     }
 }
