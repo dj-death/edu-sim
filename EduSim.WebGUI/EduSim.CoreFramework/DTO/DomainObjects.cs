@@ -6035,6 +6035,8 @@ namespace EduSim.CoreFramework.DTO
 		
 		private double _Size;
 		
+		private System.Nullable<double> _MarketDemand;
+		
 		private EntityRef<RoundCategory> _RoundCategory;
 		
 		private EntityRef<SegmentType> _SegmentType;
@@ -6055,6 +6057,8 @@ namespace EduSim.CoreFramework.DTO
     partial void OnPerformanceChanged();
     partial void OnSizeChanging(double value);
     partial void OnSizeChanged();
+    partial void OnMarketDemandChanging(System.Nullable<double> value);
+    partial void OnMarketDemandChanged();
     #endregion
 		
 		public RoundCriteria()
@@ -6169,6 +6173,26 @@ namespace EduSim.CoreFramework.DTO
 					this._Size = value;
 					this.SendPropertyChanged("Size");
 					this.OnSizeChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_MarketDemand", DbType="Float")]
+		public System.Nullable<double> MarketDemand
+		{
+			get
+			{
+				return this._MarketDemand;
+			}
+			set
+			{
+				if ((this._MarketDemand != value))
+				{
+					this.OnMarketDemandChanging(value);
+					this.SendPropertyChanging();
+					this._MarketDemand = value;
+					this.SendPropertyChanged("MarketDemand");
+					this.OnMarketDemandChanged();
 				}
 			}
 		}
