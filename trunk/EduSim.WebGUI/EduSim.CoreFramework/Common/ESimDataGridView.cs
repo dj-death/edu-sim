@@ -40,10 +40,10 @@ namespace EduSim.CoreFramework.Common
 
         public ESimDataGridView(Type model)
         {
+            rdm = Activator.CreateInstance(model) as RoundDataModel;
+
             // This call is required by the WebGUI Form Designer.
             InitializeComponent();
-
-            rdm = Activator.CreateInstance(model) as RoundDataModel;
 
             rdm.GetList(this.dataGridView1);
 
@@ -107,15 +107,17 @@ namespace EduSim.CoreFramework.Common
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 
-            addProduct.Location = new Point(70, 0);
-            addProduct.Name = "addProduct";
-            addProduct.Text = "Add Product";
-            addProduct.Size = new Size(100, 20);
-            addProduct.Click += new EventHandler((sender, e) =>
+            if (rdm.EnableAddProduct)
             {
+                addProduct.Location = new Point(70, 0);
+                addProduct.Name = "addProduct";
+                addProduct.Text = "Add Product";
+                addProduct.Size = new Size(100, 20);
+                addProduct.Click += new EventHandler((sender, e) =>
+                {
 
-            });
-
+                });
+            }            
             // 
             // dataGridView1
             // 
@@ -129,6 +131,7 @@ namespace EduSim.CoreFramework.Common
             this.dataGridView1.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.BackColor = Color.White;
             this.dataGridView1.DefaultCellStyle.SelectionBackColor = Color.Red;
+            this.dataGridView1.ItemsPerPage = 30;
 
             this.dataGridView1.CellBeginEdit += new DataGridViewCellCancelEventHandler((sender, e) => 
             {
@@ -151,7 +154,10 @@ namespace EduSim.CoreFramework.Common
 			this.ClientSize = new System.Drawing.Size(640, 600);
             this.Controls.Add(this.dataGridView1);
             //this.Controls.Add(this.compute);
-            this.Controls.Add(this.addProduct);
+            if (rdm.EnableAddProduct)
+            {
+                this.Controls.Add(this.addProduct);
+            }
             this.DockPadding.All = 0;
 			this.DockPadding.Bottom = 0;
 			this.DockPadding.Left = 0;
