@@ -174,13 +174,9 @@ namespace EduSim.Analyse.BusinessLayer
                      Performance = d.Performance,
                      Reliability = d.Reliability,
                      Size = d.Size,
-                     ClientAwarenessRating = (from o in data1
-                                              where d.SalesExpense < o.SalesExpense && d.MarketingExpense < o.MarketingExpense && d.SegmentTypeId == o.SegmentTypeId
-                                              orderby d.SalesExpense descending
-                                              orderby d.MarketingExpense descending
-                                              select o).Count() + 1,
+                     ClientAwarenessRating = ClientAwarenessRating(data1, d),
                      PriceRating = (from o in data1
-                                    where d.PriceRating < o.PriceRating && d.SegmentTypeId == o.SegmentTypeId
+                                    where d.Price < o.Price && d.SegmentTypeId == o.SegmentTypeId
                                     orderby d.PriceRating descending
                                     select o).Count() + 1,
                      AgeRating = (from o in data1
@@ -192,15 +188,24 @@ namespace EduSim.Analyse.BusinessLayer
                                           orderby d.ReliabilityRating descending
                                           select o).Count() + 1,
                      PerformanceRating = (from o in data1
-                                          where d.PerformanceRating < o.PerformanceRating && d.SegmentTypeId == o.SegmentTypeId
+                                          where d.Performance < o.Performance && d.SegmentTypeId == o.SegmentTypeId
                                           orderby d.PerformanceRating descending
                                           select o).Count() + 1,
                      SizeRating = (from o in data1
-                                   where d.SizeRating > o.SizeRating && d.SegmentTypeId == o.SegmentTypeId
+                                   where d.Size > o.Size && d.SegmentTypeId == o.SegmentTypeId
                                    orderby d.SizeRating
                                    select o).Count() + 1,
                  }
             ).ToList().ForEach(o => data.Add(o));
+        }
+
+        private static int ClientAwarenessRating(List<CurrentRoundProductWiseInformation> data1, CurrentRoundProductWiseInformation d)
+        {
+            return (from o in data1
+                    where d.SalesExpense < o.SalesExpense && d.MarketingExpense < o.MarketingExpense && d.SegmentTypeId == o.SegmentTypeId
+                    orderby d.SalesExpense descending
+                    orderby d.MarketingExpense descending
+                    select o).Count() + 1;
         }
 
         private GameCriteria GetGameCriteria(int segId)
