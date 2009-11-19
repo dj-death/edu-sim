@@ -12,53 +12,54 @@ namespace EduSim.Analyse.BusinessLayer
 {
     public class ResultsManager
     {
+        private List<CurrentRoundDemand> demandData;
+        private List<CurrentRoundForecast> forecastData;
+        private List<MarketingData> marketingData;
+        private List<RnDData> rndData;
+        private List<ComputerMarketingData> computerMarketingData;
+        private List<ComputerRnDData> computerRndData;
+        private List<CurrentRoundProductWiseInformation> data;
+        private List<GameCriteria> gameCriteria;
+        private List<RoundCriteria> roundCriteria;
+
+        private ResultsManager(Round round)
+        {
+            Edusim edusim = new Edusim(Constants.ConnectionString);
+
+            gameCriteria = (from g in edusim.GameCriteria
+                            select g).ToList<GameCriteria>();
+            roundCriteria = (from r in edusim.RoundCriteria
+                             where r.RoundCategoryId == round.RoundCategoryId
+                             select r).ToList<RoundCriteria>();
+            marketingData = (from m in edusim.MarketingData
+                             where m.RoundProduct.Round == round
+                             select m).ToList();
+            marketingData.ForEach(o =>
+            {
+                Console.WriteLine(o.RoundProduct.SegmentTypeId + "," + o.PurchasedQuantity + " " + o.ForecastingQuantity);
+            });
+            rndData = (from r in edusim.RnDData
+                       where r.RoundProduct.Round == round
+                       select r).ToList();
+            computerMarketingData = (from m in edusim.ComputerMarketingData
+                                     where m.ComputerRoundProduct.RoundCategory == round.RoundCategory
+                                     select m).ToList();
+            computerRndData = (from r in edusim.ComputerRnDData
+                               where r.ComputerRoundProduct.RoundCategory == round.RoundCategory
+                               select r).ToList();
+        }
+
         public static void Run(Round round)
         {
             if (round != null)
             {
-                ResultsManager rm = new ResultsManager();
+                ResultsManager rm = new ResultsManager(round);
 
-                rm.Init(round);
+                rm.GetForecastedData(round);
+                rm.SetAllQuantityIfDemandMoreThenSupply();
 
-                //If demand is more
-                IEnumerable<MarketingData> data = from demand in rm.roundData
-                                                  join forecast in rm.forecastData on demand.SegmentTypeId equals forecast.SegmentTypeId
-                                                  join m in rm.marketingData on demand.SegmentTypeId equals m.RoundProduct.SegmentTypeId
-                                                  where demand.Quantity > forecast.Quantity
-                                                  select m;
-
-                foreach (MarketingData o in data)
-                {
-                    o.PurchasedQuantity = o.ForecastingQuantity;
-                    o.Purchased = true;
-                }
-
-                double rank = 0;
-
-                (from r in rm.rndData
-                 join m in rm.marketingData on r.RoundProductId equals m.RoundProductId
-                 where m.Purchased == false
-                 select r).ToList().ForEach(o =>
-                {
-                    GameCriteria gameCriterian = rm.GetGameCriteria(o.RoundProduct.SegmentTypeId);
-
-                    double ageRating = (6.0 - rm.GetAgeRank(gameCriterian.SegmentTypeId, o)) / 5.0 * gameCriterian.AgeDecision;
-                    double sizeRating = (6.0 - rm.GetSizeRank(gameCriterian.SegmentTypeId, o)) / 5.0 * gameCriterian.PerformanceDecision;
-                    double performanceRating = (6.0 - rm.GetPerformanceRank(gameCriterian.SegmentTypeId, o)) / 5.0 * gameCriterian.PerformanceDecision;
-                    double reliabilityRating = (6.0 - rm.GetReliabilityRank(gameCriterian.SegmentTypeId, o)) / 5.0 * gameCriterian.ReliabilityDecision;
-                    rank += ageRating + sizeRating + performanceRating + reliabilityRating;
-                });
-
-                rm.marketingData.Where(o => o.Purchased == false).ToList().ForEach(o =>
-                {
-                    GameCriteria gameCriterian = rm.GetGameCriteria(o.RoundProduct.SegmentTypeId);
-
-                    double clientAwarenessRating = (6.0 - rm.GetCustomerAccessRank(gameCriterian.SegmentTypeId, o)) / 5.0 * 0.5;
-                    double priceRating = (6.0 - rm.GetPriceRank(gameCriterian.SegmentTypeId, o)) / 5.0 * gameCriterian.PriceDecision;
-                    rank += clientAwarenessRating + priceRating;
-                    o.Rating = rank;
-                });
-
+                rm.GetPlayersRating(round);
+                rm.SetProductRanking();
                 rm.QuantityPurchased();
             }
             else
@@ -67,55 +68,11 @@ namespace EduSim.Analyse.BusinessLayer
             }
         }
 
-        private List<CurrentRoundDemand> roundData;
-        private List<CurrentRoundForecast> forecastData;
-        private List<MarketingData> marketingData;
-        private List<RnDData> rndData;
-        private List<GameCriteria> gameCriteria;
-        private List<RoundCriteria> roundCriteria;
-
-        public void Init(Round round)
+        private void GetForecastedData(Round round)
         {
-            Edusim edusim = new Edusim(Constants.ConnectionString);
-
-            gameCriteria = (from g in edusim.GameCriteria
-                            select g).ToList<GameCriteria>();
-            roundCriteria = (from r in edusim.RoundCriteria
-                             join roundLoc in edusim.Round on r.RoundCategoryId equals round.RoundCategoryId
-                             where roundLoc.RoundCategoryId == round.RoundCategoryId
-                             select r).ToList<RoundCriteria>();
-
-            Console.WriteLine();
-
-            GetDemandData(round, edusim);
-
-            roundData.ForEach(o =>
-            {
-                Console.WriteLine(o.SegmentTypeId + "," + o.Performance + "," + o.Size + "," + o.Quantity);
-            });
-
-            Console.WriteLine();
-
-            GetForecastedData(round, edusim);
-
-            forecastData.ForEach(o =>
-            {
-                Console.WriteLine(o.SegmentTypeId + "," + o.Quantity);
-            });
-
-            GetPlayersData(round, edusim);
-
-            marketingData.ForEach(o =>
-            {
-                Console.WriteLine(o.RoundProduct.SegmentTypeId + "," + o.PurchasedQuantity + " " + o.ForecastingQuantity);
-            });
-        }
-
-        private void GetForecastedData(Round round, Edusim edusim)
-        {
-            var data = (from r in edusim.RnDData
-                        join m in edusim.MarketingData on r.RoundProductId equals m.RoundProductId
-                        where m.RoundProduct.Round == round
+            var data = (from r in rndData
+                        join m in marketingData on r.RoundProduct equals m.RoundProduct
+                        where m.RoundProduct.RoundId == round.Id
                         select new
                         {
                             RoundCategoryId = r.RoundProduct.Round.RoundCategoryId,
@@ -131,9 +88,10 @@ namespace EduSim.Analyse.BusinessLayer
                             ForecastingQuantity = m.ForecastingQuantity
                         }).ToList();
 
+            int count = data.Count();
             //TODO: Based on howmany players are involved, add the computer players
-            (from r in edusim.ComputerRnDData
-             join m in edusim.ComputerMarketingData on r.ComputerRoundProduct equals m.ComputerRoundProduct
+            (from r in computerRndData
+             join m in computerMarketingData on r.ComputerRoundProduct equals m.ComputerRoundProduct
              where m.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
              orderby r.ComputerRoundProduct.TeamCategoryId descending
              select new
@@ -149,7 +107,7 @@ namespace EduSim.Analyse.BusinessLayer
                  MarketingExpense = m.MarketingExpense,
                  Price = m.Price,
                  ForecastingQuantity = m.ForecastingQuantity
-             }).Take(30 - data.Count()).ToList().ForEach(o => data.Add(o));
+             }).Take(30 - count).ToList().ForEach(o => data.Add(o));
 
             forecastData = (from d in data
                             group d by new { SegmentTypeId = d.SegmentTypeId } into grp
@@ -158,64 +116,91 @@ namespace EduSim.Analyse.BusinessLayer
                                 SegmentTypeId = grp.Key.SegmentTypeId,
                                 Quantity = grp.Sum(o => o.ForecastingQuantity.HasValue ? o.ForecastingQuantity.Value : 0)
                             }).ToList<CurrentRoundForecast>();
+
+            forecastData.ForEach(o =>
+            {
+                Console.WriteLine(o.SegmentTypeId + "," + o.Quantity);
+            });
         }
 
-        private void GetDemandData(Round round, Edusim edusim)
+        private void GetPlayersRating(Round round)
         {
-            roundData = (from smd in edusim.SegmentMarketDemand
-                         join rc in edusim.RoundCriteria on smd.RoundCategoryId equals rc.RoundCategoryId
-                         where smd.RoundCategoryId == round.RoundCategoryId && smd.SegmentTypeId == rc.SegmentTypeId
-                         select new CurrentRoundDemand
-                         {
-                             SegmentTypeId = rc.SegmentTypeId,
-                             Quantity = smd.Quantity,
-                             Performance = rc.Performance,
-                             Size = rc.Size
-                         }).ToList<CurrentRoundDemand>();
-        }
+            List<CurrentRoundProductWiseInformation> data1 = new List<CurrentRoundProductWiseInformation>();
+            //Create a list of all the rating data
+            (from m in marketingData
+             join r in rndData on m.RoundProduct equals r.RoundProduct
+             where m.RoundProduct.RoundId == round.Id
+             select new CurrentRoundProductWiseInformation
+                    {
+                        RoundId = m.RoundProduct.RoundId,
+                        RoundCategoryId = m.RoundProduct.Round.RoundCategoryId,
+                        SegmentTypeId = m.RoundProduct.SegmentTypeId,
+                        SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : 0.0,
+                        MarketingExpense = m.MarketingExpense.HasValue ? m.SalesExpense.Value : 0.0,
+                        Price = m.Price.HasValue ? m.Price.Value : 0.0,
+                        Age = r.Age.HasValue ? r.Age.Value : 0.0,
+                        Performance = r.Performance.HasValue ? r.Performance.Value : 0.0,
+                        Reliability = r.Reliability.HasValue ? r.Reliability.Value : 0.0,
+                        Size = r.Size.HasValue ? r.Size.Value : 0.0,
+                    }).ToList().ForEach(o => data1.Add(o));
 
-        private void GetPlayersData(Round round, Edusim edusim)
-        {
-            marketingData = (from m in edusim.MarketingData
-                             where m.RoundProduct.Round == round
-                             select m).ToList<MarketingData>();
-
-            (from r in edusim.ComputerMarketingData
+            (from m in computerMarketingData
+             join r in computerRndData on m.ComputerRoundProduct equals r.ComputerRoundProduct
              where r.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
              orderby r.ComputerRoundProduct.TeamCategoryId descending
-             select new MarketingData
-             {
-                 ForecastingQuantity = r.ForecastingQuantity,
-                 MarketingExpense = r.MarketingExpense,
-                 PreviousForecastingQuantity = r.PreviousForecastingQuantity,
-                 PreviousMarketingExpense = r.PreviousMarketingExpense,
-                 PreviousPrice = r.PreviousPrice,
-                 PreviousSaleExpense = r.PreviousSaleExpense,
-                 Price = r.Price,
-                 PurchasedQuantity = r.PurchasedQuantity
-             }).Take(30 - marketingData.Count()).ToList().ForEach(o => marketingData.Add(o));
+             select new CurrentRoundProductWiseInformation
+                     {
+                         RoundCategoryId = m.ComputerRoundProduct.RoundCategoryId,
+                         SegmentTypeId = m.ComputerRoundProduct.SegmentTypeId,
+                         SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : 0.0,
+                         MarketingExpense = m.MarketingExpense.HasValue ? m.SalesExpense.Value : 0.0,
+                         Price = m.Price.HasValue ? m.Price.Value : 0.0,
+                         Age = r.Age.HasValue ? r.Age.Value : 0.0,
+                         Performance = r.Performance.HasValue ? r.Performance.Value : 0.0,
+                         Reliability = r.Reliability.HasValue ? r.Reliability.Value : 0.0,
+                         Size = r.Size.HasValue ? r.Size.Value : 0.0,
+                     }).Take(30 - data1.Count()).ToList().ForEach(o => data1.Add(o));
 
-            rndData = (from r in edusim.RnDData
-                       where r.RoundProduct.Round == round
-                       select r).ToList<RnDData>();
-
-            (from r in edusim.ComputerRnDData
-             where r.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
-             orderby r.ComputerRoundProduct.TeamCategoryId descending
-             select new RnDData
-             {
-                 Age = r.Age,
-                 Performance = r.Performance,
-                 PreviousAge = r.PreviousAge,
-                 PreviousPerformance = r.PreviousPerformance,
-                 PreviousReliability = r.PreviousReliability,
-                 PreviousRevisionDate = r.PreviousRevisionDate,
-                 PreviousSize = r.PreviousSize,
-                 Reliability = r.Reliability,
-                 RevisionDate = r.RevisionDate,
-                 RnDCost = r.RnDCost,
-                 Size = r.Size
-             }).Take(30 - rndData.Count()).ToList().ForEach(o => rndData.Add(o));
+            data = new List<CurrentRoundProductWiseInformation>();
+            (from d in data1
+             select new CurrentRoundProductWiseInformation
+                 {
+                     RoundCategoryId = d.RoundCategoryId,
+                     SegmentTypeId = d.SegmentTypeId,
+                     SalesExpense = d.SalesExpense,
+                     MarketingExpense = d.MarketingExpense,
+                     Price = d.Price,
+                     Age = d.Age,
+                     Performance = d.Performance,
+                     Reliability = d.Reliability,
+                     Size = d.Size,
+                     ClientAwarenessRating = (from o in data1
+                                              where d.SalesExpense < o.SalesExpense && d.MarketingExpense < o.MarketingExpense && d.SegmentTypeId == o.SegmentTypeId
+                                              orderby d.SalesExpense descending
+                                              orderby d.MarketingExpense descending
+                                              select o).Count() + 1,
+                     PriceRating = (from o in data1
+                                    where d.PriceRating < o.PriceRating && d.SegmentTypeId == o.SegmentTypeId
+                                    orderby d.PriceRating descending
+                                    select o).Count() + 1,
+                     AgeRating = (from o in data1
+                                  where d.Age < o.Age && d.SegmentTypeId == o.SegmentTypeId
+                                  orderby d.Age descending
+                                  select o).Count() + 1,
+                     ReliabilityRating = (from o in data1
+                                          where d.Reliability < o.Reliability && d.SegmentTypeId == o.SegmentTypeId
+                                          orderby d.ReliabilityRating descending
+                                          select o).Count() + 1,
+                     PerformanceRating = (from o in data1
+                                          where d.PerformanceRating < o.PerformanceRating && d.SegmentTypeId == o.SegmentTypeId
+                                          orderby d.PerformanceRating descending
+                                          select o).Count() + 1,
+                     SizeRating = (from o in data1
+                                   where d.SizeRating > o.SizeRating && d.SegmentTypeId == o.SegmentTypeId
+                                   orderby d.SizeRating
+                                   select o).Count() + 1,
+                 }
+            ).ToList().ForEach(o => data.Add(o));
         }
 
         private GameCriteria GetGameCriteria(int segId)
@@ -226,112 +211,59 @@ namespace EduSim.Analyse.BusinessLayer
             return gameCriterian;
         }
 
-        public int GetPriceRank(int segmentTypeId, MarketingData mktData)
+        private void SetProductRanking()
         {
-            IOrderedEnumerable<MarketingData> data =  from m in marketingData
-                                              where m.RoundProduct.SegmentTypeId == segmentTypeId
-                                              orderby m.Price ascending
+            double rank = 0;
+
+            (from d in data
+             join m in marketingData on d.RoundId equals m.RoundProduct.RoundId
+             where m.Purchased == false
+             select d).ToList().ForEach(o =>
+             {
+                 GameCriteria gameCriterian = GetGameCriteria(o.SegmentTypeId);
+
+                 double ageRating = (6.0 - o.AgeRating) / 5.0 * gameCriterian.AgeDecision;
+                 double sizeRating = (6.0 - o.SizeRating) / 5.0 * gameCriterian.PerformanceDecision;
+                 double performanceRating = (6.0 - o.PerformanceRating) / 5.0 * gameCriterian.PerformanceDecision;
+                 double reliabilityRating = (6.0 - o.ReliabilityRating) / 5.0 * gameCriterian.ReliabilityDecision;
+                 double clientAwarenessRating = (6.0 - o.ClientAwarenessRating) / 5.0 * 0.5;
+                 double priceRating = (6.0 - o.PriceRating) / 5.0 * gameCriterian.PriceDecision;
+                 rank = ageRating + sizeRating + performanceRating + reliabilityRating + clientAwarenessRating + priceRating;
+             });
+        }
+
+        private void SetAllQuantityIfDemandMoreThenSupply()
+        {
+            IEnumerable<MarketingData> data = from demand in roundCriteria
+                                              join forecast in forecastData on demand.SegmentTypeId equals forecast.SegmentTypeId
+                                              join m in marketingData on demand.RoundCategoryId equals m.RoundProduct.Round.RoundCategoryId
+                                              where demand.MarketDemand > forecast.Quantity
                                               select m;
-            return MarketingRanking(mktData, data);
-        }
 
-        public int GetCustomerAccessRank(int segmentTypeId, MarketingData mktData)
-        {
-            IOrderedEnumerable<MarketingData> data = from m in marketingData
-                                             where m.RoundProduct.SegmentTypeId == segmentTypeId
-                                             orderby m.SalesExpense descending
-                                             orderby m.MarketingExpense descending
-                                             select m;
-            return MarketingRanking(mktData, data);
-        }
-
-        private static int MarketingRanking(MarketingData mktData, IOrderedEnumerable<MarketingData> data)
-        {
-            int count = 1;
-            foreach (MarketingData mData in data)
+            foreach (MarketingData o in data)
             {
-                if (mData == mktData)
-                {
-                    return count;
-                }
-                count++;
+                o.PurchasedQuantity = o.ForecastingQuantity;
+                o.Purchased = true;
             }
-
-            return 0;
-        }
-
-        public int GetPerformanceRank(int segmentTypeId, RnDData rnDData)
-        {
-            IOrderedEnumerable<RnDData> data = from r in rndData
-                                       where r.RoundProduct.SegmentTypeId == segmentTypeId
-                                       orderby r.Performance descending 
-                                             select r;
-            return RndRanking(rnDData, data);
-        }
-
-        public int GetSizeRank(int segmentTypeId, RnDData rnDData)
-        {
-            IOrderedEnumerable<RnDData> data = from r in rndData
-                                       where r.RoundProduct.SegmentTypeId == segmentTypeId
-                                       orderby r.Size ascending
-                                       select r;
-            return RndRanking(rnDData, data);
-        }
-
-        public int GetReliabilityRank(int segmentTypeId, RnDData rnDData)
-        {
-            IOrderedEnumerable<RnDData> data = from r in rndData
-                                       where r.RoundProduct.SegmentTypeId == segmentTypeId
-                                       orderby r.Reliability descending 
-                                       select r;
-            return RndRanking(rnDData, data);
-        }
-
-        public int GetAgeRank(int segmentTypeId, RnDData rnDData)
-        {
-            IOrderedEnumerable<RnDData> data = from r in rndData
-                                       where r.RoundProduct.SegmentTypeId == segmentTypeId
-                                       orderby r.Performance descending 
-                                       select r;
-            return RndRanking(rnDData, data);
-        }
-
-        private static int RndRanking(RnDData rnDData, IOrderedEnumerable<RnDData> data)
-        {
-            int count = 1;
-
-            foreach (RnDData mData in data)
-            {
-                if (mData == rnDData)
-                {
-                    return count;
-                }
-                count++;
-            }
-
-            return 0;
         }
 
         public void QuantityPurchased()
         {
             Dictionary<int, double> crds = new Dictionary<int, double>();
 
-            roundData.ToList<CurrentRoundDemand>().ForEach(o => 
+            demandData.ToList<CurrentRoundDemand>().ForEach(o => 
                 crds[o.SegmentTypeId] = o.Quantity
             );
 
-            IOrderedEnumerable<MarketingData> mds = (from m in marketingData
-                                             where m.Purchased == false
-                                             orderby m.Rating descending 
-                                             select m);
-
-
-            foreach (MarketingData m in mds)
+            (from m in marketingData
+             where m.Purchased == false
+             orderby m.Rating descending
+             select m).ToList().ForEach(m =>
             {
                 Console.WriteLine("Remaining Quantity After " + crds[m.RoundProduct.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastingQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
                 double remainingQty = crds[m.RoundProduct.SegmentTypeId];
                 Console.WriteLine("Remaining Quantity Before " + remainingQty);
-                
+
                 m.PurchasedQuantity = (m.ForecastingQuantity > remainingQty) ? remainingQty : m.ForecastingQuantity;
                 m.Purchased = true;
 
@@ -340,7 +272,7 @@ namespace EduSim.Analyse.BusinessLayer
                 crds[m.RoundProduct.SegmentTypeId] -= purchaseQty;
 
                 Console.WriteLine("Remaining Quantity After " + crds[m.RoundProduct.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastingQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
-            }
+            });
         }
     }
 }
