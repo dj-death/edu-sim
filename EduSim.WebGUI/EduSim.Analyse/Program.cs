@@ -48,7 +48,7 @@ namespace EduSim.Analyse
             Edusim db = new Edusim(Constants.ConnectionString);
             Round round = (from r in db.Round
                           where r.Id == 37
-                          select r).FirstOrDefault();
+                          select r).ToList().FirstOrDefault();
 
             ResultsManager.Run(round);
         }
