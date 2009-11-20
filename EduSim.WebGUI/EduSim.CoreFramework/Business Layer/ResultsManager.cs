@@ -160,6 +160,7 @@ namespace EduSim.Analyse.BusinessLayer
                          Performance = r.Performance.HasValue ? r.Performance.Value : 0.0,
                          Reliability = r.Reliability.HasValue ? r.Reliability.Value : 0.0,
                          Size = r.Size.HasValue ? r.Size.Value : 0.0,
+                         ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0
                      }).Take(30 - data1.Count()).ToList().ForEach(o => data1.Add(o));
 
             data = new List<CurrentRoundProductWiseInformation>();
