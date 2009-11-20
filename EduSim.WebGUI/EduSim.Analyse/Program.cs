@@ -8,8 +8,6 @@ using EduSim.Analyse.BusinessLayer;
 using System.Collections;
 using EduSim.CoreFramework.DTO;
 using EduSim.CoreFramework.Common;
-using org.drools.dotnet.compiler;
-using org.drools.dotnet.rule;
 
 namespace EduSim.Analyse
 {
