@@ -12,7 +12,6 @@ namespace EduSim.Analyse.BusinessLayer
 {
     public class ResultsManager
     {
-        private List<CurrentRoundDemand> demandData;
         private List<CurrentRoundForecast> forecastData;
         private List<MarketingData> marketingData;
         private List<RnDData> rndData;
@@ -56,9 +55,10 @@ namespace EduSim.Analyse.BusinessLayer
                 ResultsManager rm = new ResultsManager(round);
 
                 rm.GetForecastedData(round);
+                rm.GetPlayersRating(round);
+
                 rm.SetAllQuantityIfDemandMoreThenSupply();
 
-                rm.GetPlayersRating(round);
                 rm.SetProductRanking();
                 rm.QuantityPurchased();
             }
@@ -132,7 +132,7 @@ namespace EduSim.Analyse.BusinessLayer
              where m.RoundProduct.RoundId == round.Id
              select new CurrentRoundProductWiseInformation
                     {
-                        RoundId = m.RoundProduct.RoundId,
+                        RoundProductId = m.RoundProductId,
                         RoundCategoryId = m.RoundProduct.Round.RoundCategoryId,
                         SegmentTypeId = m.RoundProduct.SegmentTypeId,
                         SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : 0.0,
@@ -142,6 +142,7 @@ namespace EduSim.Analyse.BusinessLayer
                         Performance = r.Performance.HasValue ? r.Performance.Value : 0.0,
                         Reliability = r.Reliability.HasValue ? r.Reliability.Value : 0.0,
                         Size = r.Size.HasValue ? r.Size.Value : 0.0,
+                        ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0
                     }).ToList().ForEach(o => data1.Add(o));
 
             (from m in computerMarketingData
@@ -165,6 +166,7 @@ namespace EduSim.Analyse.BusinessLayer
             (from d in data1
              select new CurrentRoundProductWiseInformation
                  {
+                     RoundProductId = d.RoundProductId,
                      RoundCategoryId = d.RoundCategoryId,
                      SegmentTypeId = d.SegmentTypeId,
                      SalesExpense = d.SalesExpense,
@@ -174,10 +176,11 @@ namespace EduSim.Analyse.BusinessLayer
                      Performance = d.Performance,
                      Reliability = d.Reliability,
                      Size = d.Size,
+                     ForecastedQuantity = d.ForecastedQuantity,
                      ClientAwarenessRating = ClientAwarenessRating(data1, d),
                      PriceRating = (from o in data1
                                     where d.Price < o.Price && d.SegmentTypeId == o.SegmentTypeId
-                                    orderby d.PriceRating descending
+                                    orderby d.Price descending
                                     select o).Count() + 1,
                      AgeRating = (from o in data1
                                   where d.Age < o.Age && d.SegmentTypeId == o.SegmentTypeId
@@ -185,15 +188,15 @@ namespace EduSim.Analyse.BusinessLayer
                                   select o).Count() + 1,
                      ReliabilityRating = (from o in data1
                                           where d.Reliability < o.Reliability && d.SegmentTypeId == o.SegmentTypeId
-                                          orderby d.ReliabilityRating descending
+                                          orderby d.Reliability descending
                                           select o).Count() + 1,
                      PerformanceRating = (from o in data1
                                           where d.Performance < o.Performance && d.SegmentTypeId == o.SegmentTypeId
-                                          orderby d.PerformanceRating descending
+                                          orderby d.Performance descending
                                           select o).Count() + 1,
                      SizeRating = (from o in data1
                                    where d.Size > o.Size && d.SegmentTypeId == o.SegmentTypeId
-                                   orderby d.SizeRating
+                                   orderby d.Size 
                                    select o).Count() + 1,
                  }
             ).ToList().ForEach(o => data.Add(o));
@@ -202,7 +205,7 @@ namespace EduSim.Analyse.BusinessLayer
         private static int ClientAwarenessRating(List<CurrentRoundProductWiseInformation> data1, CurrentRoundProductWiseInformation d)
         {
             return (from o in data1
-                    where d.SalesExpense < o.SalesExpense && d.MarketingExpense < o.MarketingExpense && d.SegmentTypeId == o.SegmentTypeId
+                    where ((d.SalesExpense + d.MarketingExpense ) < (o.SalesExpense + o.MarketingExpense)) && d.SegmentTypeId == o.SegmentTypeId
                     orderby d.SalesExpense descending
                     orderby d.MarketingExpense descending
                     select o).Count() + 1;
@@ -218,10 +221,8 @@ namespace EduSim.Analyse.BusinessLayer
 
         private void SetProductRanking()
         {
-            double rank = 0;
-
             (from d in data
-             join m in marketingData on d.RoundId equals m.RoundProduct.RoundId
+             join m in marketingData on d.RoundProductId equals m.RoundProductId
              where m.Purchased == false
              select d).ToList().ForEach(o =>
              {
@@ -233,21 +234,21 @@ namespace EduSim.Analyse.BusinessLayer
                  double reliabilityRating = (6.0 - o.ReliabilityRating) / 5.0 * gameCriterian.ReliabilityDecision;
                  double clientAwarenessRating = (6.0 - o.ClientAwarenessRating) / 5.0 * 0.5;
                  double priceRating = (6.0 - o.PriceRating) / 5.0 * gameCriterian.PriceDecision;
-                 rank = ageRating + sizeRating + performanceRating + reliabilityRating + clientAwarenessRating + priceRating;
+                 o.Ranking = ageRating + sizeRating + performanceRating + reliabilityRating + clientAwarenessRating + priceRating;
              });
         }
 
         private void SetAllQuantityIfDemandMoreThenSupply()
         {
-            IEnumerable<MarketingData> data = from demand in roundCriteria
+            IEnumerable<CurrentRoundProductWiseInformation> data1 = from demand in roundCriteria
                                               join forecast in forecastData on demand.SegmentTypeId equals forecast.SegmentTypeId
-                                              join m in marketingData on demand.RoundCategoryId equals m.RoundProduct.Round.RoundCategoryId
+                                              join m in data on demand.SegmentTypeId equals m.SegmentTypeId
                                               where demand.MarketDemand > forecast.Quantity
                                               select m;
 
-            foreach (MarketingData o in data)
+            foreach (CurrentRoundProductWiseInformation o in data1)
             {
-                o.PurchasedQuantity = o.ForecastingQuantity;
+                o.PurchasedQuantity = o.ForecastedQuantity;
                 o.Purchased = true;
             }
         }
@@ -256,28 +257,57 @@ namespace EduSim.Analyse.BusinessLayer
         {
             Dictionary<int, double> crds = new Dictionary<int, double>();
 
-            demandData.ToList<CurrentRoundDemand>().ForEach(o => 
-                crds[o.SegmentTypeId] = o.Quantity
+            roundCriteria.ForEach(o => 
+                crds[o.SegmentTypeId] = o.MarketDemand.HasValue ? o.MarketDemand.Value : 0.0
             );
 
-            (from m in marketingData
+            Edusim db = new Edusim(Constants.ConnectionString);
+
+            (from m in data
+             where m.Purchased == true
+             select m).ToList().ForEach(m =>
+                 {
+                     MarketingData mktData = (from mk in db.MarketingData
+                                              where mk.RoundProductId == m.RoundProductId
+                                              select mk).FirstOrDefault();
+
+                     if (mktData != null)
+                     {
+                         mktData.PurchasedQuantity = m.PurchasedQuantity;
+                         mktData.Purchased = m.Purchased;
+                     }
+                 });
+
+            (from m in data
              where m.Purchased == false
-             orderby m.Rating descending
+             orderby m.Ranking descending
              select m).ToList().ForEach(m =>
             {
-                Console.WriteLine("Remaining Quantity After " + crds[m.RoundProduct.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastingQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
-                double remainingQty = crds[m.RoundProduct.SegmentTypeId];
+                Console.WriteLine("Remaining Quantity After " + crds[m.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastedQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
+                double remainingQty = crds[m.SegmentTypeId];
                 Console.WriteLine("Remaining Quantity Before " + remainingQty);
 
-                m.PurchasedQuantity = (m.ForecastingQuantity > remainingQty) ? remainingQty : m.ForecastingQuantity;
+                m.PurchasedQuantity = (m.ForecastedQuantity > remainingQty) ? remainingQty : m.ForecastedQuantity;
                 m.Purchased = true;
 
-                double purchaseQty = m.PurchasedQuantity.HasValue ? m.PurchasedQuantity.Value : 0.0;
+                double purchaseQty = m.PurchasedQuantity ;
 
-                crds[m.RoundProduct.SegmentTypeId] -= purchaseQty;
+                crds[m.SegmentTypeId] -= purchaseQty;
 
-                Console.WriteLine("Remaining Quantity After " + crds[m.RoundProduct.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastingQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
+                Console.WriteLine("Remaining Quantity After " + crds[m.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastedQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
+
+                MarketingData mktData = (from mk in db.MarketingData
+                                         where mk.RoundProductId == m.RoundProductId
+                                         select mk).FirstOrDefault();
+
+                if (mktData != null)
+                {
+                    mktData.PurchasedQuantity = m.PurchasedQuantity;
+                    mktData.Purchased = m.Purchased;
+                }
             });
+
+            db.SubmitChanges();
         }
     }
 }

@@ -105,9 +105,11 @@ namespace EduSim.CoreFramework.DTO
     public class CurrentRoundProductWiseInformation
     {
         public int RoundCategoryId { get; set; }
-        public int RoundId { get; set; }
+        public int RoundProductId { get; set; }
         public int SegmentTypeId { get; set; }
+        public bool Purchased { get; set; }
         public double PurchasedQuantity { get; set; }
+        public double ForecastedQuantity { get; set; }
         public double Ranking { get; set; }
         public double Age { get; set; }
         public int AgeRating { get; set; }
