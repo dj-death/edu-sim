@@ -7,6 +7,7 @@ using System.Collections;
 using EduSim.CoreFramework.DTO;
 using EduSim.CoreFramework.Common;
 using Gizmox.WebGUI.Forms;
+using EduSim.CoreFramework.BusinessLayer;
 
 namespace EduSim.Analyse.BusinessLayer
 {
@@ -60,12 +61,31 @@ namespace EduSim.Analyse.BusinessLayer
                 rm.SetAllQuantityIfDemandMoreThenSupply();
 
                 rm.SetProductRanking();
-                rm.QuantityPurchased();
+
+                Edusim db = new Edusim(Constants.ConnectionString);
+
+                rm.QuantityPurchased(db);
+
+                rm.SetNextRoundData(db, round);
+
+                db.SubmitChanges();
             }
             else
             {
                 MessageBox.Show("Please select a valid Round");
             }
+        }
+
+        private void SetNextRoundData(Edusim db, Round round)
+        {
+            //TODO: Mark round.Current as False
+            Round round1 = (from r in db.Round
+                            where r.Id == round.Id
+                            select r).FirstOrDefault();
+
+            round1.Current = false;
+
+            GameHelper.AddRoundInformation(db, round1);
         }
 
         private void GetForecastedData(Round round)
@@ -254,15 +274,13 @@ namespace EduSim.Analyse.BusinessLayer
             }
         }
 
-        public void QuantityPurchased()
+        public void QuantityPurchased(Edusim db)
         {
             Dictionary<int, double> crds = new Dictionary<int, double>();
 
             roundCriteria.ForEach(o => 
                 crds[o.SegmentTypeId] = o.MarketDemand.HasValue ? o.MarketDemand.Value : 0.0
             );
-
-            Edusim db = new Edusim(Constants.ConnectionString);
 
             (from m in data
              where m.Purchased == true
@@ -307,8 +325,6 @@ namespace EduSim.Analyse.BusinessLayer
                     mktData.Purchased = m.Purchased;
                 }
             });
-
-            db.SubmitChanges();
         }
     }
 }

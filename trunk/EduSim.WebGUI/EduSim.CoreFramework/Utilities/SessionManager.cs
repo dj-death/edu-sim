@@ -22,34 +22,33 @@ namespace EduSim.CoreFramework.Utilities
         {
             Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(sessionStr);
 
-            if (dic.Count == 0)
-            {
-                Edusim db = new Edusim(Constants.ConnectionString);
-                IQueryable<RnDDataView> rs = from r in db.RnDData
-                                             join rp in db.RoundProduct on r.RoundProduct equals rp
-                                             where rp.Round == round
-                                             select new RnDDataView()
-                                             {
-                                                 ProductName = rp.ProductName,
-                                                 ProductCategory = rp.SegmentType.Description,
-                                                 PreviousRevisionDate = r.PreviousRevisionDate,
-                                                 RevisionDate = r.RevisionDate.HasValue ? r.RevisionDate.Value : r.PreviousRevisionDate,
-                                                 PreviousAge = r.PreviousAge,
-                                                 Age = r.Age.HasValue ? r.Age.Value : r.PreviousAge,
-                                                 PreviousReliability = r.PreviousReliability,
-                                                 Reliability = r.Reliability.HasValue ? r.Reliability.Value : r.PreviousReliability,
-                                                 PreviousPerformance = r.PreviousPerformance,
-                                                 Performance = r.Performance.HasValue ? r.Performance.Value : r.PreviousPerformance,
-                                                 PreviousSize = r.PreviousSize,
-                                                 Size = r.Size.HasValue ? r.Size.Value : r.PreviousSize,
-                                                 RnDCost = r.RnDCost.HasValue ? r.RnDCost.Value : 0.0
-                                             };
+            dic.Clear();
 
-                rs.ToList<RnDDataView>().ForEach(o =>
-                {
-                    dic[o.ProductName] = o;
-                });
-            }
+            Edusim db = new Edusim(Constants.ConnectionString);
+            IQueryable<RnDDataView> rs = from r in db.RnDData
+                                         join rp in db.RoundProduct on r.RoundProduct equals rp
+                                         where rp.Round == round
+                                         select new RnDDataView()
+                                         {
+                                             ProductName = rp.ProductName,
+                                             ProductCategory = rp.SegmentType.Description,
+                                             PreviousRevisionDate = r.PreviousRevisionDate,
+                                             RevisionDate = r.RevisionDate.HasValue ? r.RevisionDate.Value : r.PreviousRevisionDate,
+                                             PreviousAge = r.PreviousAge,
+                                             Age = r.Age.HasValue ? r.Age.Value : r.PreviousAge,
+                                             PreviousReliability = r.PreviousReliability,
+                                             Reliability = r.Reliability.HasValue ? r.Reliability.Value : r.PreviousReliability,
+                                             PreviousPerformance = r.PreviousPerformance,
+                                             Performance = r.Performance.HasValue ? r.Performance.Value : r.PreviousPerformance,
+                                             PreviousSize = r.PreviousSize,
+                                             Size = r.Size.HasValue ? r.Size.Value : r.PreviousSize,
+                                             RnDCost = r.RnDCost.HasValue ? r.RnDCost.Value : 0.0
+                                         };
+
+            rs.ToList<RnDDataView>().ForEach(o =>
+            {
+                dic[o.ProductName] = o;
+            });
 
             return dic;
         }
@@ -58,8 +57,8 @@ namespace EduSim.CoreFramework.Utilities
         {
             Dictionary<string, MarketingDataView> dic = RoundDataModel.GetData<MarketingDataView>(sessionData);
 
-            if (dic.Count == 0)
-            {
+            dic.Clear();
+
                 Edusim db = new Edusim(Constants.ConnectionString);
                 (from m in db.MarketingData
                  join rp in db.RoundProduct on m.RoundProduct equals rp
@@ -79,7 +78,6 @@ namespace EduSim.CoreFramework.Utilities
                      ProjectedSales = (m.Price.HasValue ? m.Price.Value : m.PreviousPrice) * 
                                         (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : m.PreviousForecastingQuantity)
                  }).ToList<MarketingDataView>().ForEach(o => dic[o.ProductName] = o);
-            }
 
             return dic;
         }
@@ -88,8 +86,8 @@ namespace EduSim.CoreFramework.Utilities
         {
             Dictionary<string, ProductionDataView> dic = RoundDataModel.GetData<ProductionDataView>(sessionData);
 
-            if (dic.Count == 0)
-            {
+            dic.Clear();
+
                 Edusim db = new Edusim(Constants.ConnectionString);
                 IQueryable<ProductionDataView> rs = from p in db.ProductionData
                                                     join rp in db.RoundProduct on p.RoundProduct equals rp
@@ -122,7 +120,7 @@ namespace EduSim.CoreFramework.Utilities
                 {
                     dic[o.ProductName] = o;
                 });
-            }
+
             return dic;
         }
 
@@ -130,8 +128,8 @@ namespace EduSim.CoreFramework.Utilities
         {
             Dictionary<string, FinanceDataView> dic = RoundDataModel.GetData<FinanceDataView>(sessionData);
 
-            if (dic.Count == 0)
-            {
+            dic.Clear();
+
                 Edusim db = new Edusim(Constants.ConnectionString);
 
                 (from f in db.FinanceData
@@ -148,7 +146,7 @@ namespace EduSim.CoreFramework.Utilities
                      PreviousCash = f.PreviousCash,
                      Cash = f.Cash
                  }).ToList<FinanceDataView>().ForEach(o => dic[round.RoundCategory.RoundName] = o);
-            }
+
             return dic;
         }
 
@@ -156,8 +154,8 @@ namespace EduSim.CoreFramework.Utilities
         {
             Dictionary<string, LabourDataView> dic = RoundDataModel.GetData<LabourDataView>(sessionData);
 
-            if (dic.Count == 0)
-            {
+            dic.Clear();
+
                 Edusim db = new Edusim(Constants.ConnectionString);
 
                 (from f in db.LabourData
@@ -176,7 +174,7 @@ namespace EduSim.CoreFramework.Utilities
                      PreviousBenefits = f.PreviousBenefits,
                      Benefits = f.Benefits.HasValue ? f.Benefits.Value : 0.0
                  }).ToList<LabourDataView>().ForEach(o => dic[round.RoundCategory.RoundName] = o);
-            }
+
             return dic;
         }
 

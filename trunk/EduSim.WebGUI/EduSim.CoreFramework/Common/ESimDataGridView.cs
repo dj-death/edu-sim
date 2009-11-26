@@ -69,6 +69,7 @@ namespace EduSim.CoreFramework.Common
             }
             else
             {
+                this.dataGridView1.DefaultCellStyle.BackColor = Color.LightGray;
                 foreach (DataGridViewColumn d in this.dataGridView1.Columns)
                 {
                     d.ReadOnly = true;
@@ -100,14 +101,14 @@ namespace EduSim.CoreFramework.Common
 		{
             this.dataGridView1 = new Gizmox.WebGUI.Forms.DataGridView();
 
-            if (rdm.EnableAddProduct)
+            if (rdm.EnableAddProduct && rdm.Current)
             {
                 addProduct = new Button();
             }
 			((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
 			this.SuspendLayout();
 
-            if (rdm.EnableAddProduct)
+            if (rdm.EnableAddProduct && rdm.Current)
             {
                 addProduct.Location = new Point(70, 0);
                 addProduct.Name = "addProduct";
@@ -154,7 +155,7 @@ namespace EduSim.CoreFramework.Common
 			this.ClientSize = new System.Drawing.Size(640, 600);
             this.Controls.Add(this.dataGridView1);
             //this.Controls.Add(this.compute);
-            if (rdm.EnableAddProduct)
+            if (rdm.EnableAddProduct && rdm.Current)
             {
                 this.Controls.Add(this.addProduct);
             }

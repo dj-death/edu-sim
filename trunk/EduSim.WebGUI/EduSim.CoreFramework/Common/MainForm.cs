@@ -17,7 +17,6 @@ using EduSim.CoreUtilities.Utility;
 using EduSim.CoreFramework.Utilities;
 using EduSim.CoreFramework.DataControls;
 
-
 namespace EduSim.CoreFramework.Common
 {
     //Create a Game
@@ -28,7 +27,8 @@ namespace EduSim.CoreFramework.Common
     //During of the span of 8 games, you can create a maximum of 8 products
     //TODO: Change the name of the products, dont make it look like the Competators products
     //Implement the Financials Data,
-    //TODO: Allow the user to save the RnD, Production, Marketing and Financials Data and also Add new product and Save
+    //Allow the user to save the RnD, Production, Marketing and Financials Data and also 
+    //TODO: Add new product and Save
     //TODO: Format the PnL reports with Dollars
     //TODO: Implement Balance Sheet, Cash Flow and Balance Scorecarda
     [Serializable()]
@@ -308,7 +308,6 @@ namespace EduSim.CoreFramework.Common
              where tu.UserId == user.Id && r.TeamGame.GameId == gameId
              select r).ToList<Round>().ForEach(o =>
                                               {
-                                                  SessionManager.SetSessionData(o);
                                                   CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id);
                                                   catNode1.AddCategory("R&D", typeof(ESimDataGridView), typeof(RnDDataModel), "ListView.gif" );
                                                   catNode1.AddCategory("Marketing", typeof(ESimDataGridView), typeof(MarketingDataModel), "ListView.gif");
@@ -608,6 +607,7 @@ namespace EduSim.CoreFramework.Common
                                    where r.Id == int.Parse(split1[1])
                                    select r).FirstOrDefault<Round>();
                     HttpContext.Current.Session[SessionConstants.CurrentRound] = round;
+                    SessionManager.SetSessionData(round);
                 }
             }
             (mobjBaseForm as MainForm).SelectCategory(e.Node.Tag as CategoryNode, true);
