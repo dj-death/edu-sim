@@ -8,6 +8,7 @@ using System.Data;
 using EduSim.CoreFramework.DTO;
 using System.Reflection;
 using System.Text;
+using EduSim.CoreFramework.BusinessLayer;
 
 namespace EduSim.WebGUI.UI
 {
@@ -39,7 +40,7 @@ namespace EduSim.WebGUI.UI
                                              select u).FirstOrDefault<Team>();
                                 tg.Team = user;
                                 db.TeamGame.InsertOnSubmit(tg);
-                                AddGameInformatoin(db, tg);
+                                GameHelper.AddGameInformatoin(db, tg);
                             }
                         }
                     }
@@ -87,101 +88,6 @@ namespace EduSim.WebGUI.UI
                 });
             }
             db.SubmitChanges();
-        }
-
-        public static void AddGameInformatoin(Edusim db, TeamGame tg)
-        {
-            //Create Round
-            Round round = new Round() { RoundCategoryId = 1, TeamGame = tg, Current = true };
-            db.Round.InsertOnSubmit(round);
-
-            IQueryable<ProductCategory> pcs = from pc in db.ProductCategory
-                                              where pc.TeamCategoryId == tg.Team.TeamCategoryId
-                                              select pc;
-
-            (from g in db.GameInitialData
-             select g).ToList<GameInitialData>().ForEach(o1 =>
-                                                {
-                                                    ProductCategory pc = (from p in pcs
-                                                                          where p.SegmentTypeId == o1.SegmentTypeId
-                                                                          select p).FirstOrDefault<ProductCategory>();
-
-                                                    //Create RoundProduct 
-                                                    RoundProduct rp = new RoundProduct()
-                                                    {
-                                                        Round = round,
-                                                        ProductName = pc.ProductName,
-                                                        SegmentType = o1.SegmentType
-                                                    };
-                                                    db.RoundProduct.InsertOnSubmit(rp);
-                                                    //Create RnDData
-                                                    RnDData rd = new RnDData()
-                                                    {
-                                                        RoundProduct = rp,
-                                                        PreviousAge = o1.AgeDec31,
-                                                        PreviousPerformance = o1.Performance,
-                                                        PreviousReliability = o1.Reliability,
-                                                        PreviousRevisionDate = o1.RevisionDate,
-                                                        PreviousSize = o1.Size,
-                                                    };
-                                                    db.RnDData.InsertOnSubmit(rd);
-                                                    //Create MarketingData
-                                                    MarketingData md = new MarketingData()
-                                                    {
-                                                        RoundProduct = rp,
-                                                        PreviousSaleExpense = o1.SalesExpense,
-                                                        PreviousMarketingExpense = o1.MarketingExpense,
-                                                        PreviousPrice = o1.Price,
-                                                        PreviousForecastingQuantity = o1.UnitInventory,
-                                                    };
-                                                    db.MarketingData.InsertOnSubmit(md);
-                                                    //Create ProductionData
-                                                    ProductionData pd = new ProductionData()
-                                                    {
-                                                        RoundProduct = rp,
-                                                        PreviousNumberOfLabour = 0,
-                                                        OldCapacity = o1.CapacityForNextRound,
-                                                        Inventory = o1.UnitInventory,
-                                                        CurrentAutomation = o1.AutomationForNextRound,
-                                                    };
-                                                    db.ProductionData.InsertOnSubmit(pd);
-                                                }
-                                                );
-
-            (from g in db.GameInitialFinanceData
-             select g).ToList<GameInitialFinanceData>().ForEach(o1 =>
-                 {
-                     FinanceData fd = new FinanceData()
-                     {
-                         Round = round,
-                         Cash = o1.Cash,
-                         TotalLongTermLoan = o1.PreviousLongTermLoan,
-                         LongTermLoan = o1.LongTermLoan,
-                         TotalShortTermLoan = o1.PreviousShortTermLoan,
-                         ShortTermLoan = o1.ShortTermLoan
-                     };
-                     db.FinanceData.InsertOnSubmit(fd);
-                 });
-
-            (from g in db.LabourGameInitialData
-             select g).ToList<LabourGameInitialData>().ForEach(o1 =>
-                 {
-                     LabourData ld = new LabourData()
-                     {
-                         Round = round,
-                         PreviousRate = o1.PreviousRate,
-                         PreviousBenefits = o1.Benefits.HasValue ? o1.Benefits.Value : 0.0,
-                         PreviousProfitSharing = o1.ProfitSharing.HasValue ? o1.ProfitSharing.Value : 0.0,
-                         PreviousAnnualRaise = o1.AnnualRaise.HasValue ? o1.AnnualRaise.Value : 0.0,
-                         PreviousNumberOfLabour = o1.PreviousNumberOfLabour,
-                         Rate = o1.PreviousRate,
-                         Benefits = o1.Benefits,
-                         ProfitSharing = o1.ProfitSharing,
-                         AnnualRaise = o1.AnnualRaise,
-                         NumberOfLabour = o1.PreviousNumberOfLabour
-                     };
-                     db.LabourData.InsertOnSubmit(ld);
-                 });
         }
 
         public static void FillGameDetails(CheckedListBox control, EsimDataEntry dataEntry, DataTable table)

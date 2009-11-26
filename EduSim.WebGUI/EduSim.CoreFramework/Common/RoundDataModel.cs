@@ -28,7 +28,7 @@ namespace EduSim.CoreFramework.Common
 
         public bool Current
         {
-            get { return round.TeamGame.Game.Active.HasValue ? round.TeamGame.Game.Active.Value : false; }
+            get { return round.Current; }
         }
 
         protected abstract void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue);

@@ -52,7 +52,7 @@ namespace EduSim.CoreFramework.BusinessLayer
             };
             db.TeamGame.InsertOnSubmit(teamGame);
 
-            GameManager.AddGameInformatoin(db, teamGame);
+            GameHelper.AddGameInformatoin(db, teamGame);
  
             db.SubmitChanges();
         }

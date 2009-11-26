@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindedGrid\FinanceDataModel.cs" />
+    <Compile Include="Business Layer\GameHelper.cs" />
     <Compile Include="DTO\DataViews.cs" />
     <Compile Include="BindedGrid\LabourDataModel.cs" />
     <Compile Include="BindedGrid\MarketingDataModel.cs" />
