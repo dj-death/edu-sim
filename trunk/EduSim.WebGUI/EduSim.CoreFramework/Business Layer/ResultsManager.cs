@@ -8,6 +8,7 @@ using EduSim.CoreFramework.DTO;
 using EduSim.CoreFramework.Common;
 using Gizmox.WebGUI.Forms;
 using EduSim.CoreFramework.BusinessLayer;
+using System.Data.Linq;
 
 namespace EduSim.Analyse.BusinessLayer
 {
@@ -64,11 +65,18 @@ namespace EduSim.Analyse.BusinessLayer
 
                 Edusim db = new Edusim(Constants.ConnectionString);
 
-                rm.QuantityPurchased(db);
+                try
+                {
+                    rm.QuantityPurchased(db);
 
-                rm.SetNextRoundData(db, round);
+                    rm.SetNextRoundData(db, round);
 
-                db.SubmitChanges();
+                    db.SubmitChanges();
+                }
+                catch (ChangeConflictException e)
+                {
+                    throw new Exception(GameHelper.BuildSqlError(e).ToString());
+                }
             }
             else
             {
