@@ -5,6 +5,7 @@ using System.Text;
 using EduSim.CoreFramework.DTO;
 using EduSim.WebGUI.UI;
 using EduSim.CoreFramework.Common;
+using System.Data.Linq;
 
 namespace EduSim.CoreFramework.BusinessLayer
 {
@@ -19,42 +20,50 @@ namespace EduSim.CoreFramework.BusinessLayer
 
         public static void ProcessRegistration(UserDetails user)
         {
-            Edusim db = new Edusim(Constants.ConnectionString);
-
-            db.UserDetails.InsertOnSubmit(user);
-
-            Team team = new Team()
+            try
             {
-                TeamCategoryId = 1,
-                CreatedDate = DateTime.Now,
-                Players = true,                
-            };
-            db.Team.InsertOnSubmit(team);
+                Edusim db = new Edusim(Constants.ConnectionString);
 
-            TeamUser teamUser = new TeamUser()
+                db.UserDetails.InsertOnSubmit(user);
+
+                Team team = new Team()
+                {
+                    TeamCategoryId = 1,
+                    CreatedDate = DateTime.Now,
+                    Players = true,
+                };
+                db.Team.InsertOnSubmit(team);
+
+                TeamUser teamUser = new TeamUser()
+                {
+                    Team = team,
+                    UserDetails = user
+                };
+                db.TeamUser.InsertOnSubmit(teamUser);
+
+                Game game = new Game()
+                {
+                    Active = true,
+                    CreatedDate = DateTime.Now
+                };
+                db.Game.InsertOnSubmit(game);
+
+                TeamGame teamGame = new TeamGame()
+                {
+                    Game = game,
+                    Team = team
+                };
+                db.TeamGame.InsertOnSubmit(teamGame);
+
+                GameHelper.AddGameInformatoin(db, teamGame);
+
+                db.SubmitChanges();
+            }
+            catch (ChangeConflictException e)
             {
-                Team = team,
-                UserDetails = user
-            };
-            db.TeamUser.InsertOnSubmit(teamUser);
+                throw new Exception(GameHelper.BuildSqlError(e).ToString());
+            }
 
-            Game game = new Game()
-            {
-                Active = true,
-                CreatedDate = DateTime.Now
-            };
-            db.Game.InsertOnSubmit(game);
-
-            TeamGame teamGame = new TeamGame()
-            {
-                Game = game,
-                Team = team
-            };
-            db.TeamGame.InsertOnSubmit(teamGame);
-
-            GameHelper.AddGameInformatoin(db, teamGame);
- 
-            db.SubmitChanges();
         }
     }
 }

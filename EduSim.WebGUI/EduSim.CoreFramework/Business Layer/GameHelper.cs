@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using EduSim.CoreFramework.DTO;
+using System.Data.Linq;
 
 namespace EduSim.CoreFramework.BusinessLayer
 {
@@ -108,7 +109,7 @@ namespace EduSim.CoreFramework.BusinessLayer
             //TODO: Create Round 2 and copy all previous information to Round 2values 
             Round round2 = new Round
             {
-                RoundCategoryId = 2,
+                RoundCategoryId = round.RoundCategoryId + 1,
                 TeamGame = round.TeamGame,
                 Current = true
             };
@@ -118,7 +119,6 @@ namespace EduSim.CoreFramework.BusinessLayer
             IQueryable<RoundProduct> roundProduct = from r in db.RoundProduct
                                                     where r.Round == round
                                                     select r;
-
 
             foreach (RoundProduct rval in roundProduct)
             {
@@ -206,6 +206,18 @@ namespace EduSim.CoreFramework.BusinessLayer
                 Round = round2
             };
             db.LabourData.InsertOnSubmit(libdata);
+        }
+
+        internal static StringBuilder BuildSqlError(ChangeConflictException e)
+        {
+            StringBuilder builder = new StringBuilder();
+
+            foreach (string str in e.InnerException.Data)
+            {
+                builder.Append(str);
+            }
+
+            return builder;
         }
     }
 }

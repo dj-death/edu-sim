@@ -8,6 +8,8 @@ using System.Data;
 using EduSim.CoreFramework.DTO;
 using System.Reflection;
 using System.Text;
+using System.Data.Linq;
+using EduSim.CoreFramework.BusinessLayer;
 
 namespace EduSim.WebGUI.UI
 {
@@ -15,87 +17,94 @@ namespace EduSim.WebGUI.UI
     {
         public static void SaveTeam(List<Control> list, EsimMainForm esimMainForm, string filter)
         {
-            Edusim db = new Edusim(Constants.ConnectionString);
-            Team team;
-            //Insert
-            if (filter.Equals(string.Empty))
+            try
             {
-                team = new Team();
-                CoreDatabaseHelper.Modify(list, team, (o, c1) =>
-                    {
-                        if (c1 is CheckedListBox)
+                Edusim db = new Edusim(Constants.ConnectionString);
+                Team team;
+                //Insert
+                if (filter.Equals(string.Empty))
+                {
+                    team = new Team();
+                    CoreDatabaseHelper.Modify(list, team, (o, c1) =>
                         {
-                            CheckedListBox c = (c1 as CheckedListBox);
-
-                            int count = 0;
-                            foreach (string str in c.Items)
+                            if (c1 is CheckedListBox)
                             {
-                                if (c.GetItemChecked(count++))
-                                {
-                                    TeamUser tu = new TeamUser();
-                                    tu.Team = (o as Team);
-                                    UserDetails user = (from u in db.UserDetails
-                                                        where u.Email.Equals(str)
-                                                        select u).FirstOrDefault<UserDetails>();
-                                    tu.UserDetails = user;
-                                    db.TeamUser.InsertOnSubmit(tu);
-                                    break;
-                                }
-                            }
-                        }
-                        if (c1 is ComboBox)
-                        {
-                            ComboBox c = (c1 as ComboBox);
-                            team.TeamCategoryId = c.SelectedIndex + 1;
-                        }
-                    });
+                                CheckedListBox c = (c1 as CheckedListBox);
 
-                team.CreatedDate = DateTime.Now;
-                db.Team.InsertOnSubmit(team);
-            }
-            //Update
-            else
-            {
-                string[] splits = filter.Split("=".ToCharArray());
-                team = (from t in db.Team
-                             where t.Id == int.Parse(splits[1])
-                             select t).FirstOrDefault<Team>();
-
-                CoreDatabaseHelper.Modify(list, team, (o, c1) =>
-                    {
-                        if (c1 is CheckedListBox)
-                        {
-                            CheckedListBox c = (c1 as CheckedListBox);
-                            int count = 0;
-                            foreach (string str in c.Items)
-                            {
-                                if (c.GetItemChecked(count++))
+                                int count = 0;
+                                foreach (string str in c.Items)
                                 {
-                                    UserDetails user = (from u in db.UserDetails
-                                                        where u.Email.Equals(str)
-                                                        select u).FirstOrDefault<UserDetails>();
-                                    TeamUser tu1 = (from tu in db.TeamUser
-                                                    where tu.Team == (o as Team) && tu.UserDetails == user
-                                                    select tu).FirstOrDefault<TeamUser>();
-                                    if (tu1 == null)
+                                    if (c.GetItemChecked(count++))
                                     {
                                         TeamUser tu = new TeamUser();
                                         tu.Team = (o as Team);
+                                        UserDetails user = (from u in db.UserDetails
+                                                            where u.Email.Equals(str)
+                                                            select u).FirstOrDefault<UserDetails>();
                                         tu.UserDetails = user;
                                         db.TeamUser.InsertOnSubmit(tu);
+                                        break;
                                     }
-                                    break;
                                 }
                             }
-                        }
-                        if (c1 is ComboBox)
+                            if (c1 is ComboBox)
+                            {
+                                ComboBox c = (c1 as ComboBox);
+                                team.TeamCategoryId = c.SelectedIndex + 1;
+                            }
+                        });
+
+                    team.CreatedDate = DateTime.Now;
+                    db.Team.InsertOnSubmit(team);
+                }
+                //Update
+                else
+                {
+                    string[] splits = filter.Split("=".ToCharArray());
+                    team = (from t in db.Team
+                            where t.Id == int.Parse(splits[1])
+                            select t).FirstOrDefault<Team>();
+
+                    CoreDatabaseHelper.Modify(list, team, (o, c1) =>
                         {
-                            ComboBox c = (c1 as ComboBox);
-                            team.TeamCategoryId = c.SelectedIndex + 1;
-                        }
-                    });
+                            if (c1 is CheckedListBox)
+                            {
+                                CheckedListBox c = (c1 as CheckedListBox);
+                                int count = 0;
+                                foreach (string str in c.Items)
+                                {
+                                    if (c.GetItemChecked(count++))
+                                    {
+                                        UserDetails user = (from u in db.UserDetails
+                                                            where u.Email.Equals(str)
+                                                            select u).FirstOrDefault<UserDetails>();
+                                        TeamUser tu1 = (from tu in db.TeamUser
+                                                        where tu.Team == (o as Team) && tu.UserDetails == user
+                                                        select tu).FirstOrDefault<TeamUser>();
+                                        if (tu1 == null)
+                                        {
+                                            TeamUser tu = new TeamUser();
+                                            tu.Team = (o as Team);
+                                            tu.UserDetails = user;
+                                            db.TeamUser.InsertOnSubmit(tu);
+                                        }
+                                        break;
+                                    }
+                                }
+                            }
+                            if (c1 is ComboBox)
+                            {
+                                ComboBox c = (c1 as ComboBox);
+                                team.TeamCategoryId = c.SelectedIndex + 1;
+                            }
+                        });
+                }
+                db.SubmitChanges();
             }
-            db.SubmitChanges();
+            catch (ChangeConflictException e)
+            {
+                throw new Exception(GameHelper.BuildSqlError(e).ToString());
+            }
         }
 
         public static void FillUserDetails(CheckedListBox control, EsimDataEntry dataEntry, DataTable table)
@@ -148,17 +157,25 @@ namespace EduSim.WebGUI.UI
 
         public static void DeleteTeam(EsimMainForm esimMainForm, string filter)
         {
-            Edusim db = new Edusim(Constants.ConnectionString);
+            try
+            {
+                Edusim db = new Edusim(Constants.ConnectionString);
 
-            (from tu in db.TeamUser
-             where tu.TeamId == int.Parse(filter)
-             select tu).ToList<TeamUser>().ForEach(o => db.TeamUser.DeleteOnSubmit(o));
+                (from tu in db.TeamUser
+                 where tu.TeamId == int.Parse(filter)
+                 select tu).ToList<TeamUser>().ForEach(o => db.TeamUser.DeleteOnSubmit(o));
 
-            (from t in db.Team
-             where t.Id == int.Parse(filter)
-             select t).ToList<Team>().ForEach(o => db.Team.DeleteOnSubmit(o));
+                (from t in db.Team
+                 where t.Id == int.Parse(filter)
+                 select t).ToList<Team>().ForEach(o => db.Team.DeleteOnSubmit(o));
 
-            db.SubmitChanges();
+                db.SubmitChanges();
+            }
+            catch (ChangeConflictException e)
+            {
+                throw new Exception(GameHelper.BuildSqlError(e).ToString());
+            }
+
         }
     }
 }

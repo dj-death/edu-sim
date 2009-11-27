@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using EduSim.CoreFramework.DTO;
 using EduSim.CoreFramework.Common;
+using System.Data.Linq;
+using EduSim.CoreFramework.BusinessLayer;
 
 namespace EduSim.CoreFramework.Utilities
 {
@@ -182,80 +184,87 @@ namespace EduSim.CoreFramework.Utilities
         {
             Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(SessionConstant.RnDData);
 
-            Edusim db = new Edusim(Constants.ConnectionString);
+            try
+            {
+                Edusim db = new Edusim(Constants.ConnectionString);
 
-            (from r in db.RnDData
-             join rp in db.RoundProduct on r.RoundProduct equals rp
-             where rp.Round == round
-             select r).ToList<RnDData>().ForEach(o =>
-             {
-                 o.RevisionDate = dic[o.RoundProduct.ProductName].RevisionDate;
-                 o.Age = dic[o.RoundProduct.ProductName].Age;
-                 o.Reliability = dic[o.RoundProduct.ProductName].Reliability;
-                 o.Performance = dic[o.RoundProduct.ProductName].Performance;
-                 o.Size = dic[o.RoundProduct.ProductName].Size;
-                 o.RnDCost = dic[o.RoundProduct.ProductName].RnDCost;
-             });
+                (from r in db.RnDData
+                 join rp in db.RoundProduct on r.RoundProduct equals rp
+                 where rp.Round == round
+                 select r).ToList<RnDData>().ForEach(o =>
+                 {
+                     o.RevisionDate = dic[o.RoundProduct.ProductName].RevisionDate;
+                     o.Age = dic[o.RoundProduct.ProductName].Age;
+                     o.Reliability = dic[o.RoundProduct.ProductName].Reliability;
+                     o.Performance = dic[o.RoundProduct.ProductName].Performance;
+                     o.Size = dic[o.RoundProduct.ProductName].Size;
+                     o.RnDCost = dic[o.RoundProduct.ProductName].RnDCost;
+                 });
 
-            Dictionary<string, MarketingDataView> dic1 = RoundDataModel.GetData<MarketingDataView>(SessionConstant.MarketingData);
+                Dictionary<string, MarketingDataView> dic1 = RoundDataModel.GetData<MarketingDataView>(SessionConstant.MarketingData);
 
-            (from r in db.MarketingData
-             join rp in db.RoundProduct on r.RoundProduct equals rp
-             where rp.Round == round
-             select r).ToList<MarketingData>().ForEach(o =>
-             {
-                 o.Price = dic1[o.RoundProduct.ProductName].UnitPrice;
-                 o.SalesExpense = dic1[o.RoundProduct.ProductName].SalesExpense;
-                 o.MarketingExpense = dic1[o.RoundProduct.ProductName].MarketingExpense;
-                 o.ForecastingQuantity = dic1[o.RoundProduct.ProductName].ForecastedQuantity;
-             });
+                (from r in db.MarketingData
+                 join rp in db.RoundProduct on r.RoundProduct equals rp
+                 where rp.Round == round
+                 select r).ToList<MarketingData>().ForEach(o =>
+                 {
+                     o.Price = dic1[o.RoundProduct.ProductName].UnitPrice;
+                     o.SalesExpense = dic1[o.RoundProduct.ProductName].SalesExpense;
+                     o.MarketingExpense = dic1[o.RoundProduct.ProductName].MarketingExpense;
+                     o.ForecastingQuantity = dic1[o.RoundProduct.ProductName].ForecastedQuantity;
+                 });
 
-            Dictionary<string, ProductionDataView> dic2 = RoundDataModel.GetData<ProductionDataView>(SessionConstant.ProductionData);
+                Dictionary<string, ProductionDataView> dic2 = RoundDataModel.GetData<ProductionDataView>(SessionConstant.ProductionData);
 
-            (from r in db.ProductionData
-             join rp in db.RoundProduct on r.RoundProduct equals rp
-             where rp.Round == round
-             select r).ToList<ProductionData>().ForEach(o =>
-             {
-                 o.AutomationForNextRound = dic2[o.RoundProduct.ProductName].NewAutomation;
-                 o.AutomationCost = dic2[o.RoundProduct.ProductName].AutomationCost;
-                 o.NewCapacity = dic2[o.RoundProduct.ProductName].NewCapacity;
-                 o.NewCapacityCost = dic2[o.RoundProduct.ProductName].NewCapacityCost;
-                 o.LabourRate = dic2[o.RoundProduct.ProductName].LabourRate;
-                 o.LabourCost = dic2[o.RoundProduct.ProductName].LabourCost;
-                 o.MaterialCost = dic2[o.RoundProduct.ProductName].MaterialCost;
-                 o.ManufacturedQuantity = dic2[o.RoundProduct.ProductName].ManufacturedQuantity;
-                 o.SecondShift = dic2[o.RoundProduct.ProductName].SecondShift;
-                 o.Utilization = dic2[o.RoundProduct.ProductName].Utilization;
-                 o.NumberOfLabour = dic2[o.RoundProduct.ProductName].NumberOfLabour;
-                 o.Contribution = dic2[o.RoundProduct.ProductName].ContributionMargin;
-             });
+                (from r in db.ProductionData
+                 join rp in db.RoundProduct on r.RoundProduct equals rp
+                 where rp.Round == round
+                 select r).ToList<ProductionData>().ForEach(o =>
+                 {
+                     o.AutomationForNextRound = dic2[o.RoundProduct.ProductName].NewAutomation;
+                     o.AutomationCost = dic2[o.RoundProduct.ProductName].AutomationCost;
+                     o.NewCapacity = dic2[o.RoundProduct.ProductName].NewCapacity;
+                     o.NewCapacityCost = dic2[o.RoundProduct.ProductName].NewCapacityCost;
+                     o.LabourRate = dic2[o.RoundProduct.ProductName].LabourRate;
+                     o.LabourCost = dic2[o.RoundProduct.ProductName].LabourCost;
+                     o.MaterialCost = dic2[o.RoundProduct.ProductName].MaterialCost;
+                     o.ManufacturedQuantity = dic2[o.RoundProduct.ProductName].ManufacturedQuantity;
+                     o.SecondShift = dic2[o.RoundProduct.ProductName].SecondShift;
+                     o.Utilization = dic2[o.RoundProduct.ProductName].Utilization;
+                     o.NumberOfLabour = dic2[o.RoundProduct.ProductName].NumberOfLabour;
+                     o.Contribution = dic2[o.RoundProduct.ProductName].ContributionMargin;
+                 });
 
-            Dictionary<string, FinanceDataView> dic3 = RoundDataModel.GetData<FinanceDataView>(SessionConstant.FinanceData);
+                Dictionary<string, FinanceDataView> dic3 = RoundDataModel.GetData<FinanceDataView>(SessionConstant.FinanceData);
 
-            (from f in db.FinanceData
-             where f.Round == round
-             select f).ToList<FinanceData>().ForEach(o =>
-             {
-                 o.LongTermLoan = dic3[o.Round.RoundCategory.RoundName].LongTermLoan;
-                 o.Cash = dic3[o.Round.RoundCategory.RoundName].Cash;
-                 o.ShortTermLoan = dic3[o.Round.RoundCategory.RoundName].ShortTermLoan;
-             });
+                (from f in db.FinanceData
+                 where f.Round == round
+                 select f).ToList<FinanceData>().ForEach(o =>
+                 {
+                     o.LongTermLoan = dic3[o.Round.RoundCategory.RoundName].LongTermLoan;
+                     o.Cash = dic3[o.Round.RoundCategory.RoundName].Cash;
+                     o.ShortTermLoan = dic3[o.Round.RoundCategory.RoundName].ShortTermLoan;
+                 });
 
-            Dictionary<string, LabourDataView> dic4 = RoundDataModel.GetData<LabourDataView>(SessionConstant.LabourData);
+                Dictionary<string, LabourDataView> dic4 = RoundDataModel.GetData<LabourDataView>(SessionConstant.LabourData);
 
-            (from f in db.LabourData
-             where f.Round == round
-             select f).ToList<LabourData>().ForEach(o =>
-             {
-                 o.NumberOfLabour = dic4[o.Round.RoundCategory.RoundName].NumberOfLabour;
-                 o.AnnualRaise = dic4[o.Round.RoundCategory.RoundName].AnnualRaise;
-                 o.Rate = dic4[o.Round.RoundCategory.RoundName].Rate;
-                 o.ProfitSharing = dic4[o.Round.RoundCategory.RoundName].ProfitSharing;
-                 o.Benefits= dic4[o.Round.RoundCategory.RoundName].Benefits;
-             });
+                (from f in db.LabourData
+                 where f.Round == round
+                 select f).ToList<LabourData>().ForEach(o =>
+                 {
+                     o.NumberOfLabour = dic4[o.Round.RoundCategory.RoundName].NumberOfLabour;
+                     o.AnnualRaise = dic4[o.Round.RoundCategory.RoundName].AnnualRaise;
+                     o.Rate = dic4[o.Round.RoundCategory.RoundName].Rate;
+                     o.ProfitSharing = dic4[o.Round.RoundCategory.RoundName].ProfitSharing;
+                     o.Benefits = dic4[o.Round.RoundCategory.RoundName].Benefits;
+                 });
 
-            db.SubmitChanges();
+                db.SubmitChanges();
+            }
+            catch (ChangeConflictException e)
+            {
+                throw new Exception(GameHelper.BuildSqlError(e).ToString());
+            }
         }
     }
 }
