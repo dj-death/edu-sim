@@ -15,10 +15,12 @@ namespace EduSim.CoreFramework.DataControls
 
     public class PnLDataModel : RoundDataModel
     {
-        private int projectedSalesIndex = 0, labourCostIndex = 1, materialCostIndex = 2, inventoryCarryIndex = 3,
+        public int projectedSalesIndex = 0, labourCostIndex = 1, materialCostIndex = 2, inventoryCarryIndex = 3,
             totalVariableIndex = 4, contributionIndex = 5, depreciationIndex = 6, rndIndex = 7, marketingIndex = 8,
             salesIndex = 9, adminIndex = 10, totalPeriodIndex = 11, netMarginIndex = 12, ebitIndex = 0, 
             shortTermIndex = 1, longTermIndex = 2, taxIndex = 3, profitSharingIndex = 4, netProfitIndex = 5;
+        public Dictionary<string, List<double>> gridData = new Dictionary<string, List<double>>();
+        public List<double> data = new List<double>();
 
         public override void GetList(DataGridView dataGridView1)
         {
@@ -26,9 +28,6 @@ namespace EduSim.CoreFramework.DataControls
             Dictionary<string, MarketingDataView> marketingData = GetData<MarketingDataView>(SessionConstant.MarketingData);
             Dictionary<string, ProductionDataView> productionData = GetData<ProductionDataView>(SessionConstant.ProductionData);
             Dictionary<string, FinanceDataView> financeData = GetData<FinanceDataView>(SessionConstant.FinanceData);
-            Dictionary<string, List<double>> gridData = new Dictionary<string, List<double>>();
-            List<double> data = new List<double>();
-
 
             dataGridView1.Columns.Add("Description", "Description");
             Edusim db = new Edusim(Constants.ConnectionString);
@@ -98,13 +97,15 @@ namespace EduSim.CoreFramework.DataControls
                     PropertyInfo prop = dat.GetType().GetProperty(p);
 
                     double val = prop.GetValue(dat, null).ToDouble2();
-                    t1.Value = val.ToString("$###0.00");
                     gridData[str].Add(val);
+
+                    t1.Value = val.ToString("$###0.00");
                 }
                 else
                 {
-                    t1.Value = (0.0).ToString("$###0.00");
                     gridData[str].Add(0.0);
+
+                    t1.Value = (0.0).ToString("$###0.00");
                 }
                 r.Cells.Add(t1);
             }
@@ -279,8 +280,10 @@ namespace EduSim.CoreFramework.DataControls
 
             AddHeader(r, "NetProfit");
 
-            AddSingleColumnData(dataGridView1, data, r, data[ebitIndex] - 
-                (data[shortTermIndex] + data[longTermIndex] + data[taxIndex] + data[profitSharingIndex]));
+            double netProfit = data[ebitIndex] - 
+                (data[shortTermIndex] + data[longTermIndex] + data[taxIndex] + data[profitSharingIndex]);
+
+            AddSingleColumnData(dataGridView1, data, r, netProfit);
         }
 
         private static void AddMultipleColumnData(double val, Dictionary<string, List<double>> data, DataGridViewRow r, string str)
