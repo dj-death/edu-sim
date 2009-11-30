@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using EduSim.CoreFramework.DTO;
 using System.Data.Linq;
+using EduSim.CoreFramework.Common;
+using EduSim.CoreFramework.DataControls;
+using Gizmox.WebGUI.Forms;
 
 namespace EduSim.CoreFramework.BusinessLayer
 {
@@ -177,6 +180,9 @@ namespace EduSim.CoreFramework.BusinessLayer
 
             }
 
+            PnLDataModel model = new PnLDataModel();
+            model.GetList(new DataGridView ());
+
             //TODO: copy previous RnD data
             FinanceData oldFinData = (from o in db.FinanceData
                                       where o.Round == round
@@ -184,7 +190,7 @@ namespace EduSim.CoreFramework.BusinessLayer
             //TODO: Finance Data, Plugh back the revenue to cash
             FinanceData finData = new FinanceData
             {
-                PreviousCash = oldFinData.Cash,
+                PreviousCash = oldFinData.Cash + model.data[model.netProfitIndex],
                 TotalLongTermLoan = oldFinData.TotalLongTermLoan,
                 TotalShortTermLoan = oldFinData.TotalShortTermLoan,
                 Round = round2
