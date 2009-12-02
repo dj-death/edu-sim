@@ -118,37 +118,49 @@ namespace EduSim.Analyse.BusinessLayer
 
             int count = data.Count();
             //TODO: Based on howmany players are involved, add the computer players
-            (from r in computerRndData
-             join m in computerMarketingData on r.ComputerRoundProduct equals m.ComputerRoundProduct
-             where m.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
-             orderby r.ComputerRoundProduct.TeamCategoryId descending
-             select new
-             {
-                 RoundCategoryId = r.ComputerRoundProduct.RoundCategoryId,
-                 RoundName = r.ComputerRoundProduct.RoundCategory.RoundName,
-                 SegmentTypeId = r.ComputerRoundProduct.SegmentTypeId,
-                 SegmentDescription = r.ComputerRoundProduct.SegmentType.Description,
-                 Performance = r.Performance,
-                 Size = r.Size,
-                 Reliablity = r.Reliability,
-                 SalesExpense = m.SalesExpense,
-                 MarketingExpense = m.MarketingExpense,
-                 Price = m.Price,
-                 ForecastingQuantity = m.ForecastingQuantity
-             }).Take(30 - count).ToList().ForEach(o => data.Add(o));
 
-            forecastData = (from d in data
-                            group d by new { SegmentTypeId = d.SegmentTypeId } into grp
-                            select new CurrentRoundForecast
-                            {
-                                SegmentTypeId = grp.Key.SegmentTypeId,
-                                Quantity = grp.Sum(o => o.ForecastingQuantity.HasValue ? o.ForecastingQuantity.Value : 0)
-                            }).ToList<CurrentRoundForecast>();
-
-            forecastData.ForEach(o =>
+            int compRoundCount = (from r in computerRndData
+                                  join m in computerMarketingData on r.ComputerRoundProduct equals m.ComputerRoundProduct
+                                  where m.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
+                                  select r).Count();
+            if (compRoundCount == 24)
             {
-                Console.WriteLine(o.SegmentTypeId + "," + o.Quantity);
-            });
+                (from r in computerRndData
+                 join m in computerMarketingData on r.ComputerRoundProduct equals m.ComputerRoundProduct
+                 where m.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
+                 orderby r.ComputerRoundProduct.TeamCategoryId descending
+                 select new
+                 {
+                     RoundCategoryId = r.ComputerRoundProduct.RoundCategoryId,
+                     RoundName = r.ComputerRoundProduct.RoundCategory.RoundName,
+                     SegmentTypeId = r.ComputerRoundProduct.SegmentTypeId,
+                     SegmentDescription = r.ComputerRoundProduct.SegmentType.Description,
+                     Performance = r.Performance,
+                     Size = r.Size,
+                     Reliablity = r.Reliability,
+                     SalesExpense = m.SalesExpense,
+                     MarketingExpense = m.MarketingExpense,
+                     Price = m.Price,
+                     ForecastingQuantity = m.ForecastingQuantity
+                 }).Take(30 - count).ToList().ForEach(o => data.Add(o));
+
+                forecastData = (from d in data
+                                group d by new { SegmentTypeId = d.SegmentTypeId } into grp
+                                select new CurrentRoundForecast
+                                {
+                                    SegmentTypeId = grp.Key.SegmentTypeId,
+                                    Quantity = grp.Sum(o => o.ForecastingQuantity.HasValue ? o.ForecastingQuantity.Value : 0)
+                                }).ToList<CurrentRoundForecast>();
+
+                forecastData.ForEach(o =>
+                {
+                    Console.WriteLine(o.SegmentTypeId + "," + o.Quantity);
+                });
+            }
+            else
+            {
+                throw new Exception("Sufficient players or cumputer players are not available");
+            }
         }
 
         private void GetPlayersRating(Round round)

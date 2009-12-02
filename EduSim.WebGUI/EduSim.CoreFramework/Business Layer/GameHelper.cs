@@ -209,6 +209,11 @@ namespace EduSim.CoreFramework.BusinessLayer
                 PreviousNumberOfLabour = oldLibData.NumberOfLabour.HasValue ? oldLibData.NumberOfLabour.Value : 0.0,
                 PreviousBenefits = oldLibData.Benefits.HasValue ? oldLibData.Benefits.Value : 0.0,
                 PreviousProfitSharing = oldLibData.ProfitSharing.HasValue ? oldLibData.ProfitSharing.Value : 0.0,
+                Rate = oldLibData.Rate.HasValue ? oldLibData.Rate.Value : 0.0,
+                AnnualRaise = oldLibData.AnnualRaise.HasValue ? oldLibData.AnnualRaise.Value : 0.0,
+                NumberOfLabour = oldLibData.NumberOfLabour.HasValue ? oldLibData.NumberOfLabour.Value : 0.0,
+                Benefits = oldLibData.Benefits.HasValue ? oldLibData.Benefits.Value : 0.0,
+                ProfitSharing = oldLibData.ProfitSharing.HasValue ? oldLibData.ProfitSharing.Value : 0.0,
                 Round = round2
             };
             db.LabourData.InsertOnSubmit(libdata);
