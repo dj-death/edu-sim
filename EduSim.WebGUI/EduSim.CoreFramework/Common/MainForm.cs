@@ -319,6 +319,11 @@ namespace EduSim.CoreFramework.Common
                                                   catNode2.AddCategory("Balance Sheet", "Disable.gif");
                                                   catNode2.AddCategory("Cash Flow", "Disable.gif");
                                                   catNode2.AddCategory("Balance Scorecard", "Disable.gif");
+
+                                                  if (o.Current)
+                                                  {
+                                                      HttpContext.Current.Session[SessionConstants.ActiveRound] = o;
+                                                  }
                                               }
                                               );
         }

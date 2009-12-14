@@ -123,7 +123,7 @@ namespace EduSim.Analyse.BusinessLayer
                                   join m in computerMarketingData on r.ComputerRoundProduct equals m.ComputerRoundProduct
                                   where m.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
                                   select r).Count();
-            if (compRoundCount == 24)
+            if (compRoundCount == 25)
             {
                 (from r in computerRndData
                  join m in computerMarketingData on r.ComputerRoundProduct equals m.ComputerRoundProduct

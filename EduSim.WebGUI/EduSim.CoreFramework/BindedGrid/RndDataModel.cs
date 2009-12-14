@@ -26,7 +26,7 @@ namespace EduSim.CoreFramework.DataControls
 
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(SessionConstant.RnDData);
+            Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(SessionConstant.RnDData, round.Id);
 
             dic.Values.ToList<RnDDataView>().ForEach(o =>
             {
@@ -82,7 +82,7 @@ namespace EduSim.CoreFramework.DataControls
                 (J[colIndex] - I[colIndex]) * configurationInfo["PerformanceFactor"] + (K[colIndex] - L[colIndex]) * configurationInfo["SizeFactor"]);
             dataGridView1.Rows[2].Cells[c.ColumnIndex].Value = dt;
 
-            Dictionary<string, RnDDataView> dic = GetData<RnDDataView>(SessionConstant.RnDData);
+            Dictionary<string, RnDDataView> dic = GetData<RnDDataView>(SessionConstant.RnDData, round.Id);
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Reliability = H[colIndex];
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Performance = J[colIndex];
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Size = L[colIndex];

@@ -24,10 +24,10 @@ namespace EduSim.CoreFramework.DataControls
 
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, RnDDataView> rndData = GetData<RnDDataView>(SessionConstant.RnDData);
-            Dictionary<string, MarketingDataView> marketingData = GetData<MarketingDataView>(SessionConstant.MarketingData);
-            Dictionary<string, ProductionDataView> productionData = GetData<ProductionDataView>(SessionConstant.ProductionData);
-            Dictionary<string, FinanceDataView> financeData = GetData<FinanceDataView>(SessionConstant.FinanceData);
+            Dictionary<string, RnDDataView> rndData = GetData<RnDDataView>(SessionConstant.RnDData, round.Id);
+            Dictionary<string, MarketingDataView> marketingData = GetData<MarketingDataView>(SessionConstant.MarketingData, round.Id);
+            Dictionary<string, ProductionDataView> productionData = GetData<ProductionDataView>(SessionConstant.ProductionData, round.Id);
+            Dictionary<string, FinanceDataView> financeData = GetData<FinanceDataView>(SessionConstant.FinanceData, round.Id);
 
             dataGridView1.Columns.Add("Description", "Description");
             Edusim db = new Edusim(Constants.ConnectionString);
