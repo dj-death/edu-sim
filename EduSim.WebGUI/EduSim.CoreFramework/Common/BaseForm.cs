@@ -357,7 +357,7 @@ namespace EduSim.CoreFramework.Common
 
             this.mobjMenuSubmit.Click += new EventHandler((sender, e) =>
             {
-                Round round = HttpContext.Current.Session[SessionConstants.CurrentRound] as Round;
+                Round round = HttpContext.Current.Session[SessionConstants.ActiveRound] as Round;
                 ResultsManager.Run(round);
             });
             // 
