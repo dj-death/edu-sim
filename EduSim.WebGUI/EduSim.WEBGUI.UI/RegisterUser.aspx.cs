@@ -43,9 +43,8 @@ namespace EduSim.WebGUI.UI
 
                 RegistrationManager.ProcessRegistration(user);
                 lblMessage.Text = string.Empty;
+                Response.Redirect("./MainForm.wgx");
             }
-
-            Response.Redirect("./MainForm.wgx");
         }
 
         private bool ValidateFormData()
