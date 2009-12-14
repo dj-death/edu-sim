@@ -14,7 +14,7 @@ namespace EduSim.CoreFramework.DataControls
     {
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, LabourDataView> dic = GetData<LabourDataView>(SessionConstant.LabourData);
+            Dictionary<string, LabourDataView> dic = GetData<LabourDataView>(SessionConstant.LabourData, round.Id);
 
             DataTable table = dic.Values.ToDataTable<LabourDataView>(null).Transpose();
 
@@ -28,7 +28,7 @@ namespace EduSim.CoreFramework.DataControls
 
         protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
-            Dictionary<string, LabourDataView> dic = GetData<LabourDataView>(SessionConstant.LabourData);
+            Dictionary<string, LabourDataView> dic = GetData<LabourDataView>(SessionConstant.LabourData, round.Id);
             double numberOfLabour = dataGridView1.Rows[1].Cells[c.ColumnIndex].Value.ToDouble2();
             double annualRaise = dataGridView1.Rows[3].Cells[c.ColumnIndex].Value.ToDouble2();
             double rate = dataGridView1.Rows[5].Cells[c.ColumnIndex].Value.ToDouble2();

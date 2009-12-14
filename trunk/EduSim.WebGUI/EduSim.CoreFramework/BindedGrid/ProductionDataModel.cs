@@ -33,8 +33,8 @@ namespace EduSim.CoreFramework.DataControls
 
         public override void GetList(DataGridView dataGridView1)
         {
-            Dictionary<string, ProductionDataView> dic = RoundDataModel.GetData<ProductionDataView>(SessionConstant.ProductionData);
-            Dictionary<string, MarketingDataView> dic1 = RoundDataModel.GetData<MarketingDataView>(SessionConstant.MarketingData);
+            Dictionary<string, ProductionDataView> dic = RoundDataModel.GetData<ProductionDataView>(SessionConstant.ProductionData, round.Id);
+            Dictionary<string, MarketingDataView> dic1 = RoundDataModel.GetData<MarketingDataView>(SessionConstant.MarketingData, round.Id);
 
             dic.Values.ToList<ProductionDataView>().ForEach(o =>
             {
@@ -73,7 +73,7 @@ namespace EduSim.CoreFramework.DataControls
 
         private void SetMaterialCost(Dictionary<string, ProductionDataView> dic)
         {
-            Dictionary<string, RnDDataView> dic1 = RoundDataModel.GetData<RnDDataView>(SessionConstant.RnDData);
+            Dictionary<string, RnDDataView> dic1 = RoundDataModel.GetData<RnDDataView>(SessionConstant.RnDData, round.Id);
 
             foreach (string key in dic.Keys)
             {
@@ -91,7 +91,7 @@ namespace EduSim.CoreFramework.DataControls
         {
             Edusim db = new Edusim(Constants.ConnectionString);
 
-            Dictionary<string, LabourDataView> dic1 = GetData<LabourDataView>(SessionConstant.LabourData);
+            Dictionary<string, LabourDataView> dic1 = GetData<LabourDataView>(SessionConstant.LabourData, round.Id);
             LabourDataView ld = dic1.Values.FirstOrDefault<LabourDataView>();
 
             double workerRequired = 0;
@@ -137,7 +137,7 @@ namespace EduSim.CoreFramework.DataControls
             double contributionMargin = (G[i] + S[i]) / (T[i] * F[i]);
             dataGridView1.Rows[8].Cells[c.ColumnIndex].Value = (contributionMargin).ToString("###0.00");
 
-            Dictionary<string, ProductionDataView> dic = GetData<ProductionDataView>(SessionConstant.ProductionData);
+            Dictionary<string, ProductionDataView> dic = GetData<ProductionDataView>(SessionConstant.ProductionData, round.Id);
 
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].ManufacturedQuantity = F[i];
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].NewAutomation = L[i];
