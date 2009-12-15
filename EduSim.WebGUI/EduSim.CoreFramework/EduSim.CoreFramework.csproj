@@ -87,7 +87,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BindedGrid\CompetatorComparisonDataModel.cs" />
     <Compile Include="BindedGrid\FinanceDataModel.cs" />
+    <Compile Include="BindedGrid\MarketDemandDataModel.cs" />
     <Compile Include="Business Layer\GameHelper.cs" />
     <Compile Include="DTO\DataViews.cs" />
     <Compile Include="BindedGrid\LabourDataModel.cs" />

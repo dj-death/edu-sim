@@ -308,21 +308,27 @@ namespace EduSim.CoreFramework.Common
              where tu.UserId == user.Id && r.TeamGame.GameId == gameId
              select r).ToList<Round>().ForEach(o =>
                                               {
-                                                  CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id);
-                                                  catNode1.AddCategory("R&D", typeof(ESimDataGridView), typeof(RnDDataModel), "ListView.gif" );
-                                                  catNode1.AddCategory("Marketing", typeof(ESimDataGridView), typeof(MarketingDataModel), "ListView.gif");
-                                                  catNode1.AddCategory("Labour", typeof(ESimDataGridView), typeof(LabourDataModel), "ListView.gif");
-                                                  catNode1.AddCategory("Production", typeof(ESimDataGridView), typeof(ProductionDataModel), "ListView.gif");
-                                                  catNode1.AddCategory("Finance", typeof(ESimDataGridView), typeof(FinanceDataModel), "ListView.gif");
-                                                  CategoryNode catNode2 = catNode1.AddCategory("Reports", "Show.gif");
-                                                  catNode2.AddCategory("Income Statement", typeof(ESimDataGridView), typeof(PnLDataModel), "ListView.gif");
-                                                  catNode2.AddCategory("Balance Sheet", "Disable.gif");
-                                                  catNode2.AddCategory("Cash Flow", "Disable.gif");
-                                                  catNode2.AddCategory("Balance Scorecard", "Disable.gif");
-
+                                                  string activeIcon = "Disable.gif";
                                                   if (o.Current)
                                                   {
                                                       HttpContext.Current.Session[SessionConstants.ActiveRound] = o;
+                                                      activeIcon = "ListView.gif";
+                                                  }
+                                                  CategoryNode catNode1 = catNode.AddCategory(o.RoundCategory.RoundName + "|" + o.Id);
+                                                  catNode1.AddCategory("R&D", typeof(ESimDataGridView), typeof(RnDDataModel), activeIcon );
+                                                  catNode1.AddCategory("Marketing", typeof(ESimDataGridView), typeof(MarketingDataModel), activeIcon);
+                                                  catNode1.AddCategory("Labour", typeof(ESimDataGridView), typeof(LabourDataModel), activeIcon);
+                                                  catNode1.AddCategory("Production", typeof(ESimDataGridView), typeof(ProductionDataModel), activeIcon);
+                                                  catNode1.AddCategory("Finance", typeof(ESimDataGridView), typeof(FinanceDataModel), activeIcon);
+                                                  CategoryNode catNode2 = catNode1.AddCategory("Reports", "Show.gif");
+                                                  catNode2.AddCategory("Income Statement", typeof(ESimDataGridView), typeof(PnLDataModel), activeIcon);
+                                                  catNode2.AddCategory("Balance Sheet", "Disable.gif");
+                                                  catNode2.AddCategory("Cash Flow", "Disable.gif");
+                                                  catNode2.AddCategory("Balance Scorecard", "Disable.gif");
+                                                  catNode2.AddCategory("Round Details", typeof(ESimDataGridView), typeof(MarketDemandDataModel), "ListView.gif");
+                                                  if (!o.Current)
+                                                  {
+                                                      catNode2.AddCategory("Competator Comparison", typeof(ESimDataGridView), typeof(CompetatorComparisonDataModel), "ListView.gif");
                                                   }
                                               }
                                               );

@@ -63,10 +63,10 @@ namespace EduSim.Analyse.BusinessLayer
 
                 rm.SetProductRanking();
 
-                Edusim db = new Edusim(Constants.ConnectionString);
-
                 try
                 {
+                    Edusim db = new Edusim(Constants.ConnectionString);
+
                     rm.QuantityPurchased(db);
 
                     rm.SetNextRoundData(db, round);
