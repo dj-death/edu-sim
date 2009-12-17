@@ -106,6 +106,7 @@ namespace EduSim.CoreFramework.DTO
     {
         public int RoundCategoryId { get; set; }
         public int RoundProductId { get; set; }
+        public int ComputerRoundProductId { get; set; }
         public int SegmentTypeId { get; set; }
         public bool Purchased { get; set; }
         public double PurchasedQuantity { get; set; }

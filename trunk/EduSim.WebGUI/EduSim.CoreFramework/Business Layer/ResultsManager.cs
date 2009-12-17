@@ -173,6 +173,7 @@ namespace EduSim.Analyse.BusinessLayer
              select new CurrentRoundProductWiseInformation
                     {
                         RoundProductId = m.RoundProductId,
+                        ComputerRoundProductId = 0,
                         RoundCategoryId = m.RoundProduct.Round.RoundCategoryId,
                         SegmentTypeId = m.RoundProduct.SegmentTypeId,
                         SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : 0.0,
@@ -191,6 +192,8 @@ namespace EduSim.Analyse.BusinessLayer
              orderby r.ComputerRoundProduct.TeamCategoryId descending
              select new CurrentRoundProductWiseInformation
                      {
+                         RoundProductId = 0,
+                         ComputerRoundProductId = m.ComputerRoundProductId,
                          RoundCategoryId = m.ComputerRoundProduct.RoundCategoryId,
                          SegmentTypeId = m.ComputerRoundProduct.SegmentTypeId,
                          SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : 0.0,
@@ -208,6 +211,7 @@ namespace EduSim.Analyse.BusinessLayer
              select new CurrentRoundProductWiseInformation
                  {
                      RoundProductId = d.RoundProductId,
+                     ComputerRoundProductId = d.ComputerRoundProductId,
                      RoundCategoryId = d.RoundCategoryId,
                      SegmentTypeId = d.SegmentTypeId,
                      SalesExpense = d.SalesExpense,
@@ -298,7 +302,7 @@ namespace EduSim.Analyse.BusinessLayer
         {
             Dictionary<int, double> crds = new Dictionary<int, double>();
 
-            roundCriteria.ForEach(o => 
+            roundCriteria.ForEach(o =>
                 crds[o.SegmentTypeId] = o.MarketDemand.HasValue ? o.MarketDemand.Value : 0.0
             );
 
@@ -317,34 +321,47 @@ namespace EduSim.Analyse.BusinessLayer
                      }
                  });
 
-            (from m in data
-             where m.Purchased == false
-             orderby m.Ranking descending
-             select m).ToList().ForEach(m =>
+            foreach (GameCriteria cri in gameCriteria)
             {
-                Console.WriteLine("Remaining Quantity After " + crds[m.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastedQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
-                double remainingQty = crds[m.SegmentTypeId];
-                Console.WriteLine("Remaining Quantity Before " + remainingQty);
-
-                m.PurchasedQuantity = (m.ForecastedQuantity > remainingQty) ? remainingQty : m.ForecastedQuantity;
-                m.Purchased = true;
-
-                double purchaseQty = m.PurchasedQuantity ;
-
-                crds[m.SegmentTypeId] -= purchaseQty;
-
-                Console.WriteLine("Remaining Quantity After " + crds[m.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastedQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
-
-                MarketingData mktData = (from mk in db.MarketingData
-                                         where mk.RoundProductId == m.RoundProductId
-                                         select mk).FirstOrDefault();
-
-                if (mktData != null)
+                (from m in data
+                 where m.Purchased == false && m.SegmentTypeId == cri.SegmentTypeId
+                 orderby m.Ranking descending
+                 select m).ToList().ForEach(m =>
                 {
-                    mktData.PurchasedQuantity = m.PurchasedQuantity;
-                    mktData.Purchased = m.Purchased;
-                }
-            });
+                    Console.WriteLine("Remaining Quantity After " + crds[m.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastedQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
+                    double remainingQty = crds[m.SegmentTypeId];
+                    Console.WriteLine("Remaining Quantity Before " + remainingQty);
+
+                    m.PurchasedQuantity = (m.ForecastedQuantity > remainingQty) ? remainingQty : m.ForecastedQuantity;
+                    m.Purchased = true;
+
+                    double purchaseQty = m.PurchasedQuantity;
+
+                    crds[m.SegmentTypeId] -= purchaseQty;
+
+                    Console.WriteLine("Remaining Quantity After " + crds[m.SegmentTypeId] + " md.ForecastingQuantity = " + m.ForecastedQuantity + " c.PurchasedQuantity " + m.PurchasedQuantity);
+
+                    MarketingData mktData = (from mk in db.MarketingData
+                                             where mk.RoundProductId == m.RoundProductId
+                                             select mk).FirstOrDefault();
+
+                    if (mktData != null)
+                    {
+                        mktData.PurchasedQuantity = m.PurchasedQuantity;
+                        mktData.Purchased = m.Purchased;
+                    }
+                    else
+                    {
+                        ComputerMarketingData cMktData = (from mk in db.ComputerMarketingData
+                                                 where mk.ComputerRoundProductId == m.ComputerRoundProductId
+                                                 select mk).FirstOrDefault();
+                        if (cMktData != null)
+                        {
+                            cMktData.PurchasedQuantity = m.PurchasedQuantity;
+                        }
+                    }
+                });
+            }
         }
     }
 }
