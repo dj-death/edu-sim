@@ -234,6 +234,43 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="aboutus.htm" />
+    <Content Include="contact.htm" />
+    <Content Include="doc.xml" />
+    <Content Include="images\books.jpg" />
+    <Content Include="images\box_BD.jpg" />
+    <Content Include="images\box_BG.jpg" />
+    <Content Include="images\box_BM.jpg" />
+    <Content Include="images\box_HD.jpg" />
+    <Content Include="images\box_HG.jpg" />
+    <Content Include="images\box_HM.jpg" />
+    <Content Include="images\box_MD.jpg" />
+    <Content Include="images\box_MG.jpg" />
+    <Content Include="images\box_MM.jpg" />
+    <Content Include="images\flash\free-flash-buttons.swf" />
+    <Content Include="images\flash\free-flash-templates.swf" />
+    <Content Include="images\flash\jscripts\AC_ActiveX.js" />
+    <Content Include="images\flash\jscripts\AC_RunActiveContent.js" />
+    <Content Include="images\fond_copyright.jpg" />
+    <Content Include="images\free-flash-template.jpg" />
+    <Content Include="images\icone_couriel.jpg" />
+    <Content Include="images\icone_engrenage.jpg" />
+    <Content Include="images\icone_home.jpg" />
+    <Content Include="images\icone_homfem.jpg" />
+    <Content Include="images\icone_livre.jpg" />
+    <Content Include="images\menu_BD.jpg" />
+    <Content Include="images\menu_BG.jpg" />
+    <Content Include="images\menu_BM.jpg" />
+    <Content Include="images\menu_droite_fond.jpg" />
+    <Content Include="images\menu_HD.jpg" />
+    <Content Include="images\menu_HG.jpg" />
+    <Content Include="images\menu_HM.jpg" />
+    <Content Include="images\menu_MD.jpg" />
+    <Content Include="images\menu_MG.jpg" />
+    <Content Include="images\puce_fleche.jpg" />
+    <Content Include="images\trait_hori.jpg" />
+    <Content Include="images\trait_vert.jpg" />
+    <Content Include="index.htm" />
     <Content Include="RegisterUser.aspx" />
     <Content Include="Web.config" />
     <Content Include="XmlForms\Administrator\Game Definition\TeamGame.xml" />
@@ -242,7 +279,8 @@
     <Content Include="XmlForms\Administrator\User Management\User.xml" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="EduSimRules.drl" />
+    <None Include="images\flash\Thumbs.db" />
+    <None Include="images\Thumbs.db" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
