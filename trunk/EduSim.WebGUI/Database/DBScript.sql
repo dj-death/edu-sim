@@ -836,6 +836,29 @@ CREATE TABLE [dbo].[RnDData](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 GO
+/****** Object:  Table [dbo].[ComputerRoundDetails]    Script Date: 12/17/2009 21:05:13 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ComputerRoundDetails](
+	[Id] [int] NOT NULL,
+	[RoundId] [int] NOT NULL,
+	[ComputerRoundProductId] [int] NOT NULL,
+	[PurchasedQuantity] [decimal](18, 0) NOT NULL
+) ON [PRIMARY]
+
+GO
+ALTER TABLE [dbo].[ComputerRoundDetails]  WITH CHECK ADD  CONSTRAINT [FK_ComputerRoundDetails_ComputerRoundProduct] FOREIGN KEY([ComputerRoundProductId])
+REFERENCES [dbo].[ComputerRoundProduct] ([Id])
+GO
+ALTER TABLE [dbo].[ComputerRoundDetails] CHECK CONSTRAINT [FK_ComputerRoundDetails_ComputerRoundProduct]
+GO
+ALTER TABLE [dbo].[ComputerRoundDetails]  WITH CHECK ADD  CONSTRAINT [FK_ComputerRoundDetails_Round] FOREIGN KEY([RoundId])
+REFERENCES [dbo].[Round] ([Id])
+GO
+ALTER TABLE [dbo].[ComputerRoundDetails] CHECK CONSTRAINT [FK_ComputerRoundDetails_Round]
+GO
 /****** Object:  ForeignKey [FK_ComputerMarketingData_ComputerRoundProduct]    Script Date: 11/08/2009 10:19:27 ******/
 ALTER TABLE [dbo].[ComputerMarketingData]  WITH CHECK ADD  CONSTRAINT [FK_ComputerMarketingData_ComputerRoundProduct] FOREIGN KEY([ComputerRoundProductId])
 REFERENCES [dbo].[ComputerRoundProduct] ([Id])
