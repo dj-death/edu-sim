@@ -42,7 +42,7 @@ namespace EduSim.CoreFramework.DataControls
                 gridData[o] = new List<double>();
             });
 
-            AddRow<MarketingDataView>(marketingData, products, dataGridView1, "ProjectedSales", gridData);
+            AddRowForSalesRevenue(marketingData, products, dataGridView1, gridData);
 
             AddRowForHeader(dataGridView1, "VariableCost");
             AddRow<ProductionDataView>(productionData, products, dataGridView1, "LabourCost", gridData);
@@ -66,6 +66,36 @@ namespace EduSim.CoreFramework.DataControls
             AddRowForTax(dataGridView1, data);
             AddRowForProfitSharing(dataGridView1, data);
             AddRowForNetProfit(dataGridView1, data);
+        }
+
+        private void AddRowForSalesRevenue(Dictionary<string, MarketingDataView> data, List<string> products, DataGridView dataGridView1, Dictionary<string, List<double>> gridData)
+        {
+            DataGridViewRow r = new DataGridViewRow();
+
+            AddHeader(r, "Sales Revenue");
+
+            foreach (string str in products)
+            {
+                DataGridViewCell t1 = new DataGridViewTextBoxCell();
+                if (data != null && data.Count > 0)
+                {
+                    MarketingDataView dat = data[str];
+
+                    double val = round.Current ? dat.ProjectedSales : dat.UnitPrice * dat.PurchaseQuantity;
+
+                    gridData[str].Add(val);
+
+                    t1.Value = val.ToString("$###0.00");
+                }
+                else
+                {
+                    gridData[str].Add(0.0);
+
+                    t1.Value = (0.0).ToString("$###0.00");
+                }
+                r.Cells.Add(t1);
+            }
+            dataGridView1.Rows.Add(r);
         }
 
         private void AddRowForHeader(DataGridView dataGridView1, string header)

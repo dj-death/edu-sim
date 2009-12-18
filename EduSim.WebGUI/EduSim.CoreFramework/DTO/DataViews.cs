@@ -35,6 +35,7 @@ namespace EduSim.CoreFramework.DTO
        public double PreviousForecastingQuantity { get; set; }
        public double ForecastedQuantity { get; set; }
        public double ProjectedSales { get; set; }
+       public double PurchaseQuantity { get; set; }
     }
 
     public class ProductionDataView
