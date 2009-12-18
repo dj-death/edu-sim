@@ -78,7 +78,8 @@ namespace EduSim.CoreFramework.Utilities
                      PreviousForecastingQuantity = m.PreviousForecastingQuantity,
                      ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : m.PreviousForecastingQuantity,
                      ProjectedSales = (m.Price.HasValue ? m.Price.Value : m.PreviousPrice) *
-                                        (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : m.PreviousForecastingQuantity)
+                                        (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : m.PreviousForecastingQuantity),
+                     PurchaseQuantity = m.PurchasedQuantity.HasValue ? m.PurchasedQuantity.Value : 0.0
                  }).ToList<MarketingDataView>().ForEach(o => dic[o.ProductName] = o);
             }
             return dic;
