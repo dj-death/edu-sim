@@ -37,21 +37,22 @@ namespace EduSim.CoreFramework.DataControls
                                                                                   }).ToList<ComparisonInformation>();
 
 
-            (from m in db.ComputerMarketingData
-             where m.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
+            (from m in db.ComputerRoundDetails
+             join rp in db.ComputerMarketingData on m.ComputerRoundProduct equals rp.ComputerRoundProduct
+             where m.Round == round
              select new ComparisonInformation
              {
                  ProductName = m.ComputerRoundProduct.ProductName,
                  SegmentTypeId = m.ComputerRoundProduct.SegmentTypeId,
                  SegmentTypeDescription = m.ComputerRoundProduct.SegmentType.Description,
-                 PurchasedQuantity = m.PurchasedQuantity.HasValue ? m.PurchasedQuantity.Value : 0.0,
-                 Price = m.Price.HasValue ? m.Price.Value : 0.0
+                 PurchasedQuantity = m.PurchasedQuantity,
+                 Price = rp.Price.HasValue ? rp.Price.Value : 0.0
              }).ToList().ForEach(o =>
             {
                 reportData.Add(o);
             });
 
-            reportData = reportData.OrderBy(o => o.SegmentTypeId).ToList();
+            reportData = reportData.OrderBy(o => o.SegmentTypeId).OrderBy(o => o.ProductName).ToList();
 
             dataGridView1.DataSource = reportData;
         }

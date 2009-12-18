@@ -38,6 +38,9 @@ namespace EduSim.CoreFramework.DTO
     partial void InsertComputerRnDData(ComputerRnDData instance);
     partial void UpdateComputerRnDData(ComputerRnDData instance);
     partial void DeleteComputerRnDData(ComputerRnDData instance);
+    partial void InsertComputerRoundDetails(ComputerRoundDetails instance);
+    partial void UpdateComputerRoundDetails(ComputerRoundDetails instance);
+    partial void DeleteComputerRoundDetails(ComputerRoundDetails instance);
     partial void InsertComputerRoundProduct(ComputerRoundProduct instance);
     partial void UpdateComputerRoundProduct(ComputerRoundProduct instance);
     partial void DeleteComputerRoundProduct(ComputerRoundProduct instance);
@@ -151,6 +154,14 @@ namespace EduSim.CoreFramework.DTO
 			get
 			{
 				return this.GetTable<ComputerRnDData>();
+			}
+		}
+		
+		public System.Data.Linq.Table<ComputerRoundDetails> ComputerRoundDetails
+		{
+			get
+			{
+				return this.GetTable<ComputerRoundDetails>();
 			}
 		}
 		
@@ -1544,6 +1555,222 @@ namespace EduSim.CoreFramework.DTO
 		}
 	}
 	
+	[Table(Name="dbo.ComputerRoundDetails")]
+	public partial class ComputerRoundDetails : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _RoundId;
+		
+		private int _ComputerRoundProductId;
+		
+		private double _PurchasedQuantity;
+		
+		private EntityRef<ComputerRoundProduct> _ComputerRoundProduct;
+		
+		private EntityRef<Round> _Round;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnRoundIdChanging(int value);
+    partial void OnRoundIdChanged();
+    partial void OnComputerRoundProductIdChanging(int value);
+    partial void OnComputerRoundProductIdChanged();
+    partial void OnPurchasedQuantityChanging(double value);
+    partial void OnPurchasedQuantityChanged();
+    #endregion
+		
+		public ComputerRoundDetails()
+		{
+			this._ComputerRoundProduct = default(EntityRef<ComputerRoundProduct>);
+			this._Round = default(EntityRef<Round>);
+			OnCreated();
+		}
+		
+		[Column(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_RoundId", DbType="Int NOT NULL")]
+		public int RoundId
+		{
+			get
+			{
+				return this._RoundId;
+			}
+			set
+			{
+				if ((this._RoundId != value))
+				{
+					if (this._Round.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnRoundIdChanging(value);
+					this.SendPropertyChanging();
+					this._RoundId = value;
+					this.SendPropertyChanged("RoundId");
+					this.OnRoundIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_ComputerRoundProductId", DbType="Int NOT NULL")]
+		public int ComputerRoundProductId
+		{
+			get
+			{
+				return this._ComputerRoundProductId;
+			}
+			set
+			{
+				if ((this._ComputerRoundProductId != value))
+				{
+					if (this._ComputerRoundProduct.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnComputerRoundProductIdChanging(value);
+					this.SendPropertyChanging();
+					this._ComputerRoundProductId = value;
+					this.SendPropertyChanged("ComputerRoundProductId");
+					this.OnComputerRoundProductIdChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_PurchasedQuantity", DbType="Float NOT NULL")]
+		public double PurchasedQuantity
+		{
+			get
+			{
+				return this._PurchasedQuantity;
+			}
+			set
+			{
+				if ((this._PurchasedQuantity != value))
+				{
+					this.OnPurchasedQuantityChanging(value);
+					this.SendPropertyChanging();
+					this._PurchasedQuantity = value;
+					this.SendPropertyChanged("PurchasedQuantity");
+					this.OnPurchasedQuantityChanged();
+				}
+			}
+		}
+		
+		[Association(Name="FK_ComputerRoundDetails_ComputerRoundProduct", Storage="_ComputerRoundProduct", ThisKey="ComputerRoundProductId", OtherKey="Id", IsForeignKey=true)]
+		public ComputerRoundProduct ComputerRoundProduct
+		{
+			get
+			{
+				return this._ComputerRoundProduct.Entity;
+			}
+			set
+			{
+				ComputerRoundProduct previousValue = this._ComputerRoundProduct.Entity;
+				if (((previousValue != value) 
+							|| (this._ComputerRoundProduct.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ComputerRoundProduct.Entity = null;
+						previousValue.ComputerRoundDetails.Remove(this);
+					}
+					this._ComputerRoundProduct.Entity = value;
+					if ((value != null))
+					{
+						value.ComputerRoundDetails.Add(this);
+						this._ComputerRoundProductId = value.Id;
+					}
+					else
+					{
+						this._ComputerRoundProductId = default(int);
+					}
+					this.SendPropertyChanged("ComputerRoundProduct");
+				}
+			}
+		}
+		
+		[Association(Name="FK_ComputerRoundDetails_Round", Storage="_Round", ThisKey="RoundId", OtherKey="Id", IsForeignKey=true)]
+		public Round Round
+		{
+			get
+			{
+				return this._Round.Entity;
+			}
+			set
+			{
+				Round previousValue = this._Round.Entity;
+				if (((previousValue != value) 
+							|| (this._Round.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Round.Entity = null;
+						previousValue.ComputerRoundDetails.Remove(this);
+					}
+					this._Round.Entity = value;
+					if ((value != null))
+					{
+						value.ComputerRoundDetails.Add(this);
+						this._RoundId = value.Id;
+					}
+					else
+					{
+						this._RoundId = default(int);
+					}
+					this.SendPropertyChanged("Round");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
 	[Table(Name="dbo.ComputerRoundProduct")]
 	public partial class ComputerRoundProduct : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1565,6 +1792,8 @@ namespace EduSim.CoreFramework.DTO
 		private EntityRef<ComputerProductionData> _ComputerProductionData;
 		
 		private EntityRef<ComputerRnDData> _ComputerRnDData;
+		
+		private EntitySet<ComputerRoundDetails> _ComputerRoundDetails;
 		
 		private EntityRef<RoundCategory> _RoundCategory;
 		
@@ -1593,6 +1822,7 @@ namespace EduSim.CoreFramework.DTO
 			this._ComputerMarketingData = default(EntityRef<ComputerMarketingData>);
 			this._ComputerProductionData = default(EntityRef<ComputerProductionData>);
 			this._ComputerRnDData = default(EntityRef<ComputerRnDData>);
+			this._ComputerRoundDetails = new EntitySet<ComputerRoundDetails>(new Action<ComputerRoundDetails>(this.attach_ComputerRoundDetails), new Action<ComputerRoundDetails>(this.detach_ComputerRoundDetails));
 			this._RoundCategory = default(EntityRef<RoundCategory>);
 			this._SegmentType = default(EntityRef<SegmentType>);
 			this._TeamCategory = default(EntityRef<TeamCategory>);
@@ -1798,6 +2028,19 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
+		[Association(Name="FK_ComputerRoundDetails_ComputerRoundProduct", Storage="_ComputerRoundDetails", ThisKey="Id", OtherKey="ComputerRoundProductId", DeleteRule="NO ACTION")]
+		public EntitySet<ComputerRoundDetails> ComputerRoundDetails
+		{
+			get
+			{
+				return this._ComputerRoundDetails;
+			}
+			set
+			{
+				this._ComputerRoundDetails.Assign(value);
+			}
+		}
+		
 		[Association(Name="FK_ComputerRoundProduct_RoundCategory", Storage="_RoundCategory", ThisKey="RoundCategoryId", OtherKey="Id", IsForeignKey=true)]
 		public RoundCategory RoundCategory
 		{
@@ -1918,6 +2161,18 @@ namespace EduSim.CoreFramework.DTO
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ComputerRoundDetails(ComputerRoundDetails entity)
+		{
+			this.SendPropertyChanging();
+			entity.ComputerRoundProduct = this;
+		}
+		
+		private void detach_ComputerRoundDetails(ComputerRoundDetails entity)
+		{
+			this.SendPropertyChanging();
+			entity.ComputerRoundProduct = null;
 		}
 	}
 	
@@ -5563,6 +5818,8 @@ namespace EduSim.CoreFramework.DTO
 		
 		private bool _Current;
 		
+		private EntitySet<ComputerRoundDetails> _ComputerRoundDetails;
+		
 		private EntitySet<FinanceData> _FinanceData;
 		
 		private EntitySet<LabourData> _LabourData;
@@ -5589,6 +5846,7 @@ namespace EduSim.CoreFramework.DTO
 		
 		public Round()
 		{
+			this._ComputerRoundDetails = new EntitySet<ComputerRoundDetails>(new Action<ComputerRoundDetails>(this.attach_ComputerRoundDetails), new Action<ComputerRoundDetails>(this.detach_ComputerRoundDetails));
 			this._FinanceData = new EntitySet<FinanceData>(new Action<FinanceData>(this.attach_FinanceData), new Action<FinanceData>(this.detach_FinanceData));
 			this._LabourData = new EntitySet<LabourData>(new Action<LabourData>(this.attach_LabourData), new Action<LabourData>(this.detach_LabourData));
 			this._RoundCategory = default(EntityRef<RoundCategory>);
@@ -5682,6 +5940,19 @@ namespace EduSim.CoreFramework.DTO
 					this.SendPropertyChanged("Current");
 					this.OnCurrentChanged();
 				}
+			}
+		}
+		
+		[Association(Name="FK_ComputerRoundDetails_Round", Storage="_ComputerRoundDetails", ThisKey="Id", OtherKey="RoundId", DeleteRule="NO ACTION")]
+		public EntitySet<ComputerRoundDetails> ComputerRoundDetails
+		{
+			get
+			{
+				return this._ComputerRoundDetails;
+			}
+			set
+			{
+				this._ComputerRoundDetails.Assign(value);
 			}
 		}
 		
@@ -5810,6 +6081,18 @@ namespace EduSim.CoreFramework.DTO
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_ComputerRoundDetails(ComputerRoundDetails entity)
+		{
+			this.SendPropertyChanging();
+			entity.Round = this;
+		}
+		
+		private void detach_ComputerRoundDetails(ComputerRoundDetails entity)
+		{
+			this.SendPropertyChanging();
+			entity.Round = null;
 		}
 		
 		private void attach_FinanceData(FinanceData entity)

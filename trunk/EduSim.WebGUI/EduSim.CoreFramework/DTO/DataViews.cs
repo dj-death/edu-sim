@@ -125,5 +125,29 @@ namespace EduSim.CoreFramework.DTO
         public int ClientAwarenessRating { get; set; }
         public double Price { get; set; }
         public int PriceRating { get; set; }
+
+        public override string ToString()
+        {
+            return RoundProductId + "," +
+                ComputerRoundProductId + "," +
+                SegmentTypeId + "," +
+                Purchased + "," +
+                PurchasedQuantity + "," +
+                ForecastedQuantity + "," +
+                Ranking + "," +
+                Age + "," +
+                AgeRating + "," +
+                Performance + "," +
+                PerformanceRating + "," +
+                Size + "," +
+                SizeRating + "," +
+                Reliability + "," +
+                ReliabilityRating + "," +
+                SalesExpense + "," +
+                MarketingExpense + "," +
+                ClientAwarenessRating + "," +
+                Price + "," +
+                PriceRating;
+        }
     }
 }

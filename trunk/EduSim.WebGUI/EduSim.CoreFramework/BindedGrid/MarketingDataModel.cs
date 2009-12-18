@@ -43,6 +43,9 @@ namespace EduSim.CoreFramework.DataControls
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].ProjectedSales = unitCost * forcastQty;
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].SalesExpense = salesExpense;
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].MarketingExpense = marketingExpense;
+
+            Dictionary<string, ProductionDataView> dic1 = GetData<ProductionDataView>(SessionConstant.ProductionData, round.Id);
+            dic1[dataGridView1.Columns[c.ColumnIndex].HeaderText].ManufacturedQuantity = forcastQty;
         }
     }
 }
