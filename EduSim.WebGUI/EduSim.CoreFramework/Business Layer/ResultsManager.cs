@@ -67,7 +67,7 @@ namespace EduSim.Analyse.BusinessLayer
                 {
                     Edusim db = new Edusim(Constants.ConnectionString);
 
-                    rm.QuantityPurchased(db);
+                    rm.QuantityPurchased(db, round);
 
                     rm.SetNextRoundData(db, round);
 
@@ -227,10 +227,7 @@ namespace EduSim.Analyse.BusinessLayer
                                     where d.Price < o.Price && d.SegmentTypeId == o.SegmentTypeId
                                     orderby d.Price descending
                                     select o).Count() + 1,
-                     AgeRating = (from o in data1
-                                  where d.Age < o.Age && d.SegmentTypeId == o.SegmentTypeId
-                                  orderby d.Age descending
-                                  select o).Count() + 1,
+                     AgeRating = GetAgeRating(data1, d),
                      ReliabilityRating = (from o in data1
                                           where d.Reliability < o.Reliability && d.SegmentTypeId == o.SegmentTypeId
                                           orderby d.Reliability descending
@@ -244,7 +241,16 @@ namespace EduSim.Analyse.BusinessLayer
                                    orderby d.Size 
                                    select o).Count() + 1,
                  }
-            ).ToList().ForEach(o => data.Add(o));
+            ).ToList().ForEach(o => data.Add(o) );
+        }
+
+        private static int GetAgeRating(List<CurrentRoundProductWiseInformation> data1, CurrentRoundProductWiseInformation d)
+        {
+            int rating = (from o in data1
+                          where d.Age < o.Age && d.SegmentTypeId == o.SegmentTypeId
+                          orderby d.Age descending
+                          select o).Count() + 1;
+            return rating;
         }
 
         private static int ClientAwarenessRating(List<CurrentRoundProductWiseInformation> data1, CurrentRoundProductWiseInformation d)
@@ -267,8 +273,7 @@ namespace EduSim.Analyse.BusinessLayer
         private void SetProductRanking()
         {
             (from d in data
-             join m in marketingData on d.RoundProductId equals m.RoundProductId
-             where m.Purchased == false
+             where d.Purchased == false
              select d).ToList().ForEach(o =>
              {
                  GameCriteria gameCriterian = GetGameCriteria(o.SegmentTypeId);
@@ -280,6 +285,7 @@ namespace EduSim.Analyse.BusinessLayer
                  double clientAwarenessRating = (6.0 - o.ClientAwarenessRating) / 5.0 * 0.5;
                  double priceRating = (6.0 - o.PriceRating) / 5.0 * gameCriterian.PriceDecision;
                  o.Ranking = ageRating + sizeRating + performanceRating + reliabilityRating + clientAwarenessRating + priceRating;
+                 Console.WriteLine(o);
              });
         }
 
@@ -298,7 +304,7 @@ namespace EduSim.Analyse.BusinessLayer
             }
         }
 
-        public void QuantityPurchased(Edusim db)
+        public void QuantityPurchased(Edusim db, Round round)
         {
             Dictionary<int, double> crds = new Dictionary<int, double>();
 
@@ -318,6 +324,17 @@ namespace EduSim.Analyse.BusinessLayer
                      {
                          mktData.PurchasedQuantity = m.PurchasedQuantity;
                          mktData.Purchased = m.Purchased;
+                     }
+                     else
+                     {
+                         ComputerRoundDetails cMktData = new ComputerRoundDetails
+                         {
+                             ComputerRoundProductId = m.ComputerRoundProductId,
+                             RoundId = round.Id,
+                             PurchasedQuantity = m.PurchasedQuantity
+                         };
+
+                         db.ComputerRoundDetails.InsertOnSubmit(cMktData);
                      }
                  });
 
@@ -352,13 +369,14 @@ namespace EduSim.Analyse.BusinessLayer
                     }
                     else
                     {
-                        ComputerMarketingData cMktData = (from mk in db.ComputerMarketingData
-                                                 where mk.ComputerRoundProductId == m.ComputerRoundProductId
-                                                 select mk).FirstOrDefault();
-                        if (cMktData != null)
+                        ComputerRoundDetails cMktData = new ComputerRoundDetails
                         {
-                            cMktData.PurchasedQuantity = m.PurchasedQuantity;
-                        }
+                            ComputerRoundProductId = m.ComputerRoundProductId,
+                            RoundId = round.Id,
+                            PurchasedQuantity = m.PurchasedQuantity
+                        };
+
+                        db.ComputerRoundDetails.InsertOnSubmit(cMktData);
                     }
                 });
             }

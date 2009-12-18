@@ -32,7 +32,7 @@ namespace EduSim.CoreFramework.Common
 		private Gizmox.WebGUI.Forms.Panel mobjPanelSpace;
         private Gizmox.WebGUI.Forms.Panel mobjPoweredByPanel;
 		protected Gizmox.WebGUI.Forms.MainMenu mobjMainMenu;
-		private Gizmox.WebGUI.Forms.MenuItem mobjMenuSession;
+        private Gizmox.WebGUI.Forms.MenuItem mobjMenuSession;
         private Gizmox.WebGUI.Forms.MenuItem mobjMenuActions;
         private Gizmox.WebGUI.Forms.MenuItem mobjMenuSave;
         private Gizmox.WebGUI.Forms.MenuItem mobjMenuSubmit;
@@ -167,7 +167,6 @@ namespace EduSim.CoreFramework.Common
             this.mobjMenuActions = new Gizmox.WebGUI.Forms.MenuItem();
             this.mobjMenuHelp = new Gizmox.WebGUI.Forms.MenuItem();
             this.mobjMenuAboutVWG = new Gizmox.WebGUI.Forms.MenuItem();
-
             this.mobjMenuSave = new Gizmox.WebGUI.Forms.MenuItem();
             this.mobjMenuSubmit = new Gizmox.WebGUI.Forms.MenuItem();
 
@@ -359,6 +358,7 @@ namespace EduSim.CoreFramework.Common
             {
                 SessionManager.SaveSessionData(HttpContext.Current.Session[SessionConstants.ActiveRound] as Round);
                 ResultsManager.Run(HttpContext.Current.Session[SessionConstants.ActiveRound] as Round);
+                HttpContext.Current.Session.Abandon();
             });
             // 
             // mobjMenuHelp
