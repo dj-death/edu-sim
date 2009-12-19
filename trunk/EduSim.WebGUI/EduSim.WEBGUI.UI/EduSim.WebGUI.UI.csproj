@@ -219,6 +219,18 @@
     </VisualStudio>
   </ProjectExtensions>
   <ItemGroup>
+    <Compile Include="footer.inc.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="footer.inc.designer.cs">
+      <DependentUpon>footer.inc.cs</DependentUpon>
+    </Compile>
+    <Compile Include="header.inc.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="header.inc.designer.cs">
+      <DependentUpon>header.inc.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -236,7 +248,10 @@
   <ItemGroup>
     <Content Include="aboutus.htm" />
     <Content Include="contact.htm" />
+    <Content Include="aboutus1.aspx" />
     <Content Include="doc.xml" />
+    <Content Include="footer.inc" />
+    <Content Include="header.inc" />
     <Content Include="images\books.jpg" />
     <Content Include="images\box_BD.jpg" />
     <Content Include="images\box_BG.jpg" />
