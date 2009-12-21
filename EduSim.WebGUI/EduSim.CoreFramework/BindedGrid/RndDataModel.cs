@@ -56,19 +56,21 @@ namespace EduSim.CoreFramework.DataControls
         protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
             int colIndex = c.ColumnIndex - 1;
+
+            Dictionary<string, RnDDataView> dic = GetData<RnDDataView>(SessionConstant.RnDData, round.Id);
+
             H[colIndex] = dataGridView1.Rows[6].Cells[c.ColumnIndex].Value.ToDouble2(); //Reliability
             J[colIndex] = dataGridView1.Rows[8].Cells[c.ColumnIndex].Value.ToDouble2(); //Performance
             L[colIndex] = dataGridView1.Rows[10].Cells[c.ColumnIndex].Value.ToDouble2(); //Size
-            //M[i] = (double)r.Cells[12].Value;//RnDCost
 
             //Fix the following bug like
             //with negative value like Capacity sold is at depreciated value
             //reduce of performance, reliability, size also cost money
             //RnD Cost: (H2-G2)*$B$9+ (J2-I2)*$B$10 + (K2-L2)*$B$11
-            M[colIndex] = GetCost(H[colIndex], G[colIndex], configurationInfo["ReliabilityCost"]) + 
+            M[colIndex] = GetCost(H[colIndex], G[colIndex], configurationInfo["ReliabilityCost"]) +
                 GetCost(J[colIndex], I[colIndex], configurationInfo["PerformanceCost"]) +
                 GetCost(L[colIndex], K[colIndex], configurationInfo["SizeCost"], false);
-            
+
             dataGridView1.Rows[11].Cells[c.ColumnIndex].Value = M[colIndex].ToString("###0.00");
 
             //Age: =IF(M2=0, E2, (E2+((H2-G2)*$B$14+(J2-I2)*$B$13+(K2-L2)*$B$12)/365)/2)
@@ -82,7 +84,6 @@ namespace EduSim.CoreFramework.DataControls
                 (J[colIndex] - I[colIndex]) * configurationInfo["PerformanceFactor"] + (K[colIndex] - L[colIndex]) * configurationInfo["SizeFactor"]);
             dataGridView1.Rows[2].Cells[c.ColumnIndex].Value = dt;
 
-            Dictionary<string, RnDDataView> dic = GetData<RnDDataView>(SessionConstant.RnDData, round.Id);
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Reliability = H[colIndex];
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Performance = J[colIndex];
             dic[dataGridView1.Columns[c.ColumnIndex].HeaderText].Size = L[colIndex];
@@ -93,7 +94,20 @@ namespace EduSim.CoreFramework.DataControls
 
         public override void AddProduct(DataGridView dataGridView1)
         {
-            base.AddProduct(dataGridView1);
+            Dictionary<string, RnDDataView> dic = RoundDataModel.GetData<RnDDataView>(SessionConstant.RnDData, round.Id);
+
+            if (dic.Count > 8)
+            {
+                MessageBox.Show("You cannot have more tham 8 products");
+                return;
+            }
+            ProductForm objLogonPopup = new ProductForm(round);
+            objLogonPopup.Closed += new EventHandler(objLogonPopup_Closed);
+            objLogonPopup.ShowDialog();
+        }
+
+        private void objLogonPopup_Closed(object sender, EventArgs args)
+        {
         }
 
         public override bool EnableAddProduct

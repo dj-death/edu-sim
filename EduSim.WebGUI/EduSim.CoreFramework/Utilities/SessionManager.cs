@@ -6,6 +6,8 @@ using EduSim.CoreFramework.DTO;
 using EduSim.CoreFramework.Common;
 using System.Data.Linq;
 using EduSim.CoreFramework.BusinessLayer;
+using EduSim.CoreFramework.DataControls;
+using Gizmox.WebGUI.Forms;
 
 namespace EduSim.CoreFramework.Utilities
 {
@@ -13,9 +15,9 @@ namespace EduSim.CoreFramework.Utilities
     {
         internal static void SetSessionData(Round o)
         {
+            SessionManager.SetLabourDataToSession(SessionConstant.LabourData, o);
             SessionManager.SetRnDDataToSession(SessionConstant.RnDData, o);
             SessionManager.SetMarketingDataToSession(SessionConstant.MarketingData, o);
-            SessionManager.SetLabourDataToSession(SessionConstant.LabourData, o);
             SessionManager.SetProductionDataToSession(SessionConstant.ProductionData, o);
             SessionManager.SetFinanceDataToSession(SessionConstant.FinanceData, o);
         }
@@ -30,22 +32,7 @@ namespace EduSim.CoreFramework.Utilities
                 IQueryable<RnDDataView> rs = from r in db.RnDData
                                              join rp in db.RoundProduct on r.RoundProduct equals rp
                                              where rp.Round == round
-                                             select new RnDDataView()
-                                             {
-                                                 ProductName = rp.ProductName,
-                                                 ProductCategory = rp.SegmentType.Description,
-                                                 PreviousRevisionDate = r.PreviousRevisionDate,
-                                                 RevisionDate = r.RevisionDate.HasValue ? r.RevisionDate.Value : r.PreviousRevisionDate,
-                                                 PreviousAge = r.PreviousAge,
-                                                 Age = r.Age.HasValue ? r.Age.Value : r.PreviousAge,
-                                                 PreviousReliability = r.PreviousReliability,
-                                                 Reliability = r.Reliability.HasValue ? r.Reliability.Value : r.PreviousReliability,
-                                                 PreviousPerformance = r.PreviousPerformance,
-                                                 Performance = r.Performance.HasValue ? r.Performance.Value : r.PreviousPerformance,
-                                                 PreviousSize = r.PreviousSize,
-                                                 Size = r.Size.HasValue ? r.Size.Value : r.PreviousSize,
-                                                 RnDCost = r.RnDCost.HasValue ? r.RnDCost.Value : 0.0
-                                             };
+                                             select CopyRndDataToView(r, rp);
 
                 rs.ToList<RnDDataView>().ForEach(o =>
                 {
@@ -53,6 +40,26 @@ namespace EduSim.CoreFramework.Utilities
                 });
             }
             return dic;
+        }
+
+        public static RnDDataView CopyRndDataToView(RnDData r, RoundProduct rp)
+        {
+            return new RnDDataView()
+            {
+                ProductName = rp.ProductName,
+                ProductCategory = rp.SegmentType.Description,
+                PreviousRevisionDate = r.PreviousRevisionDate,
+                RevisionDate = r.RevisionDate.HasValue ? r.RevisionDate.Value : r.PreviousRevisionDate,
+                PreviousAge = r.PreviousAge,
+                Age = r.Age.HasValue ? r.Age.Value : r.PreviousAge,
+                PreviousReliability = r.PreviousReliability,
+                Reliability = r.Reliability.HasValue ? r.Reliability.Value : r.PreviousReliability,
+                PreviousPerformance = r.PreviousPerformance,
+                Performance = r.Performance.HasValue ? r.Performance.Value : r.PreviousPerformance,
+                PreviousSize = r.PreviousSize,
+                Size = r.Size.HasValue ? r.Size.Value : r.PreviousSize,
+                RnDCost = r.RnDCost.HasValue ? r.RnDCost.Value : 0.0
+            };
         }
 
         internal static Dictionary<string, MarketingDataView> SetMarketingDataToSession(SessionConstant sessionData, Round round)
@@ -65,24 +72,34 @@ namespace EduSim.CoreFramework.Utilities
                 (from m in db.MarketingData
                  join rp in db.RoundProduct on m.RoundProduct equals rp
                  where rp.Round == round
-                 select new MarketingDataView()
-                 {
-                     ProductName = rp.ProductName,
-                     ProductCategory = rp.SegmentType.Description,
-                     PreviousUnitPrice = m.PreviousPrice,
-                     UnitPrice = m.Price.HasValue ? m.Price.Value : m.PreviousPrice,
-                     PreviousSalesExpense = m.PreviousSaleExpense,
-                     SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : m.PreviousSaleExpense,
-                     PreviousMarketingExpense = m.PreviousMarketingExpense,
-                     MarketingExpense = m.MarketingExpense.HasValue ? m.MarketingExpense.Value : m.PreviousMarketingExpense,
-                     PreviousForecastingQuantity = m.PreviousForecastingQuantity,
-                     ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : m.PreviousForecastingQuantity,
-                     ProjectedSales = (m.Price.HasValue ? m.Price.Value : m.PreviousPrice) *
-                                        (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : m.PreviousForecastingQuantity),
-                     PurchaseQuantity = m.PurchasedQuantity.HasValue ? m.PurchasedQuantity.Value : 0.0
-                 }).ToList<MarketingDataView>().ForEach(o => dic[o.ProductName] = o);
+                 select CopyMarketingDataToView(m, rp)).ToList<MarketingDataView>().ForEach(o => dic[o.ProductName] = o);
             }
+
+            ProductionDataModel pdm = new ProductionDataModel();
+            DataGridView data = new DataGridView();
+            pdm.GetList(data);
+
             return dic;
+        }
+
+        public static MarketingDataView CopyMarketingDataToView(MarketingData m, RoundProduct rp)
+        {
+            return new MarketingDataView()
+            {
+                ProductName = rp.ProductName,
+                ProductCategory = rp.SegmentType.Description,
+                PreviousUnitPrice = m.PreviousPrice,
+                UnitPrice = m.Price.HasValue ? m.Price.Value : m.PreviousPrice,
+                PreviousSalesExpense = m.PreviousSaleExpense,
+                SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : m.PreviousSaleExpense,
+                PreviousMarketingExpense = m.PreviousMarketingExpense,
+                MarketingExpense = m.MarketingExpense.HasValue ? m.MarketingExpense.Value : m.PreviousMarketingExpense,
+                PreviousForecastingQuantity = m.PreviousForecastingQuantity,
+                ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : m.PreviousForecastingQuantity,
+                ProjectedSales = (m.Price.HasValue ? m.Price.Value : m.PreviousPrice) *
+                                   (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : m.PreviousForecastingQuantity),
+                PurchaseQuantity = m.PurchasedQuantity.HasValue ? m.PurchasedQuantity.Value : 0.0
+            };
         }
 
         internal static Dictionary<string, ProductionDataView> SetProductionDataToSession(SessionConstant sessionData, Round round)
@@ -96,28 +113,7 @@ namespace EduSim.CoreFramework.Utilities
                                                     join rp in db.RoundProduct on p.RoundProduct equals rp
                                                     join m in db.MarketingData on p.RoundProduct equals m.RoundProduct
                                                     where rp.Round == round
-                                                    select new ProductionDataView()
-                                                    {
-                                                        ProductName = rp.ProductName,
-                                                        ProductCategory = rp.SegmentType.Description,
-                                                        Inventory = p.Inventory,
-                                                        ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0,
-                                                        TotalQuantity = p.Inventory + (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0),
-                                                        ManufacturedQuantity = p.ManufacturedQuantity,
-                                                        MaterialCost = p.MaterialCost.HasValue ? p.MaterialCost.Value : 0.0,
-                                                        LabourRate = p.LabourRate.HasValue ? p.LabourRate.Value : 0.0,
-                                                        ContributionMargin = p.Contribution.HasValue ? p.Contribution.Value : 0.0,
-                                                        SecondShift = p.SecondShift.HasValue ? p.SecondShift.Value : 0.0,
-                                                        OldAutomation = p.CurrentAutomation,
-                                                        NewAutomation = p.AutomationForNextRound.HasValue ? p.AutomationForNextRound.Value : p.CurrentAutomation,
-                                                        AutomationCost = p.AutomationCost.HasValue ? p.AutomationCost.Value : 0.0,
-                                                        Capacity = p.OldCapacity,
-                                                        NewCapacity = p.NewCapacity.HasValue ? p.NewCapacity.Value : 0.0,
-                                                        NewCapacityCost = p.NewCapacityCost.HasValue ? p.NewCapacityCost.Value : 0.0,
-                                                        NumberOfLabour = p.NumberOfLabour.HasValue ? p.NumberOfLabour.Value : 0.0,
-                                                        Utilization = p.Utilization.HasValue ? p.Utilization.Value : 0.0,
-                                                        LabourCost = p.LabourCost.HasValue ? p.LabourCost.Value : 0.0
-                                                    };
+                                                    select CopyProductionDataToView(p, rp, m);
 
                 rs.ToList<ProductionDataView>().ForEach(o =>
                 {
@@ -125,6 +121,32 @@ namespace EduSim.CoreFramework.Utilities
                 });
             }
             return dic;
+        }
+
+        public static ProductionDataView CopyProductionDataToView(ProductionData p, RoundProduct rp, MarketingData m)
+        {
+            return new ProductionDataView()
+            {
+                ProductName = rp.ProductName,
+                ProductCategory = rp.SegmentType.Description,
+                Inventory = p.Inventory,
+                ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0,
+                TotalQuantity = p.Inventory + (m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0),
+                ManufacturedQuantity = p.ManufacturedQuantity,
+                MaterialCost = p.MaterialCost.HasValue ? p.MaterialCost.Value : 0.0,
+                LabourRate = p.LabourRate.HasValue ? p.LabourRate.Value : 0.0,
+                ContributionMargin = p.Contribution.HasValue ? p.Contribution.Value : 0.0,
+                SecondShift = p.SecondShift.HasValue ? p.SecondShift.Value : 0.0,
+                OldAutomation = p.CurrentAutomation,
+                NewAutomation = p.AutomationForNextRound.HasValue ? p.AutomationForNextRound.Value : p.CurrentAutomation,
+                AutomationCost = p.AutomationCost.HasValue ? p.AutomationCost.Value : 0.0,
+                Capacity = p.OldCapacity,
+                NewCapacity = p.NewCapacity.HasValue ? p.NewCapacity.Value : 0.0,
+                NewCapacityCost = p.NewCapacityCost.HasValue ? p.NewCapacityCost.Value : 0.0,
+                NumberOfLabour = p.NumberOfLabour.HasValue ? p.NumberOfLabour.Value : 0.0,
+                Utilization = p.Utilization.HasValue ? p.Utilization.Value : 0.0,
+                LabourCost = p.LabourCost.HasValue ? p.LabourCost.Value : 0.0
+            };
         }
 
         internal static Dictionary<string, FinanceDataView> SetFinanceDataToSession(SessionConstant sessionData, Round round)

@@ -116,7 +116,7 @@ namespace EduSim.CoreFramework.Common
                 addProduct.Size = new Size(100, 20);
                 addProduct.Click += new EventHandler((sender, e) =>
                 {
-
+                    rdm.AddProduct(dataGridView1);
                 });
             }            
             // 

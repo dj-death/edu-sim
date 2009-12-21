@@ -22,7 +22,7 @@ namespace EduSim.CoreFramework.DataControls
 
         public override int[] HiddenColumns()
         {
-            return new int[]  { 0, 1, 3, 5, 7, 9 };
+            return new int[]  { 0, 1, 3, 5, 7, 9, 10 };
         }
 
         protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
@@ -46,6 +46,10 @@ namespace EduSim.CoreFramework.DataControls
 
             Dictionary<string, ProductionDataView> dic1 = GetData<ProductionDataView>(SessionConstant.ProductionData, round.Id);
             dic1[dataGridView1.Columns[c.ColumnIndex].HeaderText].ManufacturedQuantity = forcastQty;
+
+            ProductionDataModel pdm = new ProductionDataModel();
+            DataGridView data = new DataGridView();
+            pdm.GetList(data);
         }
     }
 }
