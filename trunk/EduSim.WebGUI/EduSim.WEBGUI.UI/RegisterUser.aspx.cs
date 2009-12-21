@@ -16,8 +16,8 @@ namespace EduSim.WebGUI.UI
     //When the user is registered, automatically create a Try Game
     //Disable all reports except P&L
     //Create computer Data
-    //TODO: Analyse the player data to Computer data
-    //TODO: Improve on the Homepage
+    //Analyse the player data to Computer data
+    //TODO: 8. Improve on the Homepage
     //Create a contact mail 
     //Email validation - Done
     //Make the Web UI light weight
