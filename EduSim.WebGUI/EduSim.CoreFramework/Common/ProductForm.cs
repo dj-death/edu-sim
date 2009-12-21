@@ -273,6 +273,7 @@ namespace EduSim.CoreFramework.Common
                 rndData[mobjTextProduct.Text] = SessionManager.CopyRndDataToView(rnd, rp);
                 mktData[mobjTextProduct.Text] = SessionManager.CopyMarketingDataToView(md, rp);
                 prodData[mobjTextProduct.Text] = SessionManager.CopyProductionDataToView(pd, rp, md);
+                this.Close();
             }
         }
 
