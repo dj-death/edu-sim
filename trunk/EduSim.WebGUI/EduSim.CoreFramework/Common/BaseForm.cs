@@ -262,6 +262,7 @@ namespace EduSim.CoreFramework.Common
             this.mobjMenuSession.Click += new EventHandler((sender, e) =>
             {
                 HttpContext.Current.Session.Abandon();
+                Context.HttpContext.ApplicationInstance.Server.TransferRequest("/Default.aspx");
             });
 
             //this.mobjMenuExit.Index = 0;

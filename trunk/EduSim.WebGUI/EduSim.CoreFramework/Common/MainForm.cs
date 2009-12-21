@@ -25,12 +25,13 @@ namespace EduSim.CoreFramework.Common
     //When the user logs in identify which team he belongs and which stage of the game he is playing
     //First round of the game you start with 5 products
     //During of the span of 8 games, you can create a maximum of 8 products
-    //TODO: Change the name of the products, dont make it look like the Competators products
+    //TODO: 2. Add Rest of the rounds Computer data
+    //TODO: 3. Change the name of the products, dont make it look like the Competators products
     //Implement the Financials Data,
     //Allow the user to save the RnD, Production, Marketing and Financials Data and also 
-    //TODO: Add new product and Save
-    //TODO: Format the PnL reports with Dollars
-    //TODO: Implement Balance Sheet, Cash Flow and Balance Scorecarda
+    //TODO: 1. Add new product and Save
+    //Format the PnL reports with Dollars
+    //TODO: 5. Implement Balance Sheet, Cash Flow and Balance Scorecarda
     [Serializable()]
 	public class MainForm : BaseForm
     {

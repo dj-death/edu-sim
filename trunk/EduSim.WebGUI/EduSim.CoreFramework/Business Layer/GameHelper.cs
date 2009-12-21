@@ -109,7 +109,7 @@ namespace EduSim.CoreFramework.BusinessLayer
 
         internal static void AddRoundInformation(Edusim db, Round round)
         {
-            //TODO: Create Round 2 and copy all previous information to Round 2values 
+            //Create Round 2 and copy all previous information to Round 2values 
             Round round2 = new Round
             {
                 RoundCategoryId = round.RoundCategoryId + 1,
@@ -118,7 +118,7 @@ namespace EduSim.CoreFramework.BusinessLayer
             };
             db.Round.InsertOnSubmit(round2);
 
-            //TODO: copy previous RnD data
+            //copy previous RnD data
             IQueryable<RoundProduct> roundProduct = from r in db.RoundProduct
                                                     where r.Round == round
                                                     select r;
@@ -133,7 +133,7 @@ namespace EduSim.CoreFramework.BusinessLayer
                 };
                 db.RoundProduct.InsertOnSubmit(data);
 
-                //TODO: copy previous RnD data
+                //copy previous RnD data
                 RnDData rndval = (from r in db.RnDData
                                   where r.RoundProduct == rval
                                   select r).FirstOrDefault();
@@ -149,7 +149,7 @@ namespace EduSim.CoreFramework.BusinessLayer
                 };
                 db.RnDData.InsertOnSubmit(data1);
 
-                //TODO: copy previous Marketing data
+                //copy previous Marketing data
                 MarketingData mktData = (from m in db.MarketingData
                                          where m.RoundProduct == rval
                                          select m).FirstOrDefault();
@@ -163,7 +163,7 @@ namespace EduSim.CoreFramework.BusinessLayer
                 };
                 db.MarketingData.InsertOnSubmit(data2);
 
-                //TODO: copy previous Production data
+                //copy previous Production data
                 ProductionData prodData = (from p in db.ProductionData
                                            where p.RoundProduct == rval
                                            select p).FirstOrDefault();
@@ -183,11 +183,11 @@ namespace EduSim.CoreFramework.BusinessLayer
             PnLDataModel model = new PnLDataModel();
             model.GetList(new DataGridView ());
 
-            //TODO: copy previous RnD data
+            //copy previous RnD data
             FinanceData oldFinData = (from o in db.FinanceData
                                       where o.Round == round
                                       select o).FirstOrDefault();
-            //TODO: Finance Data, Plugh back the revenue to cash
+            //TODO: 4. Finance Data, Plugh back the revenue to cash
             FinanceData finData = new FinanceData
             {
                 PreviousCash = oldFinData.Cash + model.data[model.netProfitIndex],
@@ -197,7 +197,7 @@ namespace EduSim.CoreFramework.BusinessLayer
             };
             db.FinanceData.InsertOnSubmit(finData);
 
-            //TODO: Labour Data
+            //Labour Data
             LabourData oldLibData = (from o in db.LabourData
                                       where o.Round == round
                                       select o).FirstOrDefault();

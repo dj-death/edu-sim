@@ -86,7 +86,7 @@ namespace EduSim.Analyse.BusinessLayer
 
         private void SetNextRoundData(Edusim db, Round round)
         {
-            //TODO: Mark round.Current as False
+            //Mark round.Current as False
             Round round1 = (from r in db.Round
                             where r.Id == round.Id
                             select r).FirstOrDefault();
@@ -117,7 +117,7 @@ namespace EduSim.Analyse.BusinessLayer
                         }).ToList();
 
             int count = data.Count();
-            //TODO: Based on howmany players are involved, add the computer players
+            //Based on howmany players are involved, add the computer players
 
             int compRoundCount = (from r in computerRndData
                                   join m in computerMarketingData on r.ComputerRoundProduct equals m.ComputerRoundProduct
