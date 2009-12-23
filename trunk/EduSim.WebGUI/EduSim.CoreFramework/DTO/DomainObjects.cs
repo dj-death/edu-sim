@@ -2261,6 +2261,8 @@ namespace EduSim.CoreFramework.DTO
 		
 		private double _ShortTermLoan;
 		
+		private double _InvestmentsInPlantAndMachinary;
+		
 		private EntityRef<Round> _Round;
 		
     #region Extensibility Method Definitions
@@ -2283,6 +2285,8 @@ namespace EduSim.CoreFramework.DTO
     partial void OnTotalShortTermLoanChanged();
     partial void OnShortTermLoanChanging(double value);
     partial void OnShortTermLoanChanged();
+    partial void OnInvestmentsInPlantAndMachinaryChanging(double value);
+    partial void OnInvestmentsInPlantAndMachinaryChanged();
     #endregion
 		
 		public FinanceData()
@@ -2451,6 +2455,26 @@ namespace EduSim.CoreFramework.DTO
 					this._ShortTermLoan = value;
 					this.SendPropertyChanged("ShortTermLoan");
 					this.OnShortTermLoanChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_InvestmentsInPlantAndMachinary", DbType="Float NOT NULL")]
+		public double InvestmentsInPlantAndMachinary
+		{
+			get
+			{
+				return this._InvestmentsInPlantAndMachinary;
+			}
+			set
+			{
+				if ((this._InvestmentsInPlantAndMachinary != value))
+				{
+					this.OnInvestmentsInPlantAndMachinaryChanging(value);
+					this.SendPropertyChanging();
+					this._InvestmentsInPlantAndMachinary = value;
+					this.SendPropertyChanged("InvestmentsInPlantAndMachinary");
+					this.OnInvestmentsInPlantAndMachinaryChanged();
 				}
 			}
 		}
