@@ -38,4 +38,4 @@
     </form>
 
 </td>
-<!--#include virtual="header.inc" --> 
+<!--#include virtual="footer.inc" --> 
