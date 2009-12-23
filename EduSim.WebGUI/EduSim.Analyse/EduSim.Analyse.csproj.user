@@ -3,6 +3,6 @@
     <ProjectView>ProjectFiles</ProjectView>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <StartArguments>48</StartArguments>
+    <StartArguments>50</StartArguments>
   </PropertyGroup>
 </Project>
