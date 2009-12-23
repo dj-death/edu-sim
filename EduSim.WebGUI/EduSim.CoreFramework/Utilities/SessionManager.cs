@@ -169,7 +169,8 @@ namespace EduSim.CoreFramework.Utilities
                      CurrentTotalShortTermLoan = f.TotalShortTermLoan + f.ShortTermLoan,
                      ShortTermLoan = f.ShortTermLoan,
                      PreviousCash = f.PreviousCash,
-                     Cash = f.Cash
+                     Cash = f.Cash,
+                     InvestmentsInPlantAndMachinary = f.InvestmentsInPlantAndMachinary
                  }).ToList<FinanceDataView>().ForEach(o => dic[round.RoundCategory.RoundName] = o);
             }
             return dic;

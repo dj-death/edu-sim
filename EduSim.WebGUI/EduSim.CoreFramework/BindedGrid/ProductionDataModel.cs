@@ -90,10 +90,13 @@ namespace EduSim.CoreFramework.DataControls
 
         protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
-            Dictionary<string, ProductionDataView> dic = RoundDataModel.GetData<ProductionDataView>(SessionConstant.ProductionData, round.Id);
-            SetAllRows(dic);
-
             int i = c.ColumnIndex - 1;
+
+            F[i] = dataGridView1.Rows[4].Cells[c.ColumnIndex].Value.ToDouble2();
+            L[i] = dataGridView1.Rows[11].Cells[c.ColumnIndex].Value.ToDouble2();
+            O[i] = dataGridView1.Rows[14].Cells[c.ColumnIndex].Value.ToDouble2();
+
+            SetAllRows(RoundDataModel.GetData<ProductionDataView>(SessionConstant.ProductionData, round.Id));
 
             dataGridView1.Rows[16].Cells[c.ColumnIndex].Value = Q[i].ToString("###0.00");
 
@@ -107,8 +110,7 @@ namespace EduSim.CoreFramework.DataControls
 
             dataGridView1.Rows[7].Cells[c.ColumnIndex].Value = S[i].ToString("###0.00");
 
-            double contributionMargin = (G[i] + S[i]) / (T[i] * F[i]);
-            dataGridView1.Rows[8].Cells[c.ColumnIndex].Value = (contributionMargin).ToString("###0.00");
+            dataGridView1.Rows[8].Cells[c.ColumnIndex].Value = I[i].ToString("###0.00");
         }
 
         internal void SetAllRows(Dictionary<string, ProductionDataView> dic)
@@ -120,12 +122,29 @@ namespace EduSim.CoreFramework.DataControls
 
             int i = 0;
             double workerRequired = 0;
-
             foreach (string key in dic.Keys)
             {
                 //Number of Labour: =D5/K5*$B$3
-                Q[i] = F[i] / K[i] * configurationInfo["LabourFactor"];
+                if (K[i] != 0)
+                {
+                    Q[i] = F[i] / K[i] * configurationInfo["LabourFactor"];
+                    workerRequired += Q[i];
+                }
+                i++;
+            }
+            //Utilization: =$Q$10/$S$5
+            double numberOfLabour = ld.NumberOfLabour;
 
+            i = 0;
+            foreach (string key in dic.Keys)
+            {
+                R[i] = workerRequired / numberOfLabour;
+                i++;
+            }
+
+            i = 0;
+            foreach (string key in dic.Keys)
+            {
                 //Automation Cost: J[i] =(L5-K5)*$B$1
                 M[i] = GetCost(L[i], K[i], configurationInfo["AutomationCost"]);
 
@@ -135,11 +154,14 @@ namespace EduSim.CoreFramework.DataControls
 
                 double rate = ld.Rate;
                 //Labour Cost =IF(R5<=100%,HR!$B$1/K5, (100%*HR!$B$1/K5+((R5-100%)*1.5*HR!$B$1/K5)))
-                H[i] = (R[i] <= 1) ? (rate / K[i]) : (rate / K[i] + ((R[i] - 1) * 1.5 * rate / K[i]));
 
+                if (K[i] != 0)
+                {
+                    H[i] = (R[i] <= 1) ? (rate / K[i]) : (rate / K[i] + ((R[i] - 1) * 1.5 * rate / K[i]));
+                }
                 S[i] = H[i] * F[i];
 
-                double contributionMargin = (G[i] + S[i]) / (T[i] * F[i]);
+                I[i] = (T[i] != 0 && F[i] != 0) ? (G[i] + S[i]) / (T[i] * F[i]) : 0.0;
 
                 dic[key].ManufacturedQuantity = F[i];
                 dic[key].NewAutomation = L[i];
@@ -150,19 +172,8 @@ namespace EduSim.CoreFramework.DataControls
                 dic[key].LabourRate = H[i];
                 dic[key].LabourCost = S[i];
                 dic[key].NumberOfLabour = Q[i];
-                dic[key].ContributionMargin = contributionMargin;
+                dic[key].ContributionMargin = I[i];
 
-                workerRequired += Q[i];
-                i++;
-            }
-
-            //Utilization: =$Q$10/$S$5
-            double numberOfLabour = ld.NumberOfLabour;
-
-            i = 0;
-            foreach (string key in dic.Keys)
-            {
-                R[i] = workerRequired / numberOfLabour;
                 i++;
             }
         }

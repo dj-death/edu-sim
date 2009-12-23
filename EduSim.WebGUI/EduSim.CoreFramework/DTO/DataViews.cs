@@ -64,6 +64,7 @@ namespace EduSim.CoreFramework.DTO
     public class FinanceDataView
     {
         public string RoundName { get; set; }
+        public double InvestmentsInPlantAndMachinary { get; set; }
         public double TotalLongTermLoan { get; set; }
         public double CurrentTotalLongTermLoan { get; set; }
         public double LongTermLoan { get; set; }
