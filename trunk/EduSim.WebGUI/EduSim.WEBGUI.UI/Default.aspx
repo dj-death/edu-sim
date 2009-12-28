@@ -61,13 +61,16 @@
       <tr>
         <td background="images/box_MG.jpg"></td>
         <td height="50" valign="top" background="images/box_MM.jpg" class="Box">
+        <img src="images/icone_homfem.jpg" alt="Play Business Simulation"/>
             <p>
-                Why do you want to play another game</p>
+                Why do you want to play this game</p>
         <ul>
             <li>Because this game helps you in getting a B-School degree</li>
-            <li>Even if you don&#39;t need a B-School degree, it will help you in the fundamentals of running a business 
+            <li>Even if you don&#39;t need a B-School degree, it will help you to understand the fundamentals of running a 
+                business. This knowledge 
                 will always help you when you are working in a company</li>
-            <li>As an additional benefit, already premier B-Schools are using similar Games to teach these comcepts</li>
+            <li>Already premier B-Schools are using similar Games to teach the comcept of 
+                running your business</li>
         </ul>
         <td background="images/box_MD.jpg"></td>
       </tr>
