@@ -236,6 +236,7 @@
   <ItemGroup>
     <Content Include="aboutus.aspx" />
     <Content Include="contact.aspx" />
+    <Content Include="howtoplaythegame.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="doc.xml" />
     <Content Include="footer.inc" />

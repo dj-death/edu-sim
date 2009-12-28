@@ -75,7 +75,7 @@ document.write(unescape(mytpcba));
 	</td>
   </tr>
   <tr>
-    <td height="20" colspan="3" align="right" valign="bottom"><a href="index.htm"><img src="images/icone_home.jpg" width="16" height="17" border="0"></a>&nbsp;&nbsp;<a href="contact.aspx"><img src="images/icone_couriel.jpg" width="17" height="17" border="0"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    <td height="20" colspan="3" align="right" valign="bottom"><a href="Default.aspx"><img src="images/icone_home.jpg" width="16" height="17" border="0"></a>&nbsp;&nbsp;<a href="contact.aspx"><img src="images/icone_couriel.jpg" width="17" height="17" border="0"></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
   </tr>
   <tr>
     <td width="231" valign="top"><table width="228" border="0" cellpadding="0" cellspacing="0">
@@ -100,7 +100,7 @@ document.write(unescape(mytpcba));
 <script language="javascript">AC_FL_RunContent( 'codebase','http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0','width','200','height','50','src','images/flash/free-flash-buttons','quality','high','pluginspage','http://www.macromedia.com/go/getflashplayer','movie','images/flash/free-flash-buttons','bgcolor','#E7E3E4','WMode','Transparent','flashvars','bname=Register&blink=RegisterUser.aspx&bsize=12'); //end AC code</script>
 
 <!-- Begin - "Solutions" button -->
-<script language="javascript">AC_FL_RunContent( 'codebase','http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0','width','200','height','50','src','images/flash/free-flash-buttons','quality','high','pluginspage','http://www.macromedia.com/go/getflashplayer','movie','images/flash/free-flash-buttons','bgcolor','#E7E3E4','WMode','Transparent','flashvars','bname=Play&blink=MainForm.wgx#&bsize=12'); //end AC code</script>
+<script language="javascript">AC_FL_RunContent( 'codebase','http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0','width','200','height','50','src','images/flash/free-flash-buttons','quality','high','pluginspage','http://www.macromedia.com/go/getflashplayer','movie','images/flash/free-flash-buttons','bgcolor','#E7E3E4','WMode','Transparent','flashvars','bname=Play&blink=MainForm.wgx&bsize=12'); //end AC code</script>
 
 
 		  </td>

@@ -14,20 +14,67 @@
       <tr>
         <td background="images/box_MG.jpg"></td>
         <td height="50" valign="top" background="images/box_MM.jpg" class="Box">
+        <img src="images/chess.jpg" alt="Play Business Simulation" 
+                style="height: 148px; width: 161px"/>
             <p>
                 There are 6 Companies (Teams) competing to build a $100 mil business. Your team 
                 is one of the company&#39;s newly appointed Senior Management </p>
+            <p>
+                The Company:</p>
         <ul>
             <li>The Industry: B2C space in Electronic Watches. </li>
             <li>Segmentation: Traditional, Low Cost, High End, High Performance, Small Size </li>
-            <li>Challenges </li>
-                <ul>
+            <li>Challenges you need to attend to<ul>
                     <li>Substandard plant, untrained staff </li>
                     <li>Low price realization, excess plant capacities </li>
                     <li>Inferior products </li>
                     <li>Ideal business conditions, no recession/inflation/stagnation </li>
                 </ul>
         </ul>
+            <p>
+                There are 5 products in different segments distributed as per the <a href="http://en.wikipedia.org/wiki/Perceptual_mapping">Perceptual Mapping</a> 
+                based on performance and size of watches. Each competing companies, will be 
+                doing the following,</p>
+                <ul>
+                    <li>R&amp;D spend will happen to improve the performance and decrease the size of the 
+                    product.</li>
+                    <li>Marketing spend will happen to improve the client accessability of the product</li>
+                    <li>Production department will be spending on buying more capacity and better 
+                        automation, to product the goods faster and cheaper</li>
+                    <li>HR department will be spending to hire and retain the employees</li>
+                    <li>Financial instruments like Stocks and Bonds are used to improve the standing of 
+                        the company with the analysts</li>
+                </ul>
+            <p>
+                Customer profiles of buying each products are as follows,</p>
+                <ul>
+                    <li>Traditional<ul>
+                    <li>Price sensitive</li>
+                        <li>Want the product to be in market for atleast 2 years</li>
+                        <li>They want to have good specs</li>
+                    </ul>
+                    <li>Low End
+                    <ul>
+                    <li>Very price sensitive</li>
+                        <li>They want to product to be in the market for as long as 7 years</li>
+                    </ul>
+                    <li>High End</li>
+                    <ul>
+                    <li>Always latest products in the market, with best specs</li>
+                        <li>Highly reliable</li>
+                        <li>Not sensitive to price</li>
+                    </ul>
+                    <li>Performance</li>
+                    <ul>
+                    <li>They want the best performing watches, even better then High End watches</li>
+                        <li>They want to product to be in the market atleast 1 year</li>
+                    </ul>
+                    <li>Size</li>
+                    <ul>
+                        <li>They want the smallest watches, even better then High End watches</li>
+                        <li>They want the product for around 1.5 years</li>
+                    </ul>
+                </ul>
         <td background="images/box_MD.jpg"></td>
       </tr>
       <tr>
