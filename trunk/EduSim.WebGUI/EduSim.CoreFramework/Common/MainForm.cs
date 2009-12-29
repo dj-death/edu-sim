@@ -36,7 +36,7 @@ namespace EduSim.CoreFramework.Common
 	public class MainForm : BaseForm
     {
         //We need to implement ModuleManagement
-        private Gizmox.WebGUI.Forms.Panel mobjPanelCategory;
+        internal Gizmox.WebGUI.Forms.Panel mobjPanelCategory;
         private RootCategoryNode mobjRootCategoryNode = null;
         private CategoryNode simulationHandle = null;
         private XmlElement simulationSection = null;
@@ -323,8 +323,8 @@ namespace EduSim.CoreFramework.Common
                                                   catNode1.AddCategory("Finance", typeof(ESimDataGridView), typeof(FinanceDataModel), activeIcon);
                                                   CategoryNode catNode2 = catNode1.AddCategory("Reports", "Show.gif");
                                                   catNode2.AddCategory("Income Statement", typeof(ESimDataGridView), typeof(PnLDataModel), activeIcon);
-                                                  catNode2.AddCategory("Balance Sheet", "Disable.gif");
-                                                  catNode2.AddCategory("Cash Flow", "Disable.gif");
+                                                  catNode2.AddCategory("Balance Sheet", typeof(ESimDataGridView), typeof(BalanceSheetDataModel), activeIcon);
+                                                  catNode2.AddCategory("Cash Flow", typeof(ESimDataGridView), typeof(CashFlowDataModel), activeIcon);
                                                   catNode2.AddCategory("Balance Scorecard", "Disable.gif");
                                                   catNode2.AddCategory("Round Details", typeof(ESimDataGridView), typeof(MarketDemandDataModel), "ListView.gif");
                                                   if (!o.Current)
