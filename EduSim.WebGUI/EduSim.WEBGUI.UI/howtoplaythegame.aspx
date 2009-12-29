@@ -15,7 +15,7 @@
         <td background="images/box_MG.jpg"></td>
         <td height="50" valign="top" background="images/box_MM.jpg" class="Box">
         <img src="images/chess.jpg" alt="Play Business Simulation" 
-                style="height: 148px; width: 161px"/>
+                style="height: 148px; width: 148px"/>
             <p>
                 There are 6 Companies (Teams) competing to build a $100 mil business. Your team 
                 is one of the company&#39;s newly appointed Senior Management </p>
@@ -78,8 +78,22 @@
         <td background="images/box_MD.jpg"></td>
       </tr>
       <tr>
-        <td><img src="images/box_BG.jpg" width="9" height="10"></td>
-        <td background="images/box_BM.jpg"></td>
+        <td background="images/box_MG.jpg"></td>
+        <td height="50" valign="top" background="images/box_MM.jpg" class="Box">
+            <p>
+                For playing this game you need Six teams.
+                There are 2 modes of playing this game,</p>
+                <ul>
+                    <li>When you register and play, you will be playing against 5 computer bots</li>
+                    <li>Another mode of playing is you can play with 6 different competing teams</li>
+                </ul>
+            <p>
+                Typical strategy for playing this game is to use something similar to <b>BCG Matrix
+                </b>as shown below.</p>
+            <p>
+                        <img src="images/picture_bcg_matrix.gif" alt="BCG Matrix" 
+                style="height: 485px; width: 485px"/></p>
+          </td>
         <td><img src="images/box_BD.jpg" width="11" height="10"></td>
       </tr>
     </table>
