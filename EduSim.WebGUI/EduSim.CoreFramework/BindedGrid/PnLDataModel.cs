@@ -98,50 +98,6 @@ namespace EduSim.CoreFramework.DataControls
             dataGridView1.Rows.Add(r);
         }
 
-        private void AddRowForHeader(DataGridView dataGridView1, string header)
-        {
-            DataGridViewRow r = new DataGridViewRow();
-
-            DataGridViewCell t = new DataGridViewTextBoxCell();
-            t.Value = header;
-            t.Style = new DataGridViewCellStyle();
-            t.Style.BackColor = Color.Gray;
-            r.Cells.Add(t);
-
-            dataGridView1.Rows.Add(r);
-        }
-
-        private void AddRow<T>(Dictionary<string, T> data, IEnumerable<string> products,
-            DataGridView dataGridView1, string p, Dictionary<string, List<double>> gridData)
-        {
-            DataGridViewRow r = new DataGridViewRow();
-
-            AddHeader(r, p);
-
-            foreach (string str in products)
-            {
-                DataGridViewCell t1 = new DataGridViewTextBoxCell();
-                if (data != null && data.Count > 0)
-                {
-                    T dat = data[str];
-                    PropertyInfo prop = dat.GetType().GetProperty(p);
-
-                    double val = prop.GetValue(dat, null).ToDouble2();
-                    gridData[str].Add(val);
-
-                    t1.Value = val.ToString("$###0.00");
-                }
-                else
-                {
-                    gridData[str].Add(0.0);
-
-                    t1.Value = (0.0).ToString("$###0.00");
-                }
-                r.Cells.Add(t1);
-            }
-            dataGridView1.Rows.Add(r);
-        }
-
         private void AddRowForInventoryCarryCost(Dictionary<string, ProductionDataView> productionData, List<string> products, DataGridView dataGridView1, Dictionary<string, List<double>> data)
         {
             DataGridViewRow r = new DataGridViewRow();
@@ -314,32 +270,6 @@ namespace EduSim.CoreFramework.DataControls
                 (data[shortTermIndex] + data[longTermIndex] + data[taxIndex] + data[profitSharingIndex]);
 
             AddSingleColumnData(dataGridView1, data, r, netProfit);
-        }
-
-        private static void AddMultipleColumnData(double val, Dictionary<string, List<double>> data, DataGridViewRow r, string str)
-        {
-            DataGridViewCell t1 = new DataGridViewTextBoxCell();
-
-            t1.Value = val.ToString("$###0.00");
-
-            data[str].Add(val);
-            r.Cells.Add(t1);
-        }
-
-        private static void AddSingleColumnData(DataGridView dataGridView1, List<double> data, DataGridViewRow r, double netProfit)
-        {
-            data.Add(netProfit);
-            DataGridViewCell t1 = new DataGridViewTextBoxCell();
-            t1.Value = netProfit.ToString("$###0.00");
-            r.Cells.Add(t1);
-            dataGridView1.Rows.Add(r);
-        }
-
-        private static void AddHeader(DataGridViewRow r, string header)
-        {
-            DataGridViewCell t = new DataGridViewTextBoxCell();
-            t.Value = header;
-            r.Cells.Add(t);
         }
 
         public override int[] HiddenColumns()

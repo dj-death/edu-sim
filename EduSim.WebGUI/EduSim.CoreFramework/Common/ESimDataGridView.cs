@@ -118,7 +118,8 @@ namespace EduSim.CoreFramework.Common
                 {
                     rdm.AddProduct(dataGridView1);
                 });
-            }            
+            }
+
             // 
             // dataGridView1
             // 
@@ -154,6 +155,7 @@ namespace EduSim.CoreFramework.Common
 			// 
 			this.ClientSize = new System.Drawing.Size(640, 600);
             this.Controls.Add(this.dataGridView1);
+
             //this.Controls.Add(this.compute);
             if (rdm.EnableAddProduct && rdm.Current)
             {

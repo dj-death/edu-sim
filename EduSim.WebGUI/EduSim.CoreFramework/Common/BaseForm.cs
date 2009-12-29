@@ -262,12 +262,8 @@ namespace EduSim.CoreFramework.Common
             this.mobjMenuSession.Click += new EventHandler((sender, e) =>
             {
                 HttpContext.Current.Session.Abandon();
-                Context.HttpContext.ApplicationInstance.Server.TransferRequest("/Default.aspx");
             });
 
-            //this.mobjMenuExit.Index = 0;
-            //this.mobjMenuExit.Tag = "Exit";
-            //this.mobjMenuExit.Text = "Exit";
             // 
             // mobjMenuEdit
             // 
@@ -416,7 +412,7 @@ namespace EduSim.CoreFramework.Common
             this.Location = new System.Drawing.Point(0, -256);
             this.Menu = this.mobjMainMenu;
             this.Size = new System.Drawing.Size(728, 678);
-            this.Text = "BizSim 2010";
+            this.Text = "ESim - Online Business Simulation, Excel Like, Game, Rich Internet Application (RIA), Visual WebGUI, Silverlight, Ajax, Sample";
             this.mobjPanelCategories.ResumeLayout(false);
             this.ResumeLayout(false);
         }

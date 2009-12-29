@@ -88,6 +88,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BindedGrid\CompetatorComparisonDataModel.cs" />
+    <Compile Include="BindedGrid\BalanceSheetDataModel.cs" />
+    <Compile Include="BindedGrid\CashFlowDataModel.cs" />
     <Compile Include="BindedGrid\FinanceDataModel.cs" />
     <Compile Include="BindedGrid\MarketDemandDataModel.cs" />
     <Compile Include="Business Layer\GameHelper.cs" />
