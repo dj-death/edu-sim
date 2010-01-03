@@ -162,15 +162,12 @@ namespace EduSim.CoreFramework.Utilities
                  select new FinanceDataView
                  {
                      RoundName = f.Round.RoundCategory.RoundName,
-                     TotalLongTermLoan = f.TotalLongTermLoan,
-                     CurrentTotalLongTermLoan = f.TotalLongTermLoan + f.LongTermLoan,
+                     StockSell = f.StockSell.HasValue ? f.StockSell.Value : 0.0,
+                     StockBuy = f.StockBuyBack.HasValue ? f.StockBuyBack.Value : 0.0,
+                     DividandPaid = f.DividendPerShare.HasValue ? f.DividendPerShare.Value : 0.0,
                      LongTermLoan = f.LongTermLoan,
-                     TotalShortTermLoan = f.TotalShortTermLoan,
-                     CurrentTotalShortTermLoan = f.TotalShortTermLoan + f.ShortTermLoan,
                      ShortTermLoan = f.ShortTermLoan,
-                     PreviousCash = f.PreviousCash,
-                     Cash = f.Cash,
-                     InvestmentsInPlantAndMachinary = f.InvestmentsInPlantAndMachinary
+                     PreviousCash = f.PreviousCash.HasValue ? f.PreviousCash.Value : 0.0,
                  }).ToList<FinanceDataView>().ForEach(o => dic[round.RoundCategory.RoundName] = o);
             }
             return dic;
@@ -266,6 +263,9 @@ namespace EduSim.CoreFramework.Utilities
                  where f.Round == round
                  select f).ToList<FinanceData>().ForEach(o =>
                  {
+                     o.DividendPerShare = dic3[o.Round.RoundCategory.RoundName].DividandPaid;
+                     o.StockSell = dic3[o.Round.RoundCategory.RoundName].StockSell;
+                     o.StockBuyBack = dic3[o.Round.RoundCategory.RoundName].StockBuy;
                      o.LongTermLoan = dic3[o.Round.RoundCategory.RoundName].LongTermLoan;
                      o.Cash = dic3[o.Round.RoundCategory.RoundName].Cash;
                      o.ShortTermLoan = dic3[o.Round.RoundCategory.RoundName].ShortTermLoan;
