@@ -107,13 +107,13 @@ namespace EduSim.Analyse.BusinessLayer
                             RoundName = r.RoundProduct.Round.RoundCategory.RoundName,
                             SegmentTypeId = r.RoundProduct.SegmentTypeId,
                             SegmentDescription = r.RoundProduct.SegmentType.Description,
-                            Performance = r.Performance,
-                            Size = r.Size,
-                            Reliablity = r.Reliability,
-                            SalesExpense = m.SalesExpense,
-                            MarketingExpense = m.MarketingExpense,
-                            Price = m.Price,
-                            ForecastingQuantity = m.ForecastingQuantity
+                            Performance = r.Performance.HasValue ? r.Performance.Value : 0.0,
+                            Size = r.Size.HasValue ? r.Size.Value : 0.0,
+                            Reliablity = r.Reliability.HasValue ? r.Reliability.Value : 0.0,
+                            SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : 0.0,
+                            MarketingExpense = m.MarketingExpense.HasValue ? m.MarketingExpense.Value : 0.0,
+                            Price = m.Price.HasValue ? m.Price.Value : 0.0,
+                            ForecastingQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0
                         }).ToList();
 
             int count = data.Count();
@@ -129,7 +129,7 @@ namespace EduSim.Analyse.BusinessLayer
                  join m in computerMarketingData on r.ComputerRoundProduct equals m.ComputerRoundProduct
                  where m.ComputerRoundProduct.RoundCategoryId == round.RoundCategoryId
                  orderby r.ComputerRoundProduct.TeamCategoryId descending
-                 select new
+                 select new 
                  {
                      RoundCategoryId = r.ComputerRoundProduct.RoundCategoryId,
                      RoundName = r.ComputerRoundProduct.RoundCategory.RoundName,
@@ -149,7 +149,7 @@ namespace EduSim.Analyse.BusinessLayer
                                 select new CurrentRoundForecast
                                 {
                                     SegmentTypeId = grp.Key.SegmentTypeId,
-                                    Quantity = grp.Sum(o => o.ForecastingQuantity.HasValue ? o.ForecastingQuantity.Value : 0)
+                                    Quantity = grp.Sum(o => o.ForecastingQuantity)
                                 }).ToList<CurrentRoundForecast>();
 
                 forecastData.ForEach(o =>
@@ -196,14 +196,14 @@ namespace EduSim.Analyse.BusinessLayer
                          ComputerRoundProductId = m.ComputerRoundProductId,
                          RoundCategoryId = m.ComputerRoundProduct.RoundCategoryId,
                          SegmentTypeId = m.ComputerRoundProduct.SegmentTypeId,
-                         SalesExpense = m.SalesExpense.HasValue ? m.SalesExpense.Value : 0.0,
-                         MarketingExpense = m.MarketingExpense.HasValue ? m.SalesExpense.Value : 0.0,
-                         Price = m.Price.HasValue ? m.Price.Value : 0.0,
-                         Age = r.Age.HasValue ? r.Age.Value : 0.0,
-                         Performance = r.Performance.HasValue ? r.Performance.Value : 0.0,
-                         Reliability = r.Reliability.HasValue ? r.Reliability.Value : 0.0,
-                         Size = r.Size.HasValue ? r.Size.Value : 0.0,
-                         ForecastedQuantity = m.ForecastingQuantity.HasValue ? m.ForecastingQuantity.Value : 0.0
+                         SalesExpense = m.SalesExpense,
+                         MarketingExpense = m.MarketingExpense,
+                         Price = m.Price,
+                         Age = r.Age,
+                         Performance = r.Performance,
+                         Reliability = r.Reliability,
+                         Size = r.Size,
+                         ForecastedQuantity = m.ForecastingQuantity
                      }).Take(30 - data1.Count()).ToList().ForEach(o => data1.Add(o));
 
             data = new List<CurrentRoundProductWiseInformation>();

@@ -46,7 +46,7 @@ namespace EduSim.CoreFramework.DataControls
                  SegmentTypeId = m.ComputerRoundProduct.SegmentTypeId,
                  SegmentTypeDescription = m.ComputerRoundProduct.SegmentType.Description,
                  PurchasedQuantity = m.PurchasedQuantity,
-                 Price = rp.Price.HasValue ? rp.Price.Value : 0.0
+                 Price = rp.Price
              }).ToList().ForEach(o =>
             {
                 reportData.Add(o);

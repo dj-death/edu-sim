@@ -78,10 +78,6 @@ namespace EduSim.CoreFramework.BusinessLayer
                  {
                      Round = round,
                      Cash = o1.Cash,
-                     TotalLongTermLoan = o1.PreviousLongTermLoan,
-                     LongTermLoan = o1.LongTermLoan,
-                     TotalShortTermLoan = o1.PreviousShortTermLoan,
-                     ShortTermLoan = o1.ShortTermLoan
                  };
                  db.FinanceData.InsertOnSubmit(fd);
              });
@@ -183,6 +179,14 @@ namespace EduSim.CoreFramework.BusinessLayer
             PnLDataModel model = new PnLDataModel();
             model.GetList(new DataGridView ());
 
+            Dictionary<string, ProductionDataView> productionData = RoundDataModel.GetData<ProductionDataView>(SessionConstant.ProductionData, round.Id);
+            double investmentsInPlantAndMachinary = 0;
+            foreach (string product in productionData.Keys)
+            {
+                investmentsInPlantAndMachinary += productionData[product].NewCapacityCost;
+                investmentsInPlantAndMachinary += productionData[product].AutomationCost;
+            }
+
             //copy previous RnD data
             FinanceData oldFinData = (from o in db.FinanceData
                                       where o.Round == round
@@ -190,9 +194,14 @@ namespace EduSim.CoreFramework.BusinessLayer
             //TODO: 4. Finance Data, Plugh back the revenue to cash
             FinanceData finData = new FinanceData
             {
-                PreviousCash = oldFinData.Cash + model.data[model.netProfitIndex],
-                TotalLongTermLoan = oldFinData.TotalLongTermLoan,
-                TotalShortTermLoan = oldFinData.TotalShortTermLoan,
+                //PreviousCash is NetProfit + LongTermLoan - ShorttermLoan - investmentsInPlantAndMachinary + StockSell - StockRetire - DividantPaid
+                PreviousCash = model.data[model.netProfitIndex] + 
+                oldFinData.LongTermLoan - oldFinData.ShortTermLoan +
+                investmentsInPlantAndMachinary + 
+                oldFinData.StockSell - 
+                oldFinData.StockBuyBack - 
+                oldFinData.DividendPerShare,
+
                 Round = round2
             };
             db.FinanceData.InsertOnSubmit(finData);

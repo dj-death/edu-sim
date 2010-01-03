@@ -65,11 +65,10 @@ namespace EduSim.CoreFramework.DTO
     {
         public string RoundName { get; set; }
         public double InvestmentsInPlantAndMachinary { get; set; }
-        public double TotalLongTermLoan { get; set; }
-        public double CurrentTotalLongTermLoan { get; set; }
+        public double StockSell { get; set; }
+        public double StockBuy { get; set; }
+        public double DividandPaid { get; set; }
         public double LongTermLoan { get; set; }
-        public double TotalShortTermLoan { get; set; }
-        public double CurrentTotalShortTermLoan { get; set; }
         public double ShortTermLoan { get; set; }
         public double PreviousCash { get; set; }
         public double Cash { get; set; }

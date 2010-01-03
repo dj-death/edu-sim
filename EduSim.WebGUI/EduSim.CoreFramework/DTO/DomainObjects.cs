@@ -390,21 +390,21 @@ namespace EduSim.CoreFramework.DTO
 		
 		private int _ComputerRoundProductId;
 		
-		private double _PreviousSaleExpense;
+		private System.Nullable<double> _PreviousSaleExpense;
 		
-		private System.Nullable<double> _SalesExpense;
+		private double _SalesExpense;
 		
-		private double _PreviousMarketingExpense;
+		private System.Nullable<double> _PreviousMarketingExpense;
 		
-		private System.Nullable<double> _MarketingExpense;
+		private double _MarketingExpense;
 		
-		private double _PreviousPrice;
+		private System.Nullable<double> _PreviousPrice;
 		
-		private System.Nullable<double> _Price;
+		private double _Price;
 		
-		private double _PreviousForecastingQuantity;
+		private System.Nullable<double> _PreviousForecastingQuantity;
 		
-		private System.Nullable<double> _ForecastingQuantity;
+		private double _ForecastingQuantity;
 		
 		private System.Nullable<double> _PurchasedQuantity;
 		
@@ -418,21 +418,21 @@ namespace EduSim.CoreFramework.DTO
     partial void OnCreated();
     partial void OnComputerRoundProductIdChanging(int value);
     partial void OnComputerRoundProductIdChanged();
-    partial void OnPreviousSaleExpenseChanging(double value);
+    partial void OnPreviousSaleExpenseChanging(System.Nullable<double> value);
     partial void OnPreviousSaleExpenseChanged();
-    partial void OnSalesExpenseChanging(System.Nullable<double> value);
+    partial void OnSalesExpenseChanging(double value);
     partial void OnSalesExpenseChanged();
-    partial void OnPreviousMarketingExpenseChanging(double value);
+    partial void OnPreviousMarketingExpenseChanging(System.Nullable<double> value);
     partial void OnPreviousMarketingExpenseChanged();
-    partial void OnMarketingExpenseChanging(System.Nullable<double> value);
+    partial void OnMarketingExpenseChanging(double value);
     partial void OnMarketingExpenseChanged();
-    partial void OnPreviousPriceChanging(double value);
+    partial void OnPreviousPriceChanging(System.Nullable<double> value);
     partial void OnPreviousPriceChanged();
-    partial void OnPriceChanging(System.Nullable<double> value);
+    partial void OnPriceChanging(double value);
     partial void OnPriceChanged();
-    partial void OnPreviousForecastingQuantityChanging(double value);
+    partial void OnPreviousForecastingQuantityChanging(System.Nullable<double> value);
     partial void OnPreviousForecastingQuantityChanged();
-    partial void OnForecastingQuantityChanging(System.Nullable<double> value);
+    partial void OnForecastingQuantityChanging(double value);
     partial void OnForecastingQuantityChanged();
     partial void OnPurchasedQuantityChanging(System.Nullable<double> value);
     partial void OnPurchasedQuantityChanged();
@@ -470,8 +470,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousSaleExpense", DbType="Float NOT NULL")]
-		public double PreviousSaleExpense
+		[Column(Storage="_PreviousSaleExpense", DbType="Float")]
+		public System.Nullable<double> PreviousSaleExpense
 		{
 			get
 			{
@@ -490,8 +490,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_SalesExpense", DbType="Float")]
-		public System.Nullable<double> SalesExpense
+		[Column(Storage="_SalesExpense", DbType="Float NOT NULL")]
+		public double SalesExpense
 		{
 			get
 			{
@@ -510,8 +510,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousMarketingExpense", DbType="Float NOT NULL")]
-		public double PreviousMarketingExpense
+		[Column(Storage="_PreviousMarketingExpense", DbType="Float")]
+		public System.Nullable<double> PreviousMarketingExpense
 		{
 			get
 			{
@@ -530,8 +530,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_MarketingExpense", DbType="Float")]
-		public System.Nullable<double> MarketingExpense
+		[Column(Storage="_MarketingExpense", DbType="Float NOT NULL")]
+		public double MarketingExpense
 		{
 			get
 			{
@@ -550,8 +550,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousPrice", DbType="Float NOT NULL")]
-		public double PreviousPrice
+		[Column(Storage="_PreviousPrice", DbType="Float")]
+		public System.Nullable<double> PreviousPrice
 		{
 			get
 			{
@@ -570,8 +570,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_Price", DbType="Float")]
-		public System.Nullable<double> Price
+		[Column(Storage="_Price", DbType="Float NOT NULL")]
+		public double Price
 		{
 			get
 			{
@@ -590,8 +590,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousForecastingQuantity", DbType="Float NOT NULL")]
-		public double PreviousForecastingQuantity
+		[Column(Storage="_PreviousForecastingQuantity", DbType="Float")]
+		public System.Nullable<double> PreviousForecastingQuantity
 		{
 			get
 			{
@@ -610,8 +610,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_ForecastingQuantity", DbType="Float")]
-		public System.Nullable<double> ForecastingQuantity
+		[Column(Storage="_ForecastingQuantity", DbType="Float NOT NULL")]
+		public double ForecastingQuantity
 		{
 			get
 			{
@@ -747,15 +747,15 @@ namespace EduSim.CoreFramework.DTO
 		
 		private System.Nullable<double> _SecondShift;
 		
-		private double _CurrentAutomation;
+		private System.Nullable<double> _CurrentAutomation;
 		
-		private System.Nullable<double> _AutomationForNextRound;
+		private double _AutomationForNextRound;
 		
 		private System.Nullable<double> _AutomationCost;
 		
-		private double _OldCapacity;
+		private System.Nullable<double> _OldCapacity;
 		
-		private System.Nullable<double> _NewCapacity;
+		private double _NewCapacity;
 		
 		private System.Nullable<double> _CapacityCost;
 		
@@ -785,15 +785,15 @@ namespace EduSim.CoreFramework.DTO
     partial void OnContributionChanged();
     partial void OnSecondShiftChanging(System.Nullable<double> value);
     partial void OnSecondShiftChanged();
-    partial void OnCurrentAutomationChanging(double value);
+    partial void OnCurrentAutomationChanging(System.Nullable<double> value);
     partial void OnCurrentAutomationChanged();
-    partial void OnAutomationForNextRoundChanging(System.Nullable<double> value);
+    partial void OnAutomationForNextRoundChanging(double value);
     partial void OnAutomationForNextRoundChanged();
     partial void OnAutomationCostChanging(System.Nullable<double> value);
     partial void OnAutomationCostChanged();
-    partial void OnOldCapacityChanging(double value);
+    partial void OnOldCapacityChanging(System.Nullable<double> value);
     partial void OnOldCapacityChanged();
-    partial void OnNewCapacityChanging(System.Nullable<double> value);
+    partial void OnNewCapacityChanging(double value);
     partial void OnNewCapacityChanged();
     partial void OnCapacityCostChanging(System.Nullable<double> value);
     partial void OnCapacityCostChanged();
@@ -973,8 +973,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_CurrentAutomation", DbType="Float NOT NULL")]
-		public double CurrentAutomation
+		[Column(Storage="_CurrentAutomation", DbType="Float")]
+		public System.Nullable<double> CurrentAutomation
 		{
 			get
 			{
@@ -993,8 +993,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_AutomationForNextRound", DbType="Float")]
-		public System.Nullable<double> AutomationForNextRound
+		[Column(Storage="_AutomationForNextRound", DbType="Float NOT NULL")]
+		public double AutomationForNextRound
 		{
 			get
 			{
@@ -1033,8 +1033,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_OldCapacity", DbType="Float NOT NULL")]
-		public double OldCapacity
+		[Column(Storage="_OldCapacity", DbType="Float")]
+		public System.Nullable<double> OldCapacity
 		{
 			get
 			{
@@ -1053,8 +1053,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_NewCapacity", DbType="Float")]
-		public System.Nullable<double> NewCapacity
+		[Column(Storage="_NewCapacity", DbType="Float NOT NULL")]
+		public double NewCapacity
 		{
 			get
 			{
@@ -1196,25 +1196,25 @@ namespace EduSim.CoreFramework.DTO
 		
 		private int _ComputerRoundProductId;
 		
-		private System.DateTime _PreviousRevisionDate;
+		private System.Nullable<System.DateTime> _PreviousRevisionDate;
 		
-		private System.Nullable<System.DateTime> _RevisionDate;
+		private System.DateTime _RevisionDate;
 		
-		private double _PreviousAge;
+		private System.Nullable<double> _PreviousAge;
 		
-		private System.Nullable<double> _Age;
+		private double _Age;
 		
-		private double _PreviousReliability;
+		private System.Nullable<double> _PreviousReliability;
 		
-		private System.Nullable<double> _Reliability;
+		private double _Reliability;
 		
-		private double _PreviousPerformance;
+		private System.Nullable<double> _PreviousPerformance;
 		
-		private System.Nullable<double> _Performance;
+		private double _Performance;
 		
-		private double _PreviousSize;
+		private System.Nullable<double> _PreviousSize;
 		
-		private System.Nullable<double> _Size;
+		private double _Size;
 		
 		private System.Nullable<double> _RnDCost;
 		
@@ -1226,25 +1226,25 @@ namespace EduSim.CoreFramework.DTO
     partial void OnCreated();
     partial void OnComputerRoundProductIdChanging(int value);
     partial void OnComputerRoundProductIdChanged();
-    partial void OnPreviousRevisionDateChanging(System.DateTime value);
+    partial void OnPreviousRevisionDateChanging(System.Nullable<System.DateTime> value);
     partial void OnPreviousRevisionDateChanged();
-    partial void OnRevisionDateChanging(System.Nullable<System.DateTime> value);
+    partial void OnRevisionDateChanging(System.DateTime value);
     partial void OnRevisionDateChanged();
-    partial void OnPreviousAgeChanging(double value);
+    partial void OnPreviousAgeChanging(System.Nullable<double> value);
     partial void OnPreviousAgeChanged();
-    partial void OnAgeChanging(System.Nullable<double> value);
+    partial void OnAgeChanging(double value);
     partial void OnAgeChanged();
-    partial void OnPreviousReliabilityChanging(double value);
+    partial void OnPreviousReliabilityChanging(System.Nullable<double> value);
     partial void OnPreviousReliabilityChanged();
-    partial void OnReliabilityChanging(System.Nullable<double> value);
+    partial void OnReliabilityChanging(double value);
     partial void OnReliabilityChanged();
-    partial void OnPreviousPerformanceChanging(double value);
+    partial void OnPreviousPerformanceChanging(System.Nullable<double> value);
     partial void OnPreviousPerformanceChanged();
-    partial void OnPerformanceChanging(System.Nullable<double> value);
+    partial void OnPerformanceChanging(double value);
     partial void OnPerformanceChanged();
-    partial void OnPreviousSizeChanging(double value);
+    partial void OnPreviousSizeChanging(System.Nullable<double> value);
     partial void OnPreviousSizeChanged();
-    partial void OnSizeChanging(System.Nullable<double> value);
+    partial void OnSizeChanging(double value);
     partial void OnSizeChanged();
     partial void OnRnDCostChanging(System.Nullable<double> value);
     partial void OnRnDCostChanged();
@@ -1280,8 +1280,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousRevisionDate", DbType="DateTime NOT NULL")]
-		public System.DateTime PreviousRevisionDate
+		[Column(Storage="_PreviousRevisionDate", DbType="DateTime")]
+		public System.Nullable<System.DateTime> PreviousRevisionDate
 		{
 			get
 			{
@@ -1300,8 +1300,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_RevisionDate", DbType="DateTime")]
-		public System.Nullable<System.DateTime> RevisionDate
+		[Column(Storage="_RevisionDate", DbType="DateTime NOT NULL")]
+		public System.DateTime RevisionDate
 		{
 			get
 			{
@@ -1320,8 +1320,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousAge", DbType="Float NOT NULL")]
-		public double PreviousAge
+		[Column(Storage="_PreviousAge", DbType="Float")]
+		public System.Nullable<double> PreviousAge
 		{
 			get
 			{
@@ -1340,8 +1340,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_Age", DbType="Float")]
-		public System.Nullable<double> Age
+		[Column(Storage="_Age", DbType="Float NOT NULL")]
+		public double Age
 		{
 			get
 			{
@@ -1360,8 +1360,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousReliability", DbType="Float NOT NULL")]
-		public double PreviousReliability
+		[Column(Storage="_PreviousReliability", DbType="Float")]
+		public System.Nullable<double> PreviousReliability
 		{
 			get
 			{
@@ -1380,8 +1380,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_Reliability", DbType="Float")]
-		public System.Nullable<double> Reliability
+		[Column(Storage="_Reliability", DbType="Float NOT NULL")]
+		public double Reliability
 		{
 			get
 			{
@@ -1400,8 +1400,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousPerformance", DbType="Float NOT NULL")]
-		public double PreviousPerformance
+		[Column(Storage="_PreviousPerformance", DbType="Float")]
+		public System.Nullable<double> PreviousPerformance
 		{
 			get
 			{
@@ -1420,8 +1420,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_Performance", DbType="Float")]
-		public System.Nullable<double> Performance
+		[Column(Storage="_Performance", DbType="Float NOT NULL")]
+		public double Performance
 		{
 			get
 			{
@@ -1440,8 +1440,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousSize", DbType="Float NOT NULL")]
-		public double PreviousSize
+		[Column(Storage="_PreviousSize", DbType="Float")]
+		public System.Nullable<double> PreviousSize
 		{
 			get
 			{
@@ -1460,8 +1460,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_Size", DbType="Float")]
-		public System.Nullable<double> Size
+		[Column(Storage="_Size", DbType="Float NOT NULL")]
+		public double Size
 		{
 			get
 			{
@@ -2249,19 +2249,21 @@ namespace EduSim.CoreFramework.DTO
 		
 		private int _RoundId;
 		
-		private double _PreviousCash;
+		private System.Nullable<double> _PreviousCash;
 		
 		private double _Cash;
 		
-		private double _TotalLongTermLoan;
-		
 		private double _LongTermLoan;
 		
-		private double _TotalShortTermLoan;
+		private System.Nullable<double> _RetireLongTermLoan;
 		
 		private double _ShortTermLoan;
 		
-		private double _InvestmentsInPlantAndMachinary;
+		private System.Nullable<double> _StockBuyBack;
+		
+		private System.Nullable<double> _StockSell;
+		
+		private System.Nullable<double> _DividendPerShare;
 		
 		private EntityRef<Round> _Round;
 		
@@ -2273,20 +2275,22 @@ namespace EduSim.CoreFramework.DTO
     partial void OnIdChanged();
     partial void OnRoundIdChanging(int value);
     partial void OnRoundIdChanged();
-    partial void OnPreviousCashChanging(double value);
+    partial void OnPreviousCashChanging(System.Nullable<double> value);
     partial void OnPreviousCashChanged();
     partial void OnCashChanging(double value);
     partial void OnCashChanged();
-    partial void OnTotalLongTermLoanChanging(double value);
-    partial void OnTotalLongTermLoanChanged();
     partial void OnLongTermLoanChanging(double value);
     partial void OnLongTermLoanChanged();
-    partial void OnTotalShortTermLoanChanging(double value);
-    partial void OnTotalShortTermLoanChanged();
+    partial void OnRetireLongTermLoanChanging(System.Nullable<double> value);
+    partial void OnRetireLongTermLoanChanged();
     partial void OnShortTermLoanChanging(double value);
     partial void OnShortTermLoanChanged();
-    partial void OnInvestmentsInPlantAndMachinaryChanging(double value);
-    partial void OnInvestmentsInPlantAndMachinaryChanged();
+    partial void OnStockBuyBackChanging(System.Nullable<double> value);
+    partial void OnStockBuyBackChanged();
+    partial void OnStockSellChanging(System.Nullable<double> value);
+    partial void OnStockSellChanged();
+    partial void OnDividendPerShareChanging(System.Nullable<double> value);
+    partial void OnDividendPerShareChanged();
     #endregion
 		
 		public FinanceData()
@@ -2339,8 +2343,8 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousCash", DbType="Float NOT NULL")]
-		public double PreviousCash
+		[Column(Storage="_PreviousCash", DbType="Float")]
+		public System.Nullable<double> PreviousCash
 		{
 			get
 			{
@@ -2379,26 +2383,6 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_TotalLongTermLoan", DbType="Float NOT NULL")]
-		public double TotalLongTermLoan
-		{
-			get
-			{
-				return this._TotalLongTermLoan;
-			}
-			set
-			{
-				if ((this._TotalLongTermLoan != value))
-				{
-					this.OnTotalLongTermLoanChanging(value);
-					this.SendPropertyChanging();
-					this._TotalLongTermLoan = value;
-					this.SendPropertyChanged("TotalLongTermLoan");
-					this.OnTotalLongTermLoanChanged();
-				}
-			}
-		}
-		
 		[Column(Storage="_LongTermLoan", DbType="Float NOT NULL")]
 		public double LongTermLoan
 		{
@@ -2419,22 +2403,22 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_TotalShortTermLoan", DbType="Float NOT NULL")]
-		public double TotalShortTermLoan
+		[Column(Storage="_RetireLongTermLoan", DbType="Float")]
+		public System.Nullable<double> RetireLongTermLoan
 		{
 			get
 			{
-				return this._TotalShortTermLoan;
+				return this._RetireLongTermLoan;
 			}
 			set
 			{
-				if ((this._TotalShortTermLoan != value))
+				if ((this._RetireLongTermLoan != value))
 				{
-					this.OnTotalShortTermLoanChanging(value);
+					this.OnRetireLongTermLoanChanging(value);
 					this.SendPropertyChanging();
-					this._TotalShortTermLoan = value;
-					this.SendPropertyChanged("TotalShortTermLoan");
-					this.OnTotalShortTermLoanChanged();
+					this._RetireLongTermLoan = value;
+					this.SendPropertyChanged("RetireLongTermLoan");
+					this.OnRetireLongTermLoanChanged();
 				}
 			}
 		}
@@ -2459,22 +2443,62 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_InvestmentsInPlantAndMachinary", DbType="Float NOT NULL")]
-		public double InvestmentsInPlantAndMachinary
+		[Column(Storage="_StockBuyBack", DbType="Float")]
+		public System.Nullable<double> StockBuyBack
 		{
 			get
 			{
-				return this._InvestmentsInPlantAndMachinary;
+				return this._StockBuyBack;
 			}
 			set
 			{
-				if ((this._InvestmentsInPlantAndMachinary != value))
+				if ((this._StockBuyBack != value))
 				{
-					this.OnInvestmentsInPlantAndMachinaryChanging(value);
+					this.OnStockBuyBackChanging(value);
 					this.SendPropertyChanging();
-					this._InvestmentsInPlantAndMachinary = value;
-					this.SendPropertyChanged("InvestmentsInPlantAndMachinary");
-					this.OnInvestmentsInPlantAndMachinaryChanged();
+					this._StockBuyBack = value;
+					this.SendPropertyChanged("StockBuyBack");
+					this.OnStockBuyBackChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_StockSell", DbType="Float")]
+		public System.Nullable<double> StockSell
+		{
+			get
+			{
+				return this._StockSell;
+			}
+			set
+			{
+				if ((this._StockSell != value))
+				{
+					this.OnStockSellChanging(value);
+					this.SendPropertyChanging();
+					this._StockSell = value;
+					this.SendPropertyChanged("StockSell");
+					this.OnStockSellChanged();
+				}
+			}
+		}
+		
+		[Column(Storage="_DividendPerShare", DbType="Float")]
+		public System.Nullable<double> DividendPerShare
+		{
+			get
+			{
+				return this._DividendPerShare;
+			}
+			set
+			{
+				if ((this._DividendPerShare != value))
+				{
+					this.OnDividendPerShareChanging(value);
+					this.SendPropertyChanging();
+					this._DividendPerShare = value;
+					this.SendPropertyChanged("DividendPerShare");
+					this.OnDividendPerShareChanged();
 				}
 			}
 		}
@@ -3525,13 +3549,9 @@ namespace EduSim.CoreFramework.DTO
 		
 		private double _Cash;
 		
-		private double _PreviousLongTermLoan;
+		private double _StockCount;
 		
-		private double _LongTermLoan;
-		
-		private double _PreviousShortTermLoan;
-		
-		private double _ShortTermLoan;
+		private double _StockPrice;
 		
 		public GameInitialFinanceData()
 		{
@@ -3569,66 +3589,34 @@ namespace EduSim.CoreFramework.DTO
 			}
 		}
 		
-		[Column(Storage="_PreviousLongTermLoan", DbType="Float NOT NULL")]
-		public double PreviousLongTermLoan
+		[Column(Storage="_StockCount", DbType="Float NOT NULL")]
+		public double StockCount
 		{
 			get
 			{
-				return this._PreviousLongTermLoan;
+				return this._StockCount;
 			}
 			set
 			{
-				if ((this._PreviousLongTermLoan != value))
+				if ((this._StockCount != value))
 				{
-					this._PreviousLongTermLoan = value;
+					this._StockCount = value;
 				}
 			}
 		}
 		
-		[Column(Storage="_LongTermLoan", DbType="Float NOT NULL")]
-		public double LongTermLoan
+		[Column(Storage="_StockPrice", DbType="Float NOT NULL")]
+		public double StockPrice
 		{
 			get
 			{
-				return this._LongTermLoan;
+				return this._StockPrice;
 			}
 			set
 			{
-				if ((this._LongTermLoan != value))
+				if ((this._StockPrice != value))
 				{
-					this._LongTermLoan = value;
-				}
-			}
-		}
-		
-		[Column(Storage="_PreviousShortTermLoan", DbType="Float NOT NULL")]
-		public double PreviousShortTermLoan
-		{
-			get
-			{
-				return this._PreviousShortTermLoan;
-			}
-			set
-			{
-				if ((this._PreviousShortTermLoan != value))
-				{
-					this._PreviousShortTermLoan = value;
-				}
-			}
-		}
-		
-		[Column(Storage="_ShortTermLoan", DbType="Float NOT NULL")]
-		public double ShortTermLoan
-		{
-			get
-			{
-				return this._ShortTermLoan;
-			}
-			set
-			{
-				if ((this._ShortTermLoan != value))
-				{
-					this._ShortTermLoan = value;
+					this._StockPrice = value;
 				}
 			}
 		}
