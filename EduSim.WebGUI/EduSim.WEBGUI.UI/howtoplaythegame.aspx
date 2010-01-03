@@ -17,6 +17,15 @@
         <img src="images/chess.jpg" alt="Play Business Simulation" 
                 style="height: 148px; width: 148px"/>
             <p>
+                Benefits of playing this game</p>
+        <ul>
+            <li>Because this game helps you in getting a B-School degree</li>
+            <li>Already premier B-Schools are using similar Games to teach the comcept of 
+                running your business</li>
+            <li>Even if you don&#39;t need a B-School degree, it will help you to understand the fundamentals of running a 
+                business. This knowledge will always help you when you are working in a company</li>
+        </ul>
+            <p>
                 There are 6 Companies (Teams) competing to build a $100 mil business. Your team 
                 is one of the company&#39;s newly appointed Senior Management </p>
             <p>
@@ -34,7 +43,7 @@
             <p>
                 There are 5 products in different segments distributed as per the <a href="http://en.wikipedia.org/wiki/Perceptual_mapping">Perceptual Mapping</a> 
                 based on performance and size of watches. Each competing companies, will be 
-                doing the following,</p>
+                spending in the following areas,</p>
                 <ul>
                     <li>R&amp;D spend will happen to improve the performance and decrease the size of the 
                     product.</li>
@@ -93,8 +102,12 @@
             <p>
                         <img src="images/picture_bcg_matrix.gif" alt="BCG Matrix" 
                 style="height: 485px; width: 485px"/></p>
+          Go ahead and <a href="MainForm.wgx">play the game</a>
+
           </td>
-        <td><img src="images/box_BD.jpg" width="11" height="10"></td>
+          
+        <td><img src="images/box_BD.jpg" width="11" height="10">        
+        </td>
       </tr>
     </table>
 

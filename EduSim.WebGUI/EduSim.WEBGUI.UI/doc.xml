@@ -2,10 +2,10 @@
 	<url1>
 		<slogan1>EduSim</slogan1>
 		<yoururl>http://esim.co.in/</yoururl>
-		<slogan12>Worlds Leading Simulation Game using Silverlight Technology</slogan12>
-		<slogan2>Education Simulation</slogan2>
-		<slogan22>Understand Functional Aspects of Running Business</slogan22>
-		<slogan3>Online Business Simulation</slogan3>
-		<slogan32>Understand Profit Loss, Balance Sheet, Cash Flow </slogan32>
-	</url1>
+    <slogan12>Education using Simulation Techniques</slogan12>
+    <slogan2>Online Business Simulation</slogan2>
+		<slogan22>Learn Functional Aspects of Running Business using Simulation</slogan22>
+		<slogan3>Powered by Silverlight</slogan3>
+		<slogan32>Using Technologies like Visual WEBGUI, Ajax Toolkit</slogan32>
+  </url1>
 </url>
