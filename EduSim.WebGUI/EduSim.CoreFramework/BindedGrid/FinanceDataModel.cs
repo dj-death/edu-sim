@@ -55,13 +55,16 @@ namespace EduSim.CoreFramework.DataControls
         protected override void HandleDataChange(DataGridView dataGridView1, DataGridViewRow row, DataGridViewCell c, double oldValue)
         {
             Dictionary<string, FinanceDataView> dic = GetData<FinanceDataView>(SessionConstant.FinanceData, round.Id);
-            double longTermLoan = dataGridView1.Rows[3].Cells[c.ColumnIndex].Value.ToDouble2();
-            double shortTermLoan = dataGridView1.Rows[6].Cells[c.ColumnIndex].Value.ToDouble2();
-            dic[round.RoundCategory.RoundName].LongTermLoan = longTermLoan;
-            dic[round.RoundCategory.RoundName].ShortTermLoan = shortTermLoan;
+
+            dic[round.RoundCategory.RoundName].StockSell = dataGridView1.Rows[1].Cells[c.ColumnIndex].Value.ToDouble2();
+            dic[round.RoundCategory.RoundName].StockBuy = dataGridView1.Rows[2].Cells[c.ColumnIndex].Value.ToDouble2();
+            dic[round.RoundCategory.RoundName].DividandPaid = dataGridView1.Rows[3].Cells[c.ColumnIndex].Value.ToDouble2();
+            dic[round.RoundCategory.RoundName].LongTermLoan = dataGridView1.Rows[4].Cells[c.ColumnIndex].Value.ToDouble2();
+            dic[round.RoundCategory.RoundName].ShortTermLoan = dataGridView1.Rows[5].Cells[c.ColumnIndex].Value.ToDouble2();
+
             SetCash(dic);
 
-            dataGridView1.Rows[8].Cells[c.ColumnIndex].Value = dic[round.RoundCategory.RoundName].Cash.ToString("$###0.00");
+            dataGridView1.Rows[7].Cells[c.ColumnIndex].Value = dic[round.RoundCategory.RoundName].Cash.ToString("$###0.00");
         }
     }
 }
