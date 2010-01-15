@@ -69,6 +69,7 @@ namespace EduSim.CoreFramework.DTO
         public double StockBuy { get; set; }
         public double DividandPaid { get; set; }
         public double LongTermLoan { get; set; }
+        public double RetireLongTermLoan { get; set; }
         public double ShortTermLoan { get; set; }
         public double PreviousCash { get; set; }
         public double Cash { get; set; }

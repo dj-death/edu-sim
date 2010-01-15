@@ -200,76 +200,57 @@ namespace EduSim.CoreFramework.DataControls
         private void AddRowForEbit(List<string> products, DataGridView dataGridView1,
             Dictionary<string, List<double>> gridData, List<double> data)
         {
-            DataGridViewRow r = new DataGridViewRow();
-            AddHeader(r, "EBIT");
             double ebit= 0;
             foreach (string str in products)
             {
                 ebit += gridData[str][netMarginIndex];
             }
 
-            AddSingleColumnData(dataGridView1, data, r, ebit);
+            AddSingleColumnData(dataGridView1, data, "EBIT", ebit);
         }
 
         private void AddRowForShortTermInterest(Dictionary<string, FinanceDataView> financeData, 
             DataGridView dataGridView1, List<double> data)
         {
-            DataGridViewRow r = new DataGridViewRow();
-            AddHeader(r, "ShortTermInterest");
-
             double shortTermLoan = 0;
             foreach (FinanceDataView d in financeData.Values)
             {
                 shortTermLoan += d.ShortTermLoan;
             }
 
-            AddSingleColumnData(dataGridView1, data, r, shortTermLoan * configurationInfo["ShortTermInterestRate"]);
+            AddSingleColumnData(dataGridView1, data, "ShortTermInterest", shortTermLoan * configurationInfo["ShortTermInterestRate"]);
         }
 
         private void AddRowForLongTermInterest(Dictionary<string, FinanceDataView> financeData, 
             DataGridView dataGridView1, List<double> data)
         {
-            DataGridViewRow r = new DataGridViewRow();
-            AddHeader(r, "LongTermInterest");
-
             double longTermLoan = 0;
             foreach (FinanceDataView d in financeData.Values)
             {
                 longTermLoan += d.LongTermLoan;
             }
 
-            AddSingleColumnData(dataGridView1, data, r, longTermLoan * configurationInfo["LongTermInterestRate"]);
+            AddSingleColumnData(dataGridView1, data, "LongTermInterest", longTermLoan * configurationInfo["LongTermInterestRate"]);
         }
 
         private void AddRowForTax(DataGridView dataGridView1, List<double> data)
         {
-            DataGridViewRow r = new DataGridViewRow();
-
-            AddHeader(r, "Tax");
-
-            AddSingleColumnData(dataGridView1, data, r, data[ebitIndex] * configurationInfo["TaxRate"]);
+            AddSingleColumnData(dataGridView1, data, "Tax", data[ebitIndex] * configurationInfo["TaxRate"]);
         }
 
         private void AddRowForProfitSharing(DataGridView dataGridView1
             , List<double> data)
         {
-            DataGridViewRow r = new DataGridViewRow();
-            AddHeader(r, "ProfitSharing");
-
-            AddSingleColumnData(dataGridView1, data, r, data[ebitIndex] * configurationInfo["ProfitSharingRate"]);
+            AddSingleColumnData(dataGridView1, data, "ProfitSharing", data[ebitIndex] * configurationInfo["ProfitSharingRate"]);
         }
 
         private void AddRowForNetProfit(DataGridView dataGridView1,
             List<double> data)
         {
-            DataGridViewRow r = new DataGridViewRow();
-
-            AddHeader(r, "NetProfit");
-
             double netProfit = data[ebitIndex] - 
                 (data[shortTermIndex] + data[longTermIndex] + data[taxIndex] + data[profitSharingIndex]);
 
-            AddSingleColumnData(dataGridView1, data, r, netProfit);
+            AddSingleColumnData(dataGridView1, data, "NetProfit", netProfit);
         }
 
         public override int[] HiddenColumns()

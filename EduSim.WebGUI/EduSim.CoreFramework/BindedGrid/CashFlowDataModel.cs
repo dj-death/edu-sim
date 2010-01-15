@@ -29,6 +29,7 @@ namespace EduSim.CoreFramework.DataControls
             Dictionary<string, ProductionDataView> productionData = GetData<ProductionDataView>(SessionConstant.ProductionData, round.Id);
             Dictionary<string, FinanceDataView> financeData = GetData<FinanceDataView>(SessionConstant.FinanceData, round.Id);
 
+            FinanceDataView financeData1 = financeData.Values.Single();
             dataGridView1.Columns.Add("Description", "Description");
             Edusim db = new Edusim(Constants.ConnectionString);
 
@@ -42,22 +43,33 @@ namespace EduSim.CoreFramework.DataControls
                 gridData[o] = new List<double>();
             });
 
+            double plantEquipmentDepreciation = 0.0;
+            double inventory = 0.0;
+            products.ForEach(o =>
+            {
+                plantEquipmentDepreciation += 
+                    (productionData[o].Capacity + productionData[o].NewCapacity + productionData[o].NewAutomation)* configurationInfo["DepreciationFactor"];
+                inventory += productionData[o].Inventory * configurationInfo["InventoryCarryCost"];
+            });
+
             //TODO: we need to implement Cashflow logics
             AddRowForHeader(dataGridView1, "Cash flow from operations");
-            AddRowForColumnDefault(dataGridView1, "Net Income");
-            AddRowForColumnDefault(dataGridView1, "Depreciation and writeoffs");
+            PnLDataModel model = new PnLDataModel();
+            model.GetList(new DataGridView());
+            AddSingleColumnData(dataGridView1, data, "Net Profit", model.data[model.netProfitIndex]);
+            AddSingleColumnData(dataGridView1, data, "Depreciation and writeoffs", plantEquipmentDepreciation);
             AddRowForColumnDefault(dataGridView1, "Change in accounts payable");
-            AddRowForColumnDefault(dataGridView1, "Change in inventory");
+            AddSingleColumnData(dataGridView1, data, "Change in inventory", inventory);
             AddRowForColumnDefault(dataGridView1, "Change in account receiable");
             
             AddRowForHeader(dataGridView1, "Cash flow from investing");
-            AddRowForColumnDefault(dataGridView1, "Plant improvements");
+            AddSingleColumnData(dataGridView1, data, "Plant improvements", PlantAndMaintainanceInvestment(productionData));
 
             AddRowForHeader(dataGridView1, "Cash flow from financial actions");
-            AddRowForColumnDefault(dataGridView1, "Divedant paid");
-            AddRowForColumnDefault(dataGridView1, "Sales of common stock");
-            AddRowForColumnDefault(dataGridView1, "Increase long term debt");
-            AddRowForColumnDefault(dataGridView1, "Retire long term dept");
+            AddSingleColumnData(dataGridView1, data, "Divedant paid", financeData1.DividandPaid);
+            AddSingleColumnData(dataGridView1, data, "Sales of common stock", financeData1.StockSell - financeData1.StockBuy);
+            AddSingleColumnData(dataGridView1, data, "Increase long term debt", financeData1.LongTermLoan);
+            AddSingleColumnData(dataGridView1, data, "Retire long term dept", financeData1.RetireLongTermLoan);
             AddRowForColumnDefault(dataGridView1, "Change in current debt (net)");
             AddRowForColumnDefault(dataGridView1, "Net cash from financial actions");
             

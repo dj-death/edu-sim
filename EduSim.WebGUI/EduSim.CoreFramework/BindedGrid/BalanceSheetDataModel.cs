@@ -44,7 +44,7 @@ namespace EduSim.CoreFramework.DataControls
 
             AddRowForHeader(dataGridView1, "Current Asset");
             AddRow<FinanceDataView>(financeData, financeData.Keys, dataGridView1, "Cash", gridData);
-            AddRow(productionData, products, financeData.Keys, dataGridView1, gridData, "Inventory", configurationInfo["InventoryCarryCost"]);
+            AddRow<ProductionDataView>(productionData, products, financeData.Keys, dataGridView1, gridData, "Inventory", configurationInfo["InventoryCarryCost"]);
 
             AddRowForHeader(dataGridView1, "Fixed Asset");
             AddRow(productionData, products, financeData.Keys, dataGridView1, gridData, "Capacity", configurationInfo["CapacityCost"]);
@@ -58,25 +58,6 @@ namespace EduSim.CoreFramework.DataControls
             AddRowForHeader(dataGridView1, "Owners Equity");
             //TODO: we need to implement Shares equity instrument
             AddRowForColumnDefault(dataGridView1, "Share Value");
-        }
-
-        private void AddRow(Dictionary<string, ProductionDataView> productionData, 
-            List<string> products, IEnumerable<string> round, DataGridView dataGridView1, Dictionary<string, List<double>> data, string header, double factor)
-        {
-            DataGridViewRow r = new DataGridViewRow();
-            AddHeader(r, header);
-
-            double depreciation = 0;
-            products.ForEach(o =>
-            {
-                PropertyInfo prop = typeof(ProductionDataView).GetProperty(header);
-                depreciation += prop.GetValue(productionData[o], null).ToDouble2() * factor;
-            });
-
-            foreach (string str in round)
-            {
-                AddSingleColumnData(dataGridView1, gridData[str], r, depreciation);
-            }
         }
 
         public override int[] HiddenColumns()

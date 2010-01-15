@@ -142,8 +142,10 @@ namespace EduSim.CoreFramework.Common
             r.Cells.Add(t);
         }
 
-        protected static void AddSingleColumnData(DataGridView dataGridView1, List<double> data, DataGridViewRow r, double netProfit)
+        protected static void AddSingleColumnData(DataGridView dataGridView1, List<double> data, string header, double netProfit)
         {
+            DataGridViewRow r = new DataGridViewRow();
+            AddHeader(r, header);
             data.Add(netProfit);
             DataGridViewCell t1 = new DataGridViewTextBoxCell();
             t1.Value = netProfit.ToString("$###0.00");
@@ -190,6 +192,33 @@ namespace EduSim.CoreFramework.Common
                 r.Cells.Add(t1);
             }
             dataGridView1.Rows.Add(r);
+        }
+
+        protected void AddRow<T>(Dictionary<string, T> productionData, List<string> products, IEnumerable<string> round, DataGridView dataGridView1, Dictionary<string, List<double>> data, string header, double factor)
+        {
+            double depreciation = 0;
+            products.ForEach(o =>
+            {
+                PropertyInfo prop = typeof(T).GetProperty(header);
+                depreciation += prop.GetValue(productionData[o], null).ToDouble2() * factor;
+            });
+
+            foreach (string str in round)
+            {
+                AddSingleColumnData(dataGridView1, data[str], header, depreciation);
+            }
+        }
+
+        protected double PlantAndMaintainanceInvestment(Dictionary<string, ProductionDataView> productionData)
+        {
+            double investmentsInPlantAndMachinary = 0;
+            foreach (string product in productionData.Keys)
+            {
+                investmentsInPlantAndMachinary += productionData[product].NewCapacityCost;
+                investmentsInPlantAndMachinary += productionData[product].AutomationCost;
+            }
+
+            return investmentsInPlantAndMachinary;
         }
     }
 }

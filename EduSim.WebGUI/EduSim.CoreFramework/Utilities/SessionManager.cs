@@ -166,6 +166,7 @@ namespace EduSim.CoreFramework.Utilities
                      StockBuy = f.StockBuyBack.HasValue ? f.StockBuyBack.Value : 0.0,
                      DividandPaid = f.DividendPerShare.HasValue ? f.DividendPerShare.Value : 0.0,
                      LongTermLoan = f.LongTermLoan,
+                     RetireLongTermLoan = f.RetireLongTermLoan.HasValue ? f.RetireLongTermLoan.Value : 0.0,
                      ShortTermLoan = f.ShortTermLoan,
                      PreviousCash = f.PreviousCash.HasValue ? f.PreviousCash.Value : 0.0,
                  }).ToList<FinanceDataView>().ForEach(o => dic[round.RoundCategory.RoundName] = o);
@@ -267,6 +268,7 @@ namespace EduSim.CoreFramework.Utilities
                      o.StockSell = dic3[o.Round.RoundCategory.RoundName].StockSell;
                      o.StockBuyBack = dic3[o.Round.RoundCategory.RoundName].StockBuy;
                      o.LongTermLoan = dic3[o.Round.RoundCategory.RoundName].LongTermLoan;
+                     o.RetireLongTermLoan = dic3[o.Round.RoundCategory.RoundName].RetireLongTermLoan;
                      o.Cash = dic3[o.Round.RoundCategory.RoundName].Cash;
                      o.ShortTermLoan = dic3[o.Round.RoundCategory.RoundName].ShortTermLoan;
                  });
