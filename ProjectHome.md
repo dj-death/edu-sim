@@ -1,0 +1,1 @@
+This is a hosted solution for business simulation game.
